@@ -65,8 +65,14 @@ app/
 lib/
   utils.ts      - Utility functions (cn for className merging)
 
-components/     - Planned directory for React components
-  ui/          - shadcn/ui components go here
+components/     - React components following Atomic Design methodology
+  atoms/        - Basic, indivisible UI elements (button, input, icon, badge, avatar, logo)
+  molecules/    - Simple combinations of atoms (search-bar, category-card, rating-stars)
+  organisms/    - Complex functional components (header, footer, business-card, filter-panel)
+  templates/    - Page layouts (main-layout, search-layout, business-detail-layout)
+  pages/        - Complete page components (home-page, search-page, business-detail-page)
+  ui/           - shadcn/ui components (auto-generated)
+  shared/       - Shared utilities (providers, error-boundary)
 ```
 
 ## Working with UI Components
@@ -86,10 +92,53 @@ Components will be added to `components/ui/` and can be imported using the `@/co
 - Use the `cn()` utility from `@/lib/utils` to merge conditional classes
 - The design system includes predefined tokens for: background, foreground, card, popover, primary, secondary, muted, accent, destructive, border, input, ring, charts (1-5), and sidebar variants
 
+**Custom Brand Colors** (available as Tailwind utilities):
+- `yellow` - #ffbe0b (oklch(0.82 0.15 85))
+- `orange` - #fd9809 (oklch(0.75 0.18 55))
+- `orange-red` - #fb5607 (oklch(0.68 0.22 35))
+- `pink` - #ff006e (oklch(0.62 0.28 350))
+- `purple` - #8338ec (oklch(0.58 0.24 290))
+- `blue-gray` - #7783a9 (oklch(0.57 0.06 255))
+
+Use as: `bg-yellow`, `text-orange`, `border-pink`, etc.
+
+## Component Structure (Atomic Design)
+
+All components follow Atomic Design methodology with kebab-case naming:
+
+**Atoms**: Basic, indivisible elements
+- Example: `components/atoms/button/button.tsx`
+- Import: `import { Button } from "@/components/atoms/button"`
+
+**Molecules**: Simple combinations of atoms
+- Example: `components/molecules/search-bar/search-bar.tsx`
+- Import: `import { SearchBar } from "@/components/molecules/search-bar"`
+
+**Organisms**: Complex functional components
+- Example: `components/organisms/header/header.tsx`
+- Import: `import { Header } from "@/components/organisms/header"`
+
+**Templates**: Page layouts
+- Example: `components/templates/main-layout/main-layout.tsx`
+- Import: `import { MainLayout } from "@/components/templates/main-layout"`
+
+**Pages**: Complete page components
+- Example: `components/pages/home-page/home-page.tsx`
+- Import: `import { HomePage } from "@/components/pages/home-page"`
+- Used by Next.js routes in `/app`
+
+**Component File Structure**:
+```
+component-name/
+├── component-name.tsx    # Component implementation
+├── index.ts             # Barrel export
+```
+
 ## Code Conventions
 
 - Use TypeScript for all new files
 - Follow Next.js App Router conventions (Server Components by default)
 - Use the `@/` path alias for imports
-- Component files use `.tsx` extension
+- Component files and directories use **kebab-case** naming
+- Component exports use PascalCase
 - ESLint is configured with Next.js recommended rules for TypeScript
