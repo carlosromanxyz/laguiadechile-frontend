@@ -64,152 +64,13 @@ export default function EnConstruccionPage() {
       };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-[oklch(0.145_0_0)] via-[oklch(0.17_0.05_290)] to-[oklch(0.145_0_0)]">
-      {/* Animated gradient orbs in background */}
-      <div className="absolute inset-0 overflow-hidden">
-        {/* Orange orb */}
-        <motion.div
-          className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
-          style={{
-            background: "radial-gradient(circle, oklch(0.75 0.18 55) 0%, transparent 70%)",
-            top: "10%",
-            left: "10%",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  x: [0, 100, 0],
-                  y: [0, 50, 0],
-                  scale: [1, 1.2, 1],
-                }
-          }
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-
-        {/* Pink orb */}
-        <motion.div
-          className="absolute w-96 h-96 rounded-full opacity-20 blur-3xl"
-          style={{
-            background: "radial-gradient(circle, oklch(0.62 0.28 350) 0%, transparent 70%)",
-            bottom: "10%",
-            right: "10%",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  x: [0, -80, 0],
-                  y: [0, -60, 0],
-                  scale: [1, 1.3, 1],
-                }
-          }
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-
-        {/* Purple orb */}
-        <motion.div
-          className="absolute w-96 h-96 rounded-full opacity-15 blur-3xl"
-          style={{
-            background: "radial-gradient(circle, oklch(0.58 0.24 290) 0%, transparent 70%)",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  scale: [1, 1.4, 1],
-                  rotate: [0, 90, 0],
-                }
-          }
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-      </div>
-
-      {/* Floating geometric shapes */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Triangle */}
-        <motion.div
-          className="absolute w-24 h-24 border-2 border-orange/20"
-          style={{
-            top: "20%",
-            right: "15%",
-            clipPath: "polygon(50% 0%, 0% 100%, 100% 100%)",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  y: [0, -30, 0],
-                  rotate: [0, 10, 0],
-                }
-          }
-          transition={{
-            duration: 8,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-
-        {/* Circle */}
-        <motion.div
-          className="absolute w-16 h-16 rounded-full border-2 border-pink/20"
-          style={{
-            bottom: "30%",
-            left: "20%",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  y: [0, 25, 0],
-                  x: [0, 15, 0],
-                }
-          }
-          transition={{
-            duration: 10,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-
-        {/* Square */}
-        <motion.div
-          className="absolute w-20 h-20 border-2 border-purple/20"
-          style={{
-            top: "60%",
-            right: "25%",
-            transform: "rotate(45deg)",
-          }}
-          animate={
-            prefersReducedMotion
-              ? {}
-              : {
-                  y: [0, -20, 0],
-                  rotate: [45, 55, 45],
-                }
-          }
-          transition={{
-            duration: 12,
-            repeat: Infinity,
-            ease: "easeInOut" as const,
-          }}
-        />
-      </div>
+    <div className="relative min-h-screen overflow-hidden bg-neutral-900">
+      {/* Caution stripe */}
+      <div className="absolute top-0 left-0 right-0 h-4 z-20"
+        style={{
+          background: "repeating-linear-gradient(45deg, #000 0px, #000 20px, #ffbe0b 20px, #ffbe0b 40px)"
+        }}
+      />
 
       {/* Main content */}
       <div className="relative z-10 flex min-h-screen items-center justify-center p-4">
@@ -231,11 +92,10 @@ export default function EnConstruccionPage() {
 
           {/* Main heading */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h1 className="text-4xl md:text-6xl font-black text-white leading-tight font-mulish">
-              Estamos construyendo
-              <br />
+            <h1 className="text-3xl md:text-4xl text-white leading-tight font-mulish">
+              <span className="font-normal">Estamos construyendo </span>
               <motion.span
-                className="inline-block"
+                className="inline-block font-semibold"
                 style={{
                   background: "linear-gradient(90deg, oklch(0.75 0.18 55) 0%, oklch(0.62 0.28 350) 33%, oklch(0.58 0.24 290) 66%, oklch(0.75 0.18 55) 100%)",
                   backgroundSize: "200% 100%",
@@ -259,10 +119,6 @@ export default function EnConstruccionPage() {
                 algo increíble
               </motion.span>
             </h1>
-            <p className="text-lg md:text-xl text-neutral-300 max-w-xl mx-auto leading-relaxed">
-              Nuestro nuevo sitio estará listo pronto. Estamos trabajando para
-              ofrecerte la mejor experiencia.
-            </p>
           </motion.div>
 
           {/* Features preview */}
@@ -308,14 +164,14 @@ export default function EnConstruccionPage() {
           </motion.div>
 
           {/* Footer text */}
-          <motion.div variants={itemVariants} className="space-y-4">
-            <p className="text-sm text-neutral-500 max-w-md mx-auto">
+          <motion.div variants={itemVariants} className="flex items-center justify-between gap-8 w-full">
+            <p className="text-sm text-neutral-500 text-left">
               Mientras tanto, puedes seguirnos en nuestras redes sociales para estar
               al tanto de las novedades.
             </p>
 
             {/* Social media links */}
-            <div className="flex items-center justify-center gap-4 text-sm">
+            <div className="flex items-center gap-4 flex-shrink-0">
               <Link
                 href="https://fb.com/laguiadechilecl"
                 target="_blank"
