@@ -29,13 +29,23 @@ export default function AppleIcon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          position: "relative",
-          borderRadius: "22.5%", // iOS app icon style
-          overflow: "hidden",
-          // Pink background
-          background: "#ff006e",
+          background: "transparent",
         }}
       >
+        <div
+          style={{
+            width: "180px",
+            height: "180px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            borderRadius: "50%", // Circular style
+            overflow: "hidden",
+            // Pink background
+            background: "#ff006e",
+          }}
+        >
         {/* Orange decorative circles - creating lava lamp effect */}
         <div
           style={{
@@ -92,6 +102,7 @@ export default function AppleIcon() {
           }}
         >
           📍
+        </div>
         </div>
       </div>
     ),

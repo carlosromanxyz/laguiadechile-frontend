@@ -17,13 +17,8 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "La Guía de Chile",
   description: "Descubre los mejores lugares, servicios y negocios de Chile",
-  icons: {
-    icon: [
-      { url: "/icon.svg", type: "image/svg+xml" },
-      { url: "/icon", type: "image/png", sizes: "32x32" },
-    ],
-    apple: "/apple-icon",
-  },
+  // Icons are automatically handled by app/icon.tsx and app/apple-icon.tsx
+  // Next.js 16 convention-based metadata API will serve them at /icon and /apple-icon
 };
 
 export default function RootLayout({

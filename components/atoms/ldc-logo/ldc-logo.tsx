@@ -6,22 +6,58 @@ import { motion } from "framer-motion";
 
 interface LDCLogoProps {
   className?: string;
+  isotipoSize?: "sm" | "md" | "lg";
 }
 
-export function LDCLogo({ className }: LDCLogoProps) {
+export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
+  // Size configurations for isotipo
+  const sizeConfig = {
+    sm: {
+      container: "w-12 h-12",
+      icon: "w-7 h-7",
+      blob1: "w-15 h-15", // 60px (proportional to 20 from original 64px base)
+      blob2: "w-18 h-18", // 72px (proportional to 24)
+      blob3: "w-12 h-12", // 48px (proportional to 16)
+      blur1: "blur-[11px]", // proportional to 15px
+      blur2: "blur-[15px]", // proportional to 20px
+      blur3: "blur-[9px]",  // proportional to 12px
+    },
+    md: {
+      container: "w-14 h-14",
+      icon: "w-8 h-8",
+      blob1: "w-[70px] h-[70px]", // proportional scaling
+      blob2: "w-[84px] h-[84px]",
+      blob3: "w-14 h-14",
+      blur1: "blur-[13px]",
+      blur2: "blur-[17px]",
+      blur3: "blur-[10px]",
+    },
+    lg: {
+      container: "w-16 h-16",
+      icon: "w-10 h-10",
+      blob1: "w-20 h-20",
+      blob2: "w-24 h-24",
+      blob3: "w-16 h-16",
+      blur1: "blur-[15px]",
+      blur2: "blur-[20px]",
+      blur3: "blur-[12px]",
+    },
+  };
+
+  const config = sizeConfig[isotipoSize];
+
   return (
-    <div className={cn("flex items-center gap-3", className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       {/* Isotipo - Map Pin Icon with Lava Lamp Effect */}
-      <div className="relative w-16 h-16 rounded-lg flex items-center justify-center flex-shrink-0 overflow-hidden">
+      <div className={cn("relative rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden", config.container)}>
         {/* Pink background */}
         <div className="absolute inset-0 bg-pink" />
 
         {/* Orange blob 1 - Moving diagonally */}
         <motion.div
-          className="absolute w-20 h-20 rounded-full"
+          className={cn("absolute rounded-full", config.blob1, config.blur1)}
           style={{
             background: "radial-gradient(circle, oklch(0.75 0.18 55) 0%, transparent 70%)",
-            filter: "blur(15px)",
           }}
           animate={{
             x: ["-20%", "30%", "-20%"],
@@ -36,10 +72,9 @@ export function LDCLogo({ className }: LDCLogoProps) {
 
         {/* Orange blob 2 - Moving opposite direction */}
         <motion.div
-          className="absolute w-24 h-24 rounded-full"
+          className={cn("absolute rounded-full", config.blob2, config.blur2)}
           style={{
             background: "radial-gradient(circle, oklch(0.75 0.18 55 / 0.8) 0%, transparent 70%)",
-            filter: "blur(20px)",
           }}
           animate={{
             x: ["50%", "-10%", "50%"],
@@ -54,10 +89,9 @@ export function LDCLogo({ className }: LDCLogoProps) {
 
         {/* Orange blob 3 - Slow movement */}
         <motion.div
-          className="absolute w-16 h-16 rounded-full"
+          className={cn("absolute rounded-full", config.blob3, config.blur3)}
           style={{
             background: "radial-gradient(circle, oklch(0.75 0.18 55 / 0.6) 0%, transparent 70%)",
-            filter: "blur(12px)",
           }}
           animate={{
             x: ["20%", "-20%", "20%"],
@@ -71,13 +105,13 @@ export function LDCLogo({ className }: LDCLogoProps) {
         />
 
         {/* Pin icon */}
-        <FaMapMarkerAlt className="relative z-10 text-white w-10 h-10 drop-shadow-lg" />
+        <FaMapMarkerAlt className={cn("relative z-10 text-white drop-shadow-lg", config.icon)} />
       </div>
 
       {/* Logotipo - Text */}
-      <div className="text-2xl font-mulish leading-tight text-white">
-        <div className="font-light tracking-[0.08em]">La Guía</div>
-        <div className="font-black">
+      <div className="text-2xl font-mulish leading-none text-white">
+        <div className="font-light tracking-[0.08em] leading-none">La Guía</div>
+        <div className="font-black leading-none">
           de{" "}
           <span className="relative inline-block text-pink">
             Chile

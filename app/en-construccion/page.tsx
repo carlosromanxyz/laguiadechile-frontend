@@ -3,7 +3,8 @@
 import { LDCLogo } from "@/components/atoms/ldc-logo";
 import { LDCCardWithIconAndTooltip } from "@/components/molecules/ldc-card-with-icon-and-tooltip";
 import { motion, useReducedMotion } from "framer-motion";
-import { FaSearch, FaMapMarkerAlt, FaStar, FaFacebook, FaTwitter, FaInstagram } from "react-icons/fa";
+import { FaSearch, FaMapMarkerAlt, FaStar, FaFacebook, FaInstagram } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 
 /**
@@ -87,7 +88,7 @@ export default function EnConstruccionPage() {
             variants={itemVariants}
             animate={floatingAnimation}
           >
-            <LDCLogo />
+            <LDCLogo isotipoSize="sm" />
           </motion.div>
 
           {/* Main heading */}
@@ -186,7 +187,7 @@ export default function EnConstruccionPage() {
                 rel="noopener noreferrer"
                 className="text-neutral-400 hover:text-white transition-colors"
               >
-                <FaTwitter className="w-5 h-5" />
+                <FaXTwitter className="w-5 h-5" />
               </Link>
               <Link
                 href="https://instagram.com/laguiadechilecl"

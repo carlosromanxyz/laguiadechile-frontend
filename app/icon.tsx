@@ -3,12 +3,14 @@ import { ImageResponse } from "next/og";
 /**
  * Favicon icon generator for La Guía de Chile
  *
- * This creates a static version of the LDCLogo isotipo:
+ * This is a Next.js 16 file-based metadata route handler that generates the favicon.
+ * It creates a circular version of the LDCLogo isotipo:
  * - Pink background (brand color)
  * - Orange decorative circles (simplified, non-animated)
  * - White map pin icon
  *
- * Generated at build time and cached for optimal performance
+ * This file automatically serves the icon at /icon route.
+ * Next.js will generate <link rel="icon"> tags automatically.
  *
  * Note: Using simplified approach compatible with Satori (ImageResponse engine)
  * Satori doesn't support blur filters, so we use solid circles with opacity
@@ -22,6 +24,9 @@ export const size = {
 
 export const contentType = "image/png";
 
+// Runtime configuration for better caching control
+export const runtime = "edge";
+
 export default function Icon() {
   return new ImageResponse(
     (
@@ -32,13 +37,23 @@ export default function Icon() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          position: "relative",
-          borderRadius: "20%",
-          overflow: "hidden",
-          // Pink background
-          background: "#ff006e",
+          background: "transparent",
         }}
       >
+        <div
+          style={{
+            width: "32px",
+            height: "32px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            position: "relative",
+            borderRadius: "50%",
+            overflow: "hidden",
+            // Pink background
+            background: "#ff006e",
+          }}
+        >
         {/* Orange decorative circles - creating lava lamp effect */}
         <div
           style={{
@@ -95,6 +110,7 @@ export default function Icon() {
           }}
         >
           📍
+        </div>
         </div>
       </div>
     ),

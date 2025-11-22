@@ -25,6 +25,8 @@ This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeS
 - **Styling**: Tailwind CSS 4 with PostCSS, using the new CSS-based configuration
 - **UI Components**: shadcn/ui (configured with "new-york" style)
 - **Icons**: Lucide React and React Icons
+- **Animations**: Framer Motion and tw-animate-css
+- **Utilities**: Class Variance Authority (cva), clsx, tailwind-merge
 
 ### Key Configuration Details
 
@@ -37,11 +39,12 @@ This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeS
   - `@/hooks` - Custom React hooks
 
 **Styling Architecture**:
-- Tailwind CSS 4 using CSS imports in app/globals.css
-- Custom design system using OKLCH color space
-- Dark mode support via `.dark` class
-- Design tokens defined in CSS custom properties
+- Tailwind CSS 4 using `@import "tailwindcss"` in app/globals.css
+- Custom design system using OKLCH color space for better color perception
+- Dark mode support via `.dark` class with `@custom-variant dark (&:is(.dark *))`
+- Design tokens defined in `@theme inline` block and CSS custom properties
 - `cn()` utility in lib/utils.ts for merging Tailwind classes (combines clsx and tailwind-merge)
+- Animation utilities from tw-animate-css imported globally
 
 **shadcn/ui Setup** (components.json):
 - Style: "new-york"
@@ -51,38 +54,48 @@ This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeS
 - Icon library: lucide
 
 **Fonts**:
-- Using next/font with Geist Sans and Geist Mono
-- Font variables: `--font-geist-sans` and `--font-geist-mono`
+- Using next/font with Mulish (primary) and Open Sans (secondary)
+- Font variables: `--font-mulish` and `--font-open-sans`
+- Configured in app/layout.tsx with `display: "swap"` for optimal loading
 
 ### Project Structure
 
 ```
 app/
-  layout.tsx    - Root layout with font setup and metadata
-  page.tsx      - Home page (currently using Next.js starter template)
-  globals.css   - Tailwind CSS imports and design system tokens
+  layout.tsx           - Root layout with Mulish/Open Sans fonts and metadata
+  page.tsx             - Home page
+  en-construccion/     - Construction page route
+  globals.css          - Tailwind CSS imports, @theme inline, and design system tokens
+  icon.tsx             - Dynamic favicon generator
+  apple-icon.tsx       - Apple touch icon generator
 
 lib/
-  utils.ts      - Utility functions (cn for className merging)
+  utils.ts             - Utility functions (cn for className merging)
 
-components/     - React components following Atomic Design methodology
-  atoms/        - Basic, indivisible UI elements (button, input, icon, badge, avatar, logo)
-  molecules/    - Simple combinations of atoms (search-bar, category-card, rating-stars)
-  organisms/    - Complex functional components (header, footer, business-card, filter-panel)
-  templates/    - Page layouts (main-layout, search-layout, business-detail-layout)
-  pages/        - Complete page components (home-page, search-page, business-detail-page)
-  ui/           - shadcn/ui components (auto-generated)
-  shared/       - Shared utilities (providers, error-boundary)
+components/            - React components following Atomic Design methodology
+  atoms/               - Basic UI elements (button, input, icon, badge, avatar, ldc-logo)
+  molecules/           - Simple combinations (search-bar, category-card, rating-stars, social-links, ldc-card-with-icon-and-tooltip)
+  organisms/           - Complex functional components (header, footer, business-card, filter-panel)
+  templates/           - Page layouts (main-layout, search-layout, business-detail-layout)
+  pages/               - Complete page components (home-page, search-page, business-detail-page)
+  ui/                  - shadcn/ui components (auto-generated, currently: tooltip)
+  shared/              - Shared utilities (providers, error-boundary)
 ```
 
 ## Working with UI Components
 
+### shadcn/ui Components
 When adding shadcn/ui components, use the standard shadcn CLI:
 ```bash
 npx shadcn@latest add [component-name]
 ```
 
 Components will be added to `components/ui/` and can be imported using the `@/components/ui` alias.
+
+### Animations
+- **Framer Motion** is available for complex, interactive animations
+- **tw-animate-css** provides Tailwind utility classes for common CSS animations
+- Both libraries are imported globally and ready to use
 
 ## Styling Guidelines
 
@@ -142,3 +155,17 @@ component-name/
 - Component files and directories use **kebab-case** naming
 - Component exports use PascalCase
 - ESLint is configured with Next.js recommended rules for TypeScript
+
+## Special Features
+
+### Dynamic Favicon System
+The project includes dynamic favicon generation:
+- `app/icon.tsx` - Generates PNG favicons using the LDCLogo isotipo
+- `app/apple-icon.tsx` - Generates Apple touch icons
+- Metadata configured in `app/layout.tsx` with both SVG and PNG icon support
+
+### Metadata Configuration
+Site metadata is centralized in `app/layout.tsx`:
+- Title: "La Guía de Chile"
+- Description: "Descubre los mejores lugares, servicios y negocios de Chile"
+- Multiple icon formats for cross-platform compatibility

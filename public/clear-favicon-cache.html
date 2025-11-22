@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clear Favicon Cache - La Guía de Chile</title>
+  <style>
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      line-height: 1.6;
+    }
+    .step {
+      background: #f5f5f5;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border-left: 4px solid #ff006e;
+    }
+    h1 {
+      color: #ff006e;
+    }
+    code {
+      background: #e0e0e0;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-family: monospace;
+    }
+    .browser-section {
+      margin: 20px 0;
+      padding: 15px;
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+    }
+    .test-icon {
+      margin: 20px 0;
+      padding: 20px;
+      background: #fff;
+      border: 2px solid #ff006e;
+      border-radius: 8px;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <h1>🔄 Clear Favicon Cache for La Guía de Chile</h1>
+
+  <p>Your browser is showing an old favicon. Follow these steps to force a refresh:</p>
+
+  <div class="test-icon">
+    <h3>Current Favicon Test</h3>
+    <p>The favicon should be a <strong>circular pink icon</strong> with orange decorative circles and a white map pin.</p>
+    <p>Check your browser tab to see if it matches this description.</p>
+  </div>
+
+  <div class="browser-section">
+    <h2>Chrome / Edge / Brave</h2>
+    <div class="step">
+      <strong>Method 1: Hard Refresh</strong>
+      <ul>
+        <li>Windows/Linux: <code>Ctrl + Shift + Delete</code></li>
+        <li>Mac: <code>Cmd + Shift + Delete</code></li>
+        <li>Select "Cached images and files"</li>
+        <li>Click "Clear data"</li>
+      </ul>
+    </div>
+    <div class="step">
+      <strong>Method 2: Direct Cache Clear</strong>
+      <ul>
+        <li>Open DevTools: <code>F12</code> or <code>Cmd/Ctrl + Shift + I</code></li>
+        <li>Right-click the refresh button</li>
+        <li>Select "Empty Cache and Hard Reload"</li>
+      </ul>
+    </div>
+    <div class="step">
+      <strong>Method 3: Manual Favicon Delete</strong>
+      <ul>
+        <li>Go to: <code>chrome://settings/siteData</code></li>
+        <li>Search for: <code>localhost</code></li>
+        <li>Click trash icon to delete all data for localhost</li>
+        <li>Restart browser</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="browser-section">
+    <h2>Firefox</h2>
+    <div class="step">
+      <strong>Method 1: Clear Cache</strong>
+      <ul>
+        <li>Windows/Linux: <code>Ctrl + Shift + Delete</code></li>
+        <li>Mac: <code>Cmd + Shift + Delete</code></li>
+        <li>Select "Cache"</li>
+        <li>Click "Clear Now"</li>
+      </ul>
+    </div>
+    <div class="step">
+      <strong>Method 2: Delete Favicon Database</strong>
+      <ul>
+        <li>Close Firefox completely</li>
+        <li>Navigate to Firefox profile folder:
+          <ul>
+            <li>Windows: <code>%APPDATA%\Mozilla\Firefox\Profiles\</code></li>
+            <li>Mac: <code>~/Library/Application Support/Firefox/Profiles/</code></li>
+            <li>Linux: <code>~/.mozilla/firefox/</code></li>
+          </ul>
+        </li>
+        <li>Delete file: <code>favicons.sqlite</code></li>
+        <li>Restart Firefox</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="browser-section">
+    <h2>Safari</h2>
+    <div class="step">
+      <strong>Clear Website Data</strong>
+      <ul>
+        <li>Safari → Settings → Privacy</li>
+        <li>Click "Manage Website Data"</li>
+        <li>Search for <code>localhost</code></li>
+        <li>Click "Remove All"</li>
+        <li>Restart Safari</li>
+      </ul>
+    </div>
+    <div class="step">
+      <strong>Development Menu Method</strong>
+      <ul>
+        <li>Enable: Safari → Settings → Advanced → "Show Develop menu"</li>
+        <li>Develop → Empty Caches</li>
+        <li>Or: <code>Cmd + Option + E</code></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="step">
+    <h2>🚀 Nuclear Option (If nothing else works)</h2>
+    <ol>
+      <li>Close all browser windows completely</li>
+      <li>Stop your Next.js dev server</li>
+      <li>Delete <code>.next</code> folder in your project</li>
+      <li>Run <code>npm run build</code> to rebuild</li>
+      <li>Run <code>npm run dev</code></li>
+      <li>Open browser in Incognito/Private mode</li>
+      <li>Visit <code>http://localhost:3000</code></li>
+    </ol>
+  </div>
+
+  <div class="test-icon">
+    <h3>✅ Success Checklist</h3>
+    <p>After clearing cache, verify:</p>
+    <ul style="text-align: left; display: inline-block;">
+      <li>Browser tab shows a circular pink icon (not square)</li>
+      <li>Icon has orange decorative circles inside</li>
+      <li>White map pin is visible in the center</li>
+      <li>Icon looks the same in regular and private/incognito mode</li>
+    </ul>
+  </div>
+
+  <hr style="margin: 40px 0;">
+
+  <h2>🔍 Testing the Favicon Directly</h2>
+  <p>You can test if the new icon is being generated correctly:</p>
+  <div class="step">
+    <strong>Direct Icon URL Test:</strong>
+    <ul>
+      <li>Open: <a href="http://localhost:3000/icon" target="_blank">http://localhost:3000/icon</a></li>
+      <li>You should see the circular pink icon with orange circles</li>
+      <li>Open: <a href="http://localhost:3000/apple-icon" target="_blank">http://localhost:3000/apple-icon</a></li>
+      <li>You should see a larger 180x180 version</li>
+    </ul>
+  </div>
+
+  <script>
+    // Auto-add timestamp to force refresh
+    const timestamp = new Date().getTime();
+    console.log('%c🔄 Favicon Cache Clear Helper Loaded', 'color: #ff006e; font-size: 16px; font-weight: bold;');
+    console.log('Current timestamp:', timestamp);
+    console.log('If you still see the old favicon, try the methods above.');
+  </script>
+</body>
+</html>
