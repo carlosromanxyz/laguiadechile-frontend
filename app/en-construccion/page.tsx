@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from "framer-motion";
 import { FaSearch, FaMapMarkerAlt, FaStar, FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
+import { useIsMobile } from "@/hooks";
 
 /**
  * Construction/Maintenance Page
@@ -16,6 +17,7 @@ import Link from "next/link";
  */
 export default function EnConstruccionPage() {
   const prefersReducedMotion = useReducedMotion();
+  const isMobile = useIsMobile();
 
   // Animation variants
   const containerVariants = {
@@ -122,51 +124,53 @@ export default function EnConstruccionPage() {
             </h1>
           </motion.div>
 
-          {/* Features preview */}
-          <motion.div
-            variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
-          >
+          {/* Features preview - Hidden on mobile */}
+          {!isMobile && (
             <motion.div
-              whileHover={prefersReducedMotion ? {} : { y: -5 }}
-              transition={{ duration: 0.2 }}
+              variants={itemVariants}
+              className="grid grid-cols-1 md:grid-cols-3 gap-4 w-full"
             >
-              <LDCCardWithIconAndTooltip
-                icon={FaSearch}
-                title="Búsqueda inteligente"
-                description="Encuentra negocios fácilmente"
-                tooltip="Sistema de búsqueda avanzada con filtros"
-              />
-            </motion.div>
+              <motion.div
+                whileHover={prefersReducedMotion ? {} : { y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <LDCCardWithIconAndTooltip
+                  icon={FaSearch}
+                  title="Búsqueda inteligente"
+                  description="Encuentra negocios fácilmente"
+                  tooltip="Sistema de búsqueda avanzada con filtros"
+                />
+              </motion.div>
 
-            <motion.div
-              whileHover={prefersReducedMotion ? {} : { y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <LDCCardWithIconAndTooltip
-                icon={FaMapMarkerAlt}
-                title="Geolocalización"
-                description="Descubre lugares cercanos"
-                tooltip="Encuentra negocios cerca de ti"
-              />
-            </motion.div>
+              <motion.div
+                whileHover={prefersReducedMotion ? {} : { y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <LDCCardWithIconAndTooltip
+                  icon={FaMapMarkerAlt}
+                  title="Geolocalización"
+                  description="Descubre lugares cercanos"
+                  tooltip="Encuentra negocios cerca de ti"
+                />
+              </motion.div>
 
-            <motion.div
-              whileHover={prefersReducedMotion ? {} : { y: -5 }}
-              transition={{ duration: 0.2 }}
-            >
-              <LDCCardWithIconAndTooltip
-                icon={FaStar}
-                title="Reseñas verificadas"
-                description="Opiniones de la comunidad"
-                tooltip="Calificaciones y reseñas auténticas"
-              />
+              <motion.div
+                whileHover={prefersReducedMotion ? {} : { y: -5 }}
+                transition={{ duration: 0.2 }}
+              >
+                <LDCCardWithIconAndTooltip
+                  icon={FaStar}
+                  title="Reseñas verificadas"
+                  description="Opiniones de la comunidad"
+                  tooltip="Calificaciones y reseñas auténticas"
+                />
+              </motion.div>
             </motion.div>
-          </motion.div>
+          )}
 
           {/* Footer text */}
-          <motion.div variants={itemVariants} className="flex items-center justify-between gap-8 w-full">
-            <p className="text-sm text-neutral-500 text-left">
+          <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 w-full">
+            <p className="text-sm text-neutral-500 text-center md:text-left">
               Mientras tanto, puedes seguirnos en nuestras redes sociales para estar
               al tanto de las novedades.
             </p>
