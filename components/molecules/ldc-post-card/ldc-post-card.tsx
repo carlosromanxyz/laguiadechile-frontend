@@ -83,7 +83,7 @@ export function LDCPostCard({
             </h3>
           </TooltipTrigger>
           <TooltipContent>
-            <p className="max-w-xs">{title}</p>
+            <p className="max-w-md">{title}</p>
           </TooltipContent>
         </Tooltip>
       </TooltipProvider>
