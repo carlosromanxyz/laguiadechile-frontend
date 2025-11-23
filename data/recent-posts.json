@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "title": "Nuevas medidas económicas impulsan el comercio local en Santiago",
+    "slug": "nuevas-medidas-economicas-impulsan-comercio-local-santiago",
+    "category": {
+      "id": 1,
+      "name": "Economía",
+      "slug": "economia",
+      "icon": "MdAttachMoney"
+    },
+    "image": "https://picsum.photos/seed/post1/800/600",
+    "createdAt": "2024-11-25T14:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Inauguran nuevo centro cultural en Valparaíso",
+    "slug": "inauguran-nuevo-centro-cultural-valparaiso",
+    "category": {
+      "id": 2,
+      "name": "Cultura",
+      "slug": "cultura",
+      "icon": "MdTheaterComedy"
+    },
+    "image": "https://picsum.photos/seed/post2/800/600",
+    "createdAt": "2024-11-25T12:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Avances tecnológicos en la industria minera chilena",
+    "slug": "avances-tecnologicos-industria-minera-chilena",
+    "category": {
+      "id": 3,
+      "name": "Tecnología",
+      "slug": "tecnologia",
+      "icon": "MdComputer"
+    },
+    "image": "https://picsum.photos/seed/post3/800/600",
+    "createdAt": "2024-11-25T10:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Récord de turismo en La Serena durante el verano",
+    "slug": "record-turismo-la-serena-verano",
+    "category": {
+      "id": 4,
+      "name": "Turismo",
+      "slug": "turismo",
+      "icon": "MdLuggage"
+    },
+    "image": "https://picsum.photos/seed/post4/800/600",
+    "createdAt": "2024-11-25T08:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Nueva ley de educación beneficia a estudiantes de todo Chile",
+    "slug": "nueva-ley-educacion-beneficia-estudiantes-chile",
+    "category": {
+      "id": 5,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "image": "https://picsum.photos/seed/post5/800/600",
+    "createdAt": "2024-11-24T16:00:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Campeonato nacional de fútbol: resultados y clasificaciones",
+    "slug": "campeonato-nacional-futbol-resultados-clasificaciones",
+    "category": {
+      "id": 6,
+      "name": "Deportes",
+      "slug": "deportes",
+      "icon": "MdSportsSoccer"
+    },
+    "image": "https://picsum.photos/seed/post6/800/600",
+    "createdAt": "2024-11-24T14:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Campaña de salud preventiva alcanza a miles de familias",
+    "slug": "campana-salud-preventiva-alcanza-miles-familias",
+    "category": {
+      "id": 7,
+      "name": "Salud",
+      "slug": "salud",
+      "icon": "MdLocalHospital"
+    },
+    "image": "https://picsum.photos/seed/post7/800/600",
+    "createdAt": "2024-11-24T12:00:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Políticas ambientales promueven energías renovables",
+    "slug": "politicas-ambientales-promueven-energias-renovables",
+    "category": {
+      "id": 8,
+      "name": "Medio Ambiente",
+      "slug": "medio-ambiente",
+      "icon": "MdEco"
+    },
+    "image": "https://picsum.photos/seed/post8/800/600",
+    "createdAt": "2024-11-24T10:00:00Z"
+  }
+]
