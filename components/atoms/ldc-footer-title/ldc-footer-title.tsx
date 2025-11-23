@@ -26,7 +26,7 @@ interface LDCFooterTitleProps {
 export function LDCFooterTitle({ children, className }: LDCFooterTitleProps) {
   return (
     <div className={cn("mb-4", className)}>
-      <h3 className="font-mulish text-xl font-bold text-foreground">
+      <h3 className="font-mulish text-xl font-bold text-blue-gray dark:text-white">
         {children}
       </h3>
       <div className="mt-2 h-1 w-16 rounded-full bg-pink transition-colors duration-500 group-hover:bg-orange" />
