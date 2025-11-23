@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
  * Features:
  * - Official Apple App Store badge
  * - Official Google Play badge (Spanish localization)
- * - Responsive stacking (vertical on mobile, horizontal on larger screens)
+ * - Always displayed horizontally (mobile and desktop)
  * - Hover effects
  * - Semantic link structure with proper accessibility attributes
  *
@@ -27,7 +27,7 @@ export function LDCAppStoreBadges({ className }: LDCAppStoreBadgesProps) {
   return (
     <div
       className={cn(
-        "flex flex-col items-start gap-3 sm:flex-row sm:items-center",
+        "flex flex-row items-center gap-3",
         className
       )}
     >
