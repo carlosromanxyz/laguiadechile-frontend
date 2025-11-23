@@ -1,0 +1,106 @@
+[
+  {
+    "id": 1,
+    "name": "Restaurantes",
+    "slug": "restaurantes",
+    "description": "Los mejores restaurantes de Chile",
+    "icon": "UtensilsCrossed",
+    "count": 1247,
+    "featured": true,
+    "gradient": {
+      "from": "orange",
+      "to": "yellow"
+    }
+  },
+  {
+    "id": 2,
+    "name": "Hoteles",
+    "slug": "hoteles",
+    "description": "Alojamiento y hospedaje en todo Chile",
+    "icon": "Hotel",
+    "count": 856,
+    "featured": true,
+    "gradient": {
+      "from": "pink",
+      "to": "purple"
+    }
+  },
+  {
+    "id": 3,
+    "name": "Servicios Profesionales",
+    "slug": "servicios-profesionales",
+    "description": "Servicios profesionales y técnicos",
+    "icon": "Briefcase",
+    "count": 2134,
+    "featured": true,
+    "gradient": {
+      "from": "purple",
+      "to": "pink"
+    }
+  },
+  {
+    "id": 4,
+    "name": "Tiendas",
+    "slug": "tiendas",
+    "description": "Comercio y retail",
+    "icon": "ShoppingBag",
+    "count": 1523,
+    "featured": true,
+    "gradient": {
+      "from": "orange-red",
+      "to": "pink"
+    }
+  },
+  {
+    "id": 5,
+    "name": "Entretenimiento",
+    "slug": "entretenimiento",
+    "description": "Diversión y esparcimiento",
+    "icon": "Music",
+    "count": 945,
+    "featured": true,
+    "gradient": {
+      "from": "yellow",
+      "to": "orange"
+    }
+  },
+  {
+    "id": 6,
+    "name": "Salud y Bienestar",
+    "slug": "salud-bienestar",
+    "description": "Centros médicos, clínicas y bienestar",
+    "icon": "HeartPulse",
+    "count": 678,
+    "featured": true,
+    "gradient": {
+      "from": "pink",
+      "to": "orange-red"
+    }
+  },
+  {
+    "id": 7,
+    "name": "Educación",
+    "slug": "educacion",
+    "description": "Institutos, academias y centros educativos",
+    "icon": "GraduationCap",
+    "count": 534,
+    "featured": true,
+    "gradient": {
+      "from": "purple",
+      "to": "blue-gray"
+    }
+  },
+  {
+    "id": 8,
+    "name": "Automotriz",
+    "slug": "automotriz",
+    "description": "Talleres, repuestos y servicios automotrices",
+    "icon": "Car",
+    "count": 892,
+    "featured": true,
+    "gradient": {
+      "from": "blue-gray",
+      "to": "purple"
+    }
+  }
+]

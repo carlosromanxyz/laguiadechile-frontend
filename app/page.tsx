@@ -1,4 +1,5 @@
 import { LDCHero } from "@/components/organisms/ldc-hero";
+import { LDCFeaturedCategories } from "@/components/organisms/ldc-featured-categories";
 
 /**
  * Home Page - La Guía de Chile
@@ -8,7 +9,8 @@ import { LDCHero } from "@/components/organisms/ldc-hero";
  *
  * Sections:
  * - Hero: Full-screen hero with search and featured content
- * - Main Content: Featured categories, businesses, cities, etc.
+ * - Featured Categories: Grid of popular categories
+ * - Main Content: Featured businesses, cities, recent listings, etc.
  */
 
 export default function HomePage() {
@@ -19,8 +21,11 @@ export default function HomePage() {
 
       {/* Main Content */}
       <main className="min-h-screen">
-        {/* Primary content sections will go here */}
-        {/* Featured categories, popular businesses, recent listings, etc. */}
+        {/* Featured Categories Section */}
+        <LDCFeaturedCategories />
+
+        {/* Additional sections will go here */}
+        {/* Featured businesses, recent listings, cities, etc. */}
       </main>
     </>
   );
