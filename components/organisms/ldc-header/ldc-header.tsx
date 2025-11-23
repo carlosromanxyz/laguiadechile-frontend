@@ -26,7 +26,7 @@ export function LDCHeader() {
   return (
     <header className="fixed top-0 z-50 w-full pt-4">
       {/* Floating backdrop wrapper with rounded corners, background, opacity and blur */}
-      <div className="container mx-auto max-w-7xl rounded-full border border-border/40 bg-white dark:bg-black/40 dark:backdrop-blur-md dark:supports-[backdrop-filter]:bg-black/30">
+      <div className="container mx-auto max-w-7xl rounded-full border border-border dark:border-border/40 bg-white dark:bg-black/40 dark:backdrop-blur-md dark:supports-[backdrop-filter]:bg-black/30">
         <div className="flex h-16 items-center justify-between px-3">
         {/* Logo Section - Responsive sizes: xs on mobile, sm on desktop */}
         <Link href="/" className="flex items-center">
