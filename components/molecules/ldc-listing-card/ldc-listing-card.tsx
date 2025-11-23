@@ -132,7 +132,7 @@ export function LDCListingCard({
           {/* View Details Link */}
           <Link
             href={`/${type}/${slug}`}
-            className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange transition-colors flex-shrink-0"
+            className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0"
           >
             <span>Ver detalles</span>
             <ChevronRight className="w-4 h-4" />
