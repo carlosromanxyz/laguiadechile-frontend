@@ -76,10 +76,9 @@ export function LDCCTAButton({
     "inline-flex items-center gap-2 px-6 py-2.5 rounded-full",
     "bg-orange text-white font-semibold text-sm",
     "transition-all duration-200",
-    "shadow-md",
     disabled
       ? "opacity-50 cursor-not-allowed"
-      : "hover:bg-yellow hover:text-black hover:scale-105 hover:shadow-lg active:scale-95",
+      : "hover:bg-yellow hover:text-black hover:scale-105 active:scale-95",
     className
   );
 
