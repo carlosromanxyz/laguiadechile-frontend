@@ -67,7 +67,7 @@ export function LDCPostCard({
   return (
     <article
       className={cn(
-        "group flex flex-col h-full bg-card dark:bg-neutral-800 rounded-xl overflow-hidden p-3",
+        "group flex flex-col h-full bg-card dark:bg-neutral-800 rounded-xl overflow-hidden p-3 border border-border",
         className
       )}
     >
