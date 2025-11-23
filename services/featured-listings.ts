@@ -6,7 +6,18 @@ import featuredListingsData from "@/data/featured-listings.json";
  * @returns Array of featured listings
  */
 export function getFeaturedListings(): IFeaturedListings {
-  return featuredListingsData as IFeaturedListings;
+  return featuredListingsData.filter((listing) => listing.featured) as IFeaturedListings;
+}
+
+/**
+ * Get recent listings sorted by creation date (most recent first)
+ * @param limit - Number of listings to return (default: 8)
+ * @returns Array of recent listings
+ */
+export function getRecentListings(limit: number = 8): IFeaturedListings {
+  return [...featuredListingsData]
+    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .slice(0, limit) as IFeaturedListings;
 }
 
 /**

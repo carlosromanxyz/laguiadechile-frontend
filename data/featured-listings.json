@@ -166,5 +166,173 @@
     "featured": true,
     "createdAt": "2024-11-23T07:00:00Z",
     "updatedAt": "2024-11-23T07:00:00Z"
+  },
+  {
+    "id": 9,
+    "title": "Café Literario La Pluma",
+    "slug": "cafe-literario-la-pluma",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing9/800/600",
+    "featured": false,
+    "createdAt": "2024-11-24T09:00:00Z",
+    "updatedAt": "2024-11-24T09:00:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Gimnasio FitZone",
+    "slug": "gimnasio-fitzone",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing10/800/600",
+    "featured": false,
+    "createdAt": "2024-11-24T11:00:00Z",
+    "updatedAt": "2024-11-24T11:00:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Librería El Saber",
+    "slug": "libreria-el-saber",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing11/800/600",
+    "featured": false,
+    "createdAt": "2024-11-24T13:00:00Z",
+    "updatedAt": "2024-11-24T13:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Peluquería Estilo Moderno",
+    "slug": "peluqueria-estilo-moderno",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing12/800/600",
+    "featured": false,
+    "createdAt": "2024-11-24T15:00:00Z",
+    "updatedAt": "2024-11-24T15:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Panadería Artesanal Pan Rico",
+    "slug": "panaderia-artesanal-pan-rico",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 5,
+      "name": "Temuco",
+      "slug": "temuco"
+    },
+    "image": "https://picsum.photos/seed/listing13/800/600",
+    "featured": false,
+    "createdAt": "2024-11-24T17:00:00Z",
+    "updatedAt": "2024-11-24T17:00:00Z"
+  },
+  {
+    "id": 14,
+    "title": "Centro de Yoga Namaste",
+    "slug": "centro-yoga-namaste",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing14/800/600",
+    "featured": false,
+    "createdAt": "2024-11-25T08:00:00Z",
+    "updatedAt": "2024-11-25T08:00:00Z"
+  },
+  {
+    "id": 15,
+    "title": "Ferretería El Constructor",
+    "slug": "ferreteria-el-constructor",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing15/800/600",
+    "featured": false,
+    "createdAt": "2024-11-25T10:00:00Z",
+    "updatedAt": "2024-11-25T10:00:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Veterinaria MascotasSanas",
+    "slug": "veterinaria-mascotassanas",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing16/800/600",
+    "featured": false,
+    "createdAt": "2024-11-25T12:00:00Z",
+    "updatedAt": "2024-11-25T12:00:00Z"
   }
 ]
