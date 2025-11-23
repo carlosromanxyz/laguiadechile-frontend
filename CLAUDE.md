@@ -156,6 +156,28 @@ component-name/
 - Component exports use PascalCase
 - ESLint is configured with Next.js recommended rules for TypeScript
 
+### **CRITICAL: Component Naming Pattern**
+**All custom components MUST use the `LDC` prefix** (La Guía de Chile brand identifier):
+- ✅ Correct: `LDCHeader`, `LDCFooter`, `LDCButton`, `LDCCard`, `LDCLogo`
+- ❌ Incorrect: `Header`, `Footer`, `Button`, `Card`, `Logo`
+
+**Exceptions:**
+- shadcn/ui components in `components/ui/` (auto-generated, no LDC prefix)
+- Third-party library components
+- Native HTML elements
+
+**Examples:**
+```typescript
+// Custom components - ALWAYS use LDC prefix
+export function LDCHeader() { ... }
+export function LDCSearchBar() { ... }
+export function LDCBusinessCard() { ... }
+
+// File structure
+components/organisms/ldc-header/ldc-header.tsx  // kebab-case file
+export { LDCHeader } from "./ldc-header"        // PascalCase export
+```
+
 ## Special Features
 
 ### Dynamic Favicon System

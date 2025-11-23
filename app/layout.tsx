@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Mulish, Open_Sans } from "next/font/google";
 import "./globals.css";
+import { LDCHeader } from "@/components/organisms/ldc-header";
+import { ThemeProvider } from "@/components/shared/theme-provider";
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -27,11 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="es" suppressHydrationWarning>
       <body
         className={`${mulish.variable} ${openSans.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <LDCHeader />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
