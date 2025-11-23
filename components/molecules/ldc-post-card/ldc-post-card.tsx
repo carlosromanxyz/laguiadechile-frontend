@@ -49,11 +49,11 @@ export function LDCPostCard({
   return (
     <article
       className={cn(
-        "group bg-card dark:bg-neutral-800 rounded-xl overflow-hidden p-3 shadow-md",
+        "group flex flex-col h-full bg-card dark:bg-neutral-800 rounded-xl overflow-hidden p-3 shadow-md",
         className
       )}
     >
-      {/* Image */}
+      {/* Image - Fixed height for consistency */}
       <Link href={`/noticia/${slug}`} className="block relative h-52 w-full overflow-hidden rounded mb-4">
         <Image
           src={image}
@@ -66,24 +66,30 @@ export function LDCPostCard({
         />
       </Link>
 
-      {/* Category */}
-      <div className="flex items-center gap-1.5 mb-4 text-xs text-muted-foreground">
-        {renderCategoryIcon(category.icon)}
-        <span>{category.name}</span>
-      </div>
-
-      {/* Title */}
-      <h3 className="text-lg font-bold font-mulish leading-6 mb-4 text-foreground">
-        {title}
+      {/* Title - Clamped to 2 lines for consistency */}
+      <h3 className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
+        <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
+          {title}
+        </Link>
       </h3>
 
-      {/* Footer */}
-      <div className="border-t border-border pt-2">
+      {/* Spacer - Pushes footer to bottom for grid alignment */}
+      <div className="flex-1" />
+
+      {/* Footer - Category (left) + Action (right) */}
+      <div className="flex items-center justify-between border-t border-border pt-3 mt-auto">
+        {/* Category - Subtle metadata */}
+        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+          {renderCategoryIcon(category.icon)}
+          <span>{category.name}</span>
+        </div>
+
+        {/* Action Link - Prominent CTA */}
         <Link
           href={`/noticia/${slug}`}
-          className="flex items-center justify-end gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors"
+          className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors"
         >
-          <span>Ver detalles</span>
+          <span className="font-medium">Ver detalles</span>
           <ChevronRight className="w-4 h-4" />
         </Link>
       </div>
