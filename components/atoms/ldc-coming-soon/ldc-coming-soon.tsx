@@ -17,7 +17,7 @@
 export function LDCComingSoon() {
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <h1 className="text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+      <h1 className="font-mulish text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
         Próximamente
       </h1>
     </div>
