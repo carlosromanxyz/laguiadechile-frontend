@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Mulish, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { LDCHeader } from "@/components/organisms/ldc-header";
+import { LDCFooter } from "@/components/organisms/ldc-footer";
 import { ThemeProvider } from "@/components/shared/theme-provider";
 
 const mulish = Mulish({
@@ -41,6 +42,7 @@ export default function RootLayout({
         >
           <LDCHeader />
           {children}
+          <LDCFooter />
         </ThemeProvider>
       </body>
     </html>

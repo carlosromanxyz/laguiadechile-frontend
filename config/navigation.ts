@@ -18,3 +18,14 @@ export const navigationItems: NavigationItem[] = [
   { label: "Noticias", href: "/noticias" },
   { label: "Contacto", href: "/contacto" },
 ];
+
+/**
+ * Utility navigation items for footer
+ * Authentication, legal, and help pages
+ */
+export const utilityNavigationItems: NavigationItem[] = [
+  { label: "Registrarse", href: "/registrarse" },
+  { label: "Iniciar sesión", href: "/iniciar-sesion" },
+  { label: "Políticas de privacidad", href: "/politicas-de-privacidad" },
+  { label: "Términos y condiciones", href: "/terminos-y-condiciones" },
+];
