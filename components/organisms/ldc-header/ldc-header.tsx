@@ -50,7 +50,7 @@ export function LDCHeader() {
   }, []);
 
   return (
-    <header className="fixed top-0 z-50 w-full px-4 pt-4">
+    <header className="fixed top-0 z-50 w-full pt-4">
       {/* Floating backdrop wrapper with rounded corners, background, opacity and blur */}
       <div className={cn(
         "container mx-auto max-w-7xl rounded-full border border-border/40 transition-all duration-300",
