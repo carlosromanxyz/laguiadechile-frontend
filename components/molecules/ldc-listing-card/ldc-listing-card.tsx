@@ -125,14 +125,14 @@ export function LDCListingCard({
         <div className="flex items-center justify-between gap-4 pt-3 border-t border-border">
           {/* City */}
           <div className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
-            <MapPin className="w-4 h-4 flex-shrink-0 text-purple" />
+            <MapPin className="w-4 h-4 flex-shrink-0 text-pink dark:text-yellow" />
             <span className="truncate">{city.name}</span>
           </div>
 
           {/* View Details Link */}
           <Link
             href={`/${type}/${slug}`}
-            className="flex items-center gap-1 text-sm text-purple hover:text-pink transition-colors flex-shrink-0"
+            className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-yellow dark:hover:text-pink transition-colors flex-shrink-0"
           >
             <span>Ver detalles</span>
             <ChevronRight className="w-4 h-4" />
