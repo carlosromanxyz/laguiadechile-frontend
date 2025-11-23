@@ -1,0 +1,170 @@
+[
+  {
+    "id": 1,
+    "title": "Restaurante El Buen Sabor",
+    "slug": "restaurante-el-buen-sabor",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "UtensilsCrossed"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing1/800/600",
+    "featured": true,
+    "createdAt": "2024-11-15T10:00:00Z",
+    "updatedAt": "2024-11-20T15:30:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Hotel Vista Mar",
+    "slug": "hotel-vista-mar",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "Hotel"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing2/800/600",
+    "featured": true,
+    "createdAt": "2024-11-10T08:00:00Z",
+    "updatedAt": "2024-11-18T12:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Estudio Jurídico Martínez",
+    "slug": "estudio-juridico-martinez",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "Briefcase"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing3/800/600",
+    "featured": true,
+    "createdAt": "2024-11-01T09:00:00Z",
+    "updatedAt": "2024-11-01T09:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Tienda de Ropa Moderna",
+    "slug": "tienda-ropa-moderna",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "ShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing4/800/600",
+    "featured": true,
+    "createdAt": "2024-11-22T14:00:00Z",
+    "updatedAt": "2024-11-22T14:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Centro de Eventos La Fiesta",
+    "slug": "centro-eventos-la-fiesta",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "Music"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing5/800/600",
+    "featured": true,
+    "createdAt": "2024-11-12T11:00:00Z",
+    "updatedAt": "2024-11-19T16:00:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Clínica Dental Sonrisa",
+    "slug": "clinica-dental-sonrisa",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "HeartPulse"
+    },
+    "city": {
+      "id": 5,
+      "name": "Temuco",
+      "slug": "temuco"
+    },
+    "image": "https://picsum.photos/seed/listing6/800/600",
+    "featured": true,
+    "createdAt": "2024-11-05T10:30:00Z",
+    "updatedAt": "2024-11-21T09:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Academia de Inglés Global",
+    "slug": "academia-ingles-global",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "GraduationCap"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing7/800/600",
+    "featured": true,
+    "createdAt": "2024-11-08T13:00:00Z",
+    "updatedAt": "2024-11-08T13:00:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Taller Mecánico Express",
+    "slug": "taller-mecanico-express",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "Car"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing8/800/600",
+    "featured": true,
+    "createdAt": "2024-11-23T07:00:00Z",
+    "updatedAt": "2024-11-23T07:00:00Z"
+  }
+]
