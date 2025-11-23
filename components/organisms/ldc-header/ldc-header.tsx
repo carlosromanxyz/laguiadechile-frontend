@@ -58,7 +58,7 @@ export function LDCHeader() {
           ? "bg-white/40 dark:bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/30 dark:supports-[backdrop-filter]:bg-black/30"
           : "bg-white dark:bg-black/40 dark:backdrop-blur-md dark:supports-[backdrop-filter]:bg-black/30"
       )}>
-        <div className="flex h-16 items-center justify-between">
+        <div className="flex h-16 items-center justify-between px-3">
         {/* Logo Section - Responsive sizes: xs on mobile, sm on desktop */}
         <Link href="/" className="flex items-center">
           <LDCLogo isotipoSize="xs" className="md:hidden" />
