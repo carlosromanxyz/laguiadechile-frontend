@@ -28,8 +28,12 @@ import { LDCMobileMenu } from "@/components/molecules/ldc-mobile-menu";
 
 export function LDCHeader() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Mark component as mounted to avoid hydration mismatch
+    setMounted(true);
+
     const handleScroll = () => {
       // Consider scrolled after hero section (viewport height)
       setIsScrolled(window.scrollY > window.innerHeight);
@@ -50,7 +54,7 @@ export function LDCHeader() {
       {/* Floating backdrop wrapper with rounded corners, background, opacity and blur */}
       <div className={cn(
         "container mx-auto max-w-7xl rounded-full border border-border/40 transition-all duration-300",
-        isScrolled
+        mounted && isScrolled
           ? "bg-white/40 dark:bg-black/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/30 dark:supports-[backdrop-filter]:bg-black/30"
           : "bg-white dark:bg-black/40 dark:backdrop-blur-md dark:supports-[backdrop-filter]:bg-black/30"
       )}>
