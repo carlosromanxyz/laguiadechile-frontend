@@ -31,7 +31,7 @@ export function LDCBadge({
     featured: "bg-yellow text-black",
     new: "bg-pink text-white",
     updated: "bg-purple text-white",
-    default: "bg-blue-gray text-white",
+    default: "bg-pink dark:bg-purple text-white",
   };
 
   return (
