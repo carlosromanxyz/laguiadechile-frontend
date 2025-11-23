@@ -23,7 +23,7 @@ import { LDCMobileMenu } from "@/components/molecules/ldc-mobile-menu";
 
 export function LDCHeader() {
   return (
-    <header className="absolute top-0 z-50 w-full px-4 pt-4">
+    <header className="fixed top-0 z-50 w-full px-4 pt-4">
       {/* Floating backdrop wrapper with rounded corners, background, opacity and blur */}
       <div className="container mx-auto max-w-7xl rounded-full border border-border/40 bg-white/40 backdrop-blur-md supports-[backdrop-filter]:bg-white/30 dark:bg-black/40 dark:supports-[backdrop-filter]:bg-black/30">
         <div className="flex h-16 items-center justify-between px-4">

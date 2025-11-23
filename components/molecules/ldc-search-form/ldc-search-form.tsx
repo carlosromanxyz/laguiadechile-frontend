@@ -55,6 +55,13 @@ export function LDCSearchForm({ categories, cities }: LDCSearchFormProps) {
     },
   });
 
+  // Watch form values to enable/disable submit button
+  const searchTerm = form.watch("searchTerm");
+  const searchCategory = form.watch("searchCategory");
+  const searchCity = form.watch("searchCity");
+
+  const isFormEmpty = !searchTerm && !searchCategory && !searchCity;
+
   function onSubmit(values: z.infer<typeof searchFormSchema>) {
     router.push(
       `/resultados?term=${values.searchTerm}&category=${values.searchCategory}&city=${values.searchCity}`
@@ -131,7 +138,8 @@ export function LDCSearchForm({ categories, cities }: LDCSearchFormProps) {
         {/* Submit Button */}
         <Button
           type="submit"
-          className="col-span-2 cursor-pointer bg-pink text-white transition-all hover:bg-yellow hover:text-black"
+          disabled={isFormEmpty}
+          className="col-span-2 cursor-pointer bg-pink text-white transition-all hover:bg-yellow hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Search className="mr-2 h-4 w-4" />
           Buscar en La Guía de Chile

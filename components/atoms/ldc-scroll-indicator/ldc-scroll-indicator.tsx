@@ -29,15 +29,15 @@ export function LDCScrollIndicator({ className }: LDCScrollIndicatorProps) {
   return (
     <div
       className={cn(
-        "absolute bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/40 bg-white/10 px-6 py-2 backdrop-blur-sm md:bottom-24",
+        "absolute bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/40 bg-white/10 px-4 py-2 backdrop-blur-sm md:bottom-24 md:px-6",
         className
       )}
     >
       <div className="flex items-center gap-2">
         <div className="relative">
-          <FaCircleChevronUp className="h-5 w-5 text-white" />
+          <FaCircleChevronUp className="h-4 w-4 text-white md:h-5 md:w-5" />
           <motion.div
-            className="absolute left-0 top-0 h-5 w-5 rounded-full border-2 border-white"
+            className="absolute left-0 top-0 h-4 w-4 rounded-full border-2 border-white md:h-5 md:w-5"
             animate={{
               scale: [1, 1.5, 1],
               opacity: [0.8, 0, 0.8],
@@ -49,7 +49,9 @@ export function LDCScrollIndicator({ className }: LDCScrollIndicatorProps) {
             }}
           />
         </div>
-        <span className="text-sm text-white">Desliza para ver más</span>
+        <span className="whitespace-nowrap text-xs text-white md:text-sm">
+          Desliza para ver más
+        </span>
       </div>
     </div>
   );
