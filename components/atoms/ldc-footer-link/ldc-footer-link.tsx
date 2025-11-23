@@ -32,7 +32,7 @@ export function LDCFooterLink({ href, label, className }: LDCFooterLinkProps) {
     <Link
       href={href}
       className={cn(
-        "text-foreground/80 hover:text-orange transition-colors text-sm",
+        "text-foreground/80 hover:text-yellow transition-colors text-sm",
         className
       )}
     >

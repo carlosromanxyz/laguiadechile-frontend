@@ -64,7 +64,7 @@ export function LDCMobileMenu() {
         size="icon"
         onClick={() => setOpen(true)}
         aria-label="Abrir menú de navegación"
-        className="text-foreground hover:text-orange"
+        className="text-foreground hover:text-yellow"
       >
         <FaBars className="h-5 w-5" />
       </Button>

@@ -70,7 +70,7 @@ export function LDCFooter() {
             href="https://carlosroman.xyz/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-center text-sm text-foreground/60 transition-colors hover:text-orange lg:text-end"
+            className="text-center text-sm text-foreground/60 transition-colors hover:text-yellow lg:text-end"
           >
             Desarrollado por Carlos Román
           </Link>
