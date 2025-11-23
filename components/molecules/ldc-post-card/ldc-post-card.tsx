@@ -5,6 +5,12 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { getIcon } from "@/lib/get-icon";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 interface LDCPostCardProps {
   /** Post title */
@@ -66,12 +72,21 @@ export function LDCPostCard({
         />
       </Link>
 
-      {/* Title - Clamped to 2 lines for consistency */}
-      <h3 className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
-        <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
-          {title}
-        </Link>
-      </h3>
+      {/* Title - Clamped to 2 lines with tooltip for full text */}
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <h3 className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
+              <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
+                {title}
+              </Link>
+            </h3>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p className="max-w-xs">{title}</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
       {/* Spacer - Pushes footer to bottom for grid alignment */}
       <div className="flex-1" />
