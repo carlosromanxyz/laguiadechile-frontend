@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { ChevronRight } from "lucide-react";
 import { getIcon } from "@/lib/get-icon";
+import { useRef, useEffect, useState } from "react";
 import {
   Tooltip,
   TooltipContent,
@@ -52,6 +53,17 @@ export function LDCPostCard({
   image,
   className,
 }: LDCPostCardProps) {
+  const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isTruncated, setIsTruncated] = useState(false);
+
+  useEffect(() => {
+    const element = titleRef.current;
+    if (element) {
+      // Check if text is truncated by comparing scrollHeight with clientHeight
+      setIsTruncated(element.scrollHeight > element.clientHeight);
+    }
+  }, [title]);
+
   return (
     <article
       className={cn(
@@ -72,21 +84,29 @@ export function LDCPostCard({
         />
       </Link>
 
-      {/* Title - Clamped to 2 lines with tooltip for full text */}
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <h3 className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
-              <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
-                {title}
-              </Link>
-            </h3>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p className="max-w-md">{title}</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+      {/* Title - Clamped to 2 lines with conditional tooltip */}
+      {isTruncated ? (
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <h3 ref={titleRef} className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
+                <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
+                  {title}
+                </Link>
+              </h3>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p className="max-w-md">{title}</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      ) : (
+        <h3 ref={titleRef} className="text-lg font-bold font-mulish leading-6 line-clamp-2 mb-4 text-foreground">
+          <Link href={`/noticia/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
+            {title}
+          </Link>
+        </h3>
+      )}
 
       {/* Spacer - Pushes footer to bottom for grid alignment */}
       <div className="flex-1" />
