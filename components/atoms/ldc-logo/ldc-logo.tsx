@@ -127,7 +127,7 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       </div>
 
       {/* Logotipo - Text */}
-      <div className={cn(config.textSize, "font-mulish leading-none text-white")}>
+      <div className={cn(config.textSize, "font-mulish leading-none text-blue-gray dark:text-white")}>
         <div className="font-light tracking-[0.08em] leading-none">La Guía</div>
         <div className="font-black leading-none">
           de{" "}
