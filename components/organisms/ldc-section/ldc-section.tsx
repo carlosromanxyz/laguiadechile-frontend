@@ -49,7 +49,7 @@ export function LDCSection({
 
   return (
     <section className={cn(paddingSizes[paddingY], className)}>
-      <div className={cn("container mx-auto px-4 lg:px-8", containerSizes[containerSize])}>
+      <div className={cn("container mx-auto px-4", containerSizes[containerSize])}>
         {children}
       </div>
     </section>
