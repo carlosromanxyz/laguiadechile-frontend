@@ -30,7 +30,7 @@ export function LDCFooter() {
   return (
     <>
       {/* Main Footer Section */}
-      <footer className="bg-muted/30 py-10">
+      <footer className="bg-white dark:bg-muted/30 py-10">
         <div className="container mx-auto grid max-w-7xl gap-8 px-6 sm:grid-cols-1 lg:grid-cols-2 xl:grid-cols-4">
           {/* Logo & Social Networks Widget */}
           <LDCFooterWidget className="flex flex-col items-center lg:items-start">
@@ -61,7 +61,7 @@ export function LDCFooter() {
       </footer>
 
       {/* Copyright & Credits Section */}
-      <section className="bg-muted/50 py-4">
+      <section className="bg-neutral-50 dark:bg-muted/50 py-4">
         <div className="container mx-auto grid max-w-7xl grid-cols-1 gap-2 px-6 lg:grid-cols-2">
           <p className="text-center text-sm text-foreground/60 lg:text-start">
             © {currentYear} La Guía de Chile - Derechos reservados.
