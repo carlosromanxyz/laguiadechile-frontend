@@ -45,8 +45,8 @@ export function LDCHero() {
               <LDCHeroText
                 text="Te ayudamos a encontrar y descubrir lo que buscas."
                 featuredWords={[
-                  { word: "encontrar", bgColor: "bg-pink", gradientColor: "yellow" },
-                  { word: "descubrir", bgColor: "bg-purple", gradientColor: "green" },
+                  { word: "encontrar", bgColor: "bg-orange", gradientColor: "yellow" },
+                  { word: "descubrir", bgColor: "bg-orange", gradientColor: "yellow" },
                 ]}
                 subText="Encuentra los mejores lugares, comercios, servicios y más en Chile."
               />
