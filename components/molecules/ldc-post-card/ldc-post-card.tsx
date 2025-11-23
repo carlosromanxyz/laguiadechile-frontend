@@ -112,17 +112,17 @@ export function LDCPostCard({
       <div className="flex-1" />
 
       {/* Footer - Category (left) + Action (right) */}
-      <div className="flex items-center justify-between border-t border-border pt-3 mt-auto">
+      <div className="flex items-center justify-between gap-4 border-t border-border pt-3 mt-auto">
         {/* Category - Subtle metadata */}
-        <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+        <div className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
           {renderCategoryIcon(category.icon)}
-          <span>{category.name}</span>
+          <span className="truncate">{category.name}</span>
         </div>
 
         {/* Action Link - Prominent CTA */}
         <Link
           href={`/noticia/${slug}`}
-          className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors"
+          className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0"
         >
           <span className="font-medium">Ver detalles</span>
           <ChevronRight className="w-4 h-4" />
@@ -135,5 +135,5 @@ export function LDCPostCard({
 // Helper function to render category icon - keeps component creation out of render
 function renderCategoryIcon(iconName: string): React.ReactNode {
   const Icon = getIcon(iconName);
-  return Icon ? <Icon className="w-3.5 h-3.5" /> : null;
+  return Icon ? <Icon className="w-4 h-4 flex-shrink-0" /> : null;
 }
