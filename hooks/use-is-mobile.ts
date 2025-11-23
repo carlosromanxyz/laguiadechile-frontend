@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 
 /**
@@ -6,7 +8,8 @@ import { useEffect, useState } from "react";
  * @returns boolean indicating if the current viewport is mobile
  */
 export function useIsMobile(breakpoint: number = 768): boolean {
-  const [isMobile, setIsMobile] = useState(false);
+  // Start with undefined to prevent hydration mismatch
+  const [isMobile, setIsMobile] = useState<boolean | undefined>(undefined);
 
   useEffect(() => {
     // Initial check
@@ -24,5 +27,6 @@ export function useIsMobile(breakpoint: number = 768): boolean {
     return () => window.removeEventListener("resize", checkMobile);
   }, [breakpoint]);
 
-  return isMobile;
+  // Return false during SSR/initial render to show desktop version by default
+  return isMobile ?? false;
 }

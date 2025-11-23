@@ -32,7 +32,7 @@ function LDCSwitch({ className, ...props }: LDCSwitchProps) {
       data-slot="ldc-switch"
       className={cn(
         // Base styles
-        "peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none",
+        "peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all outline-none cursor-pointer",
         // Focus styles
         "focus-visible:ring-ring/50 focus-visible:border-ring focus-visible:ring-[3px]",
         // Disabled styles

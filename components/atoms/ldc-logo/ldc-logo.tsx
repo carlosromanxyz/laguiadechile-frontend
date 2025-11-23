@@ -6,12 +6,24 @@ import { motion } from "framer-motion";
 
 interface LDCLogoProps {
   className?: string;
-  isotipoSize?: "sm" | "md" | "lg";
+  isotipoSize?: "xs" | "sm" | "md" | "lg";
 }
 
 export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
-  // Size configurations for isotipo
+  // Size configurations for isotipo and text
   const sizeConfig = {
+    xs: {
+      container: "w-9 h-9",
+      icon: "w-5 h-5",
+      blob1: "w-11 h-11", // 44px
+      blob2: "w-[52px] h-[52px]", // 52px
+      blob3: "w-9 h-9", // 36px
+      blur1: "blur-[8px]",
+      blur2: "blur-[11px]",
+      blur3: "blur-[6px]",
+      textSize: "text-base", // Extra small text for xs (16px)
+      gap: "gap-1.5", // Smaller gap between isotipo and text
+    },
     sm: {
       container: "w-12 h-12",
       icon: "w-7 h-7",
@@ -21,6 +33,8 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       blur1: "blur-[11px]", // proportional to 15px
       blur2: "blur-[15px]", // proportional to 20px
       blur3: "blur-[9px]",  // proportional to 12px
+      textSize: "text-xl", // Smaller text for sm
+      gap: "gap-2",
     },
     md: {
       container: "w-14 h-14",
@@ -31,6 +45,8 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       blur1: "blur-[13px]",
       blur2: "blur-[17px]",
       blur3: "blur-[10px]",
+      textSize: "text-2xl", // Medium text for md
+      gap: "gap-2",
     },
     lg: {
       container: "w-16 h-16",
@@ -41,13 +57,15 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       blur1: "blur-[15px]",
       blur2: "blur-[20px]",
       blur3: "blur-[12px]",
+      textSize: "text-2xl", // Original text size for lg
+      gap: "gap-2",
     },
   };
 
   const config = sizeConfig[isotipoSize];
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex items-center", config.gap, className)}>
       {/* Isotipo - Map Pin Icon with Lava Lamp Effect */}
       <div className={cn("relative rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden", config.container)}>
         {/* Pink background */}
@@ -109,7 +127,7 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       </div>
 
       {/* Logotipo - Text */}
-      <div className="text-2xl font-mulish leading-none text-white">
+      <div className={cn(config.textSize, "font-mulish leading-none text-white")}>
         <div className="font-light tracking-[0.08em] leading-none">La Guía</div>
         <div className="font-black leading-none">
           de{" "}
