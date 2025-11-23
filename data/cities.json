@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "name": "Santiago",
+    "slug": "santiago",
+    "description": "Región Metropolitana"
+  },
+  {
+    "id": 2,
+    "name": "Valparaíso",
+    "slug": "valparaiso",
+    "description": "Región de Valparaíso"
+  },
+  {
+    "id": 3,
+    "name": "Concepción",
+    "slug": "concepcion",
+    "description": "Región del Biobío"
+  },
+  {
+    "id": 4,
+    "name": "La Serena",
+    "slug": "la-serena",
+    "description": "Región de Coquimbo"
+  },
+  {
+    "id": 5,
+    "name": "Temuco",
+    "slug": "temuco",
+    "description": "Región de La Araucanía"
+  }
+]

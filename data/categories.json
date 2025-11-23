@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "name": "Restaurantes",
+    "slug": "restaurantes",
+    "description": "Encuentra los mejores restaurantes de Chile",
+    "icon": "MdRestaurant"
+  },
+  {
+    "id": 2,
+    "name": "Hoteles",
+    "slug": "hoteles",
+    "description": "Alojamiento y hospedaje en todo Chile",
+    "icon": "MdHotel"
+  },
+  {
+    "id": 3,
+    "name": "Servicios",
+    "slug": "servicios",
+    "description": "Servicios profesionales y técnicos",
+    "icon": "MdWork"
+  },
+  {
+    "id": 4,
+    "name": "Tiendas",
+    "slug": "tiendas",
+    "description": "Comercio y retail",
+    "icon": "MdStore"
+  },
+  {
+    "id": 5,
+    "name": "Entretenimiento",
+    "slug": "entretenimiento",
+    "description": "Diversión y esparcimiento",
+    "icon": "MdSportsEsports"
+  }
+]
