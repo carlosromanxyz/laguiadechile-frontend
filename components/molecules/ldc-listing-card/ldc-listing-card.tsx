@@ -4,32 +4,9 @@ import { cn } from "@/lib/utils";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  MapPin,
-  ChevronRight,
-  Star,
-  UtensilsCrossed,
-  Hotel,
-  Briefcase,
-  ShoppingBag,
-  Music,
-  HeartPulse,
-  GraduationCap,
-  Car,
-} from "lucide-react";
+import { MapPin, ChevronRight, Star } from "lucide-react";
 import { isNewListing, isUpdatedListing } from "@/services/featured-listings";
-
-// Static icon mapping to avoid dynamic component creation during render
-const CATEGORY_ICON_MAP = {
-  UtensilsCrossed,
-  Hotel,
-  Briefcase,
-  ShoppingBag,
-  Music,
-  HeartPulse,
-  GraduationCap,
-  Car,
-} as const;
+import { getIcon } from "@/lib/get-icon";
 
 interface LDCListingCardProps {
   /** Listing title */
@@ -73,7 +50,7 @@ interface LDCListingCardProps {
  *   title="Restaurante El Buen Sabor"
  *   slug="restaurante-el-buen-sabor"
  *   type="comercio"
- *   category={{ name: "Restaurantes", slug: "restaurantes" }}
+ *   category={{ name: "Restaurantes", slug: "restaurantes", icon: "MdRestaurant" }}
  *   city={{ name: "Santiago", slug: "santiago" }}
  *   image="/images/restaurante.jpg"
  *   featured={true}
@@ -96,9 +73,6 @@ export function LDCListingCard({
 }: LDCListingCardProps) {
   const isNew = isNewListing(createdAt);
   const isUpdated = isUpdatedListing(createdAt, updatedAt);
-
-  // Get category icon component from static map
-  const CategoryIcon = CATEGORY_ICON_MAP[category.icon as keyof typeof CATEGORY_ICON_MAP];
 
   return (
     <div
@@ -134,7 +108,7 @@ export function LDCListingCard({
         {/* Category Badge - Bottom */}
         <div className="absolute bottom-3 left-3 z-10">
           <LDCBadge variant="default">
-            {CategoryIcon && <CategoryIcon className="w-3 h-3 mr-1" />}
+            {renderCategoryIcon(category.icon)}
             {category.name}
           </LDCBadge>
         </div>
@@ -167,4 +141,10 @@ export function LDCListingCard({
       </div>
     </div>
   );
+}
+
+// Helper function to render category icon - keeps component creation out of render
+function renderCategoryIcon(iconName: string): React.ReactNode {
+  const Icon = getIcon(iconName);
+  return Icon ? <Icon className="w-3 h-3 mr-1" /> : null;
 }

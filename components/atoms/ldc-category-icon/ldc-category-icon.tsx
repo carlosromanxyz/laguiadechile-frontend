@@ -1,19 +1,10 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import {
-  UtensilsCrossed,
-  Hotel,
-  Briefcase,
-  ShoppingBag,
-  Music,
-  HeartPulse,
-  GraduationCap,
-  Car,
-} from "lucide-react";
+import { getIcon } from "@/lib/get-icon";
 
 interface LDCCategoryIconProps {
-  /** Lucide icon name */
+  /** React Icon name (e.g., "MdRestaurant", "FaUser") */
   iconName: string;
   /** Gradient colors from brand palette */
   gradient: {
@@ -24,28 +15,16 @@ interface LDCCategoryIconProps {
   className?: string;
 }
 
-// Map of icon names to icon components (declared outside render)
-const ICON_MAP = {
-  UtensilsCrossed,
-  Hotel,
-  Briefcase,
-  ShoppingBag,
-  Music,
-  HeartPulse,
-  GraduationCap,
-  Car,
-} as const;
-
 /**
- * LDCCategoryIcon - Category Icon with Gradient Background
+ * LDCCategoryIcon - Category Icon with Background
  *
- * Displays a Lucide icon with an animated gradient background.
+ * Displays a react-icon dynamically loaded with background styling.
  * Used in category cards to provide visual identification.
  *
  * @example
  * ```tsx
  * <LDCCategoryIcon
- *   iconName="UtensilsCrossed"
+ *   iconName="MdRestaurant"
  *   gradient={{ from: "orange", to: "yellow" }}
  * />
  * ```
@@ -55,10 +34,6 @@ export function LDCCategoryIcon({
   gradient,
   className,
 }: LDCCategoryIconProps) {
-  const Icon = ICON_MAP[iconName as keyof typeof ICON_MAP];
-
-  if (!Icon) return null;
-
   return (
     <div
       className={cn(
@@ -68,7 +43,13 @@ export function LDCCategoryIcon({
         className
       )}
     >
-      <Icon className="w-7 h-7 text-white relative z-10" />
+      {renderIcon(iconName)}
     </div>
   );
+}
+
+// Helper function to render icon - keeps component creation out of render
+function renderIcon(iconName: string): React.ReactNode {
+  const Icon = getIcon(iconName);
+  return Icon ? <Icon className="w-7 h-7 text-white relative z-10" /> : null;
 }

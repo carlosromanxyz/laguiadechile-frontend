@@ -8,7 +8,7 @@
       "id": 1,
       "name": "Restaurantes",
       "slug": "restaurantes",
-      "icon": "UtensilsCrossed"
+      "icon": "MdRestaurant"
     },
     "city": {
       "id": 1,
@@ -29,7 +29,7 @@
       "id": 2,
       "name": "Hoteles",
       "slug": "hoteles",
-      "icon": "Hotel"
+      "icon": "MdHotel"
     },
     "city": {
       "id": 2,
@@ -50,7 +50,7 @@
       "id": 3,
       "name": "Servicios Profesionales",
       "slug": "servicios-profesionales",
-      "icon": "Briefcase"
+      "icon": "MdWork"
     },
     "city": {
       "id": 1,
@@ -71,7 +71,7 @@
       "id": 4,
       "name": "Tiendas",
       "slug": "tiendas",
-      "icon": "ShoppingBag"
+      "icon": "MdShoppingBag"
     },
     "city": {
       "id": 3,
@@ -92,7 +92,7 @@
       "id": 5,
       "name": "Entretenimiento",
       "slug": "entretenimiento",
-      "icon": "Music"
+      "icon": "MdMusicNote"
     },
     "city": {
       "id": 4,
@@ -113,7 +113,7 @@
       "id": 6,
       "name": "Salud y Bienestar",
       "slug": "salud-bienestar",
-      "icon": "HeartPulse"
+      "icon": "MdFavorite"
     },
     "city": {
       "id": 5,
@@ -134,7 +134,7 @@
       "id": 7,
       "name": "Educación",
       "slug": "educacion",
-      "icon": "GraduationCap"
+      "icon": "MdSchool"
     },
     "city": {
       "id": 1,
@@ -155,7 +155,7 @@
       "id": 8,
       "name": "Automotriz",
       "slug": "automotriz",
-      "icon": "Car"
+      "icon": "MdDirectionsCar"
     },
     "city": {
       "id": 2,

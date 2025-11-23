@@ -4,7 +4,7 @@
     "name": "Restaurantes",
     "slug": "restaurantes",
     "description": "Los mejores restaurantes de Chile",
-    "icon": "UtensilsCrossed",
+    "icon": "MdRestaurant",
     "count": 1247,
     "featured": true,
     "gradient": {
@@ -17,7 +17,7 @@
     "name": "Hoteles",
     "slug": "hoteles",
     "description": "Alojamiento y hospedaje en todo Chile",
-    "icon": "Hotel",
+    "icon": "MdHotel",
     "count": 856,
     "featured": true,
     "gradient": {
@@ -30,7 +30,7 @@
     "name": "Servicios Profesionales",
     "slug": "servicios-profesionales",
     "description": "Servicios profesionales y técnicos",
-    "icon": "Briefcase",
+    "icon": "MdWork",
     "count": 2134,
     "featured": true,
     "gradient": {
@@ -43,7 +43,7 @@
     "name": "Tiendas",
     "slug": "tiendas",
     "description": "Comercio y retail",
-    "icon": "ShoppingBag",
+    "icon": "MdShoppingBag",
     "count": 1523,
     "featured": true,
     "gradient": {
@@ -56,7 +56,7 @@
     "name": "Entretenimiento",
     "slug": "entretenimiento",
     "description": "Diversión y esparcimiento",
-    "icon": "Music",
+    "icon": "MdMusicNote",
     "count": 945,
     "featured": true,
     "gradient": {
@@ -69,7 +69,7 @@
     "name": "Salud y Bienestar",
     "slug": "salud-bienestar",
     "description": "Centros médicos, clínicas y bienestar",
-    "icon": "HeartPulse",
+    "icon": "MdFavorite",
     "count": 678,
     "featured": true,
     "gradient": {
@@ -82,7 +82,7 @@
     "name": "Educación",
     "slug": "educacion",
     "description": "Institutos, academias y centros educativos",
-    "icon": "GraduationCap",
+    "icon": "MdSchool",
     "count": 534,
     "featured": true,
     "gradient": {
@@ -95,7 +95,7 @@
     "name": "Automotriz",
     "slug": "automotriz",
     "description": "Talleres, repuestos y servicios automotrices",
-    "icon": "Car",
+    "icon": "MdDirectionsCar",
     "count": 892,
     "featured": true,
     "gradient": {
