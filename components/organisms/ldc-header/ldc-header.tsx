@@ -31,8 +31,8 @@ export function LDCHeader() {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Consider scrolled after 50px
-      setIsScrolled(window.scrollY > 50);
+      // Consider scrolled after hero section (viewport height)
+      setIsScrolled(window.scrollY > window.innerHeight);
     };
 
     // Add scroll event listener
