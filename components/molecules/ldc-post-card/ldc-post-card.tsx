@@ -135,5 +135,5 @@ export function LDCPostCard({
 // Helper function to render category icon - keeps component creation out of render
 function renderCategoryIcon(iconName: string): React.ReactNode {
   const Icon = getIcon(iconName);
-  return Icon ? <Icon className="w-4 h-4 flex-shrink-0" /> : null;
+  return Icon ? <Icon className="w-4 h-4 flex-shrink-0 text-pink dark:text-yellow" /> : null;
 }
