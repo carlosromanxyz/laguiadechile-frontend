@@ -1,6 +1,7 @@
 import { LDCHero } from "@/components/organisms/ldc-hero";
 import { LDCFeaturedCategories } from "@/components/organisms/ldc-featured-categories";
 import { LDCFeaturedListings } from "@/components/organisms/ldc-featured-listings";
+import { LDCFeaturedCities } from "@/components/organisms/ldc-featured-cities";
 
 /**
  * Home Page - La Guía de Chile
@@ -12,7 +13,8 @@ import { LDCFeaturedListings } from "@/components/organisms/ldc-featured-listing
  * - Hero: Full-screen hero with search and featured content
  * - Featured Categories: Grid of popular categories
  * - Featured Listings: Grid of featured businesses and services
- * - Main Content: Cities, recent listings, posts, etc.
+ * - Featured Cities: Grid of featured Chilean cities
+ * - Main Content: Recent listings, posts, etc.
  */
 
 export default function HomePage() {
@@ -29,8 +31,11 @@ export default function HomePage() {
         {/* Featured Listings Section */}
         <LDCFeaturedListings />
 
+        {/* Featured Cities Section */}
+        <LDCFeaturedCities />
+
         {/* Additional sections will go here */}
-        {/* Featured cities, recent listings, posts, etc. */}
+        {/* Recent listings, posts, etc. */}
       </main>
     </>
   );

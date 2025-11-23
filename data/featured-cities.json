@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Santiago",
+    "slug": "santiago",
+    "image": "https://picsum.photos/seed/city1/800/600",
+    "count": 2847,
+    "featured": true
+  },
+  {
+    "id": 2,
+    "name": "Valparaíso",
+    "slug": "valparaiso",
+    "image": "https://picsum.photos/seed/city2/800/600",
+    "count": 1523,
+    "featured": true
+  },
+  {
+    "id": 3,
+    "name": "Viña del Mar",
+    "slug": "vina-del-mar",
+    "image": "https://picsum.photos/seed/city3/800/600",
+    "count": 1834,
+    "featured": true
+  },
+  {
+    "id": 4,
+    "name": "Concepción",
+    "slug": "concepcion",
+    "image": "https://picsum.photos/seed/city4/800/600",
+    "count": 1267,
+    "featured": true
+  },
+  {
+    "id": 5,
+    "name": "La Serena",
+    "slug": "la-serena",
+    "image": "https://picsum.photos/seed/city5/800/600",
+    "count": 892,
+    "featured": true
+  },
+  {
+    "id": 6,
+    "name": "Puerto Montt",
+    "slug": "puerto-montt",
+    "image": "https://picsum.photos/seed/city6/800/600",
+    "count": 734,
+    "featured": true
+  },
+  {
+    "id": 7,
+    "name": "Temuco",
+    "slug": "temuco",
+    "image": "https://picsum.photos/seed/city7/800/600",
+    "count": 645,
+    "featured": true
+  },
+  {
+    "id": 8,
+    "name": "Antofagasta",
+    "slug": "antofagasta",
+    "image": "https://picsum.photos/seed/city8/800/600",
+    "count": 589,
+    "featured": true
+  }
+]
