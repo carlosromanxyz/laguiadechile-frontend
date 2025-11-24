@@ -43,7 +43,7 @@ export function LDCAboutWhy() {
         {/* Right Column - Image */}
         <div className="col-span-1 flex items-center justify-center">
           <Image
-            src="https://picsum.photos/seed/about-why/540/478"
+            src="/images/about-img-2.png"
             alt="¿Por qué estar en La Guía de Chile?"
             width={540}
             height={478}

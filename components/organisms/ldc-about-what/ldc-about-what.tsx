@@ -19,7 +19,7 @@ export function LDCAboutWhat() {
         {/* Left Column - Image */}
         <div className="col-span-1 flex items-center justify-center">
           <Image
-            src="https://picsum.photos/seed/about-what/540/478"
+            src="/images/about-img-1.png"
             alt="¿Qué es La Guía de Chile?"
             width={540}
             height={478}

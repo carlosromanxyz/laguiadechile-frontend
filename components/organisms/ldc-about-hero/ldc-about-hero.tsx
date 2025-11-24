@@ -29,7 +29,7 @@ export function LDCAboutHero() {
           {/* Right Column - Illustration */}
           <div className="col-span-1 flex items-center justify-center">
             <Image
-              src="https://picsum.photos/seed/about-hero/540/478"
+              src="/images/about-illustration.png"
               alt="La Guía de Chile - Ilustración"
               width={540}
               height={478}
