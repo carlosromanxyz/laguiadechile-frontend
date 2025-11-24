@@ -30,13 +30,6 @@ export default function NosotrosPage() {
       {/* What Section */}
       <LDCAboutWhat />
 
-      {/* Subtle Divider */}
-      <div className="bg-background">
-        <div className="mx-auto max-w-7xl px-4">
-          <div className="h-px bg-gradient-to-r from-transparent via-border to-transparent" />
-        </div>
-      </div>
-
       {/* Why Section */}
       <LDCAboutWhy />
     </>
