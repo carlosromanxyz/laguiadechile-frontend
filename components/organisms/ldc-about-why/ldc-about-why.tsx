@@ -22,7 +22,7 @@ export function LDCAboutWhy() {
   ];
 
   return (
-    <LDCSection paddingY="xl">
+    <LDCSection paddingY="xl" className="bg-muted/30">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Left Column - Features List */}
         <div className="col-span-1">

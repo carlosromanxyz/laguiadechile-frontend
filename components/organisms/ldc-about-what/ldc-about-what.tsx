@@ -14,7 +14,7 @@ import Image from "next/image";
  */
 export function LDCAboutWhat() {
   return (
-    <LDCSection paddingY="xl">
+    <LDCSection paddingY="xl" className="bg-background">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
         {/* Left Column - Image */}
         <div className="col-span-1 flex items-center justify-center">
