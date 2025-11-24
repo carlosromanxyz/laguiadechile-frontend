@@ -14,7 +14,7 @@ import Image from "next/image";
 export function LDCAboutHero() {
   return (
     <section className="flex min-h-screen items-center bg-gradient-to-tr from-purple to-pink">
-      <div className="container mx-auto px-4">
+      <div className="mx-auto max-w-7xl px-4">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
           {/* Left Column - Text */}
           <div className="col-span-1 flex flex-col justify-center text-center text-white md:text-start">
