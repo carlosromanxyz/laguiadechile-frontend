@@ -23,6 +23,7 @@ export function LDCAboutWhat() {
             alt="¿Qué es La Guía de Chile?"
             width={540}
             height={478}
+            className="w-full h-auto"
           />
         </div>
 

@@ -47,6 +47,7 @@ export function LDCAboutWhy() {
             alt="¿Por qué estar en La Guía de Chile?"
             width={540}
             height={478}
+            className="w-full h-auto"
           />
         </div>
       </div>

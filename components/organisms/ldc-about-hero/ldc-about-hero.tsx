@@ -33,7 +33,7 @@ export function LDCAboutHero() {
               alt="La Guía de Chile - Ilustración"
               width={540}
               height={478}
-              className="mt-6 md:mt-0"
+              className="mt-6 w-full h-auto md:mt-0"
               priority
             />
           </div>
