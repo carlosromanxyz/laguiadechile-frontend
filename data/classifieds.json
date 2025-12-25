@@ -1,0 +1,628 @@
+[
+  {
+    "id": 1,
+    "title": "iPhone 13 Pro Max 256GB - Excelente estado",
+    "slug": "iphone-13-pro-max-256gb",
+    "description": "Vendo iPhone 13 Pro Max en excelente estado, incluye cargador original y caja.",
+    "type": "vendo",
+    "category": {
+      "id": 1,
+      "name": "Electrónica",
+      "slug": "electronica",
+      "icon": "MdPhoneIphone"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Providencia",
+    "image": "https://picsum.photos/seed/classified1/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 650000
+    },
+    "featured": true,
+    "createdAt": "2024-12-24T10:00:00Z",
+    "expiresAt": "2025-01-24T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Departamento 2D 1B Metro Los Leones",
+    "slug": "departamento-2d-1b-metro-los-leones",
+    "description": "Arriendo departamento amoblado, 2 dormitorios, 1 baño, cerca del metro.",
+    "type": "arriendo",
+    "category": {
+      "id": 2,
+      "name": "Inmuebles",
+      "slug": "inmuebles",
+      "icon": "MdHome"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Providencia",
+    "image": "https://picsum.photos/seed/classified2/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 450000
+    },
+    "featured": true,
+    "createdAt": "2024-12-24T09:00:00Z",
+    "expiresAt": "2025-01-24T09:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Busco desarrollador React para proyecto freelance",
+    "slug": "busco-desarrollador-react-freelance",
+    "description": "Empresa busca desarrollador React con experiencia en Next.js para proyecto de 3 meses.",
+    "type": "busco",
+    "category": {
+      "id": 3,
+      "name": "Empleos",
+      "slug": "empleos",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Las Condes",
+    "image": "https://picsum.photos/seed/classified3/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-24T08:00:00Z",
+    "expiresAt": "2025-01-24T08:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Clases particulares de matemáticas",
+    "slug": "clases-particulares-matematicas",
+    "description": "Ofrezco clases particulares de matemáticas para enseñanza media y PSU. Profesor titulado.",
+    "type": "ofrezco",
+    "category": {
+      "id": 4,
+      "name": "Servicios",
+      "slug": "servicios",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Ñuñoa",
+    "image": "https://picsum.photos/seed/classified4/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 15000
+    },
+    "featured": false,
+    "createdAt": "2024-12-23T18:00:00Z",
+    "expiresAt": "2025-01-23T18:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Bicicleta MTB Specialized Rockhopper",
+    "slug": "bicicleta-mtb-specialized-rockhopper",
+    "description": "Vendo bicicleta MTB Specialized Rockhopper, talla M, poco uso, excelente estado.",
+    "type": "vendo",
+    "category": {
+      "id": 5,
+      "name": "Vehículos",
+      "slug": "vehiculos",
+      "icon": "MdDirectionsBike"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "commune": "Viña del Mar",
+    "image": "https://picsum.photos/seed/classified5/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 380000
+    },
+    "featured": true,
+    "createdAt": "2024-12-23T15:00:00Z",
+    "expiresAt": "2025-01-23T15:00:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Sofá 3 cuerpos gris - Como nuevo",
+    "slug": "sofa-3-cuerpos-gris",
+    "description": "Vendo sofá de 3 cuerpos color gris, 1 año de uso, sin manchas ni roturas.",
+    "type": "vendo",
+    "category": {
+      "id": 6,
+      "name": "Hogar",
+      "slug": "hogar",
+      "icon": "MdChair"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "La Florida",
+    "image": "https://picsum.photos/seed/classified6/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 250000
+    },
+    "featured": false,
+    "createdAt": "2024-12-23T12:00:00Z",
+    "expiresAt": "2025-01-23T12:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Gatitos en adopción responsable",
+    "slug": "gatitos-adopcion-responsable",
+    "description": "Doy en adopción responsable 3 gatitos de 2 meses, vacunados y desparasitados.",
+    "type": "ofrezco",
+    "category": {
+      "id": 7,
+      "name": "Mascotas",
+      "slug": "mascotas",
+      "icon": "MdPets"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/classified7/400/400",
+    "price": {
+      "type": "free"
+    },
+    "featured": false,
+    "createdAt": "2024-12-23T10:00:00Z",
+    "expiresAt": "2025-01-23T10:00:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Toyota Yaris 2019 - 45.000 km",
+    "slug": "toyota-yaris-2019",
+    "description": "Vendo Toyota Yaris 2019, único dueño, mantenciones al día, 45.000 km reales.",
+    "type": "vendo",
+    "category": {
+      "id": 5,
+      "name": "Vehículos",
+      "slug": "vehiculos",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Maipú",
+    "image": "https://picsum.photos/seed/classified8/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 8500000
+    },
+    "featured": true,
+    "createdAt": "2024-12-22T16:00:00Z",
+    "expiresAt": "2025-01-22T16:00:00Z"
+  },
+  {
+    "id": 9,
+    "title": "PlayStation 5 + 2 controles",
+    "slug": "playstation-5-2-controles",
+    "description": "Vendo PS5 versión disco con 2 controles originales, poco uso.",
+    "type": "vendo",
+    "category": {
+      "id": 1,
+      "name": "Electrónica",
+      "slug": "electronica",
+      "icon": "MdGamepad"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Santiago Centro",
+    "image": "https://picsum.photos/seed/classified9/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 480000
+    },
+    "featured": false,
+    "createdAt": "2024-12-22T14:00:00Z",
+    "expiresAt": "2025-01-22T14:00:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Busco arriendo pieza estudiante",
+    "slug": "busco-arriendo-pieza-estudiante",
+    "description": "Estudiante universitario busca pieza en arriendo cerca de metro, hasta $200.000.",
+    "type": "busco",
+    "category": {
+      "id": 2,
+      "name": "Inmuebles",
+      "slug": "inmuebles",
+      "icon": "MdHome"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified10/400/400",
+    "price": {
+      "type": "contact"
+    },
+    "featured": false,
+    "createdAt": "2024-12-22T11:00:00Z",
+    "expiresAt": "2025-01-22T11:00:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Notebook HP Pavilion i5 16GB RAM",
+    "slug": "notebook-hp-pavilion-i5",
+    "description": "Vendo notebook HP Pavilion, procesador i5, 16GB RAM, SSD 512GB.",
+    "type": "vendo",
+    "category": {
+      "id": 1,
+      "name": "Electrónica",
+      "slug": "electronica",
+      "icon": "MdLaptop"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/classified11/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 420000
+    },
+    "featured": false,
+    "createdAt": "2024-12-22T09:00:00Z",
+    "expiresAt": "2025-01-22T09:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Servicio de mudanzas económico",
+    "slug": "servicio-mudanzas-economico",
+    "description": "Ofrezco servicio de mudanzas con camión y ayudantes. Precios económicos.",
+    "type": "ofrezco",
+    "category": {
+      "id": 4,
+      "name": "Servicios",
+      "slug": "servicios",
+      "icon": "MdLocalShipping"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified12/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-21T17:00:00Z",
+    "expiresAt": "2025-01-21T17:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Mesa de comedor + 6 sillas",
+    "slug": "mesa-comedor-6-sillas",
+    "description": "Vendo juego de comedor: mesa extensible + 6 sillas, madera de roble.",
+    "type": "vendo",
+    "category": {
+      "id": 6,
+      "name": "Hogar",
+      "slug": "hogar",
+      "icon": "MdTableRestaurant"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/classified13/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 350000
+    },
+    "featured": false,
+    "createdAt": "2024-12-21T14:00:00Z",
+    "expiresAt": "2025-01-21T14:00:00Z"
+  },
+  {
+    "id": 14,
+    "title": "Técnico en refrigeración a domicilio",
+    "slug": "tecnico-refrigeracion-domicilio",
+    "description": "Ofrezco servicio técnico de refrigeradores y freezer a domicilio. 10 años de experiencia.",
+    "type": "ofrezco",
+    "category": {
+      "id": 4,
+      "name": "Servicios",
+      "slug": "servicios",
+      "icon": "MdBuild"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified14/400/400",
+    "price": {
+      "type": "contact"
+    },
+    "featured": false,
+    "createdAt": "2024-12-21T11:00:00Z",
+    "expiresAt": "2025-01-21T11:00:00Z"
+  },
+  {
+    "id": 15,
+    "title": "Scooter eléctrico Xiaomi Pro 2",
+    "slug": "scooter-electrico-xiaomi-pro-2",
+    "description": "Vendo scooter eléctrico Xiaomi Pro 2, batería en perfecto estado, 800 km de uso.",
+    "type": "vendo",
+    "category": {
+      "id": 5,
+      "name": "Vehículos",
+      "slug": "vehiculos",
+      "icon": "MdElectricScooter"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Las Condes",
+    "image": "https://picsum.photos/seed/classified15/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 320000
+    },
+    "featured": true,
+    "createdAt": "2024-12-20T16:00:00Z",
+    "expiresAt": "2025-01-20T16:00:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Compro monedas y billetes antiguos",
+    "slug": "compro-monedas-billetes-antiguos",
+    "description": "Compro monedas y billetes antiguos chilenos y extranjeros. Pago justo.",
+    "type": "compro",
+    "category": {
+      "id": 8,
+      "name": "Otros",
+      "slug": "otros",
+      "icon": "MdCategory"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Santiago Centro",
+    "image": "https://picsum.photos/seed/classified16/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-20T13:00:00Z",
+    "expiresAt": "2025-01-20T13:00:00Z"
+  },
+  {
+    "id": 17,
+    "title": "Diseñador gráfico freelance",
+    "slug": "disenador-grafico-freelance",
+    "description": "Ofrezco servicios de diseño gráfico: logos, flyers, branding, redes sociales.",
+    "type": "ofrezco",
+    "category": {
+      "id": 4,
+      "name": "Servicios",
+      "slug": "servicios",
+      "icon": "MdBrush"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified17/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-20T10:00:00Z",
+    "expiresAt": "2025-01-20T10:00:00Z"
+  },
+  {
+    "id": 18,
+    "title": "Lavadora Samsung 12kg - 2 años",
+    "slug": "lavadora-samsung-12kg",
+    "description": "Vendo lavadora Samsung 12kg, 2 años de uso, funciona perfectamente.",
+    "type": "vendo",
+    "category": {
+      "id": 6,
+      "name": "Hogar",
+      "slug": "hogar",
+      "icon": "MdLocalLaundryService"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/classified18/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 180000
+    },
+    "featured": false,
+    "createdAt": "2024-12-19T15:00:00Z",
+    "expiresAt": "2025-01-19T15:00:00Z"
+  },
+  {
+    "id": 19,
+    "title": "Casa 3D 2B con patio - Puente Alto",
+    "slug": "casa-3d-2b-puente-alto",
+    "description": "Arriendo casa 3 dormitorios, 2 baños, patio trasero, estacionamiento.",
+    "type": "arriendo",
+    "category": {
+      "id": 2,
+      "name": "Inmuebles",
+      "slug": "inmuebles",
+      "icon": "MdHome"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Puente Alto",
+    "image": "https://picsum.photos/seed/classified19/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 550000
+    },
+    "featured": true,
+    "createdAt": "2024-12-19T12:00:00Z",
+    "expiresAt": "2025-01-19T12:00:00Z"
+  },
+  {
+    "id": 20,
+    "title": "Perrito mestizo busca hogar",
+    "slug": "perrito-mestizo-busca-hogar",
+    "description": "Doy en adopción perrito mestizo, 6 meses, muy cariñoso, vacunas al día.",
+    "type": "ofrezco",
+    "category": {
+      "id": 7,
+      "name": "Mascotas",
+      "slug": "mascotas",
+      "icon": "MdPets"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/classified20/400/400",
+    "price": {
+      "type": "free"
+    },
+    "featured": false,
+    "createdAt": "2024-12-19T09:00:00Z",
+    "expiresAt": "2025-01-19T09:00:00Z"
+  },
+  {
+    "id": 21,
+    "title": "Administrador de empresas busca empleo",
+    "slug": "administrador-empresas-busca-empleo",
+    "description": "Busco empleo como administrador o gerente. 8 años de experiencia.",
+    "type": "busco",
+    "category": {
+      "id": 3,
+      "name": "Empleos",
+      "slug": "empleos",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified21/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-18T16:00:00Z",
+    "expiresAt": "2025-01-18T16:00:00Z"
+  },
+  {
+    "id": 22,
+    "title": "Guitarra acústica Fender CD-60",
+    "slug": "guitarra-acustica-fender-cd60",
+    "description": "Vendo guitarra acústica Fender CD-60, incluye funda y afinador.",
+    "type": "vendo",
+    "category": {
+      "id": 8,
+      "name": "Otros",
+      "slug": "otros",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 5,
+      "name": "Temuco",
+      "slug": "temuco"
+    },
+    "image": "https://picsum.photos/seed/classified22/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 120000
+    },
+    "featured": false,
+    "createdAt": "2024-12-18T13:00:00Z",
+    "expiresAt": "2025-01-18T13:00:00Z"
+  },
+  {
+    "id": 23,
+    "title": "Smart TV Samsung 55 pulgadas 4K",
+    "slug": "smart-tv-samsung-55-4k",
+    "description": "Vendo Smart TV Samsung 55 pulgadas 4K UHD, modelo 2023, como nuevo.",
+    "type": "vendo",
+    "category": {
+      "id": 1,
+      "name": "Electrónica",
+      "slug": "electronica",
+      "icon": "MdTv"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "commune": "Vitacura",
+    "image": "https://picsum.photos/seed/classified23/400/400",
+    "price": {
+      "type": "fixed",
+      "amount": 380000
+    },
+    "featured": false,
+    "createdAt": "2024-12-18T10:00:00Z",
+    "expiresAt": "2025-01-18T10:00:00Z"
+  },
+  {
+    "id": 24,
+    "title": "Cuidado de adultos mayores",
+    "slug": "cuidado-adultos-mayores",
+    "description": "Ofrezco servicio de cuidado de adultos mayores, experiencia y referencias.",
+    "type": "ofrezco",
+    "category": {
+      "id": 4,
+      "name": "Servicios",
+      "slug": "servicios",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/classified24/400/400",
+    "price": {
+      "type": "negotiable"
+    },
+    "featured": false,
+    "createdAt": "2024-12-17T14:00:00Z",
+    "expiresAt": "2025-01-17T14:00:00Z"
+  }
+]

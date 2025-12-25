@@ -1,0 +1,691 @@
+[
+  {
+    "id": 1,
+    "title": "Departamento 3D 2B con vista panorámica",
+    "slug": "departamento-3d-2b-vista-panoramica-las-condes",
+    "description": "Hermoso departamento con vista panorámica a la cordillera, piso 15, excelente ubicación.",
+    "type": "departamento",
+    "operation": "venta",
+    "price": {
+      "amount": 6500,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 95,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": 2
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Las Condes",
+      "neighborhood": "Estoril"
+    },
+    "image": "https://picsum.photos/seed/prop1/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop1/800/600",
+      "https://picsum.photos/seed/prop1-living/800/600",
+      "https://picsum.photos/seed/prop1-kitchen/800/600",
+      "https://picsum.photos/seed/prop1-bedroom/800/600",
+      "https://picsum.photos/seed/prop1-view/800/600"
+    ],
+    "featured": true,
+    "isNew": true,
+    "createdAt": "2024-12-24T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Casa 4D 3B con piscina y jardín",
+    "slug": "casa-4d-3b-piscina-jardin-la-reina",
+    "description": "Amplia casa con piscina, quincho y hermoso jardín. Barrio residencial tranquilo.",
+    "type": "casa",
+    "operation": "venta",
+    "price": {
+      "amount": 12500,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 180,
+      "totalSurface": 450,
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "parking": 3
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "La Reina",
+      "neighborhood": "Príncipe de Gales"
+    },
+    "image": "https://picsum.photos/seed/prop2/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop2/800/600",
+      "https://picsum.photos/seed/prop2-pool/800/600",
+      "https://picsum.photos/seed/prop2-garden/800/600",
+      "https://picsum.photos/seed/prop2-living/800/600",
+      "https://picsum.photos/seed/prop2-master/800/600",
+      "https://picsum.photos/seed/prop2-kitchen/800/600"
+    ],
+    "featured": true,
+    "isNew": false,
+    "createdAt": "2024-12-23T14:00:00Z"
+  },
+  {
+    "id": 3,
+    "title": "Departamento 2D 1B amoblado cerca del metro",
+    "slug": "departamento-2d-1b-amoblado-providencia",
+    "description": "Departamento completamente amoblado, a 2 cuadras del metro Pedro de Valdivia.",
+    "type": "departamento",
+    "operation": "arriendo",
+    "price": {
+      "amount": 28,
+      "currency": "uf",
+      "commonExpenses": 85000,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 55,
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "parking": 1
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Providencia",
+      "neighborhood": "Pedro de Valdivia"
+    },
+    "image": "https://picsum.photos/seed/prop3/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop3/800/600",
+      "https://picsum.photos/seed/prop3-living/800/600",
+      "https://picsum.photos/seed/prop3-bedroom/800/600",
+      "https://picsum.photos/seed/prop3-bath/800/600"
+    ],
+    "featured": true,
+    "isNew": true,
+    "createdAt": "2024-12-24T08:00:00Z"
+  },
+  {
+    "id": 4,
+    "title": "Oficina 120m² en edificio corporativo",
+    "slug": "oficina-120m2-edificio-corporativo-santiago",
+    "description": "Oficina en piso 8 de edificio corporativo, recepción, sala de reuniones, 4 privados.",
+    "type": "oficina",
+    "operation": "arriendo",
+    "price": {
+      "amount": 65,
+      "currency": "uf",
+      "commonExpenses": 180000,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 120,
+      "bedrooms": 0,
+      "bathrooms": 2,
+      "parking": 2
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Santiago",
+      "neighborhood": "Centro"
+    },
+    "image": "https://picsum.photos/seed/prop4/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop4/800/600",
+      "https://picsum.photos/seed/prop4-reception/800/600",
+      "https://picsum.photos/seed/prop4-meeting/800/600",
+      "https://picsum.photos/seed/prop4-office/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-22T11:00:00Z"
+  },
+  {
+    "id": 5,
+    "title": "Terreno 5.000m² con factibilidad",
+    "slug": "terreno-5000m2-factibilidad-colina",
+    "description": "Terreno plano con factibilidad de luz y agua, ideal para proyecto inmobiliario.",
+    "type": "terreno",
+    "operation": "venta",
+    "price": {
+      "amount": 3.2,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 5000,
+      "bedrooms": 0,
+      "bathrooms": 0,
+      "parking": 0
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Colina",
+      "neighborhood": "Chicureo"
+    },
+    "image": "https://picsum.photos/seed/prop5/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop5/800/600",
+      "https://picsum.photos/seed/prop5-aerial/800/600",
+      "https://picsum.photos/seed/prop5-view/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-20T09:00:00Z"
+  },
+  {
+    "id": 6,
+    "title": "Local comercial en mall",
+    "slug": "local-comercial-mall-vina-del-mar",
+    "description": "Local comercial de 45m² en primer piso de mall, alto tráfico peatonal.",
+    "type": "local",
+    "operation": "arriendo",
+    "price": {
+      "amount": 85,
+      "currency": "uf",
+      "commonExpenses": 250000,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 45,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "parking": 0
+    },
+    "location": {
+      "region": "Valparaíso",
+      "commune": "Viña del Mar",
+      "neighborhood": "Centro"
+    },
+    "image": "https://picsum.photos/seed/prop6/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop6/800/600",
+      "https://picsum.photos/seed/prop6-interior/800/600",
+      "https://picsum.photos/seed/prop6-front/800/600"
+    ],
+    "featured": false,
+    "isNew": true,
+    "createdAt": "2024-12-24T07:00:00Z"
+  },
+  {
+    "id": 7,
+    "title": "Casa de playa para temporada",
+    "slug": "casa-playa-temporada-algarrobo",
+    "description": "Hermosa casa a 100m de la playa, ideal para vacaciones. Capacidad 8 personas.",
+    "type": "casa",
+    "operation": "arriendo-temporal",
+    "price": {
+      "amount": 120000,
+      "currency": "clp",
+      "period": "dia"
+    },
+    "features": {
+      "surface": 140,
+      "totalSurface": 300,
+      "bedrooms": 4,
+      "bathrooms": 2,
+      "parking": 2
+    },
+    "location": {
+      "region": "Valparaíso",
+      "commune": "Algarrobo"
+    },
+    "image": "https://picsum.photos/seed/prop7/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop7/800/600",
+      "https://picsum.photos/seed/prop7-beach/800/600",
+      "https://picsum.photos/seed/prop7-terrace/800/600",
+      "https://picsum.photos/seed/prop7-living/800/600",
+      "https://picsum.photos/seed/prop7-bedroom/800/600"
+    ],
+    "featured": true,
+    "isNew": false,
+    "createdAt": "2024-12-21T15:00:00Z"
+  },
+  {
+    "id": 8,
+    "title": "Bodega industrial 500m²",
+    "slug": "bodega-industrial-500m2-quilicura",
+    "description": "Bodega industrial con portón de acceso para camiones, oficina administrativa.",
+    "type": "bodega",
+    "operation": "arriendo",
+    "price": {
+      "amount": 120,
+      "currency": "uf",
+      "period": "mes"
+    },
+    "features": {
+      "surface": 500,
+      "bedrooms": 0,
+      "bathrooms": 2,
+      "parking": 4
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Quilicura",
+      "neighborhood": "Industrial"
+    },
+    "image": "https://picsum.photos/seed/prop8/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop8/800/600",
+      "https://picsum.photos/seed/prop8-interior/800/600",
+      "https://picsum.photos/seed/prop8-office/800/600",
+      "https://picsum.photos/seed/prop8-gate/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-19T10:00:00Z"
+  },
+  {
+    "id": 9,
+    "title": "Penthouse 4D 4B con terraza y jacuzzi",
+    "slug": "penthouse-4d-4b-terraza-jacuzzi-vitacura",
+    "description": "Espectacular penthouse con terraza de 80m², jacuzzi y vista 360°.",
+    "type": "departamento",
+    "operation": "venta",
+    "price": {
+      "amount": 18500,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 220,
+      "bedrooms": 4,
+      "bathrooms": 4,
+      "parking": 3
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Vitacura",
+      "neighborhood": "Nueva Costanera"
+    },
+    "image": "https://picsum.photos/seed/prop9/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop9/800/600",
+      "https://picsum.photos/seed/prop9-terrace/800/600",
+      "https://picsum.photos/seed/prop9-jacuzzi/800/600",
+      "https://picsum.photos/seed/prop9-view/800/600",
+      "https://picsum.photos/seed/prop9-living/800/600",
+      "https://picsum.photos/seed/prop9-master/800/600"
+    ],
+    "featured": true,
+    "isNew": false,
+    "createdAt": "2024-12-18T12:00:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Departamento 1D 1B ideal inversión",
+    "slug": "departamento-1d-1b-inversion-santiago-centro",
+    "description": "Departamento pequeño ideal para inversión, actualmente arrendado.",
+    "type": "departamento",
+    "operation": "venta",
+    "price": {
+      "amount": 2200,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 32,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "parking": 0
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Santiago",
+      "neighborhood": "Centro"
+    },
+    "image": "https://picsum.photos/seed/prop10/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop10/800/600",
+      "https://picsum.photos/seed/prop10-living/800/600",
+      "https://picsum.photos/seed/prop10-bedroom/800/600"
+    ],
+    "featured": false,
+    "isNew": true,
+    "createdAt": "2024-12-24T06:00:00Z"
+  },
+  {
+    "id": 11,
+    "title": "Casa 5D 4B en condominio cerrado",
+    "slug": "casa-5d-4b-condominio-cerrado-chicureo",
+    "description": "Casa en condominio con seguridad 24/7, áreas verdes, club house y piscina.",
+    "type": "casa",
+    "operation": "venta",
+    "price": {
+      "amount": 22000,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 280,
+      "totalSurface": 600,
+      "bedrooms": 5,
+      "bathrooms": 4,
+      "parking": 4
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Colina",
+      "neighborhood": "Chicureo"
+    },
+    "image": "https://picsum.photos/seed/prop11/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop11/800/600",
+      "https://picsum.photos/seed/prop11-garden/800/600",
+      "https://picsum.photos/seed/prop11-living/800/600",
+      "https://picsum.photos/seed/prop11-kitchen/800/600",
+      "https://picsum.photos/seed/prop11-pool/800/600",
+      "https://picsum.photos/seed/prop11-master/800/600"
+    ],
+    "featured": true,
+    "isNew": false,
+    "createdAt": "2024-12-17T14:00:00Z"
+  },
+  {
+    "id": 12,
+    "title": "Departamento 2D 2B nuevo a estrenar",
+    "slug": "departamento-2d-2b-nuevo-nunoa",
+    "description": "Departamento nuevo, nunca habitado, entrega inmediata. Edificio con gimnasio.",
+    "type": "departamento",
+    "operation": "venta",
+    "price": {
+      "amount": 4800,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 65,
+      "bedrooms": 2,
+      "bathrooms": 2,
+      "parking": 1
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Ñuñoa",
+      "neighborhood": "Plaza Ñuñoa"
+    },
+    "image": "https://picsum.photos/seed/prop12/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop12/800/600",
+      "https://picsum.photos/seed/prop12-living/800/600",
+      "https://picsum.photos/seed/prop12-kitchen/800/600",
+      "https://picsum.photos/seed/prop12-gym/800/600"
+    ],
+    "featured": false,
+    "isNew": true,
+    "createdAt": "2024-12-23T16:00:00Z"
+  },
+  {
+    "id": 13,
+    "title": "Casa 3D 2B con amplio patio",
+    "slug": "casa-3d-2b-amplio-patio-maipu",
+    "description": "Casa sólida con patio trasero de 50m², ideal para familias. Barrio tranquilo.",
+    "type": "casa",
+    "operation": "arriendo",
+    "price": {
+      "amount": 22,
+      "currency": "uf",
+      "commonExpenses": 0,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 100,
+      "totalSurface": 180,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": 1
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Maipú",
+      "neighborhood": "Rinconada"
+    },
+    "image": "https://picsum.photos/seed/prop13/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop13/800/600",
+      "https://picsum.photos/seed/prop13-patio/800/600",
+      "https://picsum.photos/seed/prop13-living/800/600",
+      "https://picsum.photos/seed/prop13-bedroom/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-20T11:00:00Z"
+  },
+  {
+    "id": 14,
+    "title": "Oficina cowork 15 puestos",
+    "slug": "oficina-cowork-15-puestos-providencia",
+    "description": "Espacio de cowork equipado para 15 personas, sala de reuniones incluida.",
+    "type": "oficina",
+    "operation": "arriendo",
+    "price": {
+      "amount": 45,
+      "currency": "uf",
+      "commonExpenses": 0,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 80,
+      "bedrooms": 0,
+      "bathrooms": 2,
+      "parking": 0
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Providencia",
+      "neighborhood": "Nueva Providencia"
+    },
+    "image": "https://picsum.photos/seed/prop14/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop14/800/600",
+      "https://picsum.photos/seed/prop14-desks/800/600",
+      "https://picsum.photos/seed/prop14-meeting/800/600",
+      "https://picsum.photos/seed/prop14-lounge/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-18T09:00:00Z"
+  },
+  {
+    "id": 15,
+    "title": "Departamento con vista al mar",
+    "slug": "departamento-vista-mar-vina-del-mar",
+    "description": "Departamento en primera línea, vista directa al mar, amoblado.",
+    "type": "departamento",
+    "operation": "arriendo-temporal",
+    "price": {
+      "amount": 85000,
+      "currency": "clp",
+      "period": "dia"
+    },
+    "features": {
+      "surface": 70,
+      "bedrooms": 2,
+      "bathrooms": 1,
+      "parking": 1
+    },
+    "location": {
+      "region": "Valparaíso",
+      "commune": "Viña del Mar",
+      "neighborhood": "Reñaca"
+    },
+    "image": "https://picsum.photos/seed/prop15/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop15/800/600",
+      "https://picsum.photos/seed/prop15-view/800/600",
+      "https://picsum.photos/seed/prop15-balcony/800/600",
+      "https://picsum.photos/seed/prop15-living/800/600",
+      "https://picsum.photos/seed/prop15-beach/800/600"
+    ],
+    "featured": true,
+    "isNew": true,
+    "createdAt": "2024-12-24T09:00:00Z"
+  },
+  {
+    "id": 16,
+    "title": "Parcela 1 hectárea con casa patronal",
+    "slug": "parcela-1-hectarea-casa-patronal-melipilla",
+    "description": "Parcela con casa patronal de 200m², caballeriza, bodega y pozo profundo.",
+    "type": "casa",
+    "operation": "venta",
+    "price": {
+      "amount": 8500,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 200,
+      "totalSurface": 10000,
+      "bedrooms": 4,
+      "bathrooms": 3,
+      "parking": 4
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Melipilla"
+    },
+    "image": "https://picsum.photos/seed/prop16/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop16/800/600",
+      "https://picsum.photos/seed/prop16-aerial/800/600",
+      "https://picsum.photos/seed/prop16-stable/800/600",
+      "https://picsum.photos/seed/prop16-interior/800/600",
+      "https://picsum.photos/seed/prop16-garden/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-15T10:00:00Z"
+  },
+  {
+    "id": 17,
+    "title": "Local comercial esquina",
+    "slug": "local-comercial-esquina-la-florida",
+    "description": "Local comercial en esquina, gran vitrina, ideal para farmacia o minimarket.",
+    "type": "local",
+    "operation": "venta",
+    "price": {
+      "amount": 5500,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 85,
+      "bedrooms": 0,
+      "bathrooms": 1,
+      "parking": 2
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "La Florida",
+      "neighborhood": "Vicuña Mackenna"
+    },
+    "image": "https://picsum.photos/seed/prop17/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop17/800/600",
+      "https://picsum.photos/seed/prop17-interior/800/600",
+      "https://picsum.photos/seed/prop17-corner/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-16T13:00:00Z"
+  },
+  {
+    "id": 18,
+    "title": "Departamento 3D 2B cerca de colegios",
+    "slug": "departamento-3d-2b-cerca-colegios-las-condes",
+    "description": "Departamento familiar cerca de colegios y parques. Edificio con áreas comunes.",
+    "type": "departamento",
+    "operation": "arriendo",
+    "price": {
+      "amount": 42,
+      "currency": "uf",
+      "commonExpenses": 120000,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 90,
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "parking": 1
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Las Condes",
+      "neighborhood": "Los Dominicos"
+    },
+    "image": "https://picsum.photos/seed/prop18/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop18/800/600",
+      "https://picsum.photos/seed/prop18-living/800/600",
+      "https://picsum.photos/seed/prop18-kitchen/800/600",
+      "https://picsum.photos/seed/prop18-bedroom/800/600",
+      "https://picsum.photos/seed/prop18-amenities/800/600"
+    ],
+    "featured": false,
+    "isNew": false,
+    "createdAt": "2024-12-19T08:00:00Z"
+  },
+  {
+    "id": 19,
+    "title": "Studio amoblado en barrio universitario",
+    "slug": "studio-amoblado-barrio-universitario-macul",
+    "description": "Studio completamente amoblado, ideal para estudiantes. Cerca de universidades y metro.",
+    "type": "departamento",
+    "operation": "arriendo",
+    "price": {
+      "amount": 15,
+      "currency": "uf",
+      "commonExpenses": 45000,
+      "period": "mes"
+    },
+    "features": {
+      "surface": 28,
+      "bedrooms": 1,
+      "bathrooms": 1,
+      "parking": 0
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Macul",
+      "neighborhood": "Campus San Joaquín"
+    },
+    "image": "https://picsum.photos/seed/prop19/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop19/800/600",
+      "https://picsum.photos/seed/prop19-interior/800/600",
+      "https://picsum.photos/seed/prop19-kitchen/800/600"
+    ],
+    "featured": false,
+    "isNew": true,
+    "createdAt": "2024-12-24T11:00:00Z"
+  },
+  {
+    "id": 20,
+    "title": "Casa mediterránea con piscina temperada",
+    "slug": "casa-mediterranea-piscina-temperada-lo-barnechea",
+    "description": "Espectacular casa estilo mediterráneo con piscina temperada, quincho y bodega de vinos.",
+    "type": "casa",
+    "operation": "venta",
+    "price": {
+      "amount": 28000,
+      "currency": "uf"
+    },
+    "features": {
+      "surface": 350,
+      "totalSurface": 800,
+      "bedrooms": 5,
+      "bathrooms": 5,
+      "parking": 4
+    },
+    "location": {
+      "region": "Metropolitana",
+      "commune": "Lo Barnechea",
+      "neighborhood": "La Dehesa"
+    },
+    "image": "https://picsum.photos/seed/prop20/800/600",
+    "images": [
+      "https://picsum.photos/seed/prop20/800/600",
+      "https://picsum.photos/seed/prop20-pool/800/600",
+      "https://picsum.photos/seed/prop20-living/800/600",
+      "https://picsum.photos/seed/prop20-kitchen/800/600",
+      "https://picsum.photos/seed/prop20-master/800/600",
+      "https://picsum.photos/seed/prop20-wine/800/600"
+    ],
+    "featured": true,
+    "isNew": false,
+    "createdAt": "2024-12-22T09:00:00Z"
+  }
+]

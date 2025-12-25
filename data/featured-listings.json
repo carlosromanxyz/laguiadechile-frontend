@@ -334,5 +334,1370 @@
     "featured": false,
     "createdAt": "2024-11-25T12:00:00Z",
     "updatedAt": "2024-11-25T12:00:00Z"
+  },
+  {
+    "id": 17,
+    "title": "Supermercado FreshMart",
+    "slug": "supermercado-freshmart",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing17/800/600",
+    "featured": true,
+    "createdAt": "2024-12-01T09:00:00Z",
+    "updatedAt": "2024-12-01T09:00:00Z"
+  },
+  {
+    "id": 18,
+    "title": "Hostal Andino",
+    "slug": "hostal-andino",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 6,
+      "name": "Puerto Montt",
+      "slug": "puerto-montt"
+    },
+    "image": "https://picsum.photos/seed/listing18/800/600",
+    "featured": false,
+    "createdAt": "2024-12-02T10:00:00Z",
+    "updatedAt": "2024-12-02T10:00:00Z"
+  },
+  {
+    "id": 19,
+    "title": "Pizzería Don Giovanni",
+    "slug": "pizzeria-don-giovanni",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing19/800/600",
+    "featured": false,
+    "createdAt": "2024-12-03T11:00:00Z",
+    "updatedAt": "2024-12-03T11:00:00Z"
+  },
+  {
+    "id": 20,
+    "title": "Óptica Visión Clara",
+    "slug": "optica-vision-clara",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing20/800/600",
+    "featured": false,
+    "createdAt": "2024-12-04T12:00:00Z",
+    "updatedAt": "2024-12-04T12:00:00Z"
+  },
+  {
+    "id": 21,
+    "title": "Farmacia Salud Total",
+    "slug": "farmacia-salud-total",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing21/800/600",
+    "featured": false,
+    "createdAt": "2024-12-05T08:00:00Z",
+    "updatedAt": "2024-12-05T08:00:00Z"
+  },
+  {
+    "id": 22,
+    "title": "Sushi Tokio Express",
+    "slug": "sushi-tokio-express",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing22/800/600",
+    "featured": true,
+    "createdAt": "2024-12-06T14:00:00Z",
+    "updatedAt": "2024-12-06T14:00:00Z"
+  },
+  {
+    "id": 23,
+    "title": "Boutique Eleganza",
+    "slug": "boutique-eleganza",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing23/800/600",
+    "featured": false,
+    "createdAt": "2024-12-07T09:30:00Z",
+    "updatedAt": "2024-12-07T09:30:00Z"
+  },
+  {
+    "id": 24,
+    "title": "Heladería Dolce Vita",
+    "slug": "heladeria-dolce-vita",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 5,
+      "name": "Temuco",
+      "slug": "temuco"
+    },
+    "image": "https://picsum.photos/seed/listing24/800/600",
+    "featured": false,
+    "createdAt": "2024-12-08T15:00:00Z",
+    "updatedAt": "2024-12-08T15:00:00Z"
+  },
+  {
+    "id": 25,
+    "title": "Hotel Patagonia Sur",
+    "slug": "hotel-patagonia-sur",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 7,
+      "name": "Punta Arenas",
+      "slug": "punta-arenas"
+    },
+    "image": "https://picsum.photos/seed/listing25/800/600",
+    "featured": true,
+    "createdAt": "2024-12-09T10:00:00Z",
+    "updatedAt": "2024-12-09T10:00:00Z"
+  },
+  {
+    "id": 26,
+    "title": "Mueblería Casa Bella",
+    "slug": "muebleria-casa-bella",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing26/800/600",
+    "featured": false,
+    "createdAt": "2024-12-10T11:00:00Z",
+    "updatedAt": "2024-12-10T11:00:00Z"
+  },
+  {
+    "id": 27,
+    "title": "Consultoría TechSolutions",
+    "slug": "consultoria-techsolutions",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing27/800/600",
+    "featured": false,
+    "createdAt": "2024-12-11T09:00:00Z",
+    "updatedAt": "2024-12-11T09:00:00Z"
+  },
+  {
+    "id": 28,
+    "title": "Parrilla El Gaucho",
+    "slug": "parrilla-el-gaucho",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing28/800/600",
+    "featured": false,
+    "createdAt": "2024-12-12T13:00:00Z",
+    "updatedAt": "2024-12-12T13:00:00Z"
+  },
+  {
+    "id": 29,
+    "title": "Joyería Diamante Azul",
+    "slug": "joyeria-diamante-azul",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing29/800/600",
+    "featured": false,
+    "createdAt": "2024-12-13T10:00:00Z",
+    "updatedAt": "2024-12-13T10:00:00Z"
+  },
+  {
+    "id": 30,
+    "title": "Spa Relajación Total",
+    "slug": "spa-relajacion-total",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 8,
+      "name": "Viña del Mar",
+      "slug": "vina-del-mar"
+    },
+    "image": "https://picsum.photos/seed/listing30/800/600",
+    "featured": true,
+    "createdAt": "2024-12-14T11:00:00Z",
+    "updatedAt": "2024-12-14T11:00:00Z"
+  },
+  {
+    "id": 31,
+    "title": "Pastelería Dulce Hogar",
+    "slug": "pasteleria-dulce-hogar",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing31/800/600",
+    "featured": false,
+    "createdAt": "2024-12-15T08:00:00Z",
+    "updatedAt": "2024-12-15T08:00:00Z"
+  },
+  {
+    "id": 32,
+    "title": "Zapatería Paso Firme",
+    "slug": "zapateria-paso-firme",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing32/800/600",
+    "featured": false,
+    "createdAt": "2024-12-16T14:00:00Z",
+    "updatedAt": "2024-12-16T14:00:00Z"
+  },
+  {
+    "id": 33,
+    "title": "Estudio Contable Números Claros",
+    "slug": "estudio-contable-numeros-claros",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing33/800/600",
+    "featured": false,
+    "createdAt": "2024-12-17T09:00:00Z",
+    "updatedAt": "2024-12-17T09:00:00Z"
+  },
+  {
+    "id": 34,
+    "title": "Clínica Veterinaria Pet Care",
+    "slug": "clinica-veterinaria-pet-care",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing34/800/600",
+    "featured": false,
+    "createdAt": "2024-12-17T10:00:00Z",
+    "updatedAt": "2024-12-17T10:00:00Z"
+  },
+  {
+    "id": 35,
+    "title": "Academia de Música Allegro",
+    "slug": "academia-musica-allegro",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing35/800/600",
+    "featured": true,
+    "createdAt": "2024-12-18T11:00:00Z",
+    "updatedAt": "2024-12-18T11:00:00Z"
+  },
+  {
+    "id": 36,
+    "title": "Servicio Técnico ElectroFix",
+    "slug": "servicio-tecnico-electrofix",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing36/800/600",
+    "featured": false,
+    "createdAt": "2024-12-18T12:00:00Z",
+    "updatedAt": "2024-12-18T12:00:00Z"
+  },
+  {
+    "id": 37,
+    "title": "Estudio Fotográfico Captura",
+    "slug": "estudio-fotografico-captura",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 8,
+      "name": "Viña del Mar",
+      "slug": "vina-del-mar"
+    },
+    "image": "https://picsum.photos/seed/listing37/800/600",
+    "featured": false,
+    "createdAt": "2024-12-19T09:00:00Z",
+    "updatedAt": "2024-12-19T09:00:00Z"
+  },
+  {
+    "id": 38,
+    "title": "Clínica Kinesiología MoviSalud",
+    "slug": "clinica-kinesiologia-movisalud",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing38/800/600",
+    "featured": true,
+    "createdAt": "2024-12-19T14:00:00Z",
+    "updatedAt": "2024-12-19T14:00:00Z"
+  },
+  {
+    "id": 39,
+    "title": "Guardería Infantil Pequeños Pasos",
+    "slug": "guarderia-infantil-pequenos-pasos",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing39/800/600",
+    "featured": false,
+    "createdAt": "2024-12-20T08:00:00Z",
+    "updatedAt": "2024-12-20T08:00:00Z"
+  },
+  {
+    "id": 40,
+    "title": "Agencia de Viajes Mundo Tours",
+    "slug": "agencia-viajes-mundo-tours",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing40/800/600",
+    "featured": false,
+    "createdAt": "2024-12-20T10:00:00Z",
+    "updatedAt": "2024-12-20T10:00:00Z"
+  },
+  {
+    "id": 41,
+    "title": "Lavandería Express Clean",
+    "slug": "lavanderia-express-clean",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing41/800/600",
+    "featured": false,
+    "createdAt": "2024-12-21T09:00:00Z",
+    "updatedAt": "2024-12-21T09:00:00Z"
+  },
+  {
+    "id": 42,
+    "title": "Centro Psicológico Mente Sana",
+    "slug": "centro-psicologico-mente-sana",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing42/800/600",
+    "featured": false,
+    "createdAt": "2024-12-21T11:00:00Z",
+    "updatedAt": "2024-12-21T11:00:00Z"
+  },
+  {
+    "id": 43,
+    "title": "Escuela de Manejo Ruta Segura",
+    "slug": "escuela-manejo-ruta-segura",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing43/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T10:00:00Z",
+    "updatedAt": "2024-12-22T10:00:00Z"
+  },
+  {
+    "id": 44,
+    "title": "Panadería Artesanal El Trigal",
+    "slug": "panaderia-artesanal-el-trigal",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing44/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T11:00:00Z",
+    "updatedAt": "2024-12-22T11:00:00Z"
+  },
+  {
+    "id": 45,
+    "title": "Hostal Backpackers Chile",
+    "slug": "hostal-backpackers-chile",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing45/800/600",
+    "featured": true,
+    "createdAt": "2024-12-22T12:00:00Z",
+    "updatedAt": "2024-12-22T12:00:00Z"
+  },
+  {
+    "id": 46,
+    "title": "Boutique Elegance",
+    "slug": "boutique-elegance",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing46/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T13:00:00Z",
+    "updatedAt": "2024-12-22T13:00:00Z"
+  },
+  {
+    "id": 47,
+    "title": "Sushi Bar Tokio",
+    "slug": "sushi-bar-tokio",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing47/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T14:00:00Z",
+    "updatedAt": "2024-12-22T14:00:00Z"
+  },
+  {
+    "id": 48,
+    "title": "Ferretería El Constructor",
+    "slug": "ferreteria-el-constructor",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing48/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T15:00:00Z",
+    "updatedAt": "2024-12-22T15:00:00Z"
+  },
+  {
+    "id": 49,
+    "title": "Resort Playa Dorada",
+    "slug": "resort-playa-dorada",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing49/800/600",
+    "featured": true,
+    "createdAt": "2024-12-22T16:00:00Z",
+    "updatedAt": "2024-12-22T16:00:00Z"
+  },
+  {
+    "id": 50,
+    "title": "Pizzería Napoli",
+    "slug": "pizzeria-napoli",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing50/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T08:00:00Z",
+    "updatedAt": "2024-12-23T08:00:00Z"
+  },
+  {
+    "id": 51,
+    "title": "Minimarket Don Pedro",
+    "slug": "minimarket-don-pedro",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing51/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T09:00:00Z",
+    "updatedAt": "2024-12-23T09:00:00Z"
+  },
+  {
+    "id": 52,
+    "title": "Apart Hotel Costa Azul",
+    "slug": "apart-hotel-costa-azul",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing52/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T10:00:00Z",
+    "updatedAt": "2024-12-23T10:00:00Z"
+  },
+  {
+    "id": 53,
+    "title": "Café Literario Neruda",
+    "slug": "cafe-literario-neruda",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing53/800/600",
+    "featured": true,
+    "createdAt": "2024-12-23T11:00:00Z",
+    "updatedAt": "2024-12-23T11:00:00Z"
+  },
+  {
+    "id": 54,
+    "title": "Joyería Brillantes",
+    "slug": "joyeria-brillantes",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing54/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T12:00:00Z",
+    "updatedAt": "2024-12-23T12:00:00Z"
+  },
+  {
+    "id": 55,
+    "title": "Restaurante Mariscos del Puerto",
+    "slug": "restaurante-mariscos-puerto",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing55/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T13:00:00Z",
+    "updatedAt": "2024-12-23T13:00:00Z"
+  },
+  {
+    "id": 56,
+    "title": "Hostal Montaña Andina",
+    "slug": "hostal-montana-andina",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing56/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T14:00:00Z",
+    "updatedAt": "2024-12-23T14:00:00Z"
+  },
+  {
+    "id": 57,
+    "title": "Librería Cultura Viva",
+    "slug": "libreria-cultura-viva",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing57/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T15:00:00Z",
+    "updatedAt": "2024-12-23T15:00:00Z"
+  },
+  {
+    "id": 58,
+    "title": "Heladería Dulce Tentación",
+    "slug": "heladeria-dulce-tentacion",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing58/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T16:00:00Z",
+    "updatedAt": "2024-12-23T16:00:00Z"
+  },
+  {
+    "id": 59,
+    "title": "Outlet Deportivo Runner",
+    "slug": "outlet-deportivo-runner",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing59/800/600",
+    "featured": true,
+    "createdAt": "2024-12-24T08:00:00Z",
+    "updatedAt": "2024-12-24T08:00:00Z"
+  },
+  {
+    "id": 60,
+    "title": "Pub Irish Corner",
+    "slug": "pub-irish-corner",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing60/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T09:00:00Z",
+    "updatedAt": "2024-12-24T09:00:00Z"
+  },
+  {
+    "id": 61,
+    "title": "Hotel Ejecutivo Business",
+    "slug": "hotel-ejecutivo-business",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing61/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T10:00:00Z",
+    "updatedAt": "2024-12-24T10:00:00Z"
+  },
+  {
+    "id": 62,
+    "title": "Floristería Primavera",
+    "slug": "floristeria-primavera",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing62/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T11:00:00Z",
+    "updatedAt": "2024-12-24T11:00:00Z"
+  },
+  {
+    "id": 63,
+    "title": "Asado Argentino Don Julio",
+    "slug": "asado-argentino-don-julio",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing63/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T12:00:00Z",
+    "updatedAt": "2024-12-24T12:00:00Z"
+  },
+  {
+    "id": 64,
+    "title": "Consultora Finanzas Pro",
+    "slug": "consultora-finanzas-pro",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing64/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T11:00:00Z",
+    "updatedAt": "2024-12-22T11:00:00Z"
+  },
+  {
+    "id": 65,
+    "title": "Academia de Baile Ritmo Latino",
+    "slug": "academia-baile-ritmo-latino",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing65/800/600",
+    "featured": true,
+    "createdAt": "2024-12-22T12:00:00Z",
+    "updatedAt": "2024-12-22T12:00:00Z"
+  },
+  {
+    "id": 66,
+    "title": "Clínica Dental Sonrisas",
+    "slug": "clinica-dental-sonrisas",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing66/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T13:00:00Z",
+    "updatedAt": "2024-12-22T13:00:00Z"
+  },
+  {
+    "id": 67,
+    "title": "Taller Mecánico Precisión",
+    "slug": "taller-mecanico-precision",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing67/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T14:00:00Z",
+    "updatedAt": "2024-12-22T14:00:00Z"
+  },
+  {
+    "id": 68,
+    "title": "Instituto Idiomas Global",
+    "slug": "instituto-idiomas-global",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing68/800/600",
+    "featured": true,
+    "createdAt": "2024-12-22T15:00:00Z",
+    "updatedAt": "2024-12-22T15:00:00Z"
+  },
+  {
+    "id": 69,
+    "title": "Spa Relax Total",
+    "slug": "spa-relax-total",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing69/800/600",
+    "featured": false,
+    "createdAt": "2024-12-22T16:00:00Z",
+    "updatedAt": "2024-12-22T16:00:00Z"
+  },
+  {
+    "id": 70,
+    "title": "Productora Audiovisual Cine Sur",
+    "slug": "productora-audiovisual-cine-sur",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing70/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T08:00:00Z",
+    "updatedAt": "2024-12-23T08:00:00Z"
+  },
+  {
+    "id": 71,
+    "title": "Estudio Contable Torres",
+    "slug": "estudio-contable-torres",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing71/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T09:00:00Z",
+    "updatedAt": "2024-12-23T09:00:00Z"
+  },
+  {
+    "id": 72,
+    "title": "Centro Veterinario Mascotas Felices",
+    "slug": "centro-veterinario-mascotas-felices",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing72/800/600",
+    "featured": true,
+    "createdAt": "2024-12-23T10:00:00Z",
+    "updatedAt": "2024-12-23T10:00:00Z"
+  },
+  {
+    "id": 73,
+    "title": "Autolavado Premium Shine",
+    "slug": "autolavado-premium-shine",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing73/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T11:00:00Z",
+    "updatedAt": "2024-12-23T11:00:00Z"
+  },
+  {
+    "id": 74,
+    "title": "Academia Preuniversitario Éxito",
+    "slug": "academia-preuniversitario-exito",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing74/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T12:00:00Z",
+    "updatedAt": "2024-12-23T12:00:00Z"
+  },
+  {
+    "id": 75,
+    "title": "Estudio Fotográfico Momentos",
+    "slug": "estudio-fotografico-momentos",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing75/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T13:00:00Z",
+    "updatedAt": "2024-12-23T13:00:00Z"
+  },
+  {
+    "id": 76,
+    "title": "Arquitectos Diseño Urbano",
+    "slug": "arquitectos-diseno-urbano",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing76/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T14:00:00Z",
+    "updatedAt": "2024-12-23T14:00:00Z"
+  },
+  {
+    "id": 77,
+    "title": "Centro Kinesiología Movimiento",
+    "slug": "centro-kinesiologia-movimiento",
+    "type": "servicio",
+    "category": {
+      "id": 6,
+      "name": "Salud y Bienestar",
+      "slug": "salud-bienestar",
+      "icon": "MdFavorite"
+    },
+    "city": {
+      "id": 4,
+      "name": "La Serena",
+      "slug": "la-serena"
+    },
+    "image": "https://picsum.photos/seed/listing77/800/600",
+    "featured": false,
+    "createdAt": "2024-12-23T15:00:00Z",
+    "updatedAt": "2024-12-23T15:00:00Z"
+  },
+  {
+    "id": 78,
+    "title": "DJ Eventos Party Mix",
+    "slug": "dj-eventos-party-mix",
+    "type": "servicio",
+    "category": {
+      "id": 5,
+      "name": "Entretenimiento",
+      "slug": "entretenimiento",
+      "icon": "MdMusicNote"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing78/800/600",
+    "featured": true,
+    "createdAt": "2024-12-24T08:00:00Z",
+    "updatedAt": "2024-12-24T08:00:00Z"
+  },
+  {
+    "id": 79,
+    "title": "Servicio Técnico Electro Fix",
+    "slug": "servicio-tecnico-electro-fix",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing79/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T09:00:00Z",
+    "updatedAt": "2024-12-24T09:00:00Z"
+  },
+  {
+    "id": 80,
+    "title": "Grúa Asistencia Vial 24/7",
+    "slug": "grua-asistencia-vial-247",
+    "type": "servicio",
+    "category": {
+      "id": 8,
+      "name": "Automotriz",
+      "slug": "automotriz",
+      "icon": "MdDirectionsCar"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing80/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T10:00:00Z",
+    "updatedAt": "2024-12-24T10:00:00Z"
+  },
+  {
+    "id": 81,
+    "title": "Colegio Bilingüe Excellence",
+    "slug": "colegio-bilingue-excellence",
+    "type": "servicio",
+    "category": {
+      "id": 7,
+      "name": "Educación",
+      "slug": "educacion",
+      "icon": "MdSchool"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing81/800/600",
+    "featured": false,
+    "createdAt": "2024-12-24T11:00:00Z",
+    "updatedAt": "2024-12-24T11:00:00Z"
   }
 ]

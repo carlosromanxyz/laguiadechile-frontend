@@ -77,7 +77,9 @@ export function LDCListingCard({
   return (
     <div
       className={cn(
-        "group bg-card dark:bg-neutral-800 rounded-xl overflow-hidden border border-border",
+        "group bg-card dark:bg-neutral-800 rounded-lg overflow-hidden border border-border",
+        "hover:shadow-lg transition-all duration-300",
+        featured && "ring-2 ring-yellow",
         className
       )}
     >
@@ -87,14 +89,25 @@ export function LDCListingCard({
           src={image}
           alt={`${title} - ${category.name} en ${city.name}`}
           fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover transition-transform duration-300 group-hover:scale-110"
           loading="lazy"
           quality={85}
         />
 
+        {/* Featured pattern overlay */}
+        {featured && (
+          <div
+            className="absolute inset-0 opacity-20 pointer-events-none z-[1]"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffbe0b' fill-opacity='0.4'/%3E%3C/svg%3E")`,
+              backgroundSize: '20px 20px',
+            }}
+          />
+        )}
+
         {/* Badges Overlay - Top */}
-        <div className="absolute top-3 left-3 right-3 flex gap-2 flex-wrap z-10">
+        <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
           {featured && (
             <LDCBadge variant="featured">
               <Star className="w-3 h-3 mr-1 fill-current" />
@@ -106,7 +119,7 @@ export function LDCListingCard({
         </div>
 
         {/* Category Badge - Bottom */}
-        <div className="absolute bottom-3 left-3 z-10">
+        <div className="absolute bottom-2 left-2 z-10">
           <LDCBadge variant="default">
             {renderCategoryIcon(category.icon)}
             {category.name}
