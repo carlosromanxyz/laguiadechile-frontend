@@ -26,7 +26,7 @@ interface LDCListingsPageHeroProps {
  * LDCListingsPageHero - Hero Section for Listing Pages
  *
  * Reusable hero component for listing pages (comercios, servicios, etc).
- * Features gradient background, breadcrumbs, title, and decorative elements.
+ * Features purple background, breadcrumbs, title, and icon.
  *
  * @example
  * ```tsx
@@ -53,23 +53,11 @@ export function LDCListingsPageHero({
   return (
     <section
       className={cn(
-        "relative w-full overflow-hidden bg-gradient-to-br from-purple via-pink/90 to-orange-red py-16 md:py-20 lg:py-24",
+        "relative w-full bg-purple py-12 md:py-16",
         className
       )}
     >
-      {/* Decorative background layer */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
-        {/* Large blur shape - top left */}
-        <div className="absolute -left-32 -top-32 h-[400px] w-[400px] rounded-full bg-gradient-to-br from-purple/30 via-pink/20 to-transparent blur-3xl" />
-
-        {/* Medium blur shape - bottom right */}
-        <div className="absolute -bottom-16 -right-16 h-72 w-72 rounded-full bg-gradient-to-tl from-orange/20 via-yellow/10 to-transparent blur-3xl" />
-
-        {/* Small accent shape - floating */}
-        <div className="absolute right-1/4 top-1/4 h-24 w-24 rotate-45 rounded-2xl bg-yellow/20 blur-xl" />
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-4">
+      <div className="mx-auto max-w-7xl px-4">
         {/* Breadcrumbs */}
         <LDCBreadcrumbs items={breadcrumbs} variant="dark" className="mb-6" />
 
@@ -99,12 +87,6 @@ export function LDCListingsPageHero({
             <p className="text-lg text-white/90 max-w-2xl">{subtitle}</p>
           </div>
 
-          {/* Decorative accents - right side */}
-          <div className="hidden md:flex gap-2" aria-hidden="true">
-            <div className="h-16 w-1.5 rounded-full bg-white/40" />
-            <div className="h-16 w-1.5 rounded-full bg-white/25 mt-4" />
-            <div className="h-16 w-1.5 rounded-full bg-white/15 mt-8" />
-          </div>
         </div>
       </div>
     </section>
