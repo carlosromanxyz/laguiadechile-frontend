@@ -1,14 +1,19 @@
-import type { Metadata } from "next";
-
-export const metadata: Metadata = {
-  title: "En Construcción | La Guía de Chile",
-  description: "Sitio en construcción. Pronto estaremos de vuelta.",
-};
-
+/**
+ * Construction Page Layout
+ *
+ * Hides the global header and footer for this standalone page.
+ */
 export default function EnConstruccionLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return children;
+  return (
+    <>
+      <style>{`
+        header, footer { display: none !important; }
+      `}</style>
+      {children}
+    </>
+  );
 }
