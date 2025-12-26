@@ -14,6 +14,8 @@ interface LDCListingsPageHeroProps {
   breadcrumbs: BreadcrumbItem[];
   /** Icon component to display */
   icon: LucideIcon;
+  /** Optional content for the right side (e.g., weather widget) */
+  rightContent?: React.ReactNode;
   /** Optional className for custom styling */
   className?: string;
 }
@@ -40,6 +42,7 @@ export function LDCListingsPageHero({
   title,
   breadcrumbs,
   icon: Icon,
+  rightContent,
   className,
 }: LDCListingsPageHeroProps) {
   return (
@@ -68,6 +71,11 @@ export function LDCListingsPageHero({
               </h1>
             </div>
           </div>
+
+          {/* Right Content (optional) */}
+          {rightContent && (
+            <div className="hidden md:block">{rightContent}</div>
+          )}
         </div>
       </div>
     </section>

@@ -1,9 +1,9 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCSection } from "@/components/organisms/ldc-section";
-import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
+import { LDCWeatherWidget } from "@/components/molecules/ldc-weather-widget";
 import { getAllCitiesFromRegions, getCityBySlugFromRegions } from "@/services/regions";
 import { getListingsByCity } from "@/services/featured-listings";
 import { getPropertiesByCity } from "@/services/properties";
@@ -91,6 +91,7 @@ export default async function CityPage({ params }: CityPageProps) {
         title={city.name}
         breadcrumbs={breadcrumbs}
         icon={MapPin}
+        rightContent={<LDCWeatherWidget cityName={city.name} />}
       />
 
       {/* Main Content */}
