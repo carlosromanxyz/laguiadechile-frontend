@@ -15,7 +15,7 @@ import { getRecentPosts } from "@/services/posts";
  * ```
  */
 export function LDCRecentPosts() {
-  const posts = getRecentPosts(8);
+  const posts = getRecentPosts(10);
 
   return (
     <LDCSection>
@@ -25,7 +25,7 @@ export function LDCRecentPosts() {
       />
 
       {/* Posts Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {posts.map((post) => (
           <LDCPostCard
             key={post.id}

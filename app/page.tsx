@@ -1,7 +1,9 @@
 import { LDCHero } from "@/components/organisms/ldc-hero";
 import { LDCFeaturedCategories } from "@/components/organisms/ldc-featured-categories";
 import { LDCFeaturedListings } from "@/components/organisms/ldc-featured-listings";
+import { LDCRecentProperties } from "@/components/organisms/ldc-recent-properties";
 import { LDCFeaturedCities } from "@/components/organisms/ldc-featured-cities";
+import { LDCRecentClassifieds } from "@/components/organisms/ldc-recent-classifieds";
 import { LDCRecentListings } from "@/components/organisms/ldc-recent-listings";
 import { LDCRecentPosts } from "@/components/organisms/ldc-recent-posts";
 
@@ -15,7 +17,9 @@ import { LDCRecentPosts } from "@/components/organisms/ldc-recent-posts";
  * - Hero: Full-screen hero with search and featured content
  * - Featured Categories: Grid of popular categories
  * - Featured Listings: Grid of featured businesses and services
+ * - Recent Properties: Grid of recent property listings
  * - Featured Cities: Grid of featured Chilean cities
+ * - Recent Classifieds: List of recent classified ads
  * - Recent Listings: Grid of most recent publications
  * - Recent Posts: Grid of recent news articles
  */
@@ -34,8 +38,14 @@ export default function HomePage() {
         {/* Featured Listings Section */}
         <LDCFeaturedListings />
 
+        {/* Recent Properties Section */}
+        <LDCRecentProperties />
+
         {/* Featured Cities Section */}
         <LDCFeaturedCities />
+
+        {/* Recent Classifieds Section */}
+        <LDCRecentClassifieds />
 
         {/* Recent Listings Section */}
         <LDCRecentListings />
