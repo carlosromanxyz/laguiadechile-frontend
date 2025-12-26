@@ -160,10 +160,13 @@ export function LDCClassifiedCard({
 
           {/* Location and time */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <span className="flex items-center gap-1">
+            <Link
+              href={`/ciudad/${city.slug}`}
+              className="flex items-center gap-1 hover:text-pink dark:hover:text-yellow transition-colors"
+            >
               <MapPin className="w-4 h-4 text-pink dark:text-yellow flex-shrink-0" />
               <span className="truncate">{location}</span>
-            </span>
+            </Link>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4 flex-shrink-0" />
               <span>{relativeTime}</span>

@@ -2,11 +2,14 @@ import { IFeaturedListings } from "@/interfaces/featured-listing";
 import featuredListingsData from "@/data/featured-listings.json";
 
 /**
- * Get all featured listings for the home page
+ * Get featured listings for the home page
+ * @param limit - Number of listings to return (default: 10)
  * @returns Array of featured listings
  */
-export function getFeaturedListings(): IFeaturedListings {
-  return featuredListingsData.filter((listing) => listing.featured) as IFeaturedListings;
+export function getFeaturedListings(limit: number = 10): IFeaturedListings {
+  return featuredListingsData
+    .filter((listing) => listing.featured)
+    .slice(0, limit) as IFeaturedListings;
 }
 
 /**
@@ -44,4 +47,26 @@ export function isUpdatedListing(createdAt: string, updatedAt: string): boolean 
   const now = new Date();
   const diffInDays = Math.floor((now.getTime() - updated.getTime()) / (1000 * 60 * 60 * 24));
   return diffInDays <= 7;
+}
+
+/**
+ * Get listings by category slug
+ * @param categorySlug - Category slug
+ * @returns Array of listings in the category
+ */
+export function getListingsByCategory(categorySlug: string): IFeaturedListings {
+  return featuredListingsData.filter(
+    (listing) => listing.category.slug === categorySlug
+  ) as IFeaturedListings;
+}
+
+/**
+ * Get listings by city slug
+ * @param citySlug - City slug
+ * @returns Array of listings in the city
+ */
+export function getListingsByCity(citySlug: string): IFeaturedListings {
+  return featuredListingsData.filter(
+    (listing) => listing.city.slug === citySlug
+  ) as IFeaturedListings;
 }

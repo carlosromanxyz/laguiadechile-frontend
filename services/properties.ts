@@ -72,6 +72,17 @@ export function getPropertiesByCommune(commune: string): IProperties {
 }
 
 /**
+ * Get properties by city slug
+ * @param citySlug - City slug
+ * @returns Array of property listings in that city
+ */
+export function getPropertiesByCity(citySlug: string): IProperties {
+  return propertiesData.filter(
+    (item) => item.location.city.slug === citySlug
+  ) as IProperties;
+}
+
+/**
  * Format property price for display
  * @param price - Price object
  * @returns Formatted price string

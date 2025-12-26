@@ -25,7 +25,7 @@ export function LDCFeaturedCities() {
       />
 
       {/* Cities Grid */}
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-6 lg:grid-cols-3 xl:grid-cols-5">
         {cities.map((city) => (
           <LDCCityCard
             key={city.id}

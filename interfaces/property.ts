@@ -38,7 +38,10 @@ export interface IProperty {
     parking: number;
   };
   location: {
-    region: string;
+    city: {
+      name: string;
+      slug: string;
+    };
     commune: string;
     neighborhood?: string;
   };

@@ -1,0 +1,216 @@
+[
+  {
+    "id": 1,
+    "name": "Arica y Parinacota",
+    "romanNumeral": "XV",
+    "slug": "arica-y-parinacota",
+    "cities": [
+      { "id": 101, "name": "Arica", "slug": "arica", "isCapital": true },
+      { "id": 102, "name": "Putre", "slug": "putre", "isCapital": false }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Tarapacá",
+    "romanNumeral": "I",
+    "slug": "tarapaca",
+    "cities": [
+      { "id": 201, "name": "Iquique", "slug": "iquique", "isCapital": true },
+      { "id": 202, "name": "Alto Hospicio", "slug": "alto-hospicio", "isCapital": false },
+      { "id": 203, "name": "Pozo Almonte", "slug": "pozo-almonte", "isCapital": false }
+    ]
+  },
+  {
+    "id": 3,
+    "name": "Antofagasta",
+    "romanNumeral": "II",
+    "slug": "antofagasta",
+    "cities": [
+      { "id": 301, "name": "Antofagasta", "slug": "antofagasta", "isCapital": true },
+      { "id": 302, "name": "Calama", "slug": "calama", "isCapital": false },
+      { "id": 303, "name": "Tocopilla", "slug": "tocopilla", "isCapital": false },
+      { "id": 304, "name": "Taltal", "slug": "taltal", "isCapital": false },
+      { "id": 305, "name": "San Pedro de Atacama", "slug": "san-pedro-de-atacama", "isCapital": false }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Atacama",
+    "romanNumeral": "III",
+    "slug": "atacama",
+    "cities": [
+      { "id": 401, "name": "Copiapó", "slug": "copiapo", "isCapital": true },
+      { "id": 402, "name": "Vallenar", "slug": "vallenar", "isCapital": false },
+      { "id": 403, "name": "Chañaral", "slug": "chanaral", "isCapital": false },
+      { "id": 404, "name": "Diego de Almagro", "slug": "diego-de-almagro", "isCapital": false }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Coquimbo",
+    "romanNumeral": "IV",
+    "slug": "coquimbo",
+    "cities": [
+      { "id": 501, "name": "La Serena", "slug": "la-serena", "isCapital": true },
+      { "id": 502, "name": "Coquimbo", "slug": "coquimbo", "isCapital": false },
+      { "id": 503, "name": "Ovalle", "slug": "ovalle", "isCapital": false },
+      { "id": 504, "name": "Illapel", "slug": "illapel", "isCapital": false },
+      { "id": 505, "name": "Vicuña", "slug": "vicuna", "isCapital": false }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Valparaíso",
+    "romanNumeral": "V",
+    "slug": "valparaiso",
+    "cities": [
+      { "id": 601, "name": "Valparaíso", "slug": "valparaiso", "isCapital": true },
+      { "id": 602, "name": "Viña del Mar", "slug": "vina-del-mar", "isCapital": false },
+      { "id": 603, "name": "Quilpué", "slug": "quilpue", "isCapital": false },
+      { "id": 604, "name": "Villa Alemana", "slug": "villa-alemana", "isCapital": false },
+      { "id": 605, "name": "San Antonio", "slug": "san-antonio", "isCapital": false },
+      { "id": 606, "name": "Quillota", "slug": "quillota", "isCapital": false },
+      { "id": 607, "name": "Los Andes", "slug": "los-andes", "isCapital": false },
+      { "id": 608, "name": "San Felipe", "slug": "san-felipe", "isCapital": false },
+      { "id": 609, "name": "La Calera", "slug": "la-calera", "isCapital": false },
+      { "id": 610, "name": "Limache", "slug": "limache", "isCapital": false }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Metropolitana de Santiago",
+    "romanNumeral": "RM",
+    "slug": "metropolitana",
+    "cities": [
+      { "id": 701, "name": "Santiago", "slug": "santiago", "isCapital": true },
+      { "id": 702, "name": "Puente Alto", "slug": "puente-alto", "isCapital": false },
+      { "id": 703, "name": "Maipú", "slug": "maipu", "isCapital": false },
+      { "id": 704, "name": "La Florida", "slug": "la-florida", "isCapital": false },
+      { "id": 705, "name": "Las Condes", "slug": "las-condes", "isCapital": false },
+      { "id": 706, "name": "San Bernardo", "slug": "san-bernardo", "isCapital": false },
+      { "id": 707, "name": "Peñalolén", "slug": "penalolen", "isCapital": false },
+      { "id": 708, "name": "Providencia", "slug": "providencia", "isCapital": false },
+      { "id": 709, "name": "Ñuñoa", "slug": "nunoa", "isCapital": false },
+      { "id": 710, "name": "Vitacura", "slug": "vitacura", "isCapital": false },
+      { "id": 711, "name": "Lo Barnechea", "slug": "lo-barnechea", "isCapital": false },
+      { "id": 712, "name": "Colina", "slug": "colina", "isCapital": false }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "O'Higgins",
+    "romanNumeral": "VI",
+    "slug": "ohiggins",
+    "cities": [
+      { "id": 801, "name": "Rancagua", "slug": "rancagua", "isCapital": true },
+      { "id": 802, "name": "San Fernando", "slug": "san-fernando", "isCapital": false },
+      { "id": 803, "name": "Rengo", "slug": "rengo", "isCapital": false },
+      { "id": 804, "name": "Machalí", "slug": "machali", "isCapital": false },
+      { "id": 805, "name": "Pichilemu", "slug": "pichilemu", "isCapital": false },
+      { "id": 806, "name": "Santa Cruz", "slug": "santa-cruz", "isCapital": false }
+    ]
+  },
+  {
+    "id": 9,
+    "name": "Maule",
+    "romanNumeral": "VII",
+    "slug": "maule",
+    "cities": [
+      { "id": 901, "name": "Talca", "slug": "talca", "isCapital": true },
+      { "id": 902, "name": "Curicó", "slug": "curico", "isCapital": false },
+      { "id": 903, "name": "Linares", "slug": "linares", "isCapital": false },
+      { "id": 904, "name": "Constitución", "slug": "constitucion", "isCapital": false },
+      { "id": 905, "name": "Cauquenes", "slug": "cauquenes", "isCapital": false }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Ñuble",
+    "romanNumeral": "XVI",
+    "slug": "nuble",
+    "cities": [
+      { "id": 1001, "name": "Chillán", "slug": "chillan", "isCapital": true },
+      { "id": 1002, "name": "Chillán Viejo", "slug": "chillan-viejo", "isCapital": false },
+      { "id": 1003, "name": "San Carlos", "slug": "san-carlos", "isCapital": false },
+      { "id": 1004, "name": "Bulnes", "slug": "bulnes", "isCapital": false }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Biobío",
+    "romanNumeral": "VIII",
+    "slug": "biobio",
+    "cities": [
+      { "id": 1101, "name": "Concepción", "slug": "concepcion", "isCapital": true },
+      { "id": 1102, "name": "Talcahuano", "slug": "talcahuano", "isCapital": false },
+      { "id": 1103, "name": "Los Ángeles", "slug": "los-angeles", "isCapital": false },
+      { "id": 1104, "name": "Coronel", "slug": "coronel", "isCapital": false },
+      { "id": 1105, "name": "Chiguayante", "slug": "chiguayante", "isCapital": false },
+      { "id": 1106, "name": "San Pedro de la Paz", "slug": "san-pedro-de-la-paz", "isCapital": false },
+      { "id": 1107, "name": "Hualpén", "slug": "hualpen", "isCapital": false },
+      { "id": 1108, "name": "Tomé", "slug": "tome", "isCapital": false }
+    ]
+  },
+  {
+    "id": 12,
+    "name": "La Araucanía",
+    "romanNumeral": "IX",
+    "slug": "la-araucania",
+    "cities": [
+      { "id": 1201, "name": "Temuco", "slug": "temuco", "isCapital": true },
+      { "id": 1202, "name": "Padre Las Casas", "slug": "padre-las-casas", "isCapital": false },
+      { "id": 1203, "name": "Villarrica", "slug": "villarrica", "isCapital": false },
+      { "id": 1204, "name": "Pucón", "slug": "pucon", "isCapital": false },
+      { "id": 1205, "name": "Angol", "slug": "angol", "isCapital": false },
+      { "id": 1206, "name": "Victoria", "slug": "victoria", "isCapital": false }
+    ]
+  },
+  {
+    "id": 13,
+    "name": "Los Ríos",
+    "romanNumeral": "XIV",
+    "slug": "los-rios",
+    "cities": [
+      { "id": 1301, "name": "Valdivia", "slug": "valdivia", "isCapital": true },
+      { "id": 1302, "name": "La Unión", "slug": "la-union", "isCapital": false },
+      { "id": 1303, "name": "Río Bueno", "slug": "rio-bueno", "isCapital": false },
+      { "id": 1304, "name": "Panguipulli", "slug": "panguipulli", "isCapital": false }
+    ]
+  },
+  {
+    "id": 14,
+    "name": "Los Lagos",
+    "romanNumeral": "X",
+    "slug": "los-lagos",
+    "cities": [
+      { "id": 1401, "name": "Puerto Montt", "slug": "puerto-montt", "isCapital": true },
+      { "id": 1402, "name": "Puerto Varas", "slug": "puerto-varas", "isCapital": false },
+      { "id": 1403, "name": "Osorno", "slug": "osorno", "isCapital": false },
+      { "id": 1404, "name": "Castro", "slug": "castro", "isCapital": false },
+      { "id": 1405, "name": "Ancud", "slug": "ancud", "isCapital": false },
+      { "id": 1406, "name": "Frutillar", "slug": "frutillar", "isCapital": false }
+    ]
+  },
+  {
+    "id": 15,
+    "name": "Aysén",
+    "romanNumeral": "XI",
+    "slug": "aysen",
+    "cities": [
+      { "id": 1501, "name": "Coyhaique", "slug": "coyhaique", "isCapital": true },
+      { "id": 1502, "name": "Puerto Aysén", "slug": "puerto-aysen", "isCapital": false },
+      { "id": 1503, "name": "Chile Chico", "slug": "chile-chico", "isCapital": false }
+    ]
+  },
+  {
+    "id": 16,
+    "name": "Magallanes y la Antártica Chilena",
+    "romanNumeral": "XII",
+    "slug": "magallanes",
+    "cities": [
+      { "id": 1601, "name": "Punta Arenas", "slug": "punta-arenas", "isCapital": true },
+      { "id": 1602, "name": "Puerto Natales", "slug": "puerto-natales", "isCapital": false },
+      { "id": 1603, "name": "Porvenir", "slug": "porvenir", "isCapital": false }
+    ]
+  }
+]

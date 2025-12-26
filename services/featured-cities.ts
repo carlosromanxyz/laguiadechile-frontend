@@ -2,11 +2,22 @@ import featuredCitiesData from "@/data/featured-cities.json";
 import { IFeaturedCity, IFeaturedCities } from "@/interfaces/featured-city";
 
 /**
- * Get all featured cities
+ * Get featured cities
+ * @param limit - Number of cities to return (default: 5)
  * @returns Array of featured cities
  */
-export function getFeaturedCities(): IFeaturedCities {
-  return featuredCitiesData.filter((city) => city.featured) as IFeaturedCities;
+export function getFeaturedCities(limit: number = 5): IFeaturedCities {
+  return featuredCitiesData
+    .filter((city) => city.featured)
+    .slice(0, limit) as IFeaturedCities;
+}
+
+/**
+ * Get all cities
+ * @returns Array of all cities
+ */
+export function getAllCities(): IFeaturedCities {
+  return featuredCitiesData as IFeaturedCities;
 }
 
 /**

@@ -14,6 +14,8 @@ interface LDCCityCardProps {
   image: string;
   /** Number of publications */
   count: number;
+  /** Aspect ratio variant */
+  aspectRatio?: "4/3" | "1/1" | "9/16" | "3/4";
   /** Optional className for custom styling */
   className?: string;
 }
@@ -34,11 +36,19 @@ interface LDCCityCardProps {
  * />
  * ```
  */
+const aspectRatioClasses = {
+  "4/3": "aspect-[4/3]",
+  "1/1": "aspect-square",
+  "9/16": "aspect-[9/16]",
+  "3/4": "aspect-[3/4]",
+};
+
 export function LDCCityCard({
   name,
   slug,
   image,
   count,
+  aspectRatio = "4/3",
   className,
 }: LDCCityCardProps) {
   return (
@@ -48,7 +58,7 @@ export function LDCCityCard({
         className
       )}
     >
-      <Link href={`/ciudad/${slug}`} className="block relative h-56 xl:h-96 overflow-hidden">
+      <Link href={`/ciudad/${slug}`} className={cn("block relative overflow-hidden", aspectRatioClasses[aspectRatio])}>
         {/* Background Image */}
         <Image
           src={image}

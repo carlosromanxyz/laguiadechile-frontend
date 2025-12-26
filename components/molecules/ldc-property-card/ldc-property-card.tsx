@@ -41,7 +41,10 @@ interface LDCPropertyCardProps {
   };
   /** Location info */
   location: {
-    region: string;
+    city: {
+      name: string;
+      slug: string;
+    };
     commune: string;
     neighborhood?: string;
   };
@@ -73,7 +76,7 @@ interface LDCPropertyCardProps {
  *   operation="venta"
  *   price={{ amount: 6500, currency: "uf" }}
  *   features={{ surface: 95, bedrooms: 3, bathrooms: 2, parking: 2 }}
- *   location={{ region: "Metropolitana", commune: "Las Condes" }}
+ *   location={{ city: { name: "Santiago", slug: "santiago" }, commune: "Las Condes" }}
  *   image="/images/depto.jpg"
  *   featured={true}
  *   isNew={false}
@@ -97,7 +100,7 @@ export function LDCPropertyCard({
   const formattedPrice = formatPropertyPriceWithPeriod(price);
   const propertyTypeLabel = getPropertyTypeLabel(type);
   const operationLabel = getOperationLabel(operation);
-  const locationText = location.neighborhood
+  const locationDetails = location.neighborhood
     ? `${location.commune}, ${location.neighborhood}`
     : location.commune;
 
@@ -186,9 +189,17 @@ export function LDCPropertyCard({
         </h3>
 
         {/* Location */}
-        <p className="text-sm text-muted-foreground truncate">
-          {locationText}
-        </p>
+        <div className="flex items-center gap-1 text-sm text-muted-foreground truncate">
+          <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-pink dark:text-yellow" />
+          <Link
+            href={`/ciudad/${location.city.slug}`}
+            className="hover:text-pink dark:hover:text-yellow transition-colors"
+          >
+            {location.city.name}
+          </Link>
+          <span className="text-muted-foreground/60">/</span>
+          <span className="truncate">{locationDetails}</span>
+        </div>
 
         {/* Features - Compact inline with Tooltips */}
         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">

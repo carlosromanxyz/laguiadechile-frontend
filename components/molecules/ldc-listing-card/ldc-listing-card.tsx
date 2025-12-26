@@ -137,10 +137,13 @@ export function LDCListingCard({
         {/* Footer */}
         <div className="flex items-center justify-between gap-4 pt-3 border-t border-border">
           {/* City */}
-          <div className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
+          <Link
+            href={`/ciudad/${city.slug}`}
+            className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink dark:hover:text-yellow transition-colors"
+          >
             <MapPin className="w-4 h-4 flex-shrink-0 text-pink dark:text-yellow" />
             <span className="truncate">{city.name}</span>
-          </div>
+          </Link>
 
           {/* View Details Link */}
           <Link
