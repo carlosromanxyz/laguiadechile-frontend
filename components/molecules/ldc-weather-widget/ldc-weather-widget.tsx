@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import {
-  getWeatherByCity,
   getWeatherIcon,
   getWeatherDescription,
   type WeatherData,
@@ -34,8 +33,17 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
   useEffect(() => {
     async function fetchWeather() {
       setLoading(true);
-      const data = await getWeatherByCity(cityName);
-      setWeather(data);
+      try {
+        const response = await fetch(`/api/weather?city=${encodeURIComponent(cityName)}`);
+        if (response.ok) {
+          const data = await response.json();
+          setWeather(data);
+        } else {
+          setWeather(null);
+        }
+      } catch {
+        setWeather(null);
+      }
       setLoading(false);
     }
 

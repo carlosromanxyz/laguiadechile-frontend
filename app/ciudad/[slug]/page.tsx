@@ -4,6 +4,7 @@ import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
 import { LDCWeatherWidget } from "@/components/molecules/ldc-weather-widget";
+import { LDCPharmacyBanner } from "@/components/molecules/ldc-pharmacy-banner";
 import { getAllCitiesFromRegions, getCityBySlugFromRegions } from "@/services/regions";
 import { getListingsByCity } from "@/services/featured-listings";
 import { getPropertiesByCity } from "@/services/properties";
@@ -96,6 +97,11 @@ export default async function CityPage({ params }: CityPageProps) {
 
       {/* Main Content */}
       <main>
+        {/* Pharmacy Banner */}
+        <LDCSection paddingY="sm">
+          <LDCPharmacyBanner cityName={city.name} />
+        </LDCSection>
+
         {/* Comercios & Servicios Section */}
         {listings.length > 0 && (
           <LDCSection paddingY="md">
