@@ -46,14 +46,14 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
     return (
       <div
         className={cn(
-          "flex items-center gap-3 px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20 animate-pulse",
+          "flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 animate-pulse",
           className
         )}
       >
-        <div className="w-10 h-10 rounded-full bg-white/20" />
-        <div className="space-y-2">
-          <div className="w-12 h-5 rounded bg-white/20" />
-          <div className="w-20 h-3 rounded bg-white/20" />
+        <div className="w-16 h-16 rounded-full bg-white/20" />
+        <div className="space-y-3">
+          <div className="w-20 h-8 rounded bg-white/20" />
+          <div className="w-28 h-4 rounded bg-white/20" />
         </div>
       </div>
     );
@@ -69,21 +69,21 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
   return (
     <div
       className={cn(
-        "flex items-center gap-3 px-4 py-3 rounded-xl bg-white/10 backdrop-blur-sm border border-white/20",
+        "flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20",
         className
       )}
     >
       {/* Weather Icon */}
-      <span className="text-4xl" role="img" aria-label={description}>
+      <span className="text-6xl" role="img" aria-label={description}>
         {icon}
       </span>
 
       {/* Temperature and Description */}
       <div className="text-white">
-        <p className="text-2xl font-bold font-mulish leading-none">
+        <p className="text-4xl font-bold font-mulish leading-none">
           {weather.temperature}°C
         </p>
-        <p className="text-sm text-white/80 mt-0.5">{description}</p>
+        <p className="text-base text-white/80 mt-1">{description}</p>
       </div>
     </div>
   );
