@@ -33,10 +33,8 @@ export default function PropiedadesPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Propiedades"
-        subtitle="Encuentra tu próximo hogar. Casas, departamentos, terrenos y propiedades comerciales en todo Chile."
         breadcrumbs={breadcrumbs}
         icon={Home}
-        count={properties.length}
       />
 
       {/* Properties Grid */}

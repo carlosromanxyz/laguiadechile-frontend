@@ -82,10 +82,8 @@ export default async function RegionPage({ params }: RegionPageProps) {
       {/* Hero Section */}
       <LDCListingsPageHero
         title={`Región de ${region.name}`}
-        subtitle={`Explora las ${region.cities.length} ciudades de la ${region.romanNumeral} Región de Chile.`}
         breadcrumbs={breadcrumbs}
         icon={MapPin}
-        count={region.cities.length}
       />
 
       {/* Main Content */}

@@ -33,10 +33,8 @@ export default function ComerciosPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Comercios"
-        subtitle="Descubre los mejores comercios de Chile. Restaurantes, tiendas, hoteles y todo lo que necesitas."
         breadcrumbs={breadcrumbs}
         icon={Store}
-        count={commerces.length}
       />
 
       {/* Listings Grid */}

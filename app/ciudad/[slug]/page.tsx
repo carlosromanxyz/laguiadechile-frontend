@@ -89,10 +89,8 @@ export default async function CityPage({ params }: CityPageProps) {
       {/* Hero Section */}
       <LDCListingsPageHero
         title={city.name}
-        subtitle={`Explora todo lo que ${city.name} tiene para ofrecerte`}
         breadcrumbs={breadcrumbs}
         icon={MapPin}
-        count={totalCount}
       />
 
       {/* Main Content */}

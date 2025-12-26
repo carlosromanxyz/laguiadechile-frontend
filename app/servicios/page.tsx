@@ -33,10 +33,8 @@ export default function ServiciosPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Servicios"
-        subtitle="Encuentra los mejores servicios profesionales de Chile. Salud, educación, entretenimiento y todo lo que necesitas."
         breadcrumbs={breadcrumbs}
         icon={Wrench}
-        count={services.length}
       />
 
       {/* Listings Grid */}

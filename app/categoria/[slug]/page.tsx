@@ -70,10 +70,8 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       {/* Hero Section */}
       <LDCListingsPageHero
         title={category.name}
-        subtitle={category.description}
         breadcrumbs={breadcrumbs}
         icon={Tag}
-        count={listings.length}
       />
 
       {/* Listings Grid */}

@@ -30,10 +30,8 @@ export default function RegionsPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Regiones de Chile"
-        subtitle="Explora todas las regiones de Chile y descubre comercios, servicios, propiedades y avisos."
         breadcrumbs={breadcrumbs}
         icon={MapPin}
-        count={regions.length}
       />
 
       {/* Main Content */}

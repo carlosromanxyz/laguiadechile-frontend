@@ -10,14 +10,10 @@ interface BreadcrumbItem {
 interface LDCListingsPageHeroProps {
   /** Page title */
   title: string;
-  /** Page subtitle/description */
-  subtitle: string;
   /** Breadcrumb navigation items */
   breadcrumbs: BreadcrumbItem[];
   /** Icon component to display */
   icon: LucideIcon;
-  /** Total count of items (optional) */
-  count?: number;
   /** Optional className for custom styling */
   className?: string;
 }
@@ -32,28 +28,24 @@ interface LDCListingsPageHeroProps {
  * ```tsx
  * <LDCListingsPageHero
  *   title="Comercios"
- *   subtitle="Descubre los mejores comercios de Chile"
  *   breadcrumbs={[
  *     { label: "Inicio", href: "/" },
  *     { label: "Comercios", href: "" }
  *   ]}
  *   icon={Store}
- *   count={24}
  * />
  * ```
  */
 export function LDCListingsPageHero({
   title,
-  subtitle,
   breadcrumbs,
   icon: Icon,
-  count,
   className,
 }: LDCListingsPageHeroProps) {
   return (
     <section
       className={cn(
-        "relative w-full bg-purple py-12 md:py-16",
+        "relative w-full bg-purple pt-24 pb-12 md:pt-28 md:pb-16",
         className
       )}
     >
@@ -71,22 +63,11 @@ export function LDCListingsPageHero({
               </div>
 
               {/* Title */}
-              <div>
-                <h1 className="text-3xl font-bold font-mulish sm:text-4xl lg:text-5xl">
-                  {title}
-                </h1>
-                {count !== undefined && (
-                  <p className="text-sm text-white/70 mt-1">
-                    {count} {count === 1 ? "resultado" : "resultados"}
-                  </p>
-                )}
-              </div>
+              <h1 className="text-3xl font-bold font-mulish sm:text-4xl lg:text-5xl">
+                {title}
+              </h1>
             </div>
-
-            {/* Subtitle */}
-            <p className="text-lg text-white/90 max-w-2xl">{subtitle}</p>
           </div>
-
         </div>
       </div>
     </section>

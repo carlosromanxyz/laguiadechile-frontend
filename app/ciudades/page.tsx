@@ -47,10 +47,8 @@ export default function CitiesPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Ciudades de Chile"
-        subtitle="Explora todas las ciudades de Chile. Encuentra comercios, servicios, propiedades y avisos cerca de ti."
         breadcrumbs={breadcrumbs}
         icon={MapPin}
-        count={totalCities}
       />
 
       {/* Main Content */}

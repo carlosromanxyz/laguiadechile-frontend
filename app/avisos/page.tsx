@@ -33,10 +33,8 @@ export default function AvisosPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Avisos Clasificados"
-        subtitle="Compra, vende, arrienda y encuentra todo lo que necesitas. Miles de avisos actualizados diariamente."
         breadcrumbs={breadcrumbs}
         icon={Megaphone}
-        count={classifieds.length}
       />
 
       {/* Classifieds List */}

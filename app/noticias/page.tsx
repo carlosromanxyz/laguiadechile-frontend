@@ -33,10 +33,8 @@ export default function NoticiasPage() {
       {/* Hero Section */}
       <LDCListingsPageHero
         title="Noticias"
-        subtitle="Mantente informado con las últimas noticias de Chile. Economía, cultura, tecnología, deportes y más."
         breadcrumbs={breadcrumbs}
         icon={Newspaper}
-        count={news.length}
       />
 
       {/* News Grid */}
