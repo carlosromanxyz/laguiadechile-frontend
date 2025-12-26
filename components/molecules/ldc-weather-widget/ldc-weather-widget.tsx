@@ -34,7 +34,11 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
     async function fetchWeather() {
       setLoading(true);
       try {
-        const response = await fetch(`/api/weather?city=${encodeURIComponent(cityName)}`);
+        // Normalize city name to remove accents before sending to API
+        const normalizedCityName = cityName
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        const response = await fetch(`/api/weather?city=${encodeURIComponent(normalizedCityName)}`);
         if (response.ok) {
           const data = await response.json();
           setWeather(data);

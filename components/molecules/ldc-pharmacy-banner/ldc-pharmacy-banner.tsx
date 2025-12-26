@@ -38,7 +38,11 @@ export function LDCPharmacyBanner({ cityName, className }: LDCPharmacyBannerProp
     async function fetchPharmacy() {
       setLoading(true);
       try {
-        const response = await fetch(`/api/pharmacies?comuna=${encodeURIComponent(cityName)}`);
+        // Normalize city name to remove accents before sending to API
+        const normalizedCityName = cityName
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "");
+        const response = await fetch(`/api/pharmacies?comuna=${encodeURIComponent(normalizedCityName)}`);
         if (response.ok) {
           const data = await response.json();
           if (data.pharmacies && data.pharmacies.length > 0) {
