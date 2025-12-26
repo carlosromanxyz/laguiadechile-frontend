@@ -114,10 +114,13 @@ export function LDCPostCard({
       {/* Footer - Category (left) + Action (right) */}
       <div className="flex items-center justify-between gap-4 border-t border-border pt-3 mt-auto">
         {/* Category - Subtle metadata */}
-        <div className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
+        <Link
+          href={`/categoria/${category.slug}`}
+          className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink dark:hover:text-yellow transition-colors"
+        >
           {renderCategoryIcon(category.icon)}
           <span className="truncate">{category.name}</span>
-        </div>
+        </Link>
 
         {/* Action Link - Prominent CTA */}
         <Link
