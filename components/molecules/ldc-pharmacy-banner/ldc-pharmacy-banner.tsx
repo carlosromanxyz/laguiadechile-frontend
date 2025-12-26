@@ -2,16 +2,14 @@
 
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Cross, MapPin, Phone, Clock } from "lucide-react";
+import { Cross, MapPin, Phone } from "lucide-react";
 
 interface Pharmacy {
+  id: string;
   name: string;
   address: string;
   phone: string;
-  comuna: string;
-  locality: string;
-  openTime: string;
-  closeTime: string;
+  city: string;
 }
 
 interface LDCPharmacyBannerProps {
@@ -128,16 +126,6 @@ export function LDCPharmacyBanner({ cityName, className }: LDCPharmacyBannerProp
                 >
                   {pharmacy.phone}
                 </a>
-              </div>
-            )}
-
-            {/* Hours */}
-            {pharmacy.openTime && pharmacy.closeTime && (
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4 flex-shrink-0 text-emerald-500" />
-                <span>
-                  {pharmacy.openTime} - {pharmacy.closeTime}
-                </span>
               </div>
             )}
           </div>

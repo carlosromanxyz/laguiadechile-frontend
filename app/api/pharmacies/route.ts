@@ -10,15 +10,13 @@ import { NextRequest, NextResponse } from "next/server";
  */
 
 interface BoostrPharmacy {
-  local_nombre: string;
-  local_direccion: string;
-  local_telefono: string;
-  comuna_nombre: string;
-  localidad_nombre: string;
-  funcionamiento_hora_apertura: string;
-  funcionamiento_hora_cierre: string;
-  local_lat: string;
-  local_lng: string;
+  id: string;
+  name: string;
+  phone: string;
+  street: string;
+  city: string;
+  latitude: string;
+  longitude: string;
 }
 
 interface BoostrResponse {
@@ -27,28 +25,24 @@ interface BoostrResponse {
 }
 
 export interface Pharmacy {
+  id: string;
   name: string;
   address: string;
   phone: string;
-  comuna: string;
-  locality: string;
-  openTime: string;
-  closeTime: string;
+  city: string;
   lat: number;
   lng: number;
 }
 
 function transformPharmacy(pharmacy: BoostrPharmacy): Pharmacy {
   return {
-    name: pharmacy.local_nombre,
-    address: pharmacy.local_direccion,
-    phone: pharmacy.local_telefono,
-    comuna: pharmacy.comuna_nombre,
-    locality: pharmacy.localidad_nombre,
-    openTime: pharmacy.funcionamiento_hora_apertura,
-    closeTime: pharmacy.funcionamiento_hora_cierre,
-    lat: parseFloat(pharmacy.local_lat),
-    lng: parseFloat(pharmacy.local_lng),
+    id: pharmacy.id,
+    name: pharmacy.name,
+    address: pharmacy.street,
+    phone: pharmacy.phone,
+    city: pharmacy.city,
+    lat: parseFloat(pharmacy.latitude),
+    lng: parseFloat(pharmacy.longitude),
   };
 }
 
@@ -58,7 +52,7 @@ export async function GET(request: NextRequest) {
 
   try {
     // Fetch on-duty pharmacies from Boostr API
-    const response = await fetch("https://api.boostr.cl/pharmacies-24h.json", {
+    const response = await fetch("https://api.boostr.cl/pharmacies/24h.json", {
       next: { revalidate: 300 }, // Cache for 5 minutes
     });
 
@@ -80,16 +74,16 @@ export async function GET(request: NextRequest) {
 
     let pharmacies = data.data.map(transformPharmacy);
 
-    // Filter by comuna if provided
+    // Filter by city/comuna if provided
     if (comuna) {
       const comunaNormalized = comuna.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
       pharmacies = pharmacies.filter((pharmacy) => {
-        const pharmacyComunaNormalized = pharmacy.comuna
+        const pharmacyCityNormalized = pharmacy.city
           .toLowerCase()
           .normalize("NFD")
           .replace(/[\u0300-\u036f]/g, "");
-        return pharmacyComunaNormalized.includes(comunaNormalized) ||
-               comunaNormalized.includes(pharmacyComunaNormalized);
+        return pharmacyCityNormalized.includes(comunaNormalized) ||
+               comunaNormalized.includes(pharmacyCityNormalized);
       });
     }
 
