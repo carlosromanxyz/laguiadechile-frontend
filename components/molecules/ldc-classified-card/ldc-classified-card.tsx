@@ -189,9 +189,9 @@ export function LDCClassifiedCard({
           {/* View link */}
           <Link
             href={`/aviso/${slug}`}
-            className="flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange transition-colors"
+            className="group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange transition-colors"
           >
-            <span className="hidden sm:inline">Ver más</span>
+            <span className="sm:max-w-0 sm:opacity-0 sm:group-hover/link:max-w-20 sm:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap">Ver más</span>
             <ChevronRight className="w-5 h-5" />
           </Link>
         </div>
