@@ -33,6 +33,7 @@ export function LDCFeaturedCities() {
             slug={city.slug}
             image={city.image}
             count={city.count}
+            aspectRatio="9/16"
           />
         ))}
       </div>
