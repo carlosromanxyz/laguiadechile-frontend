@@ -102,5 +102,31 @@
     },
     "image": "https://picsum.photos/seed/post8/800/600",
     "createdAt": "2024-11-24T10:00:00Z"
+  },
+  {
+    "id": 9,
+    "title": "Emprendedores chilenos destacan en feria internacional de innovación",
+    "slug": "emprendedores-chilenos-destacan-feria-internacional-innovacion",
+    "category": {
+      "id": 3,
+      "name": "Tecnología",
+      "slug": "tecnologia",
+      "icon": "MdComputer"
+    },
+    "image": "https://picsum.photos/seed/post9/800/600",
+    "createdAt": "2024-11-24T08:00:00Z"
+  },
+  {
+    "id": 10,
+    "title": "Festival gastronómico celebra la diversidad culinaria del sur de Chile",
+    "slug": "festival-gastronomico-celebra-diversidad-culinaria-sur-chile",
+    "category": {
+      "id": 2,
+      "name": "Cultura",
+      "slug": "cultura",
+      "icon": "MdTheaterComedy"
+    },
+    "image": "https://picsum.photos/seed/post10/800/600",
+    "createdAt": "2024-11-24T06:00:00Z"
   }
 ]
