@@ -1,10 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
+import { exec } from "child_process";
+import { promisify } from "util";
+
+const execAsync = promisify(exec);
 
 /**
  * Pharmacies API Route Handler
  *
  * Proxies requests to Boostr API for pharmacy data.
  * Returns on-duty pharmacies filtered by comuna (city).
+ * Uses curl to bypass Cloudflare protection that blocks Node.js fetch.
  *
  * @example GET /api/pharmacies?comuna=Santiago
  */
@@ -51,21 +56,16 @@ export async function GET(request: NextRequest) {
   const comuna = searchParams.get("comuna");
 
   try {
-    // Fetch on-duty pharmacies from Boostr API
-    const response = await fetch("https://api.boostr.cl/pharmacies/24h.json", {
-      next: { revalidate: 300 }, // Cache for 5 minutes
-    });
+    // Use curl to fetch from Boostr API (bypasses Cloudflare blocking of Node.js)
+    const { stdout } = await execAsync(
+      'curl -s "https://api.boostr.cl/pharmacies/24h.json"',
+      { timeout: 10000 }
+    );
 
-    if (!response.ok) {
-      return NextResponse.json(
-        { error: "Failed to fetch pharmacies" },
-        { status: 502 }
-      );
-    }
-
-    const data: BoostrResponse = await response.json();
+    const data: BoostrResponse = JSON.parse(stdout);
 
     if (data.status !== "success" || !data.data) {
+      console.error("[Pharmacies API] Invalid response structure");
       return NextResponse.json(
         { error: "Invalid response from pharmacy API" },
         { status: 502 }

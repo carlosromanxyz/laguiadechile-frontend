@@ -13,6 +13,8 @@ interface LDCWeatherWidgetProps {
   cityName: string;
   /** Optional className for custom styling */
   className?: string;
+  /** Variant: 'overlay' for on top of images, 'card' for regular backgrounds */
+  variant?: "overlay" | "card";
 }
 
 /**
@@ -24,11 +26,14 @@ interface LDCWeatherWidgetProps {
  * @example
  * ```tsx
  * <LDCWeatherWidget cityName="Santiago" />
+ * <LDCWeatherWidget cityName="Santiago" variant="card" />
  * ```
  */
-export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps) {
+export function LDCWeatherWidget({ cityName, className, variant = "overlay" }: LDCWeatherWidgetProps) {
   const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(true);
+
+  const isCard = variant === "card";
 
   useEffect(() => {
     async function fetchWeather() {
@@ -58,14 +63,26 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
     return (
       <div
         className={cn(
-          "flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20 animate-pulse",
+          "flex items-center gap-4 px-4 py-4 rounded-xl animate-pulse",
+          isCard
+            ? "bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800"
+            : "bg-white/10 backdrop-blur-sm border border-white/20",
           className
         )}
       >
-        <div className="w-16 h-16 rounded-full bg-white/20" />
-        <div className="space-y-3">
-          <div className="w-20 h-8 rounded bg-white/20" />
-          <div className="w-28 h-4 rounded bg-white/20" />
+        <div className={cn(
+          "w-12 h-12 rounded-full",
+          isCard ? "bg-sky-200 dark:bg-sky-800" : "bg-white/20"
+        )} />
+        <div className="space-y-2">
+          <div className={cn(
+            "w-16 h-6 rounded",
+            isCard ? "bg-sky-200 dark:bg-sky-800" : "bg-white/20"
+          )} />
+          <div className={cn(
+            "w-24 h-3 rounded",
+            isCard ? "bg-sky-200 dark:bg-sky-800" : "bg-white/20"
+          )} />
         </div>
       </div>
     );
@@ -81,21 +98,29 @@ export function LDCWeatherWidget({ cityName, className }: LDCWeatherWidgetProps)
   return (
     <div
       className={cn(
-        "flex items-center gap-5 px-6 py-5 rounded-2xl bg-white/10 backdrop-blur-sm border border-white/20",
+        "flex items-center gap-4 px-4 py-4 rounded-xl",
+        isCard
+          ? "bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800"
+          : "bg-white/10 backdrop-blur-sm border border-white/20",
         className
       )}
     >
       {/* Weather Icon */}
-      <span className="text-6xl" role="img" aria-label={description}>
+      <span className="text-5xl" role="img" aria-label={description}>
         {icon}
       </span>
 
       {/* Temperature and Description */}
-      <div className="text-white">
-        <p className="text-4xl font-bold font-mulish leading-none">
+      <div className={isCard ? "text-foreground" : "text-white"}>
+        <p className="text-3xl font-bold font-mulish leading-none">
           {weather.temperature}°C
         </p>
-        <p className="text-base text-white/80 mt-1">{description}</p>
+        <p className={cn(
+          "text-sm mt-1",
+          isCard ? "text-muted-foreground" : "text-white/80"
+        )}>
+          {description}
+        </p>
       </div>
     </div>
   );

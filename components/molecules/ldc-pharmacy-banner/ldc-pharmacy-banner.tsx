@@ -101,28 +101,25 @@ export function LDCPharmacyBanner({ cityName, className }: LDCPharmacyBannerProp
         {/* Content */}
         <div className="flex-1 min-w-0">
           {/* Header */}
-          <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
-              Farmacia de Turno
-            </span>
-          </div>
+          <span className="text-xs font-semibold uppercase tracking-wide text-emerald-600 dark:text-emerald-400">
+            Farmacia de Turno
+          </span>
 
-          {/* Pharmacy Name */}
-          <h3 className="font-bold text-lg text-foreground truncate">
-            {pharmacy.name}
-          </h3>
+          {/* Pharmacy Name & Details */}
+          <div className="mt-1 flex flex-wrap items-center gap-x-4 gap-y-1">
+            <h3 className="font-bold text-lg text-foreground">
+              {pharmacy.name}
+            </h3>
 
-          {/* Details */}
-          <div className="mt-2 space-y-1 text-sm text-muted-foreground">
             {/* Address */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
               <MapPin className="w-4 h-4 flex-shrink-0 text-emerald-500" />
-              <span className="truncate">{pharmacy.address}</span>
+              <span>{pharmacy.address}</span>
             </div>
 
             {/* Phone */}
             {pharmacy.phone && (
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 flex-shrink-0 text-emerald-500" />
                 <a
                   href={`tel:${pharmacy.phone}`}
