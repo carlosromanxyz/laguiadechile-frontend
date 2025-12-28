@@ -1,0 +1,399 @@
+[
+  {
+    "id": 1,
+    "title": "Restaurante El Buen Sabor",
+    "slug": "restaurante-el-buen-sabor",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing1/800/600",
+    "featured": true,
+    "createdAt": "2024-11-15T10:00:00Z",
+    "updatedAt": "2024-11-20T15:30:00Z",
+    "description": "<p>Restaurante El Buen Sabor es un acogedor establecimiento ubicado en el corazón de Santiago, especializado en cocina chilena tradicional con un toque moderno. Desde 2010, hemos deleitado a nuestros clientes con los mejores sabores de nuestra tierra.</p><p>Nuestro menú incluye platos emblemáticos como pastel de choclo, cazuela, empanadas de pino y una variedad de mariscos frescos. Contamos con una carta de vinos chilenos seleccionados y postres caseros.</p><p>El ambiente es cálido y familiar, ideal para celebraciones, reuniones de negocios o simplemente disfrutar de una buena comida.</p>",
+    "address": "Av. Providencia 1234, Local 5",
+    "commune": "Providencia",
+    "contact": {
+      "phone": "+56 2 2345 6789",
+      "email": "contacto@elbuensabor.cl",
+      "website": "https://www.elbuensabor.cl",
+      "whatsapp": "+56 9 8765 4321"
+    },
+    "socialMedia": {
+      "facebook": { "url": "https://facebook.com/elbuensabor", "followers": "5.2K" },
+      "instagram": { "url": "https://instagram.com/elbuensabor", "followers": "12.8K" },
+      "twitter": { "url": "https://twitter.com/elbuensabor", "followers": "1.5K" }
+    },
+    "schedule": {
+      "monday": "12:00 - 23:00",
+      "tuesday": "12:00 - 23:00",
+      "wednesday": "12:00 - 23:00",
+      "thursday": "12:00 - 23:00",
+      "friday": "12:00 - 00:00",
+      "saturday": "12:00 - 00:00",
+      "sunday": "12:00 - 22:00"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing1-1/800/600",
+      "https://picsum.photos/seed/listing1-2/800/600",
+      "https://picsum.photos/seed/listing1-3/800/600",
+      "https://picsum.photos/seed/listing1-4/800/600"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Hotel Vista Mar",
+    "slug": "hotel-vista-mar",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 2,
+      "name": "Valparaíso",
+      "slug": "valparaiso"
+    },
+    "image": "https://picsum.photos/seed/listing2/800/600",
+    "featured": true,
+    "createdAt": "2024-11-10T08:00:00Z",
+    "updatedAt": "2024-11-18T12:00:00Z",
+    "description": "<p>Hotel Vista Mar es un exclusivo hotel boutique ubicado en los cerros de Valparaíso, con impresionantes vistas al Océano Pacífico. Nuestras instalaciones combinan la arquitectura patrimonial porteña con todas las comodidades modernas.</p><p>Contamos con 25 habitaciones únicas, cada una decorada con arte local y vistas panorámicas. Nuestro restaurante ofrece cocina de autor con productos del mar y nuestra terraza es el lugar perfecto para disfrutar de los atardeceres porteños.</p><p>Servicios incluidos: desayuno buffet, WiFi, estacionamiento, room service y tours por la ciudad.</p>",
+    "address": "Cerro Alegre 567",
+    "commune": "Cerro Alegre",
+    "contact": {
+      "phone": "+56 32 234 5678",
+      "email": "reservas@hotelvistamar.cl",
+      "website": "https://www.hotelvistamar.cl",
+      "whatsapp": "+56 9 1234 5678"
+    },
+    "socialMedia": {
+      "facebook": { "url": "https://facebook.com/hotelvistamar", "followers": "8.1K" },
+      "instagram": { "url": "https://instagram.com/hotelvistamar", "followers": "15.3K" },
+      "youtube": { "url": "https://youtube.com/hotelvistamar", "followers": "2.4K" }
+    },
+    "schedule": {
+      "monday": "24 horas",
+      "tuesday": "24 horas",
+      "wednesday": "24 horas",
+      "thursday": "24 horas",
+      "friday": "24 horas",
+      "saturday": "24 horas",
+      "sunday": "24 horas"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing2-1/800/600",
+      "https://picsum.photos/seed/listing2-2/800/600",
+      "https://picsum.photos/seed/listing2-3/800/600",
+      "https://picsum.photos/seed/listing2-4/800/600",
+      "https://picsum.photos/seed/listing2-5/800/600"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Estudio Jurídico Martínez",
+    "slug": "estudio-juridico-martinez",
+    "type": "servicio",
+    "category": {
+      "id": 3,
+      "name": "Servicios Profesionales",
+      "slug": "servicios-profesionales",
+      "icon": "MdWork"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing3/800/600",
+    "featured": true,
+    "createdAt": "2024-11-01T09:00:00Z",
+    "updatedAt": "2024-11-01T09:00:00Z",
+    "description": "<p>Estudio Jurídico Martínez es una firma de abogados con más de 20 años de experiencia en el mercado chileno. Nos especializamos en derecho civil, comercial, laboral y de familia.</p><p>Nuestro equipo está conformado por profesionales altamente calificados, comprometidos con brindar asesoría legal de excelencia y soluciones efectivas a cada caso.</p><p>Ofrecemos primera consulta gratuita y planes de pago flexibles. Atendemos en español e inglés.</p>",
+    "address": "Av. Apoquindo 4500, Oficina 1201",
+    "commune": "Las Condes",
+    "contact": {
+      "phone": "+56 2 2987 6543",
+      "email": "contacto@estudiomartinez.cl",
+      "website": "https://www.estudiomartinez.cl",
+      "whatsapp": "+56 9 5555 1234"
+    },
+    "socialMedia": {
+      "facebook": { "url": "https://facebook.com/estudiomartinez", "followers": "3.2K" },
+      "instagram": { "url": "https://instagram.com/estudiomartinez", "followers": "4.7K" }
+    },
+    "schedule": {
+      "monday": "09:00 - 18:00",
+      "tuesday": "09:00 - 18:00",
+      "wednesday": "09:00 - 18:00",
+      "thursday": "09:00 - 18:00",
+      "friday": "09:00 - 17:00",
+      "saturday": "Cerrado",
+      "sunday": "Cerrado"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing3-1/800/600",
+      "https://picsum.photos/seed/listing3-2/800/600"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Tienda de Ropa Moderna",
+    "slug": "tienda-ropa-moderna",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 3,
+      "name": "Concepción",
+      "slug": "concepcion"
+    },
+    "image": "https://picsum.photos/seed/listing4/800/600",
+    "featured": true,
+    "createdAt": "2024-11-22T14:00:00Z",
+    "updatedAt": "2024-11-22T14:00:00Z",
+    "description": "<p>Tienda de Ropa Moderna es tu destino de moda en Concepción. Ofrecemos las últimas tendencias en ropa casual y formal para hombres y mujeres.</p><p>Trabajamos con marcas nacionales e internacionales, siempre con la mejor relación calidad-precio. Nuestro equipo de asesores de imagen está disponible para ayudarte a encontrar el look perfecto.</p><p>Aceptamos cambios y devoluciones dentro de 30 días con boleta.</p>",
+    "address": "Mall Plaza del Trébol, Local 234",
+    "commune": "Talcahuano",
+    "contact": {
+      "phone": "+56 41 234 5678",
+      "email": "ventas@ropamoderna.cl",
+      "website": "https://www.ropamoderna.cl",
+      "whatsapp": "+56 9 8888 7777"
+    },
+    "socialMedia": {
+      "facebook": { "url": "https://facebook.com/ropamodernacl", "followers": "6.8K" },
+      "instagram": { "url": "https://instagram.com/ropamodernacl", "followers": "22.1K" },
+      "tiktok": { "url": "https://tiktok.com/@ropamodernacl", "followers": "45.3K" }
+    },
+    "schedule": {
+      "monday": "10:00 - 21:00",
+      "tuesday": "10:00 - 21:00",
+      "wednesday": "10:00 - 21:00",
+      "thursday": "10:00 - 21:00",
+      "friday": "10:00 - 21:00",
+      "saturday": "10:00 - 21:00",
+      "sunday": "11:00 - 20:00"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing4-1/800/600",
+      "https://picsum.photos/seed/listing4-2/800/600",
+      "https://picsum.photos/seed/listing4-3/800/600"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Supermercado FreshMart",
+    "slug": "supermercado-freshmart",
+    "type": "comercio",
+    "category": {
+      "id": 4,
+      "name": "Tiendas",
+      "slug": "tiendas",
+      "icon": "MdShoppingBag"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing17/800/600",
+    "featured": true,
+    "createdAt": "2024-12-01T09:00:00Z",
+    "updatedAt": "2024-12-01T09:00:00Z",
+    "description": "<p>FreshMart es tu supermercado de confianza en Santiago. Nos especializamos en productos frescos, orgánicos y de alta calidad.</p><p>Contamos con secciones de frutas y verduras, carnicería, pescadería, panadería artesanal, lácteos y productos importados. También ofrecemos una amplia gama de productos veganos y sin gluten.</p><p>Realizamos despacho a domicilio en menos de 2 horas. Programa de fidelidad con descuentos exclusivos.</p>",
+    "address": "Av. Las Condes 12500",
+    "commune": "Las Condes",
+    "contact": {
+      "phone": "+56 2 2111 2222",
+      "email": "cliente@freshmart.cl",
+      "website": "https://www.freshmart.cl",
+      "whatsapp": "+56 9 3333 4444"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/freshmartcl",
+      "instagram": "https://instagram.com/freshmartcl",
+      "twitter": "https://twitter.com/freshmartcl"
+    },
+    "schedule": {
+      "monday": "08:00 - 22:00",
+      "tuesday": "08:00 - 22:00",
+      "wednesday": "08:00 - 22:00",
+      "thursday": "08:00 - 22:00",
+      "friday": "08:00 - 22:00",
+      "saturday": "08:00 - 22:00",
+      "sunday": "09:00 - 21:00"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing17-1/800/600",
+      "https://picsum.photos/seed/listing17-2/800/600",
+      "https://picsum.photos/seed/listing17-3/800/600",
+      "https://picsum.photos/seed/listing17-4/800/600"
+    ]
+  },
+  {
+    "id": 22,
+    "title": "Sushi Tokio Express",
+    "slug": "sushi-tokio-express",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing22/800/600",
+    "featured": true,
+    "createdAt": "2024-12-06T14:00:00Z",
+    "updatedAt": "2024-12-06T14:00:00Z",
+    "description": "<p>Sushi Tokio Express trae lo mejor de la cocina japonesa a tu mesa. Nuestros sushimen tienen más de 15 años de experiencia preparando rolls, sashimi y platos calientes de la tradición nipona.</p><p>Utilizamos pescados y mariscos frescos del día, arroz premium y ingredientes importados directamente de Japón. Nuestra carta incluye opciones vegetarianas y veganas.</p><p>Servicio de delivery rápido y catering para eventos.</p>",
+    "address": "Av. Italia 1850",
+    "commune": "Providencia",
+    "contact": {
+      "phone": "+56 2 2456 7890",
+      "email": "pedidos@sushitokio.cl",
+      "website": "https://www.sushitokio.cl",
+      "whatsapp": "+56 9 6666 7777"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/sushitokioexpress",
+      "instagram": "https://instagram.com/sushitokioexpress"
+    },
+    "schedule": {
+      "monday": "12:30 - 22:30",
+      "tuesday": "12:30 - 22:30",
+      "wednesday": "12:30 - 22:30",
+      "thursday": "12:30 - 22:30",
+      "friday": "12:30 - 23:30",
+      "saturday": "12:30 - 23:30",
+      "sunday": "12:30 - 22:00"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing22-1/800/600",
+      "https://picsum.photos/seed/listing22-2/800/600",
+      "https://picsum.photos/seed/listing22-3/800/600"
+    ]
+  },
+  {
+    "id": 25,
+    "title": "Hotel Patagonia Sur",
+    "slug": "hotel-patagonia-sur",
+    "type": "comercio",
+    "category": {
+      "id": 2,
+      "name": "Hoteles",
+      "slug": "hoteles",
+      "icon": "MdHotel"
+    },
+    "city": {
+      "id": 7,
+      "name": "Punta Arenas",
+      "slug": "punta-arenas"
+    },
+    "image": "https://picsum.photos/seed/listing25/800/600",
+    "featured": true,
+    "createdAt": "2024-12-09T10:00:00Z",
+    "updatedAt": "2024-12-09T10:00:00Z",
+    "description": "<p>Hotel Patagonia Sur es el punto de partida perfecto para explorar los paisajes más australes del mundo. Ubicado en el centro de Punta Arenas, ofrecemos confort y calidez en el fin del mundo.</p><p>Nuestras 40 habitaciones cuentan con calefacción central, TV satelital y vistas a la ciudad o al Estrecho de Magallanes. El restaurante del hotel sirve cocina patagónica con cordero magallánico y centolla.</p><p>Organizamos tours al Parque Nacional Torres del Paine, Tierra del Fuego y avistamiento de pingüinos.</p>",
+    "address": "Av. Colón 1234",
+    "commune": "Centro",
+    "contact": {
+      "phone": "+56 61 234 5678",
+      "email": "reservas@hotelpatagoniasur.cl",
+      "website": "https://www.hotelpatagoniasur.cl",
+      "whatsapp": "+56 9 1111 2222"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/hotelpatagoniasur",
+      "instagram": "https://instagram.com/hotelpatagoniasur",
+      "youtube": "https://youtube.com/hotelpatagoniasur"
+    },
+    "schedule": {
+      "monday": "24 horas",
+      "tuesday": "24 horas",
+      "wednesday": "24 horas",
+      "thursday": "24 horas",
+      "friday": "24 horas",
+      "saturday": "24 horas",
+      "sunday": "24 horas"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing25-1/800/600",
+      "https://picsum.photos/seed/listing25-2/800/600",
+      "https://picsum.photos/seed/listing25-3/800/600",
+      "https://picsum.photos/seed/listing25-4/800/600",
+      "https://picsum.photos/seed/listing25-5/800/600",
+      "https://picsum.photos/seed/listing25-6/800/600"
+    ]
+  },
+  {
+    "id": 53,
+    "title": "Café Literario Neruda",
+    "slug": "cafe-literario-neruda",
+    "type": "comercio",
+    "category": {
+      "id": 1,
+      "name": "Restaurantes",
+      "slug": "restaurantes",
+      "icon": "MdRestaurant"
+    },
+    "city": {
+      "id": 1,
+      "name": "Santiago",
+      "slug": "santiago"
+    },
+    "image": "https://picsum.photos/seed/listing53/800/600",
+    "featured": true,
+    "createdAt": "2024-12-23T11:00:00Z",
+    "updatedAt": "2024-12-23T11:00:00Z",
+    "description": "<p>Café Literario Neruda es un espacio único donde la pasión por los libros se encuentra con el mejor café de especialidad. Inspirado en el poeta Pablo Neruda, nuestro café es un refugio para amantes de la lectura.</p><p>Ofrecemos café de origen, té orgánico, pastelería artesanal y sándwiches gourmet. Nuestra biblioteca cuenta con más de 2.000 títulos disponibles para leer mientras disfrutas de tu consumición.</p><p>Realizamos clubes de lectura, presentaciones de libros y noches de poesía. WiFi gratuito y ambiente tranquilo para trabajar.</p>",
+    "address": "Calle Lastarria 123",
+    "commune": "Santiago Centro",
+    "contact": {
+      "phone": "+56 2 2789 0123",
+      "email": "hola@cafeliterarioneruda.cl",
+      "website": "https://www.cafeliterarioneruda.cl",
+      "whatsapp": "+56 9 4444 5555"
+    },
+    "socialMedia": {
+      "facebook": "https://facebook.com/cafeliterarioneruda",
+      "instagram": "https://instagram.com/cafeliterarioneruda",
+      "twitter": "https://twitter.com/cafeneruda"
+    },
+    "schedule": {
+      "monday": "09:00 - 21:00",
+      "tuesday": "09:00 - 21:00",
+      "wednesday": "09:00 - 21:00",
+      "thursday": "09:00 - 22:00",
+      "friday": "09:00 - 23:00",
+      "saturday": "10:00 - 23:00",
+      "sunday": "10:00 - 20:00"
+    },
+    "gallery": [
+      "https://picsum.photos/seed/listing53-1/800/600",
+      "https://picsum.photos/seed/listing53-2/800/600",
+      "https://picsum.photos/seed/listing53-3/800/600",
+      "https://picsum.photos/seed/listing53-4/800/600"
+    ]
+  }
+]

@@ -110,7 +110,7 @@ export function LDCPropertyCard({
   return (
     <article
       className={cn(
-        "group bg-card dark:bg-neutral-800 rounded-lg overflow-hidden border border-border",
+        "group bg-card rounded-lg overflow-hidden border border-border",
         "hover:shadow-lg transition-all duration-300",
         featured && "ring-2 ring-yellow",
         className

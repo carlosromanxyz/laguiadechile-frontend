@@ -42,7 +42,7 @@ export default function RegionsPage() {
               <Link
                 key={region.id}
                 href={`/region/${region.slug}`}
-                className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card dark:bg-neutral-800/50 hover:border-pink dark:hover:border-yellow hover:shadow-lg transition-all duration-200"
+                className="group flex items-center gap-4 p-4 rounded-xl border border-border bg-card hover:border-pink dark:hover:border-yellow hover:shadow-lg transition-all duration-200"
               >
                 {/* Roman numeral badge */}
                 <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-gradient-to-br from-purple/10 to-pink/10 dark:from-purple/20 dark:to-pink/20 flex-shrink-0">

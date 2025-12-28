@@ -57,7 +57,7 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
     return (
       <div
         className={cn(
-          "bg-card dark:bg-neutral-800 rounded-lg border border-border p-8",
+          "bg-card rounded-lg border border-border p-8",
           className
         )}
       >
@@ -80,7 +80,7 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
     <form
       onSubmit={handleSubmit}
       className={cn(
-        "bg-card dark:bg-neutral-800 rounded-lg border border-border p-6 md:p-8",
+        "bg-card rounded-lg border border-border p-6 md:p-8",
         className
       )}
     >

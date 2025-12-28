@@ -69,7 +69,7 @@ export function LDCSocialShareButtons({
   const buttonClass = cn(
     "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 cursor-pointer",
     isLight
-      ? "bg-white/20 border border-white/30 text-white hover:bg-white/30"
+      ? "bg-white/20 border border-white/30 text-white hover:bg-white/30 dark:bg-card dark:border-border dark:text-foreground dark:hover:bg-muted"
       : "bg-foreground/10 border border-foreground/20 text-foreground hover:bg-foreground/20"
   );
 

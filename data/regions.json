@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "name": "Arica y Parinacota",
+    "name": "Región de Arica y Parinacota",
     "romanNumeral": "XV",
     "slug": "arica-y-parinacota",
     "cities": [
@@ -11,7 +11,7 @@
   },
   {
     "id": 2,
-    "name": "Tarapacá",
+    "name": "Región de Tarapacá",
     "romanNumeral": "I",
     "slug": "tarapaca",
     "cities": [
@@ -22,7 +22,7 @@
   },
   {
     "id": 3,
-    "name": "Antofagasta",
+    "name": "Región de Antofagasta",
     "romanNumeral": "II",
     "slug": "antofagasta",
     "cities": [
@@ -35,7 +35,7 @@
   },
   {
     "id": 4,
-    "name": "Atacama",
+    "name": "Región de Atacama",
     "romanNumeral": "III",
     "slug": "atacama",
     "cities": [
@@ -47,7 +47,7 @@
   },
   {
     "id": 5,
-    "name": "Coquimbo",
+    "name": "Región de Coquimbo",
     "romanNumeral": "IV",
     "slug": "coquimbo",
     "cities": [
@@ -60,7 +60,7 @@
   },
   {
     "id": 6,
-    "name": "Valparaíso",
+    "name": "Región de Valparaíso",
     "romanNumeral": "V",
     "slug": "valparaiso",
     "cities": [
@@ -78,27 +78,67 @@
   },
   {
     "id": 7,
-    "name": "Metropolitana de Santiago",
+    "name": "Región Metropolitana de Santiago",
     "romanNumeral": "RM",
     "slug": "metropolitana",
     "cities": [
       { "id": 701, "name": "Santiago", "slug": "santiago", "isCapital": true },
-      { "id": 702, "name": "Puente Alto", "slug": "puente-alto", "isCapital": false },
-      { "id": 703, "name": "Maipú", "slug": "maipu", "isCapital": false },
-      { "id": 704, "name": "La Florida", "slug": "la-florida", "isCapital": false },
-      { "id": 705, "name": "Las Condes", "slug": "las-condes", "isCapital": false },
-      { "id": 706, "name": "San Bernardo", "slug": "san-bernardo", "isCapital": false },
-      { "id": 707, "name": "Peñalolén", "slug": "penalolen", "isCapital": false },
-      { "id": 708, "name": "Providencia", "slug": "providencia", "isCapital": false },
-      { "id": 709, "name": "Ñuñoa", "slug": "nunoa", "isCapital": false },
-      { "id": 710, "name": "Vitacura", "slug": "vitacura", "isCapital": false },
-      { "id": 711, "name": "Lo Barnechea", "slug": "lo-barnechea", "isCapital": false },
-      { "id": 712, "name": "Colina", "slug": "colina", "isCapital": false }
+      { "id": 702, "name": "Cerrillos", "slug": "cerrillos", "isCapital": false },
+      { "id": 703, "name": "Cerro Navia", "slug": "cerro-navia", "isCapital": false },
+      { "id": 704, "name": "Conchalí", "slug": "conchali", "isCapital": false },
+      { "id": 705, "name": "El Bosque", "slug": "el-bosque", "isCapital": false },
+      { "id": 706, "name": "Estación Central", "slug": "estacion-central", "isCapital": false },
+      { "id": 707, "name": "Huechuraba", "slug": "huechuraba", "isCapital": false },
+      { "id": 708, "name": "Independencia", "slug": "independencia", "isCapital": false },
+      { "id": 709, "name": "La Cisterna", "slug": "la-cisterna", "isCapital": false },
+      { "id": 710, "name": "La Florida", "slug": "la-florida", "isCapital": false },
+      { "id": 711, "name": "La Granja", "slug": "la-granja", "isCapital": false },
+      { "id": 712, "name": "La Pintana", "slug": "la-pintana", "isCapital": false },
+      { "id": 713, "name": "La Reina", "slug": "la-reina", "isCapital": false },
+      { "id": 714, "name": "Las Condes", "slug": "las-condes", "isCapital": false },
+      { "id": 715, "name": "Lo Barnechea", "slug": "lo-barnechea", "isCapital": false },
+      { "id": 716, "name": "Lo Espejo", "slug": "lo-espejo", "isCapital": false },
+      { "id": 717, "name": "Lo Prado", "slug": "lo-prado", "isCapital": false },
+      { "id": 718, "name": "Macul", "slug": "macul", "isCapital": false },
+      { "id": 719, "name": "Maipú", "slug": "maipu", "isCapital": false },
+      { "id": 720, "name": "Ñuñoa", "slug": "nunoa", "isCapital": false },
+      { "id": 721, "name": "Pedro Aguirre Cerda", "slug": "pedro-aguirre-cerda", "isCapital": false },
+      { "id": 722, "name": "Peñalolén", "slug": "penalolen", "isCapital": false },
+      { "id": 723, "name": "Providencia", "slug": "providencia", "isCapital": false },
+      { "id": 724, "name": "Pudahuel", "slug": "pudahuel", "isCapital": false },
+      { "id": 725, "name": "Quilicura", "slug": "quilicura", "isCapital": false },
+      { "id": 726, "name": "Quinta Normal", "slug": "quinta-normal", "isCapital": false },
+      { "id": 727, "name": "Recoleta", "slug": "recoleta", "isCapital": false },
+      { "id": 728, "name": "Renca", "slug": "renca", "isCapital": false },
+      { "id": 729, "name": "San Joaquín", "slug": "san-joaquin", "isCapital": false },
+      { "id": 730, "name": "San Miguel", "slug": "san-miguel", "isCapital": false },
+      { "id": 731, "name": "San Ramón", "slug": "san-ramon", "isCapital": false },
+      { "id": 732, "name": "Vitacura", "slug": "vitacura", "isCapital": false },
+      { "id": 733, "name": "Puente Alto", "slug": "puente-alto", "isCapital": false },
+      { "id": 734, "name": "Pirque", "slug": "pirque", "isCapital": false },
+      { "id": 735, "name": "San José de Maipo", "slug": "san-jose-de-maipo", "isCapital": false },
+      { "id": 736, "name": "Colina", "slug": "colina", "isCapital": false },
+      { "id": 737, "name": "Lampa", "slug": "lampa", "isCapital": false },
+      { "id": 738, "name": "Tiltil", "slug": "tiltil", "isCapital": false },
+      { "id": 739, "name": "San Bernardo", "slug": "san-bernardo", "isCapital": false },
+      { "id": 740, "name": "Buin", "slug": "buin", "isCapital": false },
+      { "id": 741, "name": "Calera de Tango", "slug": "calera-de-tango", "isCapital": false },
+      { "id": 742, "name": "Paine", "slug": "paine", "isCapital": false },
+      { "id": 743, "name": "Melipilla", "slug": "melipilla", "isCapital": false },
+      { "id": 744, "name": "Alhué", "slug": "alhue", "isCapital": false },
+      { "id": 745, "name": "Curacaví", "slug": "curacavi", "isCapital": false },
+      { "id": 746, "name": "María Pinto", "slug": "maria-pinto", "isCapital": false },
+      { "id": 747, "name": "San Pedro", "slug": "san-pedro", "isCapital": false },
+      { "id": 748, "name": "Talagante", "slug": "talagante", "isCapital": false },
+      { "id": 749, "name": "El Monte", "slug": "el-monte", "isCapital": false },
+      { "id": 750, "name": "Isla de Maipo", "slug": "isla-de-maipo", "isCapital": false },
+      { "id": 751, "name": "Padre Hurtado", "slug": "padre-hurtado", "isCapital": false },
+      { "id": 752, "name": "Peñaflor", "slug": "penaflor", "isCapital": false }
     ]
   },
   {
     "id": 8,
-    "name": "O'Higgins",
+    "name": "Región de O'Higgins",
     "romanNumeral": "VI",
     "slug": "ohiggins",
     "cities": [
@@ -112,7 +152,7 @@
   },
   {
     "id": 9,
-    "name": "Maule",
+    "name": "Región del Maule",
     "romanNumeral": "VII",
     "slug": "maule",
     "cities": [
@@ -125,7 +165,7 @@
   },
   {
     "id": 10,
-    "name": "Ñuble",
+    "name": "Región de Ñuble",
     "romanNumeral": "XVI",
     "slug": "nuble",
     "cities": [
@@ -137,7 +177,7 @@
   },
   {
     "id": 11,
-    "name": "Biobío",
+    "name": "Región del Biobío",
     "romanNumeral": "VIII",
     "slug": "biobio",
     "cities": [
@@ -153,7 +193,7 @@
   },
   {
     "id": 12,
-    "name": "La Araucanía",
+    "name": "Región de La Araucanía",
     "romanNumeral": "IX",
     "slug": "la-araucania",
     "cities": [
@@ -167,7 +207,7 @@
   },
   {
     "id": 13,
-    "name": "Los Ríos",
+    "name": "Región de Los Ríos",
     "romanNumeral": "XIV",
     "slug": "los-rios",
     "cities": [
@@ -179,7 +219,7 @@
   },
   {
     "id": 14,
-    "name": "Los Lagos",
+    "name": "Región de Los Lagos",
     "romanNumeral": "X",
     "slug": "los-lagos",
     "cities": [
@@ -193,7 +233,7 @@
   },
   {
     "id": 15,
-    "name": "Aysén",
+    "name": "Región de Aysén",
     "romanNumeral": "XI",
     "slug": "aysen",
     "cities": [
@@ -204,7 +244,7 @@
   },
   {
     "id": 16,
-    "name": "Magallanes y la Antártica Chilena",
+    "name": "Región de Magallanes y la Antártica Chilena",
     "romanNumeral": "XII",
     "slug": "magallanes",
     "cities": [

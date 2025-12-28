@@ -56,7 +56,7 @@ export function LDCCategoryCard({
         href={`/categoria/${slug}`}
         className={cn(
           "relative block h-full p-6 rounded-xl overflow-hidden",
-          "bg-card dark:bg-neutral-800 border border-border",
+          "bg-card border border-border",
           "transition-all duration-300",
           "hover:border-purple/50"
         )}

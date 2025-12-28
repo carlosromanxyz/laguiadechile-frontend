@@ -106,7 +106,7 @@ export function LDCClassifiedCard({
   return (
     <article
       className={cn(
-        "group bg-card dark:bg-neutral-800 rounded-xl overflow-hidden border border-border",
+        "group bg-card rounded-xl overflow-hidden border border-border",
         "flex flex-col sm:flex-row",
         "hover:shadow-lg transition-shadow duration-200",
         featured && "ring-2 ring-yellow",

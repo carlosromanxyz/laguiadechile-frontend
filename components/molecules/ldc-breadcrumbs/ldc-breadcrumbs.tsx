@@ -48,10 +48,10 @@ export function LDCBreadcrumbs({
       home: "text-muted-foreground hover:text-foreground",
     },
     dark: {
-      link: "text-white/70 hover:text-white",
-      current: "text-white font-medium",
-      separator: "text-white/40",
-      home: "text-white/70 hover:text-white",
+      link: "text-white/70 hover:text-white dark:text-muted-foreground dark:hover:text-foreground",
+      current: "text-white font-medium dark:text-foreground",
+      separator: "text-white/40 dark:text-muted-foreground/50",
+      home: "text-white/70 hover:text-white dark:text-muted-foreground dark:hover:text-foreground",
     },
   };
 

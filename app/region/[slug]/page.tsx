@@ -53,8 +53,8 @@ export async function generateMetadata({
   }
 
   return {
-    title: `Región de ${region.name} - La Guía de Chile`,
-    description: `Explora las ciudades de la Región de ${region.name}. Encuentra comercios, servicios, propiedades y avisos.`,
+    title: `${region.name} - La Guía de Chile`,
+    description: `Explora las ciudades de la ${region.name}. Encuentra comercios, servicios, propiedades y avisos.`,
   };
 }
 
@@ -81,7 +81,7 @@ export default async function RegionPage({ params }: RegionPageProps) {
     <>
       {/* Hero Section */}
       <LDCListingsPageHero
-        title={`Región de ${region.name}`}
+        title={region.name}
         breadcrumbs={breadcrumbs}
         icon={MapPin}
       />

@@ -48,21 +48,21 @@ export function LDCListingsPageHero({
   return (
     <section
       className={cn(
-        "relative w-full bg-purple pt-24 pb-12 md:pt-28 md:pb-16",
+        "relative w-full bg-purple/20 pt-24 pb-12 md:pt-28 md:pb-16",
         className
       )}
     >
       <div className="mx-auto max-w-7xl px-4">
         {/* Breadcrumbs */}
-        <LDCBreadcrumbs items={breadcrumbs} variant="dark" className="mb-6" />
+        <LDCBreadcrumbs items={breadcrumbs} variant="light" className="mb-6" />
 
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
           {/* Content */}
-          <div className="space-y-4 text-white">
+          <div className="space-y-4 text-foreground">
             <div className="flex items-center gap-4">
               {/* Icon */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/20 backdrop-blur-sm border border-white/30">
-                <Icon className="h-7 w-7 text-white" />
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple/30 border border-border">
+                <Icon className="h-7 w-7 text-purple" />
               </div>
 
               {/* Title */}

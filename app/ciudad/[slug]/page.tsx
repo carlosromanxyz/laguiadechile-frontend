@@ -6,6 +6,7 @@ import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
 import { LDCWeatherWidget } from "@/components/molecules/ldc-weather-widget";
 import { LDCPharmacyBanner } from "@/components/molecules/ldc-pharmacy-banner";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
+import { LDCWikipediaSection } from "@/components/molecules/ldc-wikipedia-section";
 import { getAllCitiesFromRegions, getCityBySlugFromRegions } from "@/services/regions";
 import { getListingsByCity } from "@/services/featured-listings";
 import { getPropertiesByCity } from "@/services/properties";
@@ -93,7 +94,7 @@ export default async function CityPage({ params }: CityPageProps) {
         title={city.name}
         breadcrumbs={breadcrumbs}
         icon={MapPin}
-        rightContent={<LDCSocialShareButtons title={city.name} />}
+        rightContent={<LDCSocialShareButtons title={city.name} variant="dark" />}
       />
 
       {/* Main Content */}
@@ -217,6 +218,11 @@ export default async function CityPage({ params }: CityPageProps) {
             )}
           </LDCSection>
         )}
+
+        {/* Wikipedia Section */}
+        <LDCSection paddingY="md">
+          <LDCWikipediaSection cityName={city.name} />
+        </LDCSection>
 
         {/* Avisos Section */}
         {classifieds.length > 0 && (
