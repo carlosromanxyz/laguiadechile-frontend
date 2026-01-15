@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## CRITICAL: Task Orchestrator (MANDATORY)
+
+**ALWAYS use the `task-orchestrator` agent for ALL user requests.** This is non-negotiable.
+
+- Every instruction from the user MUST be delegated to the appropriate specialist agent via `task-orchestrator`
+- The main agent (Claude) should NEVER execute tasks directly
+- Do NOT ask for approval before delegating - just delegate immediately
+- Only request user approval when explicitly asked
+
+```
+User Request → task-orchestrator → Specialist Agent → Result
+```
+
+**NO EXCEPTIONS.** If you find yourself about to use Read, Write, Edit, Bash, or any other tool directly instead of delegating through task-orchestrator, STOP and delegate instead.
+
 ## Project Overview
 
 This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeScript, React 19, and Tailwind CSS 4. The project uses the Next.js App Router architecture with server components as the default.
