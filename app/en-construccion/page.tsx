@@ -51,18 +51,6 @@ export default function EnConstruccionPage() {
         },
       };
 
-  const pulseAnimation = prefersReducedMotion
-    ? {}
-    : {
-        scale: [1, 1.05, 1],
-        opacity: [0.5, 0.8, 0.5],
-        transition: {
-          duration: 4,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      };
-
   return (
     <div className="relative min-h-screen overflow-hidden bg-neutral-900">
       {/* Caution stripe */}
@@ -92,76 +80,72 @@ export default function EnConstruccionPage() {
 
           {/* Main heading */}
           <motion.div variants={itemVariants} className="space-y-4">
-            <h1 className="text-3xl md:text-4xl text-white leading-tight font-mulish">
+            <h1 className="text-2xl md:text-3xl text-white leading-tight font-mulish">
               <span className="font-normal">Estamos construyendo </span>
-              <motion.span
-                className="inline-block font-semibold"
+              <span
+                className="inline-block font-semibold bg-clip-text text-transparent animate-color-slide-text"
                 style={{
-                  background: "linear-gradient(90deg, oklch(0.75 0.18 55) 0%, oklch(0.62 0.28 350) 33%, oklch(0.58 0.24 290) 66%, oklch(0.75 0.18 55) 100%)",
-                  backgroundSize: "200% 100%",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent",
-                  backgroundClip: "text",
-                }}
-                animate={
-                  prefersReducedMotion
-                    ? {}
-                    : {
-                        backgroundPosition: ["0% 0%", "-200% 0%"],
-                      }
-                }
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "linear" as const,
+                  backgroundImage: `linear-gradient(90deg,
+                    var(--color-pink) 0%, var(--color-pink) 20%,
+                    var(--color-purple) 20%, var(--color-purple) 40%,
+                    var(--color-yellow) 40%, var(--color-yellow) 60%,
+                    var(--color-orange) 60%, var(--color-orange) 80%,
+                    var(--color-pink) 80%, var(--color-pink) 100%
+                  )`,
+                  backgroundSize: "500% 100%",
                 }}
               >
                 algo increíble
-              </motion.span>
+              </span>
             </h1>
           </motion.div>
 
-          {/* Footer text */}
-          <motion.div variants={itemVariants} className="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-8 w-full">
-            <p className="text-sm text-neutral-500 text-center md:text-left">
-              Mientras tanto, puedes seguirnos en nuestras redes sociales para estar
-              al tanto de las novedades.
-            </p>
-
-            {/* Social media links */}
-            <div className="flex items-center gap-4 flex-shrink-0">
-              <Link
-                href="https://fb.com/laguiadechilecl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors"
-              >
-                <FaFacebook className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://x.com/laguiadechilecl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors"
-              >
-                <FaXTwitter className="w-5 h-5" />
-              </Link>
-              <Link
-                href="https://instagram.com/laguiadechilecl"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-neutral-400 hover:text-white transition-colors"
-              >
-                <FaInstagram className="w-5 h-5" />
-              </Link>
-            </div>
-          </motion.div>
           </motion.div>
         </div>
       </div>
 
-      {/* Bottom gradient overlay */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[oklch(0.145_0_0)] to-transparent pointer-events-none" />
+      {/* Footer */}
+      <motion.footer
+        className="absolute bottom-0 left-0 right-0 z-10 p-6"
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.5 }}
+      >
+        <div className="container mx-auto max-w-4xl flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-sm text-neutral-500 text-center md:text-left">
+            Mientras tanto, puedes seguirnos en nuestras redes sociales para estar
+            al tanto de las novedades.
+          </p>
+
+          {/* Social media links */}
+          <div className="flex items-center gap-4 shrink-0">
+            <Link
+              href="https://fb.com/laguiadechilecl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              <FaFacebook className="w-5 h-5" />
+            </Link>
+            <Link
+              href="https://x.com/laguiadechilecl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              <FaXTwitter className="w-5 h-5" />
+            </Link>
+            <Link
+              href="https://instagram.com/laguiadechilecl"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-neutral-400 hover:text-white transition-colors"
+            >
+              <FaInstagram className="w-5 h-5" />
+            </Link>
+          </div>
+        </div>
+      </motion.footer>
     </div>
   );
 }
