@@ -23,10 +23,14 @@ This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeS
 
 ## Development Commands
 
-- `npm run dev` - Start the development server (runs on http://localhost:3000)
-- `npm run build` - Create a production build
-- `npm start` - Run the production build locally
-- `npm run lint` - Run ESLint to check for code quality issues
+```bash
+npm run dev      # Start development server (http://localhost:3000)
+npm run build    # Create production build
+npm start        # Run production build locally
+npm run lint     # Run ESLint
+```
+
+No test framework is currently configured.
 
 ## Tech Stack
 
@@ -37,10 +41,27 @@ This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeS
 - **UI Components**: shadcn/ui (new-york style, RSC enabled)
 - **Icons**: Lucide React and React Icons
 - **Animations**: Framer Motion and tw-animate-css
+- **Carousel**: Embla Carousel
 - **Forms**: React Hook Form with Zod validation
 - **Utilities**: clsx, tailwind-merge, Class Variance Authority (cva)
 
 ## Architecture
+
+### Route Structure (App Router with Route Groups)
+
+```
+app/
+├── (main)/              # Main site route group
+│   ├── layout.tsx       # Shared layout with header/footer
+│   └── page.tsx         # Homepage
+├── en-construccion/     # Construction/maintenance page
+├── api/                 # API route handlers
+│   ├── weather/         # Open-Meteo weather proxy
+│   ├── pharmacies/      # Pharmacy data
+│   └── wikipedia/       # Wikipedia city info proxy
+├── globals.css          # Tailwind theme & CSS variables
+└── layout.tsx           # Root layout with fonts & providers
+```
 
 ### Data Flow Pattern
 
@@ -50,15 +71,9 @@ data/*.json → services/*.ts → interfaces/*.ts → components/
 
 - **data/**: Static JSON files (categories, cities, listings, news, etc.)
 - **services/**: Data fetching functions that read from JSON or external APIs
-- **interfaces/**: TypeScript interfaces prefixed with `I` (e.g., `IFeaturedCategory`)
-- **config/**: App configuration (navigation items, social networks)
+- **interfaces/**: TypeScript interfaces prefixed with `I` (e.g., `IFeaturedCategory`, `ICity`)
+- **config/**: App configuration (`navigation.ts`, `social-networks.ts`)
 - **validations/**: Zod schemas for form validation
-
-### API Routes
-
-Route handlers in `app/api/` proxy external APIs:
-- `/api/weather?city=Santiago` - Weather data from Open-Meteo
-- `/api/pharmacies` - Pharmacy data
 
 ### Component Architecture (Atomic Design)
 
@@ -69,7 +84,7 @@ components/
 ├── organisms/       # Complex components (ldc-header, ldc-footer, ldc-hero)
 ├── templates/       # Page layouts
 ├── pages/           # Complete page components
-├── ui/              # shadcn/ui components (auto-generated)
+├── ui/              # shadcn/ui components (auto-generated, NO LDC prefix)
 └── shared/          # Providers, utilities (theme-provider)
 ```
 
@@ -92,13 +107,19 @@ ldc-component-name/
 
 ### Styling
 - Use `cn()` from `@/lib/utils` for conditional classes
-- Colors use OKLCH color space
+- Colors defined with OKLCH color space in `globals.css`
 - Dark mode via `.dark` class and CSS custom properties
 - Brand colors: `yellow`, `orange`, `orange-red`, `pink`, `purple`, `blue-gray`
 
 ### Fonts
-- Primary: Mulish (`--font-mulish`, `font-mulish`)
+- Primary: Mulish (`--font-mulish`, `font-mulish`) - default body font
 - Secondary: Open Sans (`--font-open-sans`)
+
+## Environment Variables
+
+```bash
+UNDER_CONSTRUCTION=true  # Redirects all traffic to /en-construccion
+```
 
 ## Adding shadcn/ui Components
 
