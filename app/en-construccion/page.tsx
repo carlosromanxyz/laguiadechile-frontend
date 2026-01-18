@@ -1,25 +1,12 @@
 "use client";
 
 import { LDCLogo } from "@/components/atoms/ldc-logo";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion } from "framer-motion";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import Link from "next/link";
 
 export default function EnConstruccionPage() {
-  const prefersReducedMotion = useReducedMotion();
-
-  const floatingAnimation = prefersReducedMotion
-    ? {}
-    : {
-        y: [0, -20, 0],
-        transition: {
-          duration: 6,
-          repeat: Infinity,
-          ease: "easeInOut" as const,
-        },
-      };
-
   return (
     <motion.div
       className="text-center space-y-8"
@@ -28,9 +15,9 @@ export default function EnConstruccionPage() {
       transition={{ duration: 0.6 }}
     >
       {/* Logo */}
-      <motion.div className="flex justify-center" animate={floatingAnimation}>
+      <div className="flex justify-center">
         <LDCLogo isotipoSize="md" />
-      </motion.div>
+      </div>
 
       {/* Título */}
       <h1 className="text-xl md:text-2xl text-white leading-tight font-mulish">
