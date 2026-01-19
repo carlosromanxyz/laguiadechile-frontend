@@ -22,7 +22,7 @@ export default function EnConstruccionPage() {
       {/* Título */}
       <h1 className="text-xl md:text-2xl text-white leading-tight font-mulish">
         <span className="font-normal">Estamos construyendo </span>
-        <span className="inline-block font-semibold bg-clip-text text-transparent animate-color-slide-text bg-[length:500%_100%] bg-[linear-gradient(90deg,var(--color-pink)_0%,var(--color-pink)_20%,var(--color-purple)_20%,var(--color-purple)_40%,var(--color-yellow)_40%,var(--color-yellow)_60%,var(--color-orange)_60%,var(--color-orange)_80%,var(--color-pink)_80%,var(--color-pink)_100%)]">
+        <span className="inline-block font-semibold bg-clip-text text-transparent animate-color-slide-text bg-size-[500%_100%] bg-[linear-gradient(90deg,var(--color-pink)_0%,var(--color-pink)_20%,var(--color-purple)_20%,var(--color-purple)_40%,var(--color-yellow)_40%,var(--color-yellow)_60%,var(--color-orange)_60%,var(--color-orange)_80%,var(--color-pink)_80%,var(--color-pink)_100%)]">
           algo increíble
         </span>
       </h1>
