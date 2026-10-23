@@ -1,16 +1,16 @@
 export interface IFeaturedListing {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   type: "comercio" | "servicio";
   category: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
     icon: string;
   };
   city: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
   };

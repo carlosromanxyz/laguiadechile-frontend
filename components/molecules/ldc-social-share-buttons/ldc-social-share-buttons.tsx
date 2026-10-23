@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Share2 } from "lucide-react";
 
@@ -29,12 +29,7 @@ export function LDCSocialShareButtons({
   className,
   variant = "light",
 }: LDCSocialShareButtonsProps) {
-  const [canShare, setCanShare] = useState(false);
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    setCanShare(typeof navigator !== "undefined" && !!navigator.share);
-  }, []);
 
   const shareMessage = `Descubre ${title} en La Guía de Chile`;
 

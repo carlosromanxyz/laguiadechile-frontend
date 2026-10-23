@@ -17,8 +17,8 @@ export const metadata: Metadata = {
  * Displays all 16 Chilean regions as cards.
  * Each region links to its dedicated page showing its cities.
  */
-export default function RegionsPage() {
-  const regions = getRegions();
+export default async function RegionsPage() {
+  const regions = await getRegions();
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

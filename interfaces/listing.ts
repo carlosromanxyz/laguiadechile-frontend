@@ -1,12 +1,12 @@
 export interface IListingCategory {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   icon: string;
 }
 
 export interface IListingCity {
-  id: number;
+  id: string;
   name: string;
   slug: string;
 }
@@ -42,7 +42,7 @@ export interface IListingSchedule {
 }
 
 export interface IListing {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   type: "comercio" | "servicio";

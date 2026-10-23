@@ -9,15 +9,16 @@ import type { Metadata } from "next";
 /**
  * Generate a mock count based on city id for consistent display
  */
-function getMockCityCount(cityId: number): number {
-  const seed = cityId * 17 + 23;
+function getMockCityCount(cityId: string): number {
+  let seed = 23;
+  for (const char of cityId) seed = (seed * 17 + char.charCodeAt(0)) % 9973;
   return (seed % 150) + 5;
 }
 
 /**
  * Generate a placeholder image URL for a city
  */
-function getCityImage(citySlug: string, cityId: number): string {
+function getCityImage(citySlug: string, cityId: string): string {
   return `https://picsum.photos/seed/${citySlug}-${cityId}/800/600`;
 }
 
@@ -33,9 +34,11 @@ export const metadata: Metadata = {
  * Displays all Chilean cities in a grid layout.
  * For cities organized by region, see /regiones.
  */
-export default function CitiesPage() {
-  const cities = getAllCitiesFromRegions();
-  const totalCities = getTotalCitiesCount();
+export default async function CitiesPage() {
+  const [cities, totalCities] = await Promise.all([
+    getAllCitiesFromRegions(),
+    getTotalCitiesCount(),
+  ]);
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

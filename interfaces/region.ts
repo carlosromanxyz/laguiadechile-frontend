@@ -1,12 +1,12 @@
 export interface IRegionCity {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   isCapital: boolean;
 }
 
 export interface IRegion {
-  id: number;
+  id: string;
   name: string;
   romanNumeral: string;
   slug: string;

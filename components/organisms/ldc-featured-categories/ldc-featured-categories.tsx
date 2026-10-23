@@ -20,8 +20,8 @@ import { getFeaturedCategories } from "@/services/featured-categories";
  * <LDCFeaturedCategories />
  * ```
  */
-export function LDCFeaturedCategories() {
-  const categories = getFeaturedCategories();
+export async function LDCFeaturedCategories() {
+  const categories = await getFeaturedCategories();
 
   return (
     <LDCSection>

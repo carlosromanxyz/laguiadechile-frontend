@@ -14,8 +14,8 @@ import { getFeaturedCities } from "@/services/featured-cities";
  * <LDCFeaturedCities />
  * ```
  */
-export function LDCFeaturedCities() {
-  const cities = getFeaturedCities();
+export async function LDCFeaturedCities() {
+  const cities = await getFeaturedCities();
 
   return (
     <LDCSection>

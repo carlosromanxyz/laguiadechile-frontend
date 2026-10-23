@@ -55,17 +55,19 @@ export function LDCPropertyImageCarousel({
 }: LDCPropertyImageCarouselProps) {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [count, setCount] = useState(0);
+  const count = api?.scrollSnapList().length ?? 0;
 
   useEffect(() => {
     if (!api) return;
 
-    setCount(api.scrollSnapList().length);
-    setCurrent(api.selectedScrollSnap());
+    const onSelect = () => setCurrent(api.selectedScrollSnap());
+    api.on("select", onSelect);
+    api.on("reInit", onSelect);
 
-    api.on("select", () => {
-      setCurrent(api.selectedScrollSnap());
-    });
+    return () => {
+      api.off("select", onSelect);
+      api.off("reInit", onSelect);
+    };
   }, [api]);
 
   const scrollPrev = useCallback(

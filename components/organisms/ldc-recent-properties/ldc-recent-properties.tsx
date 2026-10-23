@@ -14,8 +14,8 @@ import { getRecentProperties } from "@/services/properties";
  * <LDCRecentProperties />
  * ```
  */
-export function LDCRecentProperties() {
-  const properties = getRecentProperties(10);
+export async function LDCRecentProperties() {
+  const properties = await getRecentProperties(10);
 
   return (
     <LDCSection>

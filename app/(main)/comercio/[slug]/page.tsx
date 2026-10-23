@@ -34,7 +34,7 @@ export async function generateMetadata({
   params,
 }: ComercioPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const listing = getListingBySlugAndType(slug, "comercio");
+  const listing = await getListingBySlugAndType(slug, "comercio");
 
   if (!listing) {
     return {
@@ -71,7 +71,7 @@ export async function generateMetadata({
  */
 export default async function ComercioPage({ params }: ComercioPageProps) {
   const { slug } = await params;
-  const listing = getListingBySlugAndType(slug, "comercio");
+  const listing = await getListingBySlugAndType(slug, "comercio");
 
   if (!listing) {
     notFound();
@@ -84,7 +84,7 @@ export default async function ComercioPage({ params }: ComercioPageProps) {
     { label: listing.title, href: "" },
   ];
 
-  const relatedListings = getRelatedListings(
+  const relatedListings = await getRelatedListings(
     listing.id,
     listing.category.id,
     listing.city.id,

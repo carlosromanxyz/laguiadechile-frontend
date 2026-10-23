@@ -16,7 +16,7 @@ interface CategoryPageProps {
  * Generate static params for all categories
  */
 export async function generateStaticParams() {
-  const categories = getAllCategories();
+  const categories = await getAllCategories();
   return categories.map((category) => ({
     slug: category.slug,
   }));
@@ -29,7 +29,7 @@ export async function generateMetadata({
   params,
 }: CategoryPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
 
   if (!category) {
     return {
@@ -51,13 +51,13 @@ export async function generateMetadata({
  */
 export default async function CategoryPage({ params }: CategoryPageProps) {
   const { slug } = await params;
-  const category = getCategoryBySlug(slug);
+  const category = await getCategoryBySlug(slug);
 
   if (!category) {
     notFound();
   }
 
-  const listings = getListingsByCategory(slug);
+  const listings = await getListingsByCategory(slug);
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

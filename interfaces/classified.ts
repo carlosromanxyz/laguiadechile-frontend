@@ -2,20 +2,27 @@ export type ClassifiedType = "vendo" | "compro" | "arriendo" | "busco" | "ofrezc
 
 export type ClassifiedPriceType = "fixed" | "free" | "negotiable" | "contact";
 
+export interface IClassifiedSeller {
+  name: string;
+  phone?: string;
+  whatsapp?: string;
+  email?: string;
+}
+
 export interface IClassified {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   description: string;
   type: ClassifiedType;
   category: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
     icon: string;
   };
   city: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
   };
@@ -28,6 +35,8 @@ export interface IClassified {
   featured: boolean;
   createdAt: string;
   expiresAt: string;
+  seller: IClassifiedSeller;
+  gallery: string[];
 }
 
 export type IClassifieds = IClassified[];

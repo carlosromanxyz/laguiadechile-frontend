@@ -14,8 +14,8 @@ import { getRecentListings } from "@/services/featured-listings";
  * <LDCRecentListings />
  * ```
  */
-export function LDCRecentListings() {
-  const listings = getRecentListings(10);
+export async function LDCRecentListings() {
+  const listings = await getRecentListings(10);
 
   return (
     <LDCSection>

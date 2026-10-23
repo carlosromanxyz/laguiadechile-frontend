@@ -20,8 +20,8 @@ export const metadata: Metadata = {
  * - Hero: Page header with breadcrumbs and title
  * - Grid: Responsive paginated grid of news cards with "Load More"
  */
-export default function NoticiasPage() {
-  const news = getNews();
+export default async function NoticiasPage() {
+  const news = await getNews();
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

@@ -8,7 +8,7 @@ import {
   formatPropertyPriceWithPeriod,
   getPropertyTypeLabel,
   getOperationLabel,
-} from "@/services/properties";
+} from "@/lib/format/properties";
 import { LDCPropertyImageCarousel } from "@/components/molecules/ldc-property-image-carousel";
 import {
   Tooltip,

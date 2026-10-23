@@ -5,7 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { MapPin, Clock, ChevronRight, Star } from "lucide-react";
 import { ClassifiedType, ClassifiedPriceType } from "@/interfaces/classified";
-import { formatClassifiedPrice, getRelativeTime } from "@/services/classifieds";
+import { formatClassifiedPrice, getRelativeTime } from "@/lib/format/classifieds";
 
 interface LDCClassifiedCardProps {
   /** Classified title */

@@ -14,8 +14,8 @@ import { getRecentPosts } from "@/services/posts";
  * <LDCRecentPosts />
  * ```
  */
-export function LDCRecentPosts() {
-  const posts = getRecentPosts(10);
+export async function LDCRecentPosts() {
+  const posts = await getRecentPosts(10);
 
   return (
     <LDCSection>

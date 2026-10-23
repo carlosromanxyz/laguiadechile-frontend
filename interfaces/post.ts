@@ -1,9 +1,9 @@
 export interface IPost {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   category: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
     icon: string;

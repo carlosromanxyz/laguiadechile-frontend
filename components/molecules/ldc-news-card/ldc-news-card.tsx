@@ -5,7 +5,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Calendar, User } from "lucide-react";
-import { isNewArticle, isUpdatedArticle } from "@/services/news";
+import { isNewArticle, isUpdatedArticle } from "@/lib/format/news";
 import { getIcon } from "@/lib/get-icon";
 import {
   Tooltip,
@@ -16,7 +16,7 @@ import {
 
 interface LDCNewsCardProps {
   /** Article ID */
-  id: number;
+  id: string;
   /** Article title */
   title: string;
   /** Article slug for URL */
