@@ -20,7 +20,7 @@ import { LDCLogo } from "@/components/atoms/ldc-logo";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCThemeModeToggler } from "@/components/molecules/ldc-theme-mode-toggler";
 import { LDCNavMenu } from "@/components/molecules/ldc-nav-menu";
-import { LDCMobileMenu } from "@/components/molecules/ldc-mobile-menu";
+import { LDCMobileMenu } from "@/components/organisms/ldc-mobile-menu";
 
 export function LDCHeader() {
   return (

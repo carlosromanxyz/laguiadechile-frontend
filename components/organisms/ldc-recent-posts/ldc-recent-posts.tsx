@@ -1,4 +1,4 @@
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCPostCard } from "@/components/molecules/ldc-post-card";
 import { getRecentPosts } from "@/services/posts";

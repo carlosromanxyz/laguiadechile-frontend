@@ -1,6 +1,6 @@
 import { LDCListingDetailHero } from "@/components/organisms/ldc-listing-detail-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
-import { LDCListingInfo } from "@/components/molecules/ldc-listing-info";
+import { LDCSection } from "@/components/atoms/ldc-section";
+import { LDCListingInfo } from "@/components/organisms/ldc-listing-info";
 import { LDCListingGallery } from "@/components/molecules/ldc-listing-gallery";
 import { LDCListingMap } from "@/components/molecules/ldc-listing-map";
 import { LDCListingSocialMedia } from "@/components/molecules/ldc-listing-social-media";

@@ -3,7 +3,7 @@
 import { LDCHeroText } from "@/components/atoms/ldc-hero-text";
 import { LDCScrollIndicator } from "@/components/atoms/ldc-scroll-indicator";
 import { LDCHeroSlider } from "@/components/molecules/ldc-hero-slider";
-import { LDCSearchForm } from "@/components/molecules/ldc-search-form";
+import { LDCSearchForm } from "@/components/organisms/ldc-search-form";
 import { useIsMobile } from "@/hooks/use-is-mobile";
 import { useEffect, useState } from "react";
 import type { ICategories } from "@/interfaces/category";

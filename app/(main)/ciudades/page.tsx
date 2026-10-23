@@ -1,5 +1,5 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCCityCard } from "@/components/molecules/ldc-city-card";
 import { getAllCitiesFromRegions, getTotalCitiesCount } from "@/services/regions";
 import { MapPin } from "lucide-react";

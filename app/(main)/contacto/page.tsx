@@ -1,4 +1,4 @@
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCContactForm } from "@/components/organisms/ldc-contact-form";
 import { LDCContactInfo } from "@/components/molecules/ldc-contact-info";
 import { LDCBreadcrumbs } from "@/components/molecules/ldc-breadcrumbs";

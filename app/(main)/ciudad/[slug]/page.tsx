@@ -1,12 +1,12 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
-import { LDCWeatherWidget } from "@/components/molecules/ldc-weather-widget";
-import { LDCPharmacyBanner } from "@/components/molecules/ldc-pharmacy-banner";
+import { LDCWeatherWidget } from "@/components/organisms/ldc-weather-widget";
+import { LDCPharmacyBanner } from "@/components/organisms/ldc-pharmacy-banner";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
-import { LDCWikipediaSection } from "@/components/molecules/ldc-wikipedia-section";
+import { LDCWikipediaSection } from "@/components/organisms/ldc-wikipedia-section";
 import { getAllCitiesFromRegions, getCityBySlugFromRegions } from "@/services/regions";
 import { getListingsByCity } from "@/services/featured-listings";
 import { getPropertiesByCity } from "@/services/properties";

@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { LDCNewsArticleHero } from "@/components/organisms/ldc-news-article-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCNewsAuthor } from "@/components/molecules/ldc-news-author";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { LDCNewsCard } from "@/components/molecules/ldc-news-card";
