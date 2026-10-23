@@ -1,4 +1,4 @@
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCCityCard } from "@/components/molecules/ldc-city-card";
 import { getFeaturedCities } from "@/services/featured-cities";

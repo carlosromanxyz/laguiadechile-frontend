@@ -1,6 +1,6 @@
 "use client";
 
-import { LDCResourceRowActions } from "@/components/molecules/ldc-resource-row-actions";
+import { LDCResourceRowActions } from "@/components/organisms/ldc-resource-row-actions";
 import { deleteCategoryAction } from "@/app/(dashboard)/dashboard/categories/actions";
 
 export function CategoriesTableRowActions({ id }: { id: string }) {

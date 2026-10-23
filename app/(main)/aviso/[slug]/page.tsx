@@ -1,5 +1,5 @@
 import { LDCClassifiedDetailHero } from "@/components/organisms/ldc-classified-detail-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCListingGallery } from "@/components/molecules/ldc-listing-gallery";
 import { LDCClassifiedSeller } from "@/components/molecules/ldc-classified-seller";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";

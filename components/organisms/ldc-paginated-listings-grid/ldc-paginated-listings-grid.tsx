@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
-import { LDCLoadMoreButton } from "@/components/molecules/ldc-load-more-button";
+import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
 import { IFeaturedListings } from "@/interfaces/featured-listing";
 import { motion, AnimatePresence } from "framer-motion";
 

@@ -1,5 +1,5 @@
 import { LDCPropertyDetailHero } from "@/components/organisms/ldc-property-detail-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCListingGallery } from "@/components/molecules/ldc-listing-gallery";
 import { LDCListingMap } from "@/components/molecules/ldc-listing-map";
 import { LDCPropertyFeatures } from "@/components/molecules/ldc-property-features";

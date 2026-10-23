@@ -1,5 +1,5 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { getRegions } from "@/services/regions";
 import { MapPin, ChevronRight } from "lucide-react";
 import Link from "next/link";

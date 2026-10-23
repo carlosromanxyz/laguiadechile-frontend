@@ -9,7 +9,7 @@ import {
   getPropertyTypeLabel,
   getOperationLabel,
 } from "@/lib/format/properties";
-import { LDCPropertyImageCarousel } from "@/components/molecules/ldc-property-image-carousel";
+import { LDCPropertyImageCarousel } from "@/components/atoms/ldc-property-image-carousel";
 import {
   Tooltip,
   TooltipContent,

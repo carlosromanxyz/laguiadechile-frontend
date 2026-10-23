@@ -1,5 +1,5 @@
-import { LDCComingSoon } from "@/components/atoms/ldc-coming-soon";
+import { LDCComingSoonTemplate } from "@/components/templates/ldc-coming-soon-template";
 
 export default function TerminosYCondicionesPage() {
-  return <LDCComingSoon />;
+  return <LDCComingSoonTemplate />;
 }

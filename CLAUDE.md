@@ -79,14 +79,25 @@ data/*.json → services/*.ts → interfaces/*.ts → components/
 
 ```
 components/
-├── atoms/           # Basic elements (ldc-logo, ldc-badge, ldc-button)
-├── molecules/       # Combinations (ldc-search-form, ldc-category-card)
-├── organisms/       # Complex components (ldc-header, ldc-footer, ldc-hero)
-├── templates/       # Page layouts
+├── atoms/           # Primitivas (ldc-logo, ldc-badge, ldc-section, ldc-load-more-button)
+├── molecules/       # Combinaciones de átomos (ldc-category-card, ldc-combobox)
+├── organisms/       # Secciones, formularios y widgets (ldc-header, ldc-search-form, ldc-login-form)
+├── templates/       # Esqueletos de página sin datos (ldc-coming-soon-template)
 ├── pages/           # Complete page components
 ├── ui/              # shadcn/ui components (auto-generated, NO LDC prefix)
 └── shared/          # Providers, utilities (theme-provider)
 ```
+
+**Matriz de imports** (`no-restricted-imports` por carpeta en `eslint.config.mjs`; hoy en `warn`):
+
+| Nivel | Puede importar | No puede importar |
+|---|---|---|
+| `atoms/` (y `ui/`, que cuenta como átomo) | `ui`, `lib`, `interfaces` y otros átomos | molecules, organisms, templates |
+| `molecules/` | atoms, `ui` y otras moléculas | organisms, templates |
+| `organisms/` | organisms, molecules, atoms, `ui` | templates |
+| `templates/` | todo (sin pedir datos) | — |
+
+Los imports dentro del mismo nivel están permitidos. Imports siempre absolutos, `@/components/<nivel>/<nombre>` (sin barrels por nivel).
 
 **Component file structure:**
 ```

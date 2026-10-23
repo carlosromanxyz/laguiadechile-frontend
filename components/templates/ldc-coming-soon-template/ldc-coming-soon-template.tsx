@@ -1,5 +1,5 @@
 /**
- * LDCComingSoon - Coming Soon Component
+ * LDCComingSoonTemplate - Coming Soon Component
  *
  * Simple centered message component for pages under construction.
  * Displays "Próximamente" with a clean, minimal design.
@@ -11,10 +11,10 @@
  * - Clean, minimal design
  *
  * @example
- * <LDCComingSoon />
+ * <LDCComingSoonTemplate />
  */
 
-export function LDCComingSoon() {
+export function LDCComingSoonTemplate() {
   return (
     <div className="flex min-h-screen items-center justify-center">
       <h1 className="font-mulish text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">

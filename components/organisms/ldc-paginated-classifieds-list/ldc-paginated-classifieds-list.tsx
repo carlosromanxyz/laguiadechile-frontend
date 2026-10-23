@@ -2,9 +2,9 @@
 
 import { useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
-import { LDCSection } from "@/components/organisms/ldc-section";
+import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
-import { LDCLoadMoreButton } from "@/components/molecules/ldc-load-more-button";
+import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
 import { IClassifieds } from "@/interfaces/classified";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";

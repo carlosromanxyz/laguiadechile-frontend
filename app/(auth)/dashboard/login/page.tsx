@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { LDCLoginForm } from "@/components/molecules/ldc-login-form";
+import { LDCLoginForm } from "@/components/organisms/ldc-login-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getCurrentUser } from "@/lib/auth";
 
