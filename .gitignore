@@ -40,3 +40,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# memoria local de los agentes de Claude Code
+.claude/agent-memory/
