@@ -27,7 +27,7 @@ interface CityPageProps {
  * Generate static params for all cities from all regions
  */
 export async function generateStaticParams() {
-  const cities = getAllCitiesFromRegions();
+  const cities = await getAllCitiesFromRegions();
   return cities.map((city) => ({
     slug: city.slug,
   }));
@@ -40,7 +40,7 @@ export async function generateMetadata({
   params,
 }: CityPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const result = getCityBySlugFromRegions(slug);
+  const result = await getCityBySlugFromRegions(slug);
 
   if (!result) {
     return {
@@ -66,7 +66,7 @@ export async function generateMetadata({
  */
 export default async function CityPage({ params }: CityPageProps) {
   const { slug } = await params;
-  const result = getCityBySlugFromRegions(slug);
+  const result = await getCityBySlugFromRegions(slug);
 
   if (!result) {
     notFound();
@@ -74,9 +74,11 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const { city, region } = result;
 
-  const listings = getListingsByCity(slug);
-  const properties = getPropertiesByCity(slug);
-  const classifieds = getClassifiedsByCity(slug);
+  const [listings, properties, classifieds] = await Promise.all([
+    getListingsByCity(slug),
+    getPropertiesByCity(slug),
+    getClassifiedsByCity(slug),
+  ]);
 
   const totalCount = listings.length + properties.length + classifieds.length;
 

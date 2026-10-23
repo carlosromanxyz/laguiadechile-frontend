@@ -2,26 +2,13 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-## CRITICAL: Task Orchestrator (MANDATORY)
-
-**ALWAYS use the `task-orchestrator` agent for ALL user requests.** This is non-negotiable.
-
-- Every instruction from the user MUST be delegated to the appropriate specialist agent via `task-orchestrator`
-- The main agent (Claude) should NEVER execute tasks directly
-- Do NOT ask for approval before delegating - just delegate immediately
-- Only request user approval when explicitly asked
-
-```
-User Request → task-orchestrator → Specialist Agent → Result
-```
-
-**NO EXCEPTIONS.** If you find yourself about to use Read, Write, Edit, Bash, or any other tool directly instead of delegating through task-orchestrator, STOP and delegate instead.
-
 ## Project Overview
 
 This is "La Guía de Chile" frontend - a Next.js 16 application built with TypeScript, React 19, and Tailwind CSS 4. The project uses the Next.js App Router architecture with server components as the default.
 
 ## Development Commands
+
+### Native (Node 20+ required)
 
 ```bash
 npm run dev      # Start development server (http://localhost:3000)
@@ -29,6 +16,19 @@ npm run build    # Create production build
 npm start        # Run production build locally
 npm run lint     # Run ESLint
 ```
+
+### Containerized (recommended — no local Node needed)
+
+Run from the repo root (`/laguiadechile/`):
+
+```bash
+docker compose up -d                 # Build & start (first run takes ~1-2 min)
+docker compose logs -f frontend      # Follow logs
+docker compose down                  # Stop & remove containers
+docker compose down -v               # Full reset (also clears volumes)
+```
+
+Default host port is **3013** (http://localhost:3013) to avoid conflict with other local projects on 3000. Override via env vars: `FRONTEND_PORT=4000 UNDER_CONSTRUCTION=false docker compose up -d`.
 
 No test framework is currently configured.
 
@@ -120,6 +120,8 @@ ldc-component-name/
 ```bash
 UNDER_CONSTRUCTION=true  # Redirects all traffic to /en-construccion
 ```
+
+Locally lives in `.env.local`. With docker-compose, override at the repo root: `UNDER_CONSTRUCTION=false docker compose up`.
 
 ## Adding shadcn/ui Components
 

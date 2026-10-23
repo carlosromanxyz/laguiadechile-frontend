@@ -3,7 +3,7 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { formatPublicationsCount } from "@/services/featured-cities";
+import { formatPublicationsCount } from "@/lib/format/cities";
 
 interface LDCCityCardProps {
   /** City name */

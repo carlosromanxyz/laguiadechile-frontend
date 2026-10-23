@@ -4,8 +4,10 @@ import { LDCHeroText } from "@/components/atoms/ldc-hero-text";
 import { LDCScrollIndicator } from "@/components/atoms/ldc-scroll-indicator";
 import { LDCHeroSlider } from "@/components/molecules/ldc-hero-slider";
 import { LDCSearchForm } from "@/components/molecules/ldc-search-form";
-import { getCategories, getCities } from "@/services/search-data";
 import { useIsMobile } from "@/hooks/use-is-mobile";
+import { useEffect, useState } from "react";
+import type { ICategories } from "@/interfaces/category";
+import type { ICities } from "@/interfaces/city";
 
 /**
  * LDCHero - Hero Section Component
@@ -26,10 +28,21 @@ import { useIsMobile } from "@/hooks/use-is-mobile";
  */
 
 export function LDCHero() {
-  const categories = getCategories();
-  const cities = getCities();
+  const [categories, setCategories] = useState<ICategories>([]);
+  const [cities, setCities] = useState<ICities>([]);
   const isMobile = useIsMobile(1024);
   const isDesktop = !isMobile;
+
+  useEffect(() => {
+    fetch("/api/categories")
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setCategories)
+      .catch(() => setCategories([]));
+    fetch("/api/cities")
+      .then((r) => (r.ok ? r.json() : []))
+      .then(setCities)
+      .catch(() => setCities([]));
+  }, []);
 
   return (
     <section className="relative flex min-h-screen items-center justify-center bg-black">

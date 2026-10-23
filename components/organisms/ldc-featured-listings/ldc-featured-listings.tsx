@@ -20,8 +20,8 @@ import { getFeaturedListings } from "@/services/featured-listings";
  * <LDCFeaturedListings />
  * ```
  */
-export function LDCFeaturedListings() {
-  const listings = getFeaturedListings();
+export async function LDCFeaturedListings() {
+  const listings = await getFeaturedListings();
 
   return (
     <LDCSection>

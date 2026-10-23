@@ -34,7 +34,7 @@ export async function generateMetadata({
   params,
 }: ServicioPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const listing = getListingBySlugAndType(slug, "servicio");
+  const listing = await getListingBySlugAndType(slug, "servicio");
 
   if (!listing) {
     return {
@@ -71,7 +71,7 @@ export async function generateMetadata({
  */
 export default async function ServicioPage({ params }: ServicioPageProps) {
   const { slug } = await params;
-  const listing = getListingBySlugAndType(slug, "servicio");
+  const listing = await getListingBySlugAndType(slug, "servicio");
 
   if (!listing) {
     notFound();
@@ -84,7 +84,7 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
     { label: listing.title, href: "" },
   ];
 
-  const relatedListings = getRelatedListings(
+  const relatedListings = await getRelatedListings(
     listing.id,
     listing.category.id,
     listing.city.id,

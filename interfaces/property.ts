@@ -10,8 +10,17 @@ export type PropertyOperation = "venta" | "arriendo" | "arriendo-temporal";
 
 export type PropertyPriceCurrency = "uf" | "clp";
 
+export interface IPropertyAgent {
+  name: string;
+  phone?: string;
+  whatsapp?: string;
+  email?: string;
+  /** Corredora / agency (optional) */
+  agency?: string;
+}
+
 export interface IProperty {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   description: string;
@@ -50,6 +59,7 @@ export interface IProperty {
   featured: boolean;
   isNew: boolean;
   createdAt: string;
+  agent: IPropertyAgent;
 }
 
 export type IProperties = IProperty[];

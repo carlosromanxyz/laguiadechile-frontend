@@ -20,8 +20,8 @@ export const metadata: Metadata = {
  * - Hero: Page header with breadcrumbs and title
  * - Grid: Responsive paginated grid of service cards with "Load More"
  */
-export default function ServiciosPage() {
-  const services = getServices();
+export default async function ServiciosPage() {
+  const services = await getServices();
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

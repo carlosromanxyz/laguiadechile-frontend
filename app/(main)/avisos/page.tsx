@@ -20,8 +20,8 @@ export const metadata: Metadata = {
  * - Hero: Page header with breadcrumbs and title
  * - List: Paginated list of horizontal classified cards with "Load More"
  */
-export default function AvisosPage() {
-  const classifieds = getClassifieds();
+export default async function AvisosPage() {
+  const classifieds = await getClassifieds();
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

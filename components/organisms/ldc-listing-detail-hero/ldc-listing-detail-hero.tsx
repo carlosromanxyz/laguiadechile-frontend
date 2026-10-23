@@ -29,8 +29,6 @@ export function LDCListingDetailHero({
   breadcrumbs,
   className,
 }: LDCListingDetailHeroProps) {
-  const CategoryIcon = getIcon(listing.category.icon);
-
   return (
     <section
       className={cn(
@@ -51,7 +49,7 @@ export function LDCListingDetailHero({
             </LDCBadge>
           )}
           <LDCBadge variant="default">
-            {CategoryIcon && <CategoryIcon className="w-3 h-3 mr-1" />}
+            {renderCategoryIcon(listing.category.icon)}
             {listing.category.name}
           </LDCBadge>
         </div>
@@ -79,4 +77,10 @@ export function LDCListingDetailHero({
       </div>
     </section>
   );
+}
+
+// Helper function to render icon - keeps component creation out of render
+function renderCategoryIcon(iconName?: string): React.ReactNode {
+  const Icon = iconName ? getIcon(iconName) : null;
+  return Icon ? <Icon className="w-3 h-3 mr-1" /> : null;
 }

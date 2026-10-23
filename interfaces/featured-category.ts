@@ -1,5 +1,5 @@
 export interface IFeaturedCategory {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   description: string;

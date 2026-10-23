@@ -20,8 +20,8 @@ export const metadata: Metadata = {
  * - Hero: Page header with breadcrumbs and title
  * - Grid: Responsive 5-column grid of property cards with "Load More"
  */
-export default function PropiedadesPage() {
-  const properties = getProperties();
+export default async function PropiedadesPage() {
+  const properties = await getProperties();
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },

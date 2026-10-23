@@ -14,8 +14,8 @@ import { getRecentClassifieds } from "@/services/classifieds";
  * <LDCRecentClassifieds />
  * ```
  */
-export function LDCRecentClassifieds() {
-  const classifieds = getRecentClassifieds(6);
+export async function LDCRecentClassifieds() {
+  const classifieds = await getRecentClassifieds(6);
 
   return (
     <LDCSection>

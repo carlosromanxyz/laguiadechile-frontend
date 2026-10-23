@@ -15,15 +15,16 @@ interface RegionPageProps {
 /**
  * Generate a mock count based on city id for consistent display
  */
-function getMockCityCount(cityId: number): number {
-  const seed = cityId * 17 + 23;
+function getMockCityCount(cityId: string): number {
+  let seed = 23;
+  for (const char of cityId) seed = (seed * 17 + char.charCodeAt(0)) % 9973;
   return (seed % 150) + 5;
 }
 
 /**
  * Generate a placeholder image URL for a city
  */
-function getCityImage(citySlug: string, cityId: number): string {
+function getCityImage(citySlug: string, cityId: string): string {
   return `https://picsum.photos/seed/${citySlug}-${cityId}/800/600`;
 }
 
@@ -31,7 +32,7 @@ function getCityImage(citySlug: string, cityId: number): string {
  * Generate static params for all regions
  */
 export async function generateStaticParams() {
-  const regions = getRegions();
+  const regions = await getRegions();
   return regions.map((region) => ({
     slug: region.slug,
   }));
@@ -44,7 +45,7 @@ export async function generateMetadata({
   params,
 }: RegionPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const region = getRegionBySlug(slug);
+  const region = await getRegionBySlug(slug);
 
   if (!region) {
     return {
@@ -65,7 +66,7 @@ export async function generateMetadata({
  */
 export default async function RegionPage({ params }: RegionPageProps) {
   const { slug } = await params;
-  const region = getRegionBySlug(slug);
+  const region = await getRegionBySlug(slug);
 
   if (!region) {
     notFound();

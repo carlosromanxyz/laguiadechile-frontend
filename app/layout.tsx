@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Mulish, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/shared/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const mulish = Mulish({
   variable: "--font-mulish",
@@ -38,7 +40,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <TooltipProvider>
+            {children}
+            <Toaster richColors position="top-right" />
+          </TooltipProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -1,10 +1,12 @@
 export interface INews {
-  id: number;
+  id: string;
   title: string;
   slug: string;
   excerpt: string;
+  /** Full article body (HTML) */
+  content: string;
   category: {
-    id: number;
+    id: string;
     name: string;
     slug: string;
     icon: string;

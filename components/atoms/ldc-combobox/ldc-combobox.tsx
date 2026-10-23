@@ -45,7 +45,7 @@ import { Button } from "@/components/ui/button";
  */
 
 interface ComboboxItem {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   icon?: string;

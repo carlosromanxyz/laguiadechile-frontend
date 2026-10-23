@@ -1,20 +1,6 @@
-import { ICategories } from "@/interfaces/category";
-import { ICities } from "@/interfaces/city";
-import categoriesData from "@/data/categories.json";
-import citiesData from "@/data/cities.json";
-
 /**
- * Get all categories for search form
- * @returns Array of categories
+ * Search data (categories + cities) — backed by the NestJS API via the DAL.
+ * The hero (Client Component) fetches these through the `/api/categories` and
+ * `/api/cities` Route Handlers; this server shim remains for any server usage.
  */
-export function getCategories(): ICategories {
-  return categoriesData as ICategories;
-}
-
-/**
- * Get all cities for search form
- * @returns Array of cities
- */
-export function getCities(): ICities {
-  return citiesData as ICities;
-}
+export { getCategories, getCities } from "@/lib/api/catalog";

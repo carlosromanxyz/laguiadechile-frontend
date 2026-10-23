@@ -5,7 +5,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import Link from "next/link";
 import Image from "next/image";
 import { MapPin, ChevronRight, Star } from "lucide-react";
-import { isNewListing, isUpdatedListing } from "@/services/featured-listings";
+import { isNewListing, isUpdatedListing } from "@/lib/format/listings";
 import { getIcon } from "@/lib/get-icon";
 
 interface LDCListingCardProps {

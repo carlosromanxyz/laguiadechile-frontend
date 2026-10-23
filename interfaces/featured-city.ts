@@ -1,5 +1,5 @@
 export interface IFeaturedCity {
-  id: number;
+  id: string;
   name: string;
   slug: string;
   image: string;
