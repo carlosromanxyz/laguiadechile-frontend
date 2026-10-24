@@ -1,13 +1,58 @@
 import { cn } from "@/lib/utils";
-import { ReactNode } from "react";
+import type { HTMLAttributes, ReactNode, Ref } from "react";
 
-interface LDCBadgeProps {
+/** Base compartida por las variantes clásicas (pill de 12 px, Mulish). */
+const baseClasses =
+  "inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold font-mulish";
+
+/** Variantes que se suman a `baseClasses`. */
+const variants = {
+  featured: "bg-yellow text-black",
+  new: "bg-pink text-white",
+  updated: "bg-purple text-white",
+  default: "bg-pink dark:bg-purple text-white",
+} as const;
+
+/**
+ * Variantes con clases completas propias (no llevan `baseClasses`). Reproducen,
+ * en el mismo orden, los badges que las cards arman hoy a mano.
+ */
+const standaloneVariants = {
+  /** Badge «Destacado» superpuesto en la imagen de la card de aviso (incluye su posición). */
+  "featured-overlay":
+    "absolute top-2 left-2 flex items-center gap-1 bg-yellow text-black text-xs font-semibold px-2 py-1 rounded-md",
+  /** Badge mínimo de solo ícono (destacado) con tooltip, como en la card de propiedad. */
+  "featured-icon":
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-black cursor-help",
+  /** Badge mínimo de solo ícono (nuevo) con tooltip, como en la card de propiedad. */
+  "new-icon":
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500 text-white cursor-help",
+  /** Tipo de aviso clasificado (card de aviso). */
+  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-white",
+  "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-purple text-white",
+  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-white",
+  "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-black",
+  "classified-ofrezco":
+    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-emerald-500 text-white",
+} as const;
+
+export type LDCBadgeVariant = keyof typeof variants | keyof typeof standaloneVariants;
+
+interface LDCBadgeProps extends Omit<HTMLAttributes<HTMLElement>, "children" | "className"> {
   /** Badge content */
   children: ReactNode;
   /** Variant color scheme */
-  variant?: "featured" | "new" | "updated" | "default";
+  variant?: LDCBadgeVariant;
+  /** Elemento raíz (por defecto `span`) */
+  as?: "span" | "div";
+  /** Ref al elemento raíz (necesario si va dentro de un `TooltipTrigger asChild`) */
+  ref?: Ref<HTMLElement>;
   /** Optional className for custom styling */
   className?: string;
+}
+
+function isStandalone(variant: LDCBadgeVariant): variant is keyof typeof standaloneVariants {
+  return variant in standaloneVariants;
 }
 
 /**
@@ -15,34 +60,32 @@ interface LDCBadgeProps {
  *
  * Small label component for displaying status or category information.
  * Used in listing cards for featured, new, and updated indicators.
+ * El resto de props (eventos, `data-*`, `aria-*`, `ref`) va al elemento raíz,
+ * así funciona como hijo de un `TooltipTrigger asChild`.
  *
  * @example
  * ```tsx
  * <LDCBadge variant="featured">Destacado</LDCBadge>
  * <LDCBadge variant="new">Nuevo</LDCBadge>
+ * <LDCBadge variant={`classified-${type}`}>{getClassifiedTypeBadgeLabel(type)}</LDCBadge>
+ * <LDCBadge as="div" variant="featured-overlay"><Star className="w-3 h-3 fill-current" />Destacado</LDCBadge>
  * ```
  */
 export function LDCBadge({
   children,
   variant = "default",
+  as: Tag = "span",
+  ref,
   className,
+  ...props
 }: LDCBadgeProps) {
-  const variants = {
-    featured: "bg-yellow text-black",
-    new: "bg-pink text-white",
-    updated: "bg-purple text-white",
-    default: "bg-pink dark:bg-purple text-white",
-  };
+  const classes = isStandalone(variant)
+    ? cn(standaloneVariants[variant], className)
+    : cn(baseClasses, variants[variant], className);
 
   return (
-    <span
-      className={cn(
-        "inline-flex items-center px-2.5 py-1 rounded-md text-xs font-semibold font-mulish",
-        variants[variant],
-        className
-      )}
-    >
+    <Tag ref={ref as Ref<HTMLSpanElement & HTMLDivElement>} className={classes} {...props}>
       {children}
-    </span>
+    </Tag>
   );
 }

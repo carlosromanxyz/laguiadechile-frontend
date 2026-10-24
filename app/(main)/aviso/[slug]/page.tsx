@@ -10,6 +10,7 @@ import {
   formatClassifiedPrice,
   getRelativeTime,
 } from "@/services/classifieds";
+import { typeLabels } from "@/lib/format/classifieds";
 import { notFound } from "next/navigation";
 import { FileText, Tag, Clock } from "lucide-react";
 import type { Metadata } from "next";
@@ -52,14 +53,6 @@ export async function generateMetadata({
     },
   };
 }
-
-const typeLabels: Record<string, string> = {
-  vendo: "Vendo",
-  compro: "Compro",
-  arriendo: "Arriendo",
-  busco: "Busco",
-  ofrezco: "Ofrezco",
-};
 
 /**
  * Aviso (Classified) Detail Page - La Guía de Chile
