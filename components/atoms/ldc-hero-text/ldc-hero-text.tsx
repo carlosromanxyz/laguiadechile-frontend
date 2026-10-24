@@ -48,19 +48,7 @@ export function LDCHeroText({
 
           return featuredWordStyle ? (
             <span key={index}>
-              <span
-                className="inline-block bg-clip-text text-transparent animate-color-slide-text"
-                style={{
-                  backgroundImage: `linear-gradient(90deg,
-                    var(--color-pink) 0%, var(--color-pink) 20%,
-                    var(--color-purple) 20%, var(--color-purple) 40%,
-                    var(--color-yellow) 40%, var(--color-yellow) 60%,
-                    var(--color-orange) 60%, var(--color-orange) 80%,
-                    var(--color-pink) 80%, var(--color-pink) 100%
-                  )`,
-                  backgroundSize: "500% 100%",
-                }}
-              >
+              <span className="inline-block brand-stripes bg-clip-text text-transparent animate-color-slide-text">
                 {word}
               </span>{" "}
             </span>
