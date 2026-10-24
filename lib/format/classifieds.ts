@@ -1,7 +1,21 @@
 /**
  * Pure, client-safe helpers for classifieds. No fetching / no server-only.
  */
-import type { IClassified } from "@/interfaces/classified";
+import type { ClassifiedType, IClassified } from "@/interfaces/classified";
+
+/** Etiqueta de cada tipo de aviso. Única fuente: no la copies en componentes. */
+export const typeLabels: Record<ClassifiedType, string> = {
+  vendo: "Vendo",
+  compro: "Compro",
+  arriendo: "Arriendo",
+  busco: "Busco",
+  ofrezco: "Ofrezco",
+};
+
+/** Etiqueta en mayúsculas para el badge de tipo («VENDO»). */
+export function getClassifiedTypeBadgeLabel(type: ClassifiedType): string {
+  return typeLabels[type].toUpperCase();
+}
 
 export function formatClassifiedPrice(price: IClassified["price"]): string {
   switch (price.type) {
