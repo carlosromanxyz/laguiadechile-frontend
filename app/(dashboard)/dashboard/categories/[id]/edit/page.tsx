@@ -1,6 +1,8 @@
 import { notFound } from "next/navigation";
+import { LDCCategoryForm } from "@/components/organisms/ldc-category-form";
+import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
 import { adminCategoriesService } from "@/services/admin/categories";
-import { CategoryForm } from "../../_components/category-form";
+import { updateCategoryAction } from "../../actions";
 
 export const metadata = {
   title: "Editar categoría — Dashboard",
@@ -18,14 +20,11 @@ export default async function EditCategoryPage({
   if (!category) notFound();
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Editar categoría</h1>
-        <p className="text-sm text-muted-foreground">{category.name}</p>
-      </div>
-      <CategoryForm
+    <LDCDashboardPageTemplate title="Editar categoría" description={category.name}>
+      <LDCCategoryForm
         mode="edit"
-        id={category.id}
+        action={updateCategoryAction.bind(null, category.id)}
+        returnHref="/dashboard/categories"
         initial={{
           name: category.name,
           slug: category.slug,
@@ -33,6 +32,6 @@ export default async function EditCategoryPage({
           icon: category.icon ?? "",
         }}
       />
-    </div>
+    </LDCDashboardPageTemplate>
   );
 }
