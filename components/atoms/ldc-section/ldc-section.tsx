@@ -1,4 +1,10 @@
+import { LDCContainer } from "@/components/atoms/ldc-container";
 import { cn } from "@/lib/utils";
+import {
+  SECTION_PADDING_Y,
+  type ContainerSize,
+  type SectionPaddingY,
+} from "@/lib/ui/layout";
 import { ReactNode } from "react";
 
 interface LDCSectionProps {
@@ -7,9 +13,9 @@ interface LDCSectionProps {
   /** Optional className for custom styling */
   className?: string;
   /** Container max-width variant */
-  containerSize?: "sm" | "md" | "lg" | "xl" | "full";
+  containerSize?: ContainerSize;
   /** Vertical padding variant */
-  paddingY?: "sm" | "md" | "lg" | "xl";
+  paddingY?: SectionPaddingY;
 }
 
 /**
@@ -32,26 +38,9 @@ export function LDCSection({
   containerSize = "lg",
   paddingY = "lg",
 }: LDCSectionProps) {
-  const containerSizes = {
-    sm: "max-w-3xl",
-    md: "max-w-5xl",
-    lg: "max-w-7xl",
-    xl: "max-w-[1400px]",
-    full: "max-w-full",
-  };
-
-  const paddingSizes = {
-    sm: "py-8 md:py-12",
-    md: "py-12 md:py-16",
-    lg: "py-16 md:py-24",
-    xl: "py-24 md:py-32",
-  };
-
   return (
-    <section className={cn(paddingSizes[paddingY], className)}>
-      <div className={cn("container mx-auto px-4", containerSizes[containerSize])}>
-        {children}
-      </div>
+    <section className={cn(SECTION_PADDING_Y[paddingY], className)}>
+      <LDCContainer size={containerSize}>{children}</LDCContainer>
     </section>
   );
 }
