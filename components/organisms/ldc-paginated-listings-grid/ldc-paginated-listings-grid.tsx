@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
-import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
+import { LDCLoadMoreGrid } from "@/components/organisms/ldc-load-more-grid";
+import { useLoadMore } from "@/hooks/use-load-more";
 import { IFeaturedListings } from "@/interfaces/featured-listing";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface LDCPaginatedListingsGridProps {
   /** Array of all listings */
@@ -47,21 +46,14 @@ export function LDCPaginatedListingsGrid({
   loadMoreLabel = "Cargar más",
   className,
 }: LDCPaginatedListingsGridProps) {
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const visibleListings = listings.slice(0, visibleCount);
-  const hasMore = visibleCount < listings.length;
-  const remainingCount = listings.length - visibleCount;
-
-  const handleLoadMore = useCallback(() => {
-    setIsLoading(true);
-    // Simulate loading delay for better UX
-    setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + itemsPerPage, listings.length));
-      setIsLoading(false);
-    }, 300);
-  }, [itemsPerPage, listings.length]);
+  const {
+    visibleItems: visibleListings,
+    visibleCount,
+    hasMore,
+    remainingCount,
+    isLoading,
+    loadMore,
+  } = useLoadMore(listings, { pageSize: itemsPerPage });
 
   const columnClasses = {
     3: "lg:grid-cols-3",
@@ -101,48 +93,33 @@ export function LDCPaginatedListingsGrid({
 
   return (
     <LDCSection paddingY="lg" className={className}>
-      <div
-        className={cn(
+      <LDCLoadMoreGrid
+        gridClassName={cn(
           "grid grid-cols-1 sm:grid-cols-2 gap-6 items-start",
           columnClasses[columns]
         )}
+        visibleCount={visibleCount}
+        pageSize={itemsPerPage}
+        hasMore={hasMore}
+        isLoading={isLoading}
+        onLoadMore={loadMore}
+        loadMoreLabel={`${loadMoreLabel} (${remainingCount} restantes)`}
       >
-        <AnimatePresence mode="popLayout">
-          {visibleListings.map((listing, index) => (
-            <motion.div
-              key={listing.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{
-                duration: 0.3,
-                delay: index >= visibleCount - itemsPerPage ? (index % itemsPerPage) * 0.05 : 0,
-              }}
-            >
-              <LDCListingCard
-                title={listing.title}
-                slug={listing.slug}
-                type={listing.type}
-                category={listing.category}
-                city={listing.city}
-                image={listing.image}
-                featured={listing.featured}
-                createdAt={listing.createdAt}
-                updatedAt={listing.updatedAt}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {hasMore && (
-        <LDCLoadMoreButton
-          onClick={handleLoadMore}
-          isLoading={isLoading}
-          label={`${loadMoreLabel} (${remainingCount} restantes)`}
-          loadingLabel="Cargando..."
-        />
-      )}
+        {visibleListings.map((listing) => (
+          <LDCListingCard
+            key={listing.id}
+            title={listing.title}
+            slug={listing.slug}
+            type={listing.type}
+            category={listing.category}
+            city={listing.city}
+            image={listing.image}
+            featured={listing.featured}
+            createdAt={listing.createdAt}
+            updatedAt={listing.updatedAt}
+          />
+        ))}
+      </LDCLoadMoreGrid>
     </LDCSection>
   );
 }

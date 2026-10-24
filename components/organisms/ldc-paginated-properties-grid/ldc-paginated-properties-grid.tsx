@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { cn } from "@/lib/utils";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
-import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
+import { LDCLoadMoreGrid } from "@/components/organisms/ldc-load-more-grid";
+import { useLoadMore } from "@/hooks/use-load-more";
 import { IProperties } from "@/interfaces/property";
-import { motion, AnimatePresence } from "framer-motion";
 import { Home } from "lucide-react";
 
 interface LDCPaginatedPropertiesGridProps {
@@ -44,20 +42,14 @@ export function LDCPaginatedPropertiesGrid({
   loadMoreLabel = "Cargar más propiedades",
   className,
 }: LDCPaginatedPropertiesGridProps) {
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const visibleProperties = properties.slice(0, visibleCount);
-  const hasMore = visibleCount < properties.length;
-  const remainingCount = properties.length - visibleCount;
-
-  const handleLoadMore = useCallback(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + itemsPerPage, properties.length));
-      setIsLoading(false);
-    }, 300);
-  }, [itemsPerPage, properties.length]);
+  const {
+    visibleItems: visibleProperties,
+    visibleCount,
+    hasMore,
+    remainingCount,
+    isLoading,
+    loadMore,
+  } = useLoadMore(properties, { pageSize: itemsPerPage });
 
   if (properties.length === 0) {
     return (
@@ -85,45 +77,32 @@ export function LDCPaginatedPropertiesGrid({
       </p>
 
       {/* Properties grid - 5 columns on xl, items aligned at top */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-start">
-        <AnimatePresence mode="popLayout">
-          {visibleProperties.map((property, index) => (
-            <motion.div
-              key={property.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{
-                duration: 0.3,
-                delay: index >= visibleCount - itemsPerPage ? (index % itemsPerPage) * 0.05 : 0,
-              }}
-            >
-              <LDCPropertyCard
-                title={property.title}
-                slug={property.slug}
-                type={property.type}
-                operation={property.operation}
-                price={property.price}
-                features={property.features}
-                location={property.location}
-                image={property.image}
-                images={property.images}
-                featured={property.featured}
-                isNew={property.isNew}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {hasMore && (
-        <LDCLoadMoreButton
-          onClick={handleLoadMore}
-          isLoading={isLoading}
-          label={`${loadMoreLabel} (${remainingCount} restantes)`}
-          loadingLabel="Cargando..."
-        />
-      )}
+      <LDCLoadMoreGrid
+        gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-start"
+        visibleCount={visibleCount}
+        pageSize={itemsPerPage}
+        hasMore={hasMore}
+        isLoading={isLoading}
+        onLoadMore={loadMore}
+        loadMoreLabel={`${loadMoreLabel} (${remainingCount} restantes)`}
+      >
+        {visibleProperties.map((property) => (
+          <LDCPropertyCard
+            key={property.id}
+            title={property.title}
+            slug={property.slug}
+            type={property.type}
+            operation={property.operation}
+            price={property.price}
+            features={property.features}
+            location={property.location}
+            image={property.image}
+            images={property.images}
+            featured={property.featured}
+            isNew={property.isNew}
+          />
+        ))}
+      </LDCLoadMoreGrid>
     </LDCSection>
   );
 }
