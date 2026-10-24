@@ -1,12 +1,10 @@
 "use client";
 
-import { useState, useCallback } from "react";
-import { cn } from "@/lib/utils";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
-import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
+import { LDCLoadMoreGrid } from "@/components/organisms/ldc-load-more-grid";
+import { useLoadMore } from "@/hooks/use-load-more";
 import { IClassifieds } from "@/interfaces/classified";
-import { motion, AnimatePresence } from "framer-motion";
 import { Search } from "lucide-react";
 
 interface LDCPaginatedClassifiedsListProps {
@@ -44,20 +42,14 @@ export function LDCPaginatedClassifiedsList({
   loadMoreLabel = "Cargar más avisos",
   className,
 }: LDCPaginatedClassifiedsListProps) {
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const visibleClassifieds = classifieds.slice(0, visibleCount);
-  const hasMore = visibleCount < classifieds.length;
-  const remainingCount = classifieds.length - visibleCount;
-
-  const handleLoadMore = useCallback(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + itemsPerPage, classifieds.length));
-      setIsLoading(false);
-    }, 300);
-  }, [itemsPerPage, classifieds.length]);
+  const {
+    visibleItems: visibleClassifieds,
+    visibleCount,
+    hasMore,
+    remainingCount,
+    isLoading,
+    loadMore,
+  } = useLoadMore(classifieds, { pageSize: itemsPerPage });
 
   if (classifieds.length === 0) {
     return (
@@ -85,44 +77,31 @@ export function LDCPaginatedClassifiedsList({
       </p>
 
       {/* Classifieds list */}
-      <div className="space-y-4">
-        <AnimatePresence mode="popLayout">
-          {visibleClassifieds.map((classified, index) => (
-            <motion.div
-              key={classified.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{
-                duration: 0.3,
-                delay: index >= visibleCount - itemsPerPage ? (index % itemsPerPage) * 0.05 : 0,
-              }}
-            >
-              <LDCClassifiedCard
-                title={classified.title}
-                slug={classified.slug}
-                type={classified.type}
-                category={classified.category}
-                city={classified.city}
-                commune={classified.commune}
-                image={classified.image}
-                price={classified.price}
-                featured={classified.featured}
-                createdAt={classified.createdAt}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {hasMore && (
-        <LDCLoadMoreButton
-          onClick={handleLoadMore}
-          isLoading={isLoading}
-          label={`${loadMoreLabel} (${remainingCount} restantes)`}
-          loadingLabel="Cargando..."
-        />
-      )}
+      <LDCLoadMoreGrid
+        gridClassName="space-y-4"
+        visibleCount={visibleCount}
+        pageSize={itemsPerPage}
+        hasMore={hasMore}
+        isLoading={isLoading}
+        onLoadMore={loadMore}
+        loadMoreLabel={`${loadMoreLabel} (${remainingCount} restantes)`}
+      >
+        {visibleClassifieds.map((classified) => (
+          <LDCClassifiedCard
+            key={classified.id}
+            title={classified.title}
+            slug={classified.slug}
+            type={classified.type}
+            category={classified.category}
+            city={classified.city}
+            commune={classified.commune}
+            image={classified.image}
+            price={classified.price}
+            featured={classified.featured}
+            createdAt={classified.createdAt}
+          />
+        ))}
+      </LDCLoadMoreGrid>
     </LDCSection>
   );
 }

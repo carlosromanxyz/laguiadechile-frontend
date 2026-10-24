@@ -1,12 +1,11 @@
 "use client";
 
-import { useState, useCallback } from "react";
 import { cn } from "@/lib/utils";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCNewsCard } from "@/components/molecules/ldc-news-card";
-import { LDCLoadMoreButton } from "@/components/atoms/ldc-load-more-button";
+import { LDCLoadMoreGrid } from "@/components/organisms/ldc-load-more-grid";
+import { useLoadMore } from "@/hooks/use-load-more";
 import { INewsList } from "@/interfaces/news";
-import { motion, AnimatePresence } from "framer-motion";
 
 interface LDCPaginatedNewsGridProps {
   /** Array of all news articles */
@@ -37,21 +36,14 @@ export function LDCPaginatedNewsGrid({
   loadMoreLabel = "Cargar más noticias",
   className,
 }: LDCPaginatedNewsGridProps) {
-  const [visibleCount, setVisibleCount] = useState(itemsPerPage);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const visibleArticles = articles.slice(0, visibleCount);
-  const hasMore = visibleCount < articles.length;
-  const remainingCount = articles.length - visibleCount;
-
-  const handleLoadMore = useCallback(() => {
-    setIsLoading(true);
-    // Simulate loading delay for better UX
-    setTimeout(() => {
-      setVisibleCount((prev) => Math.min(prev + itemsPerPage, articles.length));
-      setIsLoading(false);
-    }, 300);
-  }, [itemsPerPage, articles.length]);
+  const {
+    visibleItems: visibleArticles,
+    visibleCount,
+    hasMore,
+    remainingCount,
+    isLoading,
+    loadMore,
+  } = useLoadMore(articles, { pageSize: itemsPerPage });
 
   const columnClasses = {
     3: "lg:grid-cols-3",
@@ -90,52 +82,34 @@ export function LDCPaginatedNewsGrid({
 
   return (
     <LDCSection paddingY="lg" className={className}>
-      <div
-        className={cn(
+      <LDCLoadMoreGrid
+        gridClassName={cn(
           "grid grid-cols-1 sm:grid-cols-2 gap-6 items-start",
           columnClasses[columns]
         )}
+        visibleCount={visibleCount}
+        pageSize={itemsPerPage}
+        hasMore={hasMore}
+        isLoading={isLoading}
+        onLoadMore={loadMore}
+        loadMoreLabel={`${loadMoreLabel} (${remainingCount} restantes)`}
       >
-        <AnimatePresence mode="popLayout">
-          {visibleArticles.map((article, index) => (
-            <motion.div
-              key={article.id}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -20 }}
-              transition={{
-                duration: 0.3,
-                delay:
-                  index >= visibleCount - itemsPerPage
-                    ? (index % itemsPerPage) * 0.05
-                    : 0,
-              }}
-            >
-              <LDCNewsCard
-                id={article.id}
-                title={article.title}
-                slug={article.slug}
-                excerpt={article.excerpt}
-                category={article.category}
-                author={article.author}
-                image={article.image}
-                featured={article.featured}
-                createdAt={article.createdAt}
-                updatedAt={article.updatedAt}
-              />
-            </motion.div>
-          ))}
-        </AnimatePresence>
-      </div>
-
-      {hasMore && (
-        <LDCLoadMoreButton
-          onClick={handleLoadMore}
-          isLoading={isLoading}
-          label={`${loadMoreLabel} (${remainingCount} restantes)`}
-          loadingLabel="Cargando..."
-        />
-      )}
+        {visibleArticles.map((article) => (
+          <LDCNewsCard
+            key={article.id}
+            id={article.id}
+            title={article.title}
+            slug={article.slug}
+            excerpt={article.excerpt}
+            category={article.category}
+            author={article.author}
+            image={article.image}
+            featured={article.featured}
+            createdAt={article.createdAt}
+            updatedAt={article.updatedAt}
+          />
+        ))}
+      </LDCLoadMoreGrid>
     </LDCSection>
   );
 }
