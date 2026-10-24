@@ -41,19 +41,7 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
     <div className={cn("flex items-center", config.gap, className)}>
       {/* Isotipo - Map Pin Icon with sliding solid colors */}
       <div className={cn("relative rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden", config.container)}>
-        <div
-          className="absolute inset-0 animate-color-slide"
-          style={{
-            background: `linear-gradient(90deg,
-              var(--color-pink) 0%, var(--color-pink) 20%,
-              var(--color-purple) 20%, var(--color-purple) 40%,
-              var(--color-yellow) 40%, var(--color-yellow) 60%,
-              var(--color-orange) 60%, var(--color-orange) 80%,
-              var(--color-pink) 80%, var(--color-pink) 100%
-            )`,
-            backgroundSize: "500% 100%",
-          }}
-        />
+        <div className="absolute inset-0 brand-stripes animate-color-slide" />
         <FaMapMarkerAlt className={cn("relative z-10 text-white drop-shadow-md", config.icon)} />
       </div>
 

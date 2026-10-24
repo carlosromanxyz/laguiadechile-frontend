@@ -163,3 +163,21 @@
   -webkit-background-clip: text;
   background-clip: text;
 }
+
+/*
+ * Brand stripes: five solid bands (pink, purple, yellow, orange, pink) in a
+ * background five times wider than the element, so `animate-color-slide`
+ * shows one band at a time. Used by the logo isotype and, with
+ * `bg-clip-text text-transparent`, by the hero featured words.
+ */
+@utility brand-stripes {
+  background-image: linear-gradient(
+    90deg,
+    var(--color-pink) 0%, var(--color-pink) 20%,
+    var(--color-purple) 20%, var(--color-purple) 40%,
+    var(--color-yellow) 40%, var(--color-yellow) 60%,
+    var(--color-orange) 60%, var(--color-orange) 80%,
+    var(--color-pink) 80%, var(--color-pink) 100%
+  );
+  background-size: 500% 100%;
+}
