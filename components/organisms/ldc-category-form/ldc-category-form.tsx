@@ -19,10 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  createCategoryAction,
-  updateCategoryAction,
-} from "@/app/(dashboard)/dashboard/categories/actions";
+import type { IAdminCategory, IAdminCategoryUpsert } from "@/services/admin/categories";
 
 const schema = z.object({
   name: z.string().min(1, "Requerido").max(200),
@@ -35,19 +32,23 @@ const schema = z.object({
   icon: z.string().optional(),
 });
 
-export type CategoryFormValues = z.infer<typeof schema>;
+export type LDCCategoryFormValues = z.infer<typeof schema>;
 
-export interface CategoryFormProps {
+export interface LDCCategoryFormProps {
+  /** Define el texto del aviso al guardar («creada» o «actualizada») */
   mode: "create" | "edit";
-  id?: string;
-  initial?: Partial<CategoryFormValues>;
+  /** Server action que guarda (en edición, ya ligada al id con `.bind`) */
+  action: (payload: IAdminCategoryUpsert) => Promise<IAdminCategory>;
+  /** Ruta a la que vuelve tras guardar o cancelar */
+  returnHref: string;
+  initial?: Partial<LDCCategoryFormValues>;
 }
 
-export function CategoryForm({ mode, id, initial }: CategoryFormProps) {
+export function LDCCategoryForm({ mode, action, returnHref, initial }: LDCCategoryFormProps) {
   const router = useRouter();
   const [pending, startTransition] = useTransition();
 
-  const form = useForm<CategoryFormValues>({
+  const form = useForm<LDCCategoryFormValues>({
     resolver: zodResolver(schema),
     defaultValues: {
       name: initial?.name ?? "",
@@ -57,7 +58,7 @@ export function CategoryForm({ mode, id, initial }: CategoryFormProps) {
     },
   });
 
-  function onSubmit(values: CategoryFormValues) {
+  function onSubmit(values: LDCCategoryFormValues) {
     startTransition(async () => {
       try {
         const payload = {
@@ -66,14 +67,9 @@ export function CategoryForm({ mode, id, initial }: CategoryFormProps) {
           description: values.description?.trim() || null,
           icon: values.icon?.trim() || null,
         };
-        if (mode === "create") {
-          await createCategoryAction(payload);
-          toast.success("Categoría creada");
-        } else if (id) {
-          await updateCategoryAction(id, payload);
-          toast.success("Categoría actualizada");
-        }
-        router.push("/dashboard/categories");
+        await action(payload);
+        toast.success(mode === "create" ? "Categoría creada" : "Categoría actualizada");
+        router.push(returnHref);
         router.refresh();
       } catch (e) {
         toast.error(e instanceof Error ? e.message : "Error al guardar");
@@ -150,7 +146,7 @@ export function CategoryForm({ mode, id, initial }: CategoryFormProps) {
           <Button
             type="button"
             variant="ghost"
-            onClick={() => router.push("/dashboard/categories")}
+            onClick={() => router.push(returnHref)}
             disabled={pending}
           >
             Cancelar

@@ -1,4 +1,6 @@
-import { CategoryForm } from "../_components/category-form";
+import { LDCCategoryForm } from "@/components/organisms/ldc-category-form";
+import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import { createCategoryAction } from "../actions";
 
 export const metadata = {
   title: "Nueva categoría — Dashboard",
@@ -6,14 +8,15 @@ export const metadata = {
 
 export default function NewCategoryPage() {
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">Nueva categoría</h1>
-        <p className="text-sm text-muted-foreground">
-          Define el nombre, slug y datos asociados.
-        </p>
-      </div>
-      <CategoryForm mode="create" />
-    </div>
+    <LDCDashboardPageTemplate
+      title="Nueva categoría"
+      description="Define el nombre, slug y datos asociados."
+    >
+      <LDCCategoryForm
+        mode="create"
+        action={createCategoryAction}
+        returnHref="/dashboard/categories"
+      />
+    </LDCDashboardPageTemplate>
   );
 }
