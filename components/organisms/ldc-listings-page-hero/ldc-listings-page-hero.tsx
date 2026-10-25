@@ -1,17 +1,12 @@
-import { cn } from "@/lib/utils";
-import { LDCBreadcrumbs } from "@/components/molecules/ldc-breadcrumbs";
+import { LDCDetailHero } from "@/components/organisms/ldc-detail-hero";
 import { LucideIcon } from "lucide-react";
-
-interface BreadcrumbItem {
-  label: string;
-  href: string;
-}
+import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
 interface LDCListingsPageHeroProps {
   /** Page title */
   title: string;
   /** Breadcrumb navigation items */
-  breadcrumbs: BreadcrumbItem[];
+  breadcrumbs: IBreadcrumbItem[];
   /** Icon component to display */
   icon: LucideIcon;
   /** Optional content for the right side (e.g., weather widget) */
@@ -46,38 +41,28 @@ export function LDCListingsPageHero({
   className,
 }: LDCListingsPageHeroProps) {
   return (
-    <section
-      className={cn(
-        "relative w-full bg-purple/20 pt-24 pb-12 md:pt-28 md:pb-16",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Breadcrumbs */}
-        <LDCBreadcrumbs items={breadcrumbs} variant="light" className="mb-6" />
-
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          {/* Content */}
-          <div className="space-y-4 text-foreground">
-            <div className="flex items-center gap-4">
-              {/* Icon */}
-              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple/30 border border-border">
-                <Icon className="h-7 w-7 text-purple" />
-              </div>
-
-              {/* Title */}
-              <h1 className="text-3xl font-bold font-mulish sm:text-4xl lg:text-5xl">
-                {title}
-              </h1>
+    <LDCDetailHero breadcrumbs={breadcrumbs} variant="listing" className={className}>
+      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        {/* Content */}
+        <div className="space-y-4 text-foreground">
+          <div className="flex items-center gap-4">
+            {/* Icon */}
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-purple/30 border border-border">
+              <Icon className="h-7 w-7 text-purple" />
             </div>
-          </div>
 
-          {/* Right Content (optional) */}
-          {rightContent && (
-            <div className="hidden md:block">{rightContent}</div>
-          )}
+            {/* Title */}
+            <h1 className="text-3xl font-bold font-mulish sm:text-4xl lg:text-5xl">
+              {title}
+            </h1>
+          </div>
         </div>
+
+        {/* Right Content (optional) */}
+        {rightContent && (
+          <div className="hidden md:block">{rightContent}</div>
+        )}
       </div>
-    </section>
+    </LDCDetailHero>
   );
 }

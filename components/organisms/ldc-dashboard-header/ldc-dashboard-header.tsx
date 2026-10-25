@@ -14,10 +14,11 @@ import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { LDCThemeModeToggler } from "@/components/molecules/ldc-theme-mode-toggler";
 import { dashboardNavigation } from "@/config/dashboard-navigation";
+import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
 function buildCrumbs(pathname: string) {
   const segments = pathname.split("/").filter(Boolean);
-  const crumbs: { label: string; href: string }[] = [{ label: "Dashboard", href: "/dashboard" }];
+  const crumbs: IBreadcrumbItem[] = [{ label: "Dashboard", href: "/dashboard" }];
   let acc = "";
   for (const seg of segments.slice(1)) {
     acc += `/${seg}`;

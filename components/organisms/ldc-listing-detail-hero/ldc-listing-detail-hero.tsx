@@ -1,20 +1,15 @@
-import { cn } from "@/lib/utils";
-import { LDCBreadcrumbs } from "@/components/molecules/ldc-breadcrumbs";
+import { LDCDetailHero } from "@/components/organisms/ldc-detail-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { getIcon } from "@/lib/get-icon";
 import Link from "next/link";
 import { Star, MapPin } from "lucide-react";
 import type { IListingDetail } from "@/interfaces/listing";
-
-interface BreadcrumbItem {
-  label: string;
-  href: string;
-}
+import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
 interface LDCListingDetailHeroProps {
   listing: IListingDetail;
-  breadcrumbs: BreadcrumbItem[];
+  breadcrumbs: IBreadcrumbItem[];
   className?: string;
 }
 
@@ -30,52 +25,42 @@ export function LDCListingDetailHero({
   className,
 }: LDCListingDetailHeroProps) {
   return (
-    <section
-      className={cn(
-        "relative w-full bg-purple/20 pt-24 pb-8 md:pt-28 md:pb-12",
-        className
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4">
-        {/* Breadcrumbs */}
-        <LDCBreadcrumbs items={breadcrumbs} variant="light" className="mb-6" />
-
-        {/* Badges */}
-        <div className="flex flex-wrap gap-2 mb-4">
-          {listing.featured && (
-            <LDCBadge variant="featured">
-              <Star className="w-3 h-3 mr-1 fill-current" />
-              Destacado
-            </LDCBadge>
-          )}
-          <LDCBadge variant="default">
-            {renderCategoryIcon(listing.category.icon)}
-            {listing.category.name}
+    <LDCDetailHero breadcrumbs={breadcrumbs} className={className}>
+      {/* Badges */}
+      <div className="flex flex-wrap gap-2 mb-4">
+        {listing.featured && (
+          <LDCBadge variant="featured">
+            <Star className="w-3 h-3 mr-1 fill-current" />
+            Destacado
           </LDCBadge>
-        </div>
-
-        {/* Title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish text-foreground mb-4">
-          {listing.title}
-        </h1>
-
-        {/* Location & Share */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <Link
-            href={`/ciudad/${listing.city.slug}`}
-            className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <MapPin className="w-5 h-5 text-pink" />
-            <span className="text-lg">
-              {listing.commune ? `${listing.commune}, ` : ""}
-              {listing.city.name}
-            </span>
-          </Link>
-
-          <LDCSocialShareButtons title={listing.title} variant="dark" />
-        </div>
+        )}
+        <LDCBadge variant="default">
+          {renderCategoryIcon(listing.category.icon)}
+          {listing.category.name}
+        </LDCBadge>
       </div>
-    </section>
+
+      {/* Title */}
+      <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold font-mulish text-foreground mb-4">
+        {listing.title}
+      </h1>
+
+      {/* Location & Share */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <Link
+          href={`/ciudad/${listing.city.slug}`}
+          className="flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors"
+        >
+          <MapPin className="w-5 h-5 text-pink" />
+          <span className="text-lg">
+            {listing.commune ? `${listing.commune}, ` : ""}
+            {listing.city.name}
+          </span>
+        </Link>
+
+        <LDCSocialShareButtons title={listing.title} variant="dark" />
+      </div>
+    </LDCDetailHero>
   );
 }
 

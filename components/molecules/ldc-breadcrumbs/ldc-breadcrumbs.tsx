@@ -1,17 +1,11 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { ChevronRight, Home } from "lucide-react";
-
-interface BreadcrumbItem {
-  /** Display label */
-  label: string;
-  /** URL path (empty string for current page) */
-  href: string;
-}
+import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
 interface LDCBreadcrumbsProps {
   /** Array of breadcrumb items */
-  items: BreadcrumbItem[];
+  items: IBreadcrumbItem[];
   /** Optional className for custom styling */
   className?: string;
   /** Color variant for different backgrounds */
