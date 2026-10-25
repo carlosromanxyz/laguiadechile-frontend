@@ -1,17 +1,10 @@
-import { LDCListingDetailHero } from "@/components/organisms/ldc-listing-detail-hero";
-import { LDCSection } from "@/components/atoms/ldc-section";
-import { LDCListingInfo } from "@/components/organisms/ldc-listing-info";
-import { LDCListingGallery } from "@/components/molecules/ldc-listing-gallery";
-import { LDCListingMap } from "@/components/molecules/ldc-listing-map";
-import { LDCListingSocialMedia } from "@/components/molecules/ldc-listing-social-media";
-import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
+import { LDCDetailTemplate } from "@/components/templates/ldc-detail-template";
 import {
   getListingBySlugAndType,
   getRelatedListings,
   getServicioSlugs,
 } from "@/services/listings";
 import { notFound } from "next/navigation";
-import { FileText } from "lucide-react";
 import type { Metadata } from "next";
 
 interface ServicioPageProps {
@@ -77,13 +70,6 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
     notFound();
   }
 
-  const breadcrumbs = [
-    { label: "Inicio", href: "/" },
-    { label: "Servicios", href: "/servicios" },
-    { label: listing.category.name, href: `/servicios?categoria=${listing.category.slug}` },
-    { label: listing.title, href: "" },
-  ];
-
   const relatedListings = await getRelatedListings(
     listing.id,
     listing.category.id,
@@ -92,81 +78,10 @@ export default async function ServicioPage({ params }: ServicioPageProps) {
   );
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingDetailHero listing={listing} breadcrumbs={breadcrumbs} />
-
-      {/* Main Content */}
-      <main>
-        <LDCSection paddingY="md">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            {/* Main Column */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Description */}
-              <div className="bg-card rounded-xl border border-border p-6">
-                <h2 className="text-xl font-bold font-mulish text-foreground mb-4 flex items-center gap-2">
-                  <FileText className="w-5 h-5 text-pink" />
-                  Descripción
-                </h2>
-                <div
-                  className="prose prose-sm max-w-none text-muted-foreground dark:prose-invert
-                    prose-p:mb-4 prose-p:last:mb-0 text-justify"
-                  dangerouslySetInnerHTML={{ __html: listing.description }}
-                />
-              </div>
-
-              {/* Map */}
-              <LDCListingMap
-                address={listing.address || "Av. Providencia 1234, Providencia"}
-                city={listing.city.name}
-              />
-
-              {/* Gallery */}
-              {listing.gallery.length > 0 && (
-                <LDCListingGallery
-                  images={listing.gallery}
-                  title={listing.title}
-                />
-              )}
-            </div>
-
-            {/* Sidebar */}
-            <div className="space-y-6">
-              <LDCListingInfo
-                listingTitle={listing.title}
-                contact={listing.contact}
-                schedule={listing.schedule}
-              />
-              <LDCListingSocialMedia socialMedia={listing.socialMedia} />
-            </div>
-          </div>
-        </LDCSection>
-
-        {/* Related Listings */}
-        {relatedListings.length > 0 && (
-          <LDCSection paddingY="md" className="bg-muted/30">
-            <h2 className="text-2xl font-bold font-mulish text-foreground mb-6">
-              Servicios Relacionados
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {relatedListings.map((related) => (
-                <LDCListingCard
-                  key={related.id}
-                  title={related.title}
-                  slug={related.slug}
-                  type={related.type}
-                  category={related.category}
-                  city={related.city}
-                  image={related.image}
-                  featured={related.featured}
-                  createdAt={related.createdAt}
-                  updatedAt={related.updatedAt}
-                />
-              ))}
-            </div>
-          </LDCSection>
-        )}
-      </main>
-    </>
+    <LDCDetailTemplate
+      kind="servicio"
+      listing={listing}
+      related={relatedListings}
+    />
   );
 }
