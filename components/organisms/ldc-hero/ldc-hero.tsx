@@ -5,9 +5,15 @@ import { LDCScrollIndicator } from "@/components/atoms/ldc-scroll-indicator";
 import { LDCHeroSlider } from "@/components/molecules/ldc-hero-slider";
 import { LDCSearchForm } from "@/components/organisms/ldc-search-form";
 import { useIsMobile } from "@/hooks/use-is-mobile";
-import { useEffect, useState } from "react";
 import type { ICategories } from "@/interfaces/category";
 import type { ICities } from "@/interfaces/city";
+
+interface LDCHeroProps {
+  /** Opciones del combobox de categorías del buscador. */
+  categories: ICategories;
+  /** Opciones del combobox de ciudades del buscador. */
+  cities: ICities;
+}
 
 /**
  * LDCHero - Hero Section Component
@@ -22,27 +28,15 @@ import type { ICities } from "@/interfaces/city";
  * - Responsive layout (stacks on mobile)
  * - Scroll indicator at bottom
  * - Hero text visible only on desktop (lg breakpoint: 1024px+)
+ * - Search options (categories, cities) come by props from the home page
  *
  * @example
- * <LDCHero />
+ * <LDCHero categories={categories} cities={cities} />
  */
 
-export function LDCHero() {
-  const [categories, setCategories] = useState<ICategories>([]);
-  const [cities, setCities] = useState<ICities>([]);
+export function LDCHero({ categories, cities }: LDCHeroProps) {
   const isMobile = useIsMobile(1024);
   const isDesktop = !isMobile;
-
-  useEffect(() => {
-    fetch("/api/categories")
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setCategories)
-      .catch(() => setCategories([]));
-    fetch("/api/cities")
-      .then((r) => (r.ok ? r.json() : []))
-      .then(setCities)
-      .catch(() => setCities([]));
-  }, []);
 
   return (
     <section className="relative flex min-h-screen items-center justify-center bg-black">

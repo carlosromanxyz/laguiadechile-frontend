@@ -1,58 +1,60 @@
-import { LDCHero } from "@/components/organisms/ldc-hero";
-import { LDCFeaturedCategories } from "@/components/organisms/ldc-featured-categories";
-import { LDCFeaturedListings } from "@/components/organisms/ldc-featured-listings";
-import { LDCRecentProperties } from "@/components/organisms/ldc-recent-properties";
-import { LDCFeaturedCities } from "@/components/organisms/ldc-featured-cities";
-import { LDCRecentClassifieds } from "@/components/organisms/ldc-recent-classifieds";
-import { LDCRecentListings } from "@/components/organisms/ldc-recent-listings";
-import { LDCRecentPosts } from "@/components/organisms/ldc-recent-posts";
+import { LDCHomeTemplate } from "@/components/templates/ldc-home-template";
+import {
+  getCategories,
+  getCities,
+  getFeaturedCategories,
+  getFeaturedCities,
+} from "@/lib/api/catalog";
+import { getFeaturedListings, getRecentListings } from "@/lib/api/listings";
+import { getRecentProperties } from "@/lib/api/properties";
+import { getRecentClassifieds } from "@/lib/api/classifieds";
+import { getRecentPosts } from "@/lib/api/posts";
 
 /**
  * Home Page - La Guía de Chile
  *
- * This is the main landing page for the Chilean business directory.
- * Server Component (default in Next.js App Router)
+ * Main landing page for the Chilean business directory.
+ * Server Component: carga todos los datos de la home en paralelo desde la
+ * DAL y se los pasa a `LDCHomeTemplate`.
  *
- * Sections:
- * - Hero: Full-screen hero with search and featured content
- * - Featured Categories: Grid of popular categories
- * - Featured Listings: Grid of featured businesses and services
- * - Recent Properties: Grid of recent property listings
- * - Featured Cities: Grid of featured Chilean cities
- * - Recent Classifieds: List of recent classified ads
- * - Recent Listings: Grid of most recent publications
- * - Recent Posts: Grid of recent news articles
+ * Las opciones del buscador del hero caen a `[]` si el backend falla (igual
+ * que cuando el hero las pedía a `/api/categories` y `/api/cities`); el resto
+ * de las secciones propaga el error, como cuando cada una hacía su fetch.
  */
+export default async function HomePage() {
+  const [
+    searchCategories,
+    searchCities,
+    featuredCategories,
+    featuredListings,
+    recentProperties,
+    featuredCities,
+    recentClassifieds,
+    recentListings,
+    recentPosts,
+  ] = await Promise.all([
+    getCategories().catch(() => []),
+    getCities().catch(() => []),
+    getFeaturedCategories(),
+    getFeaturedListings(),
+    getRecentProperties(10),
+    getFeaturedCities(),
+    getRecentClassifieds(6),
+    getRecentListings(10),
+    getRecentPosts(10),
+  ]);
 
-export default function HomePage() {
   return (
-    <>
-      {/* Hero Section */}
-      <LDCHero />
-
-      {/* Main Content */}
-      <main className="min-h-screen">
-        {/* Featured Categories Section */}
-        <LDCFeaturedCategories />
-
-        {/* Featured Listings Section */}
-        <LDCFeaturedListings />
-
-        {/* Recent Properties Section */}
-        <LDCRecentProperties />
-
-        {/* Featured Cities Section */}
-        <LDCFeaturedCities />
-
-        {/* Recent Classifieds Section */}
-        <LDCRecentClassifieds />
-
-        {/* Recent Listings Section */}
-        <LDCRecentListings />
-
-        {/* Recent Posts Section */}
-        <LDCRecentPosts />
-      </main>
-    </>
+    <LDCHomeTemplate
+      searchCategories={searchCategories}
+      searchCities={searchCities}
+      featuredCategories={featuredCategories}
+      featuredListings={featuredListings}
+      recentProperties={recentProperties}
+      featuredCities={featuredCities}
+      recentClassifieds={recentClassifieds}
+      recentListings={recentListings}
+      recentPosts={recentPosts}
+    />
   );
 }
