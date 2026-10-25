@@ -1,10 +1,13 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
+import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
+import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
+import { LDCFeaturedRibbon } from "@/components/atoms/ldc-featured-ribbon";
+import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, ChevronRight, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { isNewListing, isUpdatedListing } from "@/lib/format/listings";
 import { getIcon } from "@/lib/get-icon";
 
@@ -75,14 +78,7 @@ export function LDCListingCard({
   const isUpdated = isUpdatedListing(createdAt, updatedAt);
 
   return (
-    <div
-      className={cn(
-        "group bg-card rounded-lg overflow-hidden border border-border",
-        "hover:shadow-lg transition-all duration-300",
-        featured && "ring-2 ring-yellow",
-        className
-      )}
-    >
+    <LDCCardSurface as="div" featured={featured} className={className}>
       {/* Image */}
       <Link href={`/${type}/${slug}`} className="block relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -96,15 +92,7 @@ export function LDCListingCard({
         />
 
         {/* Featured pattern overlay */}
-        {featured && (
-          <div
-            className="absolute inset-0 opacity-20 pointer-events-none z-[1]"
-            style={{
-              backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffbe0b' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-              backgroundSize: '20px 20px',
-            }}
-          />
-        )}
+        {featured && <LDCFeaturedRibbon />}
 
         {/* Badges Overlay - Top */}
         <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
@@ -137,25 +125,13 @@ export function LDCListingCard({
         {/* Footer */}
         <div className="flex items-center justify-between gap-4 pt-3 border-t border-border">
           {/* City */}
-          <Link
-            href={`/ciudad/${city.slug}`}
-            className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink dark:hover:text-yellow transition-colors"
-          >
-            <MapPin className="w-4 h-4 flex-shrink-0 text-pink dark:text-yellow" />
-            <span className="truncate">{city.name}</span>
-          </Link>
+          <LDCLocationLink href={`/ciudad/${city.slug}`}>{city.name}</LDCLocationLink>
 
           {/* View Details Link */}
-          <Link
-            href={`/${type}/${slug}`}
-            className="group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0"
-          >
-            <span className="md:max-w-0 md:opacity-0 md:group-hover/link:max-w-24 md:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap">Ver detalles</span>
-            <ChevronRight className="w-4 h-4" />
-          </Link>
+          <LDCDetailsLink href={`/${type}/${slug}`} />
         </div>
       </div>
-    </div>
+    </LDCCardSurface>
   );
 }
 

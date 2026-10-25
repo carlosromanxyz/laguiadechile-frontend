@@ -1,12 +1,11 @@
 "use client";
 
-import Autoplay from "embla-carousel-autoplay";
-import Fade from "embla-carousel-fade";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import { CAROUSEL_LOOP_OPTIONS, createFadeAutoplayPlugins } from "@/lib/carousel/presets";
 
 /**
  * LDCHeroSlider - Hero Background Image Slider Component
@@ -36,16 +35,8 @@ export function LDCHeroSlider() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden opacity-30">
       <Carousel
-        opts={{
-          loop: true,
-        }}
-        plugins={[
-          Fade(),
-          Autoplay({
-            delay: 3000,
-            stopOnInteraction: false,
-          }),
-        ]}
+        opts={CAROUSEL_LOOP_OPTIONS}
+        plugins={createFadeAutoplayPlugins(3000)}
         className="h-full w-full"
       >
         <CarouselContent className="ml-0 h-full">
