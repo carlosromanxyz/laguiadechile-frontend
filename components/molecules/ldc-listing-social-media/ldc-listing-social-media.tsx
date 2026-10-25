@@ -1,6 +1,6 @@
 import { FaFacebookF, FaInstagram, FaXTwitter, FaYoutube, FaTiktok } from "react-icons/fa6";
 import { Share2 } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { LDCPanel } from "@/components/atoms/ldc-panel";
 import type { IListingSocialMedia } from "@/interfaces/listing";
 
 interface LDCListingSocialMediaProps {
@@ -46,7 +46,7 @@ export function LDCListingSocialMedia({
   if (activeSocials.length === 0) return null;
 
   return (
-    <div className={cn("bg-card rounded-xl border border-border p-5", className)}>
+    <LDCPanel className={className}>
       <h3 className="text-lg font-bold font-mulish text-foreground mb-4 flex items-center gap-2">
         <Share2 className="w-5 h-5 text-pink" />
         Redes Sociales
@@ -87,6 +87,6 @@ export function LDCListingSocialMedia({
           );
         })}
       </div>
-    </div>
+    </LDCPanel>
   );
 }

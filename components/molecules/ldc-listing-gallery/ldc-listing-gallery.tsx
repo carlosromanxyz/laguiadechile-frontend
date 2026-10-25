@@ -1,10 +1,12 @@
 "use client";
 
-import { cn } from "@/lib/utils";
+import { LDCPanel } from "@/components/atoms/ldc-panel";
 import Image from "next/image";
 import { Images } from "lucide-react";
-import Fade from "embla-carousel-fade";
-import Autoplay from "embla-carousel-autoplay";
+import {
+  CAROUSEL_LOOP_OPTIONS,
+  createFadeAutoplayPlugins,
+} from "@/lib/carousel/presets";
 import {
   Carousel,
   CarouselContent,
@@ -32,17 +34,15 @@ export function LDCListingGallery({
   if (!images || images.length === 0) return null;
 
   return (
-    <div className={cn("bg-card rounded-xl border border-border p-5", className)}>
+    <LDCPanel className={className}>
       <h3 className="text-lg font-bold font-mulish text-foreground mb-4 flex items-center gap-2">
         <Images className="w-5 h-5 text-pink" />
         Galería
       </h3>
 
       <Carousel
-        opts={{
-          loop: true,
-        }}
-        plugins={[Fade(), Autoplay({ delay: 4000, stopOnInteraction: false })]}
+        opts={CAROUSEL_LOOP_OPTIONS}
+        plugins={createFadeAutoplayPlugins(4000)}
         className="w-full"
       >
         <CarouselContent>
@@ -64,6 +64,6 @@ export function LDCListingGallery({
         <CarouselPrevious className="left-2" />
         <CarouselNext className="right-2" />
       </Carousel>
-    </div>
+    </LDCPanel>
   );
 }

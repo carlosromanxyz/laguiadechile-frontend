@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { Bed, Bath, Car, Maximize, LandPlot } from "lucide-react";
 import type { IProperty } from "@/interfaces/property";
 
@@ -34,12 +34,7 @@ export function LDCPropertyFeatures({
   ];
 
   return (
-    <div
-      className={cn(
-        "bg-card rounded-xl border border-border p-6",
-        className
-      )}
-    >
+    <LDCPanel padding="lg" className={className}>
       <h2 className="text-xl font-bold font-mulish text-foreground mb-4">
         Características
       </h2>
@@ -59,6 +54,6 @@ export function LDCPropertyFeatures({
           </div>
         ))}
       </div>
-    </div>
+    </LDCPanel>
   );
 }
