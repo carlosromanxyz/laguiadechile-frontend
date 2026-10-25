@@ -1,6 +1,6 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
-import { LDCPostCard } from "@/components/molecules/ldc-post-card";
+import { LDCNewsCard } from "@/components/molecules/ldc-news-card";
 import { getRecentPosts } from "@/services/posts";
 
 /**
@@ -27,8 +27,9 @@ export async function LDCRecentPosts() {
       {/* Posts Grid */}
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
         {posts.map((post) => (
-          <LDCPostCard
+          <LDCNewsCard
             key={post.id}
+            variant="post"
             title={post.title}
             slug={post.slug}
             category={post.category}

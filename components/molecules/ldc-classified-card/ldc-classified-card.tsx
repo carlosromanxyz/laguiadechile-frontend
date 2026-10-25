@@ -1,11 +1,19 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { LDCBadge } from "@/components/atoms/ldc-badge";
+import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
+import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
+import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Clock, ChevronRight, Star } from "lucide-react";
+import { Clock, Star } from "lucide-react";
 import { ClassifiedType, ClassifiedPriceType } from "@/interfaces/classified";
-import { formatClassifiedPrice, getRelativeTime } from "@/lib/format/classifieds";
+import {
+  formatClassifiedPrice,
+  getClassifiedTypeBadgeLabel,
+  getRelativeTime,
+} from "@/lib/format/classifieds";
 
 interface LDCClassifiedCardProps {
   /** Classified title */
@@ -40,22 +48,6 @@ interface LDCClassifiedCardProps {
   /** Optional className for custom styling */
   className?: string;
 }
-
-const typeLabels: Record<ClassifiedType, string> = {
-  vendo: "VENDO",
-  compro: "COMPRO",
-  arriendo: "ARRIENDO",
-  busco: "BUSCO",
-  ofrezco: "OFREZCO",
-};
-
-const typeColors: Record<ClassifiedType, string> = {
-  vendo: "bg-pink text-white",
-  compro: "bg-purple text-white",
-  arriendo: "bg-orange text-white",
-  busco: "bg-yellow text-black",
-  ofrezco: "bg-emerald-500 text-white",
-};
 
 const priceTypeColors: Record<ClassifiedPriceType, string> = {
   fixed: "text-foreground",
@@ -104,15 +96,7 @@ export function LDCClassifiedCard({
   const location = commune ? `${city.name}, ${commune}` : city.name;
 
   return (
-    <article
-      className={cn(
-        "group bg-card rounded-xl overflow-hidden border border-border",
-        "flex flex-col sm:flex-row",
-        "hover:shadow-lg transition-shadow duration-200",
-        featured && "ring-2 ring-yellow",
-        className
-      )}
-    >
+    <LDCCardSurface variant="horizontal" featured={featured} className={className}>
       {/* Image */}
       <Link
         href={`/aviso/${slug}`}
@@ -130,10 +114,10 @@ export function LDCClassifiedCard({
 
         {/* Featured badge on image */}
         {featured && (
-          <div className="absolute top-2 left-2 flex items-center gap-1 bg-yellow text-black text-xs font-semibold px-2 py-1 rounded-md">
+          <LDCBadge as="div" variant="featured-overlay">
             <Star className="w-3 h-3 fill-current" />
             Destacado
-          </div>
+          </LDCBadge>
         )}
       </Link>
 
@@ -142,14 +126,7 @@ export function LDCClassifiedCard({
         {/* Main info */}
         <div className="flex-1 min-w-0 space-y-2">
           {/* Type badge */}
-          <span
-            className={cn(
-              "inline-block text-xs font-bold px-2 py-0.5 rounded",
-              typeColors[type]
-            )}
-          >
-            {typeLabels[type]}
-          </span>
+          <LDCBadge variant={`classified-${type}`}>{getClassifiedTypeBadgeLabel(type)}</LDCBadge>
 
           {/* Title */}
           <h3 className="font-bold font-mulish text-foreground line-clamp-2 sm:line-clamp-1">
@@ -160,13 +137,9 @@ export function LDCClassifiedCard({
 
           {/* Location and time */}
           <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-muted-foreground">
-            <Link
-              href={`/ciudad/${city.slug}`}
-              className="flex items-center gap-1 hover:text-pink dark:hover:text-yellow transition-colors"
-            >
-              <MapPin className="w-4 h-4 text-pink dark:text-yellow flex-shrink-0" />
-              <span className="truncate">{location}</span>
-            </Link>
+            <LDCLocationLink href={`/ciudad/${city.slug}`} variant="compact">
+              {location}
+            </LDCLocationLink>
             <span className="flex items-center gap-1">
               <Clock className="w-4 h-4 flex-shrink-0" />
               <span>{relativeTime}</span>
@@ -187,15 +160,9 @@ export function LDCClassifiedCard({
           </span>
 
           {/* View link */}
-          <Link
-            href={`/aviso/${slug}`}
-            className="group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange transition-colors"
-          >
-            <span className="sm:max-w-0 sm:opacity-0 sm:group-hover/link:max-w-20 sm:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap">Ver más</span>
-            <ChevronRight className="w-5 h-5" />
-          </Link>
+          <LDCDetailsLink href={`/aviso/${slug}`} label="Ver más" variant="compact" />
         </div>
       </div>
-    </article>
+    </LDCCardSurface>
   );
 }

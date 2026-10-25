@@ -1,14 +1,17 @@
 "use client";
 
-import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { MapPin, Bed, Bath, Car, Maximize, Star, Sparkles } from "lucide-react";
+import { Bed, Bath, Car, Maximize, Star, Sparkles } from "lucide-react";
 import { PropertyType, PropertyOperation } from "@/interfaces/property";
 import {
   formatPropertyPriceWithPeriod,
   getPropertyTypeLabel,
   getOperationLabel,
 } from "@/lib/format/properties";
+import { LDCBadge } from "@/components/atoms/ldc-badge";
+import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
+import { LDCFeaturedRibbon } from "@/components/atoms/ldc-featured-ribbon";
+import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import { LDCPropertyImageCarousel } from "@/components/atoms/ldc-property-image-carousel";
 import {
   Tooltip,
@@ -108,14 +111,7 @@ export function LDCPropertyCard({
   const carouselImages = images && images.length > 0 ? images : [image];
 
   return (
-    <article
-      className={cn(
-        "group bg-card rounded-lg overflow-hidden border border-border",
-        "hover:shadow-lg transition-all duration-300",
-        featured && "ring-2 ring-yellow",
-        className
-      )}
-    >
+    <LDCCardSurface featured={featured} className={className}>
       {/* Image Section */}
       <div className="relative">
         <Link href={`/propiedad/${slug}`} className="block">
@@ -127,15 +123,7 @@ export function LDCPropertyCard({
             showCounter={false}
           >
             {/* Featured pattern overlay */}
-            {featured && (
-              <div
-                className="absolute inset-0 opacity-20 pointer-events-none z-[1]"
-                style={{
-                  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffbe0b' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-                  backgroundSize: '20px 20px',
-                }}
-              />
-            )}
+            {featured && <LDCFeaturedRibbon />}
 
             {/* Minimal badges on image - only featured/new with tooltips */}
             {(featured || isNew) && (
@@ -143,9 +131,9 @@ export function LDCPropertyCard({
                 {featured && (
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <span className="flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-black cursor-help">
+                      <LDCBadge variant="featured-icon">
                         <Star className="w-2.5 h-2.5 fill-current" />
-                      </span>
+                      </LDCBadge>
                     </TooltipTrigger>
                     <TooltipContent>Destacado</TooltipContent>
                   </Tooltip>
@@ -153,9 +141,9 @@ export function LDCPropertyCard({
                 {isNew && (
                   <Tooltip>
                     <TooltipTrigger asChild>
-                      <span className="flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500 text-white cursor-help">
+                      <LDCBadge variant="new-icon">
                         <Sparkles className="w-2.5 h-2.5" />
-                      </span>
+                      </LDCBadge>
                     </TooltipTrigger>
                     <TooltipContent>Nuevo</TooltipContent>
                   </Tooltip>
@@ -189,17 +177,13 @@ export function LDCPropertyCard({
         </h3>
 
         {/* Location */}
-        <div className="flex items-center gap-1 text-sm text-muted-foreground truncate">
-          <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-pink dark:text-yellow" />
-          <Link
-            href={`/ciudad/${location.city.slug}`}
-            className="hover:text-pink dark:hover:text-yellow transition-colors"
-          >
-            {location.city.name}
-          </Link>
-          <span className="text-muted-foreground/60">/</span>
-          <span className="truncate">{locationDetails}</span>
-        </div>
+        <LDCLocationLink
+          href={`/ciudad/${location.city.slug}`}
+          variant="split"
+          details={locationDetails}
+        >
+          {location.city.name}
+        </LDCLocationLink>
 
         {/* Features - Compact inline with Tooltips */}
         <div className="flex items-center gap-2 text-xs text-muted-foreground pt-1">
@@ -244,6 +228,6 @@ export function LDCPropertyCard({
           </Tooltip>
         </div>
       </div>
-    </article>
+    </LDCCardSurface>
   );
 }

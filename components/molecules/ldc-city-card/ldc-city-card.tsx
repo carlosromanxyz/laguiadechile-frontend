@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import Link from "next/link";
 import Image from "next/image";
 import { formatPublicationsCount } from "@/lib/format/cities";
@@ -52,12 +53,7 @@ export function LDCCityCard({
   className,
 }: LDCCityCardProps) {
   return (
-    <article
-      className={cn(
-        "group overflow-hidden rounded-xl bg-card dark:bg-neutral-800 shadow-md",
-        className
-      )}
-    >
+    <LDCCardSurface variant="media" className={className}>
       <Link href={`/ciudad/${slug}`} className={cn("block relative overflow-hidden", aspectRatioClasses[aspectRatio])}>
         {/* Background Image */}
         <Image
@@ -83,6 +79,6 @@ export function LDCCityCard({
           </p>
         </div>
       </Link>
-    </article>
+    </LDCCardSurface>
   );
 }

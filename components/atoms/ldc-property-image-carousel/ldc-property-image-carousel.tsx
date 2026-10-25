@@ -10,6 +10,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CAROUSEL_START_LOOP_OPTIONS } from "@/lib/carousel/presets";
 
 interface LDCPropertyImageCarouselProps {
   /** Array of image URLs */
@@ -119,10 +120,7 @@ export function LDCPropertyImageCarousel({
     <div className={cn("relative group/carousel", className)}>
       <Carousel
         setApi={setApi}
-        opts={{
-          align: "start",
-          loop: true,
-        }}
+        opts={CAROUSEL_START_LOOP_OPTIONS}
         className="w-full"
       >
         <CarouselContent className="ml-0">
