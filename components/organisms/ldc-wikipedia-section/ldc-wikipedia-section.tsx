@@ -1,25 +1,15 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { BookOpen, ExternalLink } from "lucide-react";
-
-interface WikipediaData {
-  title: string;
-  extract: string;
-  thumbnail?: {
-    source: string;
-    width: number;
-    height: number;
-  };
-  url: string;
-  description?: string;
-}
+import type { IWikipediaCityInfo } from "@/interfaces/wikipedia";
 
 interface LDCWikipediaSectionProps {
-  /** City name to fetch Wikipedia data for */
+  /** City name shown in the heading («Acerca de <ciudad>») */
   cityName: string;
+  /** Resumen de Wikipedia; `null` no pinta nada (salvo mientras `loading`) */
+  data: IWikipediaCityInfo | null;
+  /** Muestra el esqueleto de carga */
+  loading?: boolean;
   /** Optional className for custom styling */
   className?: string;
 }
@@ -27,50 +17,21 @@ interface LDCWikipediaSectionProps {
 /**
  * LDCWikipediaSection - Wikipedia City Information
  *
- * Displays city information from Spanish Wikipedia including
- * description, image, and link to full article.
+ * Presentacional: muestra la descripción, la imagen y el enlace al artículo de la Wikipedia en
+ * español que recibe, o un esqueleto mientras `loading`. Los datos los pide `useCityWikipedia`.
  *
  * @example
  * ```tsx
- * <LDCWikipediaSection cityName="Santiago" />
+ * const { data, loading } = useCityWikipedia("Santiago");
+ * <LDCWikipediaSection cityName="Santiago" data={data} loading={loading} />
  * ```
  */
 export function LDCWikipediaSection({
   cityName,
+  data,
+  loading = false,
   className,
 }: LDCWikipediaSectionProps) {
-  const [data, setData] = useState<WikipediaData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    async function fetchWikipediaData() {
-      setLoading(true);
-      setError(false);
-      try {
-        const response = await fetch(
-          `/api/wikipedia?city=${encodeURIComponent(cityName)}`
-        );
-        if (response.ok) {
-          const result = await response.json();
-          setData(result);
-        } else {
-          setError(true);
-        }
-      } catch {
-        setError(true);
-      }
-      setLoading(false);
-    }
-
-    fetchWikipediaData();
-  }, [cityName]);
-
-  // Don't render anything if error or no data
-  if (error || (!loading && !data)) {
-    return null;
-  }
-
   // Loading skeleton
   if (loading) {
     return (
