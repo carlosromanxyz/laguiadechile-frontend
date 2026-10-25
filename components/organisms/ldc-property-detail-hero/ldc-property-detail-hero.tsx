@@ -1,4 +1,4 @@
-import { LDCDetailHero } from "@/components/organisms/ldc-detail-hero";
+import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { getOperationLabel, getPropertyTypeLabel } from "@/services/properties";
@@ -30,7 +30,7 @@ export function LDCPropertyDetailHero({
     .join(", ");
 
   return (
-    <LDCDetailHero breadcrumbs={breadcrumbs} className={className}>
+    <LDCPageHero breadcrumbs={breadcrumbs} className={className}>
       {/* Badges */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <LDCBadge variant="default">
@@ -71,6 +71,6 @@ export function LDCPropertyDetailHero({
 
         <LDCSocialShareButtons title={property.title} variant="dark" />
       </div>
-    </LDCDetailHero>
+    </LDCPageHero>
   );
 }

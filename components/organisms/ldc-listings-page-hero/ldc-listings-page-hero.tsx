@@ -1,4 +1,4 @@
-import { LDCDetailHero } from "@/components/organisms/ldc-detail-hero";
+import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LucideIcon } from "lucide-react";
 import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
@@ -41,7 +41,7 @@ export function LDCListingsPageHero({
   className,
 }: LDCListingsPageHeroProps) {
   return (
-    <LDCDetailHero breadcrumbs={breadcrumbs} variant="listing" className={className}>
+    <LDCPageHero breadcrumbs={breadcrumbs} variant="listing" className={className}>
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
         {/* Content */}
         <div className="space-y-4 text-foreground">
@@ -63,6 +63,6 @@ export function LDCListingsPageHero({
           <div className="hidden md:block">{rightContent}</div>
         )}
       </div>
-    </LDCDetailHero>
+    </LDCPageHero>
   );
 }

@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedListingsGrid } from "@/components/organisms/ldc-paginated-listings-grid";
 import { getCommerces } from "@/services/commerces";
@@ -29,24 +30,22 @@ export default async function ComerciosPage() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title="Comercios"
-        breadcrumbs={breadcrumbs}
-        icon={Store}
-      />
-
-      {/* Listings Grid */}
-      <main>
-        <LDCPaginatedListingsGrid
-          listings={commerces}
-          itemsPerPage={20}
-          columns={5}
-          emptyMessage="No se encontraron comercios"
-          loadMoreLabel="Cargar más comercios"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Comercios"
+          breadcrumbs={breadcrumbs}
+          icon={Store}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedListingsGrid
+        listings={commerces}
+        itemsPerPage={20}
+        columns={5}
+        emptyMessage="No se encontraron comercios"
+        loadMoreLabel="Cargar más comercios"
+      />
+    </LDCListingPageTemplate>
   );
 }

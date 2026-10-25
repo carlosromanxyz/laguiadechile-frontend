@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedListingsGrid } from "@/components/organisms/ldc-paginated-listings-grid";
 import { getServices } from "@/services/services";
@@ -29,24 +30,22 @@ export default async function ServiciosPage() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title="Servicios"
-        breadcrumbs={breadcrumbs}
-        icon={Wrench}
-      />
-
-      {/* Listings Grid */}
-      <main>
-        <LDCPaginatedListingsGrid
-          listings={services}
-          itemsPerPage={20}
-          columns={5}
-          emptyMessage="No se encontraron servicios"
-          loadMoreLabel="Cargar más servicios"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Servicios"
+          breadcrumbs={breadcrumbs}
+          icon={Wrench}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedListingsGrid
+        listings={services}
+        itemsPerPage={20}
+        columns={5}
+        emptyMessage="No se encontraron servicios"
+        loadMoreLabel="Cargar más servicios"
+      />
+    </LDCListingPageTemplate>
   );
 }

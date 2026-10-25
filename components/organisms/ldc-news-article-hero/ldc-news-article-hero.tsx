@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { LDCDetailHero } from "@/components/organisms/ldc-detail-hero";
+import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { Star, Sparkles, CalendarDays, Clock } from "lucide-react";
@@ -37,7 +37,7 @@ export function LDCNewsArticleHero({
   });
 
   return (
-    <LDCDetailHero breadcrumbs={breadcrumbs} className={className}>
+    <LDCPageHero breadcrumbs={breadcrumbs} className={className}>
       {/* Badges */}
       <div className="flex flex-wrap items-center gap-2 mb-4">
         <LDCBadge variant="default">{news.category.name}</LDCBadge>
@@ -87,6 +87,6 @@ export function LDCNewsArticleHero({
 
         <LDCSocialShareButtons title={news.title} variant="dark" />
       </div>
-    </LDCDetailHero>
+    </LDCPageHero>
   );
 }
