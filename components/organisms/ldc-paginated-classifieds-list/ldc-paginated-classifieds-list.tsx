@@ -1,6 +1,7 @@
 "use client";
 
 import { LDCSection } from "@/components/atoms/ldc-section";
+import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
 import { LDCLoadMoreGrid } from "@/components/organisms/ldc-load-more-grid";
 import { useLoadMore } from "@/hooks/use-load-more";
@@ -54,17 +55,11 @@ export function LDCPaginatedClassifiedsList({
   if (classifieds.length === 0) {
     return (
       <LDCSection paddingY="lg">
-        <div className="flex flex-col items-center justify-center py-16 text-center">
-          <div className="w-24 h-24 mb-6 rounded-full bg-muted flex items-center justify-center">
-            <Search className="w-12 h-12 text-muted-foreground" />
-          </div>
-          <h3 className="text-xl font-bold font-mulish text-foreground mb-2">
-            {emptyMessage}
-          </h3>
-          <p className="text-muted-foreground max-w-md">
-            Intenta ajustar los filtros o vuelve más tarde para ver nuevos avisos.
-          </p>
-        </div>
+        <LDCEmptyState
+          icon={<Search className="w-12 h-12 text-muted-foreground" />}
+          title={emptyMessage}
+          description="Intenta ajustar los filtros o vuelve más tarde para ver nuevos avisos."
+        />
       </LDCSection>
     );
   }
