@@ -1,22 +1,24 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCNewsCard } from "@/components/molecules/ldc-news-card";
-import { getRecentPosts } from "@/services/posts";
+import type { IPosts } from "@/interfaces/post";
+
+interface LDCRecentPostsProps {
+  posts: IPosts;
+}
 
 /**
  * LDCRecentPosts - Recent Posts/News Section
  *
  * Displays a grid of recent news articles and posts.
- * Server Component that fetches recent posts sorted by creation date.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * @example
  * ```tsx
- * <LDCRecentPosts />
+ * <LDCRecentPosts posts={posts} />
  * ```
  */
-export async function LDCRecentPosts() {
-  const posts = await getRecentPosts(10);
-
+export function LDCRecentPosts({ posts }: LDCRecentPostsProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

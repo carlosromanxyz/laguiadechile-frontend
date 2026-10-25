@@ -1,22 +1,24 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
-import { getRecentListings } from "@/services/featured-listings";
+import type { IListingDetails } from "@/interfaces/listing";
+
+interface LDCRecentListingsProps {
+  listings: IListingDetails;
+}
 
 /**
  * LDCRecentListings - Recent Listings Section
  *
  * Displays a grid of the most recent business/service listings.
- * Server Component that fetches recent listings sorted by creation date.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * @example
  * ```tsx
- * <LDCRecentListings />
+ * <LDCRecentListings listings={listings} />
  * ```
  */
-export async function LDCRecentListings() {
-  const listings = await getRecentListings(10);
-
+export function LDCRecentListings({ listings }: LDCRecentListingsProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

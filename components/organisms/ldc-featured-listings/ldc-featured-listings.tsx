@@ -1,13 +1,17 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
-import { getFeaturedListings } from "@/services/featured-listings";
+import type { IListingDetails } from "@/interfaces/listing";
+
+interface LDCFeaturedListingsProps {
+  listings: IListingDetails;
+}
 
 /**
  * LDCFeaturedListings - Featured Listings Section
  *
  * Displays a grid of featured business/service listings on the home page.
- * Server Component that fetches listing data from JSON.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * Features:
  * - Responsive grid layout (1 → 2 → 4 columns)
@@ -17,12 +21,10 @@ import { getFeaturedListings } from "@/services/featured-listings";
  *
  * @example
  * ```tsx
- * <LDCFeaturedListings />
+ * <LDCFeaturedListings listings={listings} />
  * ```
  */
-export async function LDCFeaturedListings() {
-  const listings = await getFeaturedListings();
-
+export function LDCFeaturedListings({ listings }: LDCFeaturedListingsProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

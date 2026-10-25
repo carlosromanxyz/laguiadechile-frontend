@@ -1,22 +1,24 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCCityCard } from "@/components/molecules/ldc-city-card";
-import { getFeaturedCities } from "@/services/featured-cities";
+import type { IFeaturedCities } from "@/interfaces/featured-city";
+
+interface LDCFeaturedCitiesProps {
+  cities: IFeaturedCities;
+}
 
 /**
  * LDCFeaturedCities - Featured Cities Section
  *
  * Displays a grid of featured Chilean cities with images and publication counts.
- * Server Component that fetches featured cities data.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * @example
  * ```tsx
- * <LDCFeaturedCities />
+ * <LDCFeaturedCities cities={cities} />
  * ```
  */
-export async function LDCFeaturedCities() {
-  const cities = await getFeaturedCities();
-
+export function LDCFeaturedCities({ cities }: LDCFeaturedCitiesProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

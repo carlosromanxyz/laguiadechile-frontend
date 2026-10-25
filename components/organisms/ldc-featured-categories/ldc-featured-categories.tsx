@@ -1,28 +1,30 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCCategoryCard } from "@/components/molecules/ldc-category-card";
-import { getFeaturedCategories } from "@/services/featured-categories";
+import type { IFeaturedCategories } from "@/interfaces/featured-category";
+
+interface LDCFeaturedCategoriesProps {
+  categories: IFeaturedCategories;
+}
 
 /**
  * LDCFeaturedCategories - Featured Categories Section
  *
  * Displays a grid of featured category cards on the home page.
- * Server Component that fetches category data from JSON.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * Features:
  * - Responsive grid layout (2 → 3 → 4 columns)
  * - Animated cards with hover effects
- * - Dynamic category data from JSON
+ * - Category data passed in by props
  * - Gradient icons with brand colors
  *
  * @example
  * ```tsx
- * <LDCFeaturedCategories />
+ * <LDCFeaturedCategories categories={categories} />
  * ```
  */
-export async function LDCFeaturedCategories() {
-  const categories = await getFeaturedCategories();
-
+export function LDCFeaturedCategories({ categories }: LDCFeaturedCategoriesProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

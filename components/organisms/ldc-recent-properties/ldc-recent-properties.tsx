@@ -1,22 +1,24 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
-import { getRecentProperties } from "@/services/properties";
+import type { IProperties } from "@/interfaces/property";
+
+interface LDCRecentPropertiesProps {
+  properties: IProperties;
+}
 
 /**
  * LDCRecentProperties - Recent Properties Section
  *
  * Displays a grid of the most recent property listings.
- * Server Component that fetches recent properties sorted by creation date.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * @example
  * ```tsx
- * <LDCRecentProperties />
+ * <LDCRecentProperties properties={properties} />
  * ```
  */
-export async function LDCRecentProperties() {
-  const properties = await getRecentProperties(10);
-
+export function LDCRecentProperties({ properties }: LDCRecentPropertiesProps) {
   return (
     <LDCSection>
       <LDCSectionHeader

@@ -1,22 +1,24 @@
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
-import { getRecentClassifieds } from "@/services/classifieds";
+import type { IClassifieds } from "@/interfaces/classified";
+
+interface LDCRecentClassifiedsProps {
+  classifieds: IClassifieds;
+}
 
 /**
  * LDCRecentClassifieds - Recent Classifieds Section
  *
  * Displays a list of the most recent classified ads.
- * Server Component that fetches recent classifieds sorted by creation date.
+ * Server Component: recibe los datos por props (los carga la home).
  *
  * @example
  * ```tsx
- * <LDCRecentClassifieds />
+ * <LDCRecentClassifieds classifieds={classifieds} />
  * ```
  */
-export async function LDCRecentClassifieds() {
-  const classifieds = await getRecentClassifieds(6);
-
+export function LDCRecentClassifieds({ classifieds }: LDCRecentClassifiedsProps) {
   return (
     <LDCSection>
       <LDCSectionHeader
