@@ -1,4 +1,9 @@
 import Image from "next/image";
+import {
+  LDCAccentBars,
+  LDCDecorativeLayer,
+  LDCDecorativeShape,
+} from "@/components/atoms/ldc-decorative-shapes";
 
 /**
  * LDCAboutHero - About Page Hero Section
@@ -22,16 +27,31 @@ export function LDCAboutHero() {
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-br from-purple via-pink/90 to-orange-red py-24 md:py-32 lg:py-40">
       {/* Decorative background layer */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden="true">
+      <LDCDecorativeLayer>
         {/* Large blur shape - top left */}
-        <div className="absolute -left-40 -top-40 h-[600px] w-[600px] rounded-full bg-gradient-to-br from-purple/30 via-pink/20 to-transparent blur-3xl" />
+        <LDCDecorativeShape
+          variant="blob"
+          ariaHidden={false}
+          layout="-left-40 -top-40 h-[600px] w-[600px]"
+          fill="bg-gradient-to-br from-purple/30 via-pink/20 to-transparent"
+        />
 
         {/* Medium blur shape - bottom right */}
-        <div className="absolute -bottom-20 -right-20 h-96 w-96 rounded-full bg-gradient-to-tl from-orange/20 via-yellow/10 to-transparent blur-3xl" />
+        <LDCDecorativeShape
+          variant="blob"
+          ariaHidden={false}
+          layout="-bottom-20 -right-20 h-96 w-96"
+          fill="bg-gradient-to-tl from-orange/20 via-yellow/10 to-transparent"
+        />
 
         {/* Small accent shape - floating */}
-        <div className="absolute right-1/4 top-1/3 h-32 w-32 rotate-45 rounded-2xl bg-yellow/20 blur-xl" />
-      </div>
+        <LDCDecorativeShape
+          variant="spot"
+          ariaHidden={false}
+          layout="right-1/4 top-1/3 h-32 w-32 rotate-45 rounded-2xl"
+          fill="bg-yellow/20"
+        />
+      </LDCDecorativeLayer>
 
       <div className="relative mx-auto max-w-7xl px-4">
         <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
@@ -67,19 +87,22 @@ export function LDCAboutHero() {
             </p>
 
             {/* Decorative accents */}
-            <div className="flex gap-2 pt-4" aria-hidden="true">
-              <div className="h-1 w-16 rounded-full bg-white/60" />
-              <div className="h-1 w-12 rounded-full bg-white/40" />
-              <div className="h-1 w-8 rounded-full bg-white/20" />
-            </div>
+            <LDCAccentBars
+              bars={[
+                { width: "w-16", fill: "bg-white/60" },
+                { width: "w-12", fill: "bg-white/40" },
+                { width: "w-8", fill: "bg-white/20" },
+              ]}
+            />
           </div>
 
           {/* Image Column - 5 columns */}
           <div className="relative lg:col-span-5">
             {/* Vertical accent bar */}
-            <div
-              className="absolute -right-4 top-12 h-40 w-2 rounded-full bg-gradient-to-b from-yellow to-orange"
-              aria-hidden="true"
+            <LDCDecorativeShape
+              variant="bar"
+              layout="-right-4 top-12 h-40"
+              fill="from-yellow to-orange"
             />
 
             <div className="relative">
@@ -93,16 +116,17 @@ export function LDCAboutHero() {
               />
 
               {/* Colored glow */}
-              <div
-                className="absolute inset-0 -z-10 scale-110 bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20 blur-2xl"
-                aria-hidden="true"
+              <LDCDecorativeShape
+                variant="glow"
+                fill="bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20"
               />
             </div>
 
             {/* Corner accent shape */}
-            <div
-              className="absolute -bottom-6 -left-6 h-24 w-24 -rotate-12 rounded-2xl bg-gradient-to-br from-pink to-purple opacity-60 blur-md"
-              aria-hidden="true"
+            <LDCDecorativeShape
+              variant="corner"
+              layout="-bottom-6 -left-6 h-24 w-24 -rotate-12"
+              fill="from-pink to-purple"
             />
           </div>
         </div>

@@ -2,9 +2,9 @@ import Link from "next/link";
 import { LDCLogo } from "@/components/atoms/ldc-logo";
 import { LDCFooterWidget } from "@/components/molecules/ldc-footer-widget";
 import { LDCFooterNavList } from "@/components/molecules/ldc-footer-nav-list";
-import { LDCFooterUtilityList } from "@/components/molecules/ldc-footer-utility-list";
 import { LDCSocialNetworkList } from "@/components/molecules/ldc-social-network-list";
 import { LDCAppStoreBadges } from "@/components/molecules/ldc-app-store-badges";
+import { navigationItems, utilityNavigationItems } from "@/config/navigation";
 
 /**
  * LDCFooter - Main Footer Component
@@ -42,12 +42,19 @@ export function LDCFooter() {
 
           {/* Navigation Widget */}
           <LDCFooterWidget title="Nosotros">
-            <LDCFooterNavList />
+            <LDCFooterNavList
+              items={navigationItems}
+              ariaLabel="Footer navigation"
+            />
           </LDCFooterWidget>
 
           {/* Utility Links Widget */}
           <LDCFooterWidget title="Enlaces útiles">
-            <LDCFooterUtilityList />
+            <LDCFooterNavList
+              items={utilityNavigationItems}
+              ariaLabel="Utility navigation"
+              layout="one-column"
+            />
           </LDCFooterWidget>
 
           {/* App Download Widget */}
