@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { LDCDecorativeShape } from "@/components/atoms/ldc-decorative-shapes";
 
 /**
  * LDCAboutWhat - "What is La Guía de Chile" Section
@@ -15,9 +16,10 @@ export function LDCAboutWhat() {
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-pink/5 via-background to-background py-24 md:py-32">
       {/* Decorative shape - top right */}
-      <div
-        className="absolute right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2 rounded-full bg-gradient-to-br from-yellow/20 to-orange/10 blur-3xl"
-        aria-hidden="true"
+      <LDCDecorativeShape
+        variant="blob"
+        layout="right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2"
+        fill="bg-gradient-to-br from-yellow/20 to-orange/10"
       />
 
       <div className="relative mx-auto max-w-7xl px-4">
@@ -25,9 +27,10 @@ export function LDCAboutWhat() {
           {/* Image Column - 5 columns */}
           <div className="relative lg:col-span-5">
             {/* Colored accent bar */}
-            <div
-              className="absolute -left-4 top-8 h-32 w-2 rounded-full bg-gradient-to-b from-purple to-pink"
-              aria-hidden="true"
+            <LDCDecorativeShape
+              variant="bar"
+              layout="-left-4 top-8 h-32"
+              fill="from-purple to-pink"
             />
 
             {/* Image with glow effect */}
@@ -41,9 +44,9 @@ export function LDCAboutWhat() {
               />
 
               {/* Colored glow behind image */}
-              <div
-                className="absolute inset-0 -z-10 scale-110 bg-gradient-to-tr from-purple/20 via-pink/20 to-orange/20 blur-2xl"
-                aria-hidden="true"
+              <LDCDecorativeShape
+                variant="glow"
+                fill="bg-gradient-to-tr from-purple/20 via-pink/20 to-orange/20"
               />
             </div>
           </div>

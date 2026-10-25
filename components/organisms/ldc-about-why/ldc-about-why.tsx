@@ -1,4 +1,8 @@
 import { LDCNumberBadge } from "@/components/atoms/ldc-number-badge";
+import {
+  LDCAccentBars,
+  LDCDecorativeShape,
+} from "@/components/atoms/ldc-decorative-shapes";
 import Image from "next/image";
 
 /**
@@ -23,13 +27,15 @@ export function LDCAboutWhy() {
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-background via-purple/5 to-background py-24 md:py-32">
       {/* Decorative shapes */}
-      <div
-        className="absolute bottom-0 left-0 h-[500px] w-[500px] -translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-tr from-orange/10 via-yellow/10 to-transparent blur-3xl"
-        aria-hidden="true"
+      <LDCDecorativeShape
+        variant="blob"
+        layout="bottom-0 left-0 h-[500px] w-[500px] -translate-x-1/2 translate-y-1/2"
+        fill="bg-gradient-to-tr from-orange/10 via-yellow/10 to-transparent"
       />
-      <div
-        className="absolute right-20 top-20 h-20 w-20 rotate-12 rounded-lg bg-pink/20 blur-xl"
-        aria-hidden="true"
+      <LDCDecorativeShape
+        variant="spot"
+        layout="right-20 top-20 h-20 w-20 rotate-12 rounded-lg"
+        fill="bg-pink/20"
       />
 
       <div className="relative mx-auto max-w-7xl px-4">
@@ -73,19 +79,22 @@ export function LDCAboutWhy() {
             </ul>
 
             {/* Decorative accent bars */}
-            <div className="flex gap-2 pt-4" aria-hidden="true">
-              <div className="h-1 w-12 rounded-full bg-gradient-to-r from-purple to-pink" />
-              <div className="h-1 w-8 rounded-full bg-gradient-to-r from-orange to-yellow" />
-              <div className="h-1 w-4 rounded-full bg-blue-gray" />
-            </div>
+            <LDCAccentBars
+              bars={[
+                { width: "w-12", fill: "bg-gradient-to-r from-purple to-pink" },
+                { width: "w-8", fill: "bg-gradient-to-r from-orange to-yellow" },
+                { width: "w-4", fill: "bg-blue-gray" },
+              ]}
+            />
           </div>
 
           {/* Image Column - 5 columns */}
           <div className="relative lg:col-span-5">
             {/* Colored accent shape - corner */}
-            <div
-              className="absolute -right-6 -top-6 h-24 w-24 rotate-12 rounded-2xl bg-gradient-to-br from-yellow to-orange opacity-60 blur-md"
-              aria-hidden="true"
+            <LDCDecorativeShape
+              variant="corner"
+              layout="-right-6 -top-6 h-24 w-24 rotate-12"
+              fill="from-yellow to-orange"
             />
 
             <div className="relative">
@@ -98,9 +107,9 @@ export function LDCAboutWhy() {
               />
 
               {/* Colored glow */}
-              <div
-                className="absolute inset-0 -z-10 scale-110 bg-gradient-to-bl from-orange/20 via-yellow/20 to-pink/20 blur-2xl"
-                aria-hidden="true"
+              <LDCDecorativeShape
+                variant="glow"
+                fill="bg-gradient-to-bl from-orange/20 via-yellow/20 to-pink/20"
               />
             </div>
           </div>
