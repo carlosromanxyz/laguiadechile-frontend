@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedClassifiedsList } from "@/components/organisms/ldc-paginated-classifieds-list";
 import { getClassifieds } from "@/services/classifieds";
@@ -29,23 +30,21 @@ export default async function AvisosPage() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title="Avisos Clasificados"
-        breadcrumbs={breadcrumbs}
-        icon={Megaphone}
-      />
-
-      {/* Classifieds List */}
-      <main>
-        <LDCPaginatedClassifiedsList
-          classifieds={classifieds}
-          itemsPerPage={10}
-          emptyMessage="No se encontraron avisos"
-          loadMoreLabel="Cargar más avisos"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Avisos Clasificados"
+          breadcrumbs={breadcrumbs}
+          icon={Megaphone}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedClassifiedsList
+        classifieds={classifieds}
+        itemsPerPage={10}
+        emptyMessage="No se encontraron avisos"
+        loadMoreLabel="Cargar más avisos"
+      />
+    </LDCListingPageTemplate>
   );
 }

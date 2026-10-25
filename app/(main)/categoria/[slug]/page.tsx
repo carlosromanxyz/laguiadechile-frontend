@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedListingsGrid } from "@/components/organisms/ldc-paginated-listings-grid";
 import { getCategoryBySlug, getAllCategories } from "@/services/featured-categories";
@@ -66,24 +67,22 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title={category.name}
-        breadcrumbs={breadcrumbs}
-        icon={Tag}
-      />
-
-      {/* Listings Grid */}
-      <main>
-        <LDCPaginatedListingsGrid
-          listings={listings}
-          itemsPerPage={20}
-          columns={5}
-          emptyMessage={`No se encontraron publicaciones en ${category.name}`}
-          loadMoreLabel="Cargar más publicaciones"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title={category.name}
+          breadcrumbs={breadcrumbs}
+          icon={Tag}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedListingsGrid
+        listings={listings}
+        itemsPerPage={20}
+        columns={5}
+        emptyMessage={`No se encontraron publicaciones en ${category.name}`}
+        loadMoreLabel="Cargar más publicaciones"
+      />
+    </LDCListingPageTemplate>
   );
 }

@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedPropertiesGrid } from "@/components/organisms/ldc-paginated-properties-grid";
 import { getProperties } from "@/services/properties";
@@ -29,23 +30,21 @@ export default async function PropiedadesPage() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title="Propiedades"
-        breadcrumbs={breadcrumbs}
-        icon={Home}
-      />
-
-      {/* Properties Grid */}
-      <main>
-        <LDCPaginatedPropertiesGrid
-          properties={properties}
-          itemsPerPage={20}
-          emptyMessage="No se encontraron propiedades"
-          loadMoreLabel="Cargar más propiedades"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Propiedades"
+          breadcrumbs={breadcrumbs}
+          icon={Home}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedPropertiesGrid
+        properties={properties}
+        itemsPerPage={20}
+        emptyMessage="No se encontraron propiedades"
+        loadMoreLabel="Cargar más propiedades"
+      />
+    </LDCListingPageTemplate>
   );
 }

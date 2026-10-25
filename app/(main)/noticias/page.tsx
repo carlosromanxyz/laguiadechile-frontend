@@ -1,3 +1,4 @@
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedNewsGrid } from "@/components/organisms/ldc-paginated-news-grid";
 import { getNews } from "@/services/news";
@@ -29,24 +30,22 @@ export default async function NoticiasPage() {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title="Noticias"
-        breadcrumbs={breadcrumbs}
-        icon={Newspaper}
-      />
-
-      {/* News Grid */}
-      <main>
-        <LDCPaginatedNewsGrid
-          articles={news}
-          itemsPerPage={12}
-          columns={4}
-          emptyMessage="No se encontraron noticias"
-          loadMoreLabel="Cargar más noticias"
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Noticias"
+          breadcrumbs={breadcrumbs}
+          icon={Newspaper}
         />
-      </main>
-    </>
+      }
+    >
+      <LDCPaginatedNewsGrid
+        articles={news}
+        itemsPerPage={12}
+        columns={4}
+        emptyMessage="No se encontraron noticias"
+        loadMoreLabel="Cargar más noticias"
+      />
+    </LDCListingPageTemplate>
   );
 }

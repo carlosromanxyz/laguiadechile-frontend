@@ -15,21 +15,21 @@ const sectionClasses = {
   listing: "relative w-full bg-purple/20 pt-24 pb-12 md:pt-28 md:pb-16",
 } as const;
 
-export type LDCDetailHeroVariant = keyof typeof sectionClasses;
+export type LDCPageHeroVariant = keyof typeof sectionClasses;
 
-interface LDCDetailHeroProps {
+interface LDCPageHeroProps {
   /** Migas de pan que van sobre el contenido */
   breadcrumbs: IBreadcrumbItem[];
   /** Contenido del hero, debajo de las migas */
   children: ReactNode;
   /** `detail` (por defecto) o `listing`: solo cambia el padding vertical */
-  variant?: LDCDetailHeroVariant;
+  variant?: LDCPageHeroVariant;
   /** Clases adicionales para la sección */
   className?: string;
 }
 
 /**
- * LDCDetailHero - Carcasa común de los heroes de detalle y de listado
+ * LDCPageHero - Carcasa común de los heroes de detalle y de listado
  *
  * Sección con fondo morado, contenedor centrado (`LDCContainer bare`) y migas
  * de pan; el contenido propio de cada hero va como `children`.
@@ -37,17 +37,17 @@ interface LDCDetailHeroProps {
  *
  * @example
  * ```tsx
- * <LDCDetailHero breadcrumbs={breadcrumbs} className={className}>
+ * <LDCPageHero breadcrumbs={breadcrumbs} className={className}>
  *   <h1>{title}</h1>
- * </LDCDetailHero>
+ * </LDCPageHero>
  * ```
  */
-export function LDCDetailHero({
+export function LDCPageHero({
   breadcrumbs,
   children,
   variant = "detail",
   className,
-}: LDCDetailHeroProps) {
+}: LDCPageHeroProps) {
   return (
     <section className={cn(sectionClasses[variant], className)}>
       <LDCContainer bare>
