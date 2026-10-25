@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import Image from "next/image";
+import { LDCPanel } from "@/components/atoms/ldc-panel";
+import { LDCAvatar } from "@/components/atoms/ldc-avatar";
 import { CalendarDays, Clock } from "lucide-react";
 import type { INews } from "@/interfaces/news";
 
@@ -31,19 +31,13 @@ export function LDCNewsAuthor({
   });
 
   return (
-    <div className={cn("bg-card rounded-xl border border-border p-5", className)}>
+    <LDCPanel className={className}>
       <h3 className="text-sm font-semibold text-muted-foreground uppercase tracking-wide mb-4">
         Escrito por
       </h3>
 
       <div className="flex items-center gap-3 mb-4">
-        <Image
-          src={author.avatar}
-          alt={author.name}
-          width={48}
-          height={48}
-          className="rounded-full object-cover"
-        />
+        <LDCAvatar name={author.name} src={author.avatar} size="lg" framed={false} />
         <p className="text-base font-bold font-mulish text-foreground">
           {author.name}
         </p>
@@ -59,6 +53,6 @@ export function LDCNewsAuthor({
           {readingTime} min de lectura
         </p>
       </div>
-    </div>
+    </LDCPanel>
   );
 }
