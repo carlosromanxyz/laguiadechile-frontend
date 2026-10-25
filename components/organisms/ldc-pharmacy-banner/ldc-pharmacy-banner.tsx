@@ -1,20 +1,12 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { Cross, MapPin, Phone } from "lucide-react";
-
-interface Pharmacy {
-  id: string;
-  name: string;
-  address: string;
-  phone: string;
-  city: string;
-}
+import type { IPharmacy } from "@/interfaces/pharmacy";
 
 interface LDCPharmacyBannerProps {
-  /** City name to fetch pharmacies for */
-  cityName: string;
+  /** Farmacia de turno; `null` no pinta nada (salvo mientras `loading`) */
+  pharmacy: Pick<IPharmacy, "name" | "address" | "phone"> | null;
+  /** Muestra el esqueleto de carga */
+  loading?: boolean;
   /** Optional className for custom styling */
   className?: string;
 }
@@ -22,46 +14,16 @@ interface LDCPharmacyBannerProps {
 /**
  * LDCPharmacyBanner - On-Duty Pharmacy Banner
  *
- * Shows the nearest on-duty pharmacy for a city.
- * Fetches data from Boostr API via internal route handler.
+ * Presentacional: muestra la farmacia de turno que recibe o un esqueleto mientras `loading`.
+ * Los datos los pide `useOnDutyPharmacy`.
  *
  * @example
  * ```tsx
- * <LDCPharmacyBanner cityName="Santiago" />
+ * const { pharmacy, loading } = useOnDutyPharmacy("Santiago");
+ * <LDCPharmacyBanner pharmacy={pharmacy} loading={loading} />
  * ```
  */
-export function LDCPharmacyBanner({ cityName, className }: LDCPharmacyBannerProps) {
-  const [pharmacy, setPharmacy] = useState<Pharmacy | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    async function fetchPharmacy() {
-      setLoading(true);
-      try {
-        // Normalize city name to remove accents before sending to API
-        const normalizedCityName = cityName
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const response = await fetch(`/api/pharmacies?comuna=${encodeURIComponent(normalizedCityName)}`);
-        if (response.ok) {
-          const data = await response.json();
-          if (data.pharmacies && data.pharmacies.length > 0) {
-            setPharmacy(data.pharmacies[0]);
-          } else {
-            setPharmacy(null);
-          }
-        } else {
-          setPharmacy(null);
-        }
-      } catch {
-        setPharmacy(null);
-      }
-      setLoading(false);
-    }
-
-    fetchPharmacy();
-  }, [cityName]);
-
+export function LDCPharmacyBanner({ pharmacy, loading = false, className }: LDCPharmacyBannerProps) {
   if (loading) {
     return (
       <div

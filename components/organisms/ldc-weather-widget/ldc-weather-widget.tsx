@@ -1,16 +1,12 @@
-"use client";
-
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
-import {
-  getWeatherIcon,
-  getWeatherDescription,
-  type WeatherData,
-} from "@/services/weather";
+import { getWeatherDescription, getWeatherIcon } from "@/lib/format/weather";
+import type { IWeatherData } from "@/interfaces/weather";
 
 interface LDCWeatherWidgetProps {
-  /** City name to fetch weather for */
-  cityName: string;
+  /** Clima actual; `null` no pinta nada (salvo mientras `loading`) */
+  weather: IWeatherData | null;
+  /** Muestra el esqueleto de carga */
+  loading?: boolean;
   /** Optional className for custom styling */
   className?: string;
   /** Variant: 'overlay' for on top of images, 'card' for regular backgrounds */
@@ -20,44 +16,17 @@ interface LDCWeatherWidgetProps {
 /**
  * LDCWeatherWidget - Weather Display Widget
  *
- * Shows current weather for a city using Open-Meteo API.
- * Displays temperature, weather icon, and condition description.
+ * Presentacional: muestra el clima que recibe (temperatura, ícono y descripción) o un
+ * esqueleto mientras `loading`. Los datos los pide `useCityWeather`.
  *
  * @example
  * ```tsx
- * <LDCWeatherWidget cityName="Santiago" />
- * <LDCWeatherWidget cityName="Santiago" variant="card" />
+ * const { weather, loading } = useCityWeather("Santiago");
+ * <LDCWeatherWidget weather={weather} loading={loading} variant="card" />
  * ```
  */
-export function LDCWeatherWidget({ cityName, className, variant = "overlay" }: LDCWeatherWidgetProps) {
-  const [weather, setWeather] = useState<WeatherData | null>(null);
-  const [loading, setLoading] = useState(true);
-
+export function LDCWeatherWidget({ weather, loading = false, className, variant = "overlay" }: LDCWeatherWidgetProps) {
   const isCard = variant === "card";
-
-  useEffect(() => {
-    async function fetchWeather() {
-      setLoading(true);
-      try {
-        // Normalize city name to remove accents before sending to API
-        const normalizedCityName = cityName
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "");
-        const response = await fetch(`/api/weather?city=${encodeURIComponent(normalizedCityName)}`);
-        if (response.ok) {
-          const data = await response.json();
-          setWeather(data);
-        } else {
-          setWeather(null);
-        }
-      } catch {
-        setWeather(null);
-      }
-      setLoading(false);
-    }
-
-    fetchWeather();
-  }, [cityName]);
 
   if (loading) {
     return (
