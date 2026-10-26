@@ -1,7 +1,9 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
+import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-template";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCCityCard } from "@/components/molecules/ldc-city-card";
 import { getRegions, getRegionBySlug } from "@/services/regions";
+import { getCityImage, getMockCityCount } from "@/lib/format/cities";
 import { MapPin } from "lucide-react";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -10,22 +12,6 @@ interface RegionPageProps {
   params: Promise<{
     slug: string;
   }>;
-}
-
-/**
- * Generate a mock count based on city id for consistent display
- */
-function getMockCityCount(cityId: string): number {
-  let seed = 23;
-  for (const char of cityId) seed = (seed * 17 + char.charCodeAt(0)) % 9973;
-  return (seed % 150) + 5;
-}
-
-/**
- * Generate a placeholder image URL for a city
- */
-function getCityImage(citySlug: string, cityId: string): string {
-  return `https://picsum.photos/seed/${citySlug}-${cityId}/800/600`;
 }
 
 /**
@@ -79,31 +65,29 @@ export default async function RegionPage({ params }: RegionPageProps) {
   ];
 
   return (
-    <>
-      {/* Hero Section */}
-      <LDCListingsPageHero
-        title={region.name}
-        breadcrumbs={breadcrumbs}
-        icon={MapPin}
-      />
-
-      {/* Main Content */}
-      <main>
-        <LDCSection paddingY="lg">
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-            {region.cities.map((city) => (
-              <LDCCityCard
-                key={city.id}
-                name={city.name}
-                slug={city.slug}
-                image={getCityImage(city.slug, city.id)}
-                count={getMockCityCount(city.id)}
-                aspectRatio="9/16"
-              />
-            ))}
-          </div>
-        </LDCSection>
-      </main>
-    </>
+    <LDCListingPageTemplate
+      hero={
+        <LDCListingsPageHero
+          title={region.name}
+          breadcrumbs={breadcrumbs}
+          icon={MapPin}
+        />
+      }
+    >
+      <LDCSection paddingY="lg">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {region.cities.map((city) => (
+            <LDCCityCard
+              key={city.id}
+              name={city.name}
+              slug={city.slug}
+              image={getCityImage(city.slug, city.id)}
+              count={getMockCityCount(city.id)}
+              aspectRatio="9/16"
+            />
+          ))}
+        </div>
+      </LDCSection>
+    </LDCListingPageTemplate>
   );
 }
