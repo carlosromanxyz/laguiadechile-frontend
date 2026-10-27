@@ -11,6 +11,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 ## Componentes
 
 - **ldc-avatar** (`LDCAvatar`, `getInitials`): avatar con foto o iniciales, enmarcado o suelto.
+- **ldc-back-link** (`LDCBackLink`): enlace de vuelta con flecha, en píldora discreta.
 - **ldc-badge** (`LDCBadge`): etiqueta con las variantes de las cards (categoría, destacado, nuevo, tipo de aviso…).
 - **ldc-card-surface** (`LDCCardSurface`): carcasa común de las cards (borde, fondo, sombra y hover).
 - **ldc-category-icon** (`LDCCategoryIcon`): ícono de categoría (react-icons) sobre fondo de color. Cliente.
