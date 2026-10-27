@@ -51,60 +51,72 @@ No test framework is currently configured.
 
 ```
 app/
-├── (main)/              # Main site route group
-│   ├── layout.tsx       # Shared layout with header/footer
-│   └── page.tsx         # Homepage
-├── en-construccion/     # Construction/maintenance page
-├── api/                 # API route handlers
-│   ├── weather/         # Open-Meteo weather proxy
-│   ├── pharmacies/      # Pharmacy data
-│   └── wikipedia/       # Wikipedia city info proxy
-├── globals.css          # Tailwind theme & CSS variables
-└── layout.tsx           # Root layout with fonts & providers
+├── (main)/              # Sitio público (layout con header/footer); páginas = DAL + template
+├── (auth)/dashboard/    # Login del dashboard (route group sin el layout protegido)
+├── (dashboard)/dashboard/ # Dashboard admin (layout con auth)
+├── en-construccion/     # Página de mantenimiento (UNDER_CONSTRUCTION=true)
+├── api/                 # Route handlers: proxies a la API (listings, news…), auth, y
+│                        # weather, pharmacies y wikipedia vía lib/external
+├── globals.css          # Tema de Tailwind y variables CSS
+└── layout.tsx           # Layout raíz con fuentes y providers
 ```
 
 ### Data Flow Pattern
 
 ```
-data/*.json → services/*.ts → interfaces/*.ts → components/
+NestJS API → lib/api/* (DAL, server-only) → app/**/page.tsx → components/templates → organisms/molecules/atoms
 ```
 
-- **data/**: Static JSON files (categories, cities, listings, news, etc.)
-- **services/**: Data fetching functions that read from JSON or external APIs
-- **interfaces/**: TypeScript interfaces prefixed with `I` (e.g., `IFeaturedCategory`, `ICity`)
-- **config/**: App configuration (`navigation.ts`, `social-networks.ts`)
-- **validations/**: Zod schemas for form validation
+- **lib/api/**: DAL `server-only` sobre la API de NestJS (`server-fetch.ts`, `mappers.ts`). Ningún client component la importa.
+- **lib/external/**: clientes de servicios externos (clima, farmacias, Wikipedia), `server-only`; solo los usan los route handlers de `app/api/*`.
+- **lib/format/**: helpers puros (sin I/O ni React), seguros en server y client.
+- **hooks/**: hooks de cliente (`use-city-weather`, `use-on-duty-pharmacy`, `use-is-mobile`…).
+- **interfaces/**: tipos TypeScript con prefijo `I` (`ICity`, `IListingDetail`). Los tipos que usa un client component van aquí, nunca en `lib/api` (los `Raw*` de la API se quedan en `lib/api/mappers.ts`).
+- **services/**: shims que reexportan la DAL (salvo `services/admin/*`, server-only del dashboard); no agregues lógica nueva ahí, importa de `lib/api/*`.
+- **config/**: configuración de la app (`navigation.ts`, `social-networks.ts`).
+- **validations/**: schemas Zod de formularios.
 
 ### Component Architecture (Atomic Design)
 
 ```
 components/
-├── atoms/           # Primitivas (ldc-logo, ldc-badge, ldc-section, ldc-load-more-button)
-├── molecules/       # Combinaciones de átomos (ldc-category-card, ldc-combobox)
-├── organisms/       # Secciones, formularios y widgets (ldc-header, ldc-search-form, ldc-login-form)
-├── templates/       # Esqueletos de página sin datos (ldc-coming-soon-template)
-├── pages/           # Complete page components
-├── ui/              # shadcn/ui components (auto-generated, NO LDC prefix)
-└── shared/          # Providers, utilities (theme-provider)
+├── atoms/       # Primitivas (ldc-logo, ldc-badge, ldc-avatar)
+├── molecules/   # Combinaciones de átomos (ldc-category-card, ldc-combobox)
+├── organisms/   # Secciones, formularios y widgets (ldc-header, ldc-search-form)
+├── templates/   # Esqueletos de página sin datos (ldc-home-template, ldc-detail-template)
+├── ui/          # shadcn/ui (generado, sin prefijo LDC; cuenta como átomo)
+└── shared/      # Providers (theme-provider)
 ```
 
-**Matriz de imports** (`no-restricted-imports` por carpeta en `eslint.config.mjs`; hoy en `warn`):
+**Matriz de imports**, aplicada en `error` por `no-restricted-imports` por carpeta en `eslint.config.mjs` (un import prohibido rompe el lint):
 
 | Nivel | Puede importar | No puede importar |
 |---|---|---|
-| `atoms/` (y `ui/`, que cuenta como átomo) | `ui`, `lib`, `interfaces` y otros átomos | molecules, organisms, templates |
+| `atoms/` y `ui/` | `ui`, `lib`, `interfaces` y otros átomos | molecules, organisms, templates |
 | `molecules/` | atoms, `ui` y otras moléculas | organisms, templates |
-| `organisms/` | organisms, molecules, atoms, `ui` | templates |
-| `templates/` | todo (sin pedir datos) | — |
+| `organisms/` | organisms, molecules, atoms y `ui` | templates |
+| `templates/` | todo | — |
 
-Los imports dentro del mismo nivel están permitidos. Imports siempre absolutos, `@/components/<nivel>/<nombre>` (sin barrels por nivel).
+**Templates y páginas:**
+- Los templates son siempre Server Components y no tienen datos: no hacen fetch, reciben todo por props.
+- Las páginas (`app/**/page.tsx`) solo piden datos a la DAL (`lib/api/*`) y se los pasan a un template.
+- `app/**/_components/` es solo para contenedores cliente de datos (p. ej. `ciudad/[slug]/_components/`, que usan los hooks de clima y farmacia y pasan props a organismos presentacionales).
 
-**Component file structure:**
+**Imports:** siempre absolutos y a la carpeta del componente, nunca al archivo interno ni con barrels por nivel:
+
+```ts
+import { LDCHeader } from "@/components/organisms/ldc-header";          // bien
+import { LDCHeader } from "@/components/organisms/ldc-header/ldc-header"; // mal
+```
+
+**Estructura de cada componente:**
 ```
 ldc-component-name/
 ├── ldc-component-name.tsx
-└── index.ts          # Barrel export
+└── index.ts          # export { LDCComponentName } from "./ldc-component-name";
 ```
+
+**RSC:** los íconos Lucide no cruzan de Server a Client: pasa el JSX ya renderizado o el nombre con `lib/get-icon`, o marca el padre `"use client"`. No quites `"use client"` donde se formatean fechas sin `timeZone`, ni donde se usa `useIsMobile` o el tema (hidratación).
 
 ## Critical Conventions
 
