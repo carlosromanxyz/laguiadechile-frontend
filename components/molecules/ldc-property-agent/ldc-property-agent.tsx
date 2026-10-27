@@ -1,5 +1,3 @@
-"use client";
-
 import { cn } from "@/lib/utils";
 import { Building2 } from "lucide-react";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
