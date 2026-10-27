@@ -3,7 +3,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 
 // Matriz de imports de Atomic Design (ver CLAUDE.md, «Component Architecture»).
-// `ui` cuenta como átomo. En warn durante la atomización; pasa a error en T6.
+// `ui` cuenta como átomo. En error: un import prohibido rompe el lint.
 const levelImport = (level, why) => ({
   group: [`@/components/${level}/**`, `**/components/${level}/**`],
   message: why,
@@ -13,7 +13,7 @@ const restrictLevels = (files, levels, who) => ({
   files,
   rules: {
     "no-restricted-imports": [
-      "warn",
+      "error",
       {
         patterns: levels.map((level) =>
           levelImport(level, `${who} no pueden importar ${level}.`),
