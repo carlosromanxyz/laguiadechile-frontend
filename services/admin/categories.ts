@@ -1,22 +1,6 @@
 import "server-only";
 import { apiFetchServer } from "@/lib/api-client";
-
-export interface IAdminCategory {
-  id: string;
-  name: string;
-  slug: string;
-  description: string | null;
-  icon: string | null;
-  createdAt: string;
-  updatedAt: string;
-}
-
-export interface IAdminCategoryUpsert {
-  name: string;
-  slug: string;
-  description?: string | null;
-  icon?: string | null;
-}
+import type { IAdminCategory, IAdminCategoryUpsert } from "@/interfaces/admin-category";
 
 const BASE = "/categories";
 

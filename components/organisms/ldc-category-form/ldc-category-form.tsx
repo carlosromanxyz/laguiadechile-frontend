@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import type { IAdminCategory, IAdminCategoryUpsert } from "@/services/admin/categories";
+import type { IAdminCategory, IAdminCategoryUpsert } from "@/interfaces/admin-category";
 
 const schema = z.object({
   name: z.string().min(1, "Requerido").max(200),

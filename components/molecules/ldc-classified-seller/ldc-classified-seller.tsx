@@ -1,5 +1,3 @@
-"use client";
-
 import { User } from "lucide-react";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { LDCContactActions } from "@/components/molecules/ldc-contact-actions";
