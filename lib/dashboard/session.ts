@@ -6,14 +6,16 @@ import type { IDashboardSession } from "@/interfaces/dashboard";
 import { AUTH_COOKIE } from "@/lib/api-client";
 import { getCurrentUser } from "@/lib/auth";
 import { MOCK_DASHBOARD_USERS } from "@/lib/mock/dashboard/users";
+import { toLDCRole } from "@/lib/auth/backend-role";
 import { isLDCRole, type LDCRole } from "@/lib/auth/roles";
 import { getRoleHome, isMockRolesEnabled, MOCK_ROLE_COOKIE } from "./config";
 
 /**
  * Sesión del panel.
- * 1. Con la cookie de sesión real (`lgdc-auth`), solo cuenta `/auth/me`: si responde, es el
- *    administrador real; si falla (token vencido o backend caído), `null`. Así una caída del
- *    backend no se disfraza de sesión simulada.
+ * 1. Con la cookie de sesión real (`lgdc-auth`), solo cuenta `/auth/me`: el rol es el `role` que
+ *    devuelve, traducido con `toLDCRole`. Si falla (token vencido o backend caído) o el rol es
+ *    desconocido o no viene, `null` (deniega). Así una caída del backend no se disfraza de sesión
+ *    simulada.
  * 2. Sin esa cookie, y con la simulación activa, el usuario simulado de la cookie `ldc-mock-role`.
  * 3. Si no, `null`.
  *
@@ -24,10 +26,12 @@ export const getDashboardSession = cache(async (): Promise<IDashboardSession | n
   if (jar.has(AUTH_COOKIE)) {
     const user = await getCurrentUser();
     if (!user) return null;
+    const role = toLDCRole(user.role);
+    if (!role) return null;
     const firstName = user.name.split(" ")[0] || user.name;
     return {
       user: { name: user.name, email: user.email, greetingName: firstName },
-      role: "admin",
+      role,
       simulated: false,
     };
   }
