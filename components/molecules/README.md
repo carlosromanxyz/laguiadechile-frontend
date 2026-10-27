@@ -11,7 +11,8 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ## Componentes
 
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
-- **ldc-auth-card** (`LDCAuthCard`): tarjeta del login del panel (marca, título, descripción y el formulario como hijo).
+- **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida), y el formulario como hijo.
+- **ldc-auth-header** (`LDCAuthHeader`): encabezado de acceso: ícono del rol, h1 de marca y descripción.
 - **ldc-breadcrumbs** (`LDCBreadcrumbs`): migas de pan, en variante clara u oscura.
 - **ldc-category-card** (`LDCCategoryCard`): card de categoría con ícono, nombre y conteo. Cliente.
 - **ldc-city-card** (`LDCCityCard`): card de ciudad con imagen de fondo y conteo de publicaciones. Cliente.
@@ -23,6 +24,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-empty-state** (`LDCEmptyState`): estado vacío con ícono, título y texto.
 - **ldc-footer-nav-list** (`LDCFooterNavList`): lista de enlaces del pie dentro de un `<nav>` etiquetado.
 - **ldc-footer-widget** (`LDCFooterWidget`): columna del pie de página con título opcional.
+- **ldc-form-field** (`LDCFormField`): campo de React Hook Form sobre `Field` de shadcn (etiqueta, control y error). Cliente.
 - **ldc-hero-slider** (`LDCHeroSlider`): carrusel automático de imágenes de fondo del hero. Cliente.
 - **ldc-listing-card** (`LDCListingCard`): card de comercio o servicio. Cliente.
 - **ldc-listing-gallery** (`LDCListingGallery`): galería de fotos en carrusel de las fichas. Cliente.

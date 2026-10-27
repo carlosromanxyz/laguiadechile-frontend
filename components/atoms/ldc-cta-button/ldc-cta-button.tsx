@@ -1,3 +1,4 @@
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { FaPlus } from "react-icons/fa";
 import { cn } from "@/lib/utils";
@@ -39,6 +40,31 @@ interface LDCCTAButtonProps {
   disabled?: boolean;
 
   /**
+   * Tipo del `<button>` (sin `href`). `submit` envía el formulario que lo contiene.
+   * @default "button"
+   */
+  type?: "button" | "submit";
+
+  /**
+   * Estado de carga: muestra un spinner en lugar del ícono, deshabilita el
+   * botón y marca `aria-busy`. Nunca se renderiza como enlace.
+   * @default false
+   */
+  loading?: boolean;
+
+  /**
+   * Texto mientras `loading` (si no se da, se mantiene `text`)
+   */
+  loadingText?: string;
+
+  /**
+   * Tono del texto sobre el naranjo. `contrast` usa texto negro (8,9:1 en vez
+   * de 2,4:1 del blanco). Por ahora solo lo usa el login.
+   * @default "default"
+   */
+  variant?: "default" | "contrast";
+
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -62,6 +88,10 @@ interface LDCCTAButtonProps {
  * @example
  * // Without icon
  * <LDCCTAButton text="Contactar" href="/contacto" showIcon={false} />
+ *
+ * @example
+ * // Envío de formulario con estado de carga y texto negro
+ * <LDCCTAButton type="submit" variant="contrast" loading={sending} loadingText="Enviando…" text="Enviar" showIcon={false} />
  */
 export function LDCCTAButton({
   href,
@@ -69,12 +99,19 @@ export function LDCCTAButton({
   text,
   icon,
   showIcon = true,
-  disabled = false,
+  disabled: disabledProp = false,
+  type = "button",
+  loading = false,
+  loadingText,
+  variant = "default",
   className,
 }: LDCCTAButtonProps) {
+  const disabled = disabledProp || loading;
   const baseClasses = cn(
     "inline-flex items-center gap-2 px-6 py-2.5 rounded-full",
-    "bg-orange text-white font-semibold text-sm",
+    variant === "contrast"
+      ? "bg-orange text-black font-semibold text-sm"
+      : "bg-orange text-white font-semibold text-sm",
     "transition-all duration-200",
     disabled
       ? "opacity-50 cursor-not-allowed"
@@ -82,12 +119,16 @@ export function LDCCTAButton({
     className
   );
 
-  const iconElement = showIcon && (icon ?? <FaPlus className="h-3.5 w-3.5" />);
+  const iconElement = loading ? (
+    <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+  ) : (
+    showIcon && (icon ?? <FaPlus className="h-3.5 w-3.5" />)
+  );
 
   const content = (
     <>
       {iconElement}
-      <span>{text}</span>
+      <span>{loading && loadingText ? loadingText : text}</span>
     </>
   );
 
@@ -105,8 +146,9 @@ export function LDCCTAButton({
     <button
       onClick={onClick}
       disabled={disabled}
+      aria-busy={loading || undefined}
       className={baseClasses}
-      type="button"
+      type={type}
     >
       {content}
     </button>

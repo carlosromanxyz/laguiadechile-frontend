@@ -21,3 +21,4 @@ Cada template vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la
 - **ldc-coming-soon-template** (`LDCComingSoonTemplate`): mensaje «Próximamente» de las páginas sin contenido.
 - **ldc-under-construction-template** (`LDCUnderConstructionTemplate`): página «En construcción» (el marco lo pone `app/en-construccion/layout.tsx`).
 - **ldc-dashboard-page-template** (`LDCDashboardPageTemplate`): páginas del panel con encabezado y contenido.
+- **ldc-auth-template** (`LDCAuthTemplate`): páginas de acceso: barra con logo y tema, el formulario como hijo y una portada opcional (`aside`) desde `lg`.
