@@ -31,6 +31,7 @@ export function LDCAboutHero() {
         {/* Large blur shape - top left */}
         <LDCDecorativeShape
           variant="blob"
+          delay={0}
           ariaHidden={false}
           layout="-left-40 -top-40 h-[600px] w-[600px]"
           fill="bg-gradient-to-br from-purple/30 via-pink/20 to-transparent"
@@ -39,6 +40,7 @@ export function LDCAboutHero() {
         {/* Medium blur shape - bottom right */}
         <LDCDecorativeShape
           variant="blob"
+          delay={4}
           ariaHidden={false}
           layout="-bottom-20 -right-20 h-96 w-96"
           fill="bg-gradient-to-tl from-orange/20 via-yellow/10 to-transparent"
@@ -47,6 +49,7 @@ export function LDCAboutHero() {
         {/* Small accent shape - floating */}
         <LDCDecorativeShape
           variant="spot"
+          delay={2}
           ariaHidden={false}
           layout="right-1/4 top-1/3 h-32 w-32 rotate-45 rounded-2xl"
           fill="bg-yellow/20"
@@ -101,6 +104,7 @@ export function LDCAboutHero() {
             {/* Vertical accent bar */}
             <LDCDecorativeShape
               variant="bar"
+              delay={1}
               layout="-right-4 top-12 h-40"
               fill="from-yellow to-orange"
             />
@@ -118,6 +122,7 @@ export function LDCAboutHero() {
               {/* Colored glow */}
               <LDCDecorativeShape
                 variant="glow"
+                delay={3}
                 fill="bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20"
               />
             </div>
@@ -125,6 +130,7 @@ export function LDCAboutHero() {
             {/* Corner accent shape */}
             <LDCDecorativeShape
               variant="corner"
+              delay={1.5}
               layout="-bottom-6 -left-6 h-24 w-24 -rotate-12"
               fill="from-pink to-purple"
             />

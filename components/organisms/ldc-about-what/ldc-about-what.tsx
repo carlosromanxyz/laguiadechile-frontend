@@ -18,6 +18,7 @@ export function LDCAboutWhat() {
       {/* Decorative shape - top right */}
       <LDCDecorativeShape
         variant="blob"
+        delay={0}
         layout="right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2"
         fill="bg-gradient-to-br from-yellow/20 to-orange/10"
       />
@@ -29,6 +30,7 @@ export function LDCAboutWhat() {
             {/* Colored accent bar */}
             <LDCDecorativeShape
               variant="bar"
+              delay={1.5}
               layout="-left-4 top-8 h-32"
               fill="from-purple to-pink"
             />
@@ -46,6 +48,7 @@ export function LDCAboutWhat() {
               {/* Colored glow behind image */}
               <LDCDecorativeShape
                 variant="glow"
+                delay={3}
                 fill="bg-gradient-to-tr from-purple/20 via-pink/20 to-orange/20"
               />
             </div>

@@ -1,8 +1,18 @@
+"use client";
+
+import { motion, useReducedMotion, type TargetAndTransition } from "framer-motion";
+
 /**
  * LDCDecorativeShapes - Formas decorativas de las secciones de «Nosotros»
  *
  * Átomos puramente visuales (sin contenido ni semántica) que comparten los
  * organismos `ldc-about-*`: manchas difuminadas, acentos, barras y resplandores.
+ *
+ * Las formas flotan, giran o laten en loop, despacio y de forma sutil, con
+ * framer-motion. El movimiento va en `transform` (inline), que se compone con
+ * las propiedades `translate`, `rotate` y `scale` de las clases de Tailwind v4:
+ * en reposo (y con `prefers-reduced-motion`) cada forma queda en la misma
+ * posición, tamaño y color que sin animación.
  *
  * Las clases se arman concatenando cadenas, sin `cn`/`twMerge`: así la cadena
  * final es literal y predecible, y `twMerge` no puede descartar ninguna clase
@@ -23,6 +33,13 @@ interface LDCDecorativeShapeBaseProps {
    * @default true
    */
   ariaHidden?: boolean;
+
+  /**
+   * Segundos de espera antes del primer ciclo, para desfasar las formas de una
+   * misma sección.
+   * @default 0
+   */
+  delay?: number;
 }
 
 interface LDCPositionedShapeProps extends LDCDecorativeShapeBaseProps {
@@ -83,19 +100,51 @@ function shapeClassName(props: LDCDecorativeShapeProps): string {
   }
 }
 
+/** Estado de reposo: el mismo en el render del servidor y en el del cliente. */
+const SHAPE_REST = { x: 0, y: 0, rotate: 0, scale: 1 };
+
 /**
- * Forma decorativa absoluta.
+ * Loop de cada variante: keyframes que vuelven al reposo y duración en segundos.
+ * Solo `transform` (sin `opacity`, que pisaría el `opacity-60` de `corner`).
+ */
+const SHAPE_LOOPS: Record<
+  LDCDecorativeShapeVariant,
+  { animate: TargetAndTransition; duration: number }
+> = {
+  // Flota en diagonal y crece apenas
+  blob: { animate: { x: [0, 16, 0], y: [0, -24, 0], scale: [1, 1.05, 1] }, duration: 14 },
+  // Sube y gira unos grados
+  spot: { animate: { y: [0, -12, 0], rotate: [0, 10, 0] }, duration: 9 },
+  // Se mece
+  corner: { animate: { y: [0, 6, 0], rotate: [0, -8, 0] }, duration: 10 },
+  // Sube y baja
+  bar: { animate: { y: [0, -10, 0] }, duration: 7 },
+  // Late
+  glow: { animate: { scale: [1, 1.05, 1] }, duration: 6 },
+};
+
+/**
+ * Forma decorativa absoluta, animada en loop (quieta con `prefers-reduced-motion`).
  *
  * @example
  * <LDCDecorativeShape variant="glow" fill="bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20" />
  */
 export function LDCDecorativeShape(props: LDCDecorativeShapeProps) {
-  const { ariaHidden = true } = props;
+  const { ariaHidden = true, delay = 0 } = props;
+  const reduceMotion = useReducedMotion();
+  const loop = SHAPE_LOOPS[props.variant];
 
   return (
-    <div
+    <motion.div
       className={shapeClassName(props)}
       aria-hidden={ariaHidden ? "true" : undefined}
+      initial={SHAPE_REST}
+      animate={reduceMotion ? SHAPE_REST : loop.animate}
+      transition={
+        reduceMotion
+          ? { duration: 0 }
+          : { duration: loop.duration, delay, ease: "easeInOut", repeat: Infinity }
+      }
     />
   );
 }
