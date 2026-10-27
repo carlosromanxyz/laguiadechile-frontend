@@ -11,7 +11,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ## Componentes
 
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
-- **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida), y el formulario como hijo.
+- **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida, con enlace de vuelta opcional en `back`), y el formulario como hijo.
 - **ldc-auth-header** (`LDCAuthHeader`): encabezado de acceso: ícono del rol, h1 de marca y descripción.
 - **ldc-breadcrumbs** (`LDCBreadcrumbs`): migas de pan, en variante clara u oscura.
 - **ldc-category-card** (`LDCCategoryCard`): card de categoría con ícono, nombre y conteo. Cliente.
@@ -39,6 +39,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-card** (`LDCPropertyCard`): card de propiedad con precio, características y ubicación. Cliente.
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
+- **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un tipo de cuenta con `LDCRoleIcon`, título, texto y chevron.
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
 - **ldc-sidebar-item** (`LDCSidebarItem`): ítem del menú lateral del panel con estado activo. Cliente.
 - **ldc-social-network-list** (`LDCSocialNetworkList`): fila de íconos de redes sociales de La Guía.

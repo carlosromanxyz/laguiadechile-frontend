@@ -32,6 +32,10 @@ export interface LDCRoleConfig {
   loginPath: string;
   /** Destino tras iniciar sesión */
   redirectTo: string;
+  /** Título de la tarjeta del rol en el repartidor `/ingresar` */
+  optionTitle: string;
+  /** Texto de la tarjeta del rol en el repartidor `/ingresar` */
+  optionDescription: string;
 }
 
 export const LDC_ROLES = {
@@ -45,6 +49,8 @@ export const LDC_ROLES = {
     emailPlaceholder: "nombre@laguiadechile.cl",
     loginPath: "/dashboard/login",
     redirectTo: "/dashboard",
+    optionTitle: "Administrador",
+    optionDescription: "Equipo de La Guía de Chile.",
   },
   comercio: {
     role: "comercio",
@@ -55,6 +61,8 @@ export const LDC_ROLES = {
     emailPlaceholder: "contacto@tucomercio.cl",
     loginPath: "/ingresar/comercio",
     redirectTo: "/dashboard/comercio",
+    optionTitle: "Comercio o anunciante",
+    optionDescription: "Gestiona tu ficha, tus avisos y tus propiedades.",
   },
   usuario: {
     role: "usuario",
@@ -65,11 +73,27 @@ export const LDC_ROLES = {
     emailPlaceholder: "tu@correo.cl",
     loginPath: "/ingresar/usuario",
     redirectTo: "/dashboard/usuario",
+    optionTitle: "Usuario",
+    optionDescription: "Favoritos y avisos que sigues.",
   },
 } as const satisfies Record<LDCRole, LDCRoleConfig>;
 
 /** Roles en orden de presentación. */
 export const LDC_ROLE_KEYS = ["admin", "comercio", "usuario"] as const satisfies readonly LDCRole[];
+
+/**
+ * Roles con login público en `/ingresar/[rol]`. El administrador queda fuera:
+ * entra por `/dashboard/login`, sin enlace público.
+ */
+export const LDC_PUBLIC_ROLE_KEYS = ["comercio", "usuario"] as const satisfies readonly LDCRole[];
+
+/** Rol con login público. */
+export type LDCPublicRole = (typeof LDC_PUBLIC_ROLE_KEYS)[number];
+
+/** Indica si un string (p. ej. el segmento `[rol]`) es un rol con login público. */
+export function isLDCPublicRole(value: string): value is LDCPublicRole {
+  return (LDC_PUBLIC_ROLE_KEYS as readonly string[]).includes(value);
+}
 
 /** Indica si un string (p. ej. un segmento de ruta) es un rol válido. */
 export function isLDCRole(value: string): value is LDCRole {

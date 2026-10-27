@@ -10,6 +10,7 @@ import { z } from "zod";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { LDC_ROLES, type LDCRole } from "@/lib/auth/roles";
+import { isMockRolesEnabled, MOCK_ROLE_COOKIE } from "@/lib/dashboard/config";
 
 const schema = z.object({
   email: z.string().email("Email inválido"),
@@ -18,10 +19,14 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+/** Error en línea de los roles sin backend cuando la simulación está apagada. */
+const ROLE_UNAVAILABLE = "El ingreso para este perfil todavía no está disponible";
+
 export interface LDCLoginFormProps {
   /**
    * Rol del acceso: define el placeholder del email y el destino tras iniciar
-   * sesión (`lib/auth/roles.ts`). Por ahora solo se usa `admin`.
+   * sesión (`lib/auth/roles.ts`). Solo `admin` inicia sesión de verdad; los
+   * demás simulan el envío.
    * @default "admin"
    */
   role?: LDCRole;
@@ -30,9 +35,14 @@ export interface LDCLoginFormProps {
 /**
  * LDCLoginForm - Formulario de inicio de sesión
  *
- * React Hook Form + Zod; envía a `/api/auth/login` (Route Handler que guarda
- * la cookie JWT). Si falla, muestra el error del servidor en línea
+ * React Hook Form + Zod. Con `admin`, envía a `/api/auth/login` (Route Handler
+ * que guarda la cookie JWT). Si falla, muestra el error del servidor en línea
  * (`role="alert"`) y en un toast; si sale bien, va al `redirectTo` del rol.
+ *
+ * Con `comercio` o `usuario` no hay backend: valida igual y simula el envío. Con la
+ * simulación activa (`isMockRolesEnabled()`: `NEXT_PUBLIC_MOCK_ROLES=true` y fuera
+ * de producción), guarda la cookie `ldc-mock-role=<rol>` y va al `redirectTo` del
+ * rol; si no, muestra en línea que ese ingreso todavía no está disponible.
  */
 export function LDCLoginForm({ role = "admin" }: LDCLoginFormProps) {
   const config = LDC_ROLES[role];
@@ -44,7 +54,24 @@ export function LDCLoginForm({ role = "admin" }: LDCLoginFormProps) {
     defaultValues: { email: "", password: "" },
   });
 
+  /** Envío simulado de los roles sin backend (no llama a la API). */
+  function onSimulatedSubmit() {
+    setServerError(null);
+    if (!isMockRolesEnabled()) {
+      setServerError(ROLE_UNAVAILABLE);
+      return;
+    }
+    setSubmitting(true);
+    document.cookie = `${MOCK_ROLE_COOKIE}=${role}; path=/; SameSite=Lax`;
+    router.replace(config.redirectTo);
+    router.refresh();
+  }
+
   async function onSubmit(values: FormValues) {
+    if (role !== "admin") {
+      onSimulatedSubmit();
+      return;
+    }
     setSubmitting(true);
     setServerError(null);
     try {

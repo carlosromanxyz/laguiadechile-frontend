@@ -18,6 +18,11 @@ export interface LDCAuthCardProps {
    * @default false
    */
   bare?: boolean;
+  /**
+   * Enlace de vuelta sobre el encabezado (p. ej. `LDCBackLink` a `/ingresar`).
+   * Solo con `bare`.
+   */
+  back?: ReactNode;
   /** Contenido (el formulario) */
   children: ReactNode;
 }
@@ -33,10 +38,18 @@ export interface LDCAuthCardProps {
  *   <LDCLoginForm role="admin" />
  * </LDCAuthCard>
  */
-export function LDCAuthCard({ title, description, role, bare = false, children }: LDCAuthCardProps) {
+export function LDCAuthCard({
+  title,
+  description,
+  role,
+  bare = false,
+  back,
+  children,
+}: LDCAuthCardProps) {
   if (bare) {
     return (
       <div className="flex w-full flex-col gap-6">
+        {back}
         <LDCAuthHeader role={role} title={title} description={description} align="start" size="lg" />
         {children}
       </div>

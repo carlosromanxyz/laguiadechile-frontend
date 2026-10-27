@@ -40,6 +40,10 @@ export function proxy(request: NextRequest) {
   if (pathname === "/en-construccion") {
     return NextResponse.next();
   }
+  // Acceso por rol (/ingresar y /ingresar/[rol]): disponible como /dashboard/login.
+  if (pathname === "/ingresar" || pathname.startsWith("/ingresar/")) {
+    return NextResponse.next();
+  }
   if (
     pathname.startsWith("/_next") ||
     pathname.startsWith("/api") ||

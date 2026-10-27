@@ -62,6 +62,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con el usuario. Cliente.
 - **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión por rol (`lib/auth/roles.ts`) con `LDCFormField` y error en línea. Cliente.
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
+- **ldc-role-gateway** (`LDCRoleGateway`): repartidor de `/ingresar`: tarjetas de los roles con login público y nota sin registro.
 - **ldc-category-form** (`LDCCategoryForm`): formulario para crear o editar una categoría. Cliente.
 - **ldc-resource-table** (`LDCResourceTable`): tabla genérica de recursos con columna de acciones opcional.
 - **ldc-resource-row-actions** (`LDCResourceRowActions`): menú de editar y eliminar de una fila, con confirmación. Cliente.
