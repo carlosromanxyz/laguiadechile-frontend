@@ -4,6 +4,7 @@ import {
   LDCDecorativeLayer,
   LDCDecorativeShape,
 } from "@/components/atoms/ldc-decorative-shapes";
+import { LDCChileSkyline } from "@/components/organisms/ldc-chile-skyline";
 
 /**
  * LDCAboutHero - About Page Hero Section
@@ -17,6 +18,7 @@ import {
  * - Asymmetric 7/5 grid layout
  * - Enhanced typography with badge and improved messaging
  * - Image with glow effects and accent elements
+ * - Skyline of Chilean monuments biting the bottom edge (LDCChileSkyline)
  *
  * @example
  * ```tsx
@@ -137,6 +139,9 @@ export function LDCAboutHero() {
           </div>
         </div>
       </div>
+
+      {/* Monumentos de Chile en el borde inferior: «muerden» el paso a LDCAboutWhat */}
+      <LDCChileSkyline variant="bite" />
     </section>
   );
 }
