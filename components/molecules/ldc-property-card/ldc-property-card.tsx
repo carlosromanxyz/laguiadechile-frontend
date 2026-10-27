@@ -10,7 +10,6 @@ import {
 } from "@/lib/format/properties";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
-import { LDCFeaturedRibbon } from "@/components/atoms/ldc-featured-ribbon";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import { LDCPropertyImageCarousel } from "@/components/atoms/ldc-property-image-carousel";
 import {
@@ -111,7 +110,7 @@ export function LDCPropertyCard({
   const carouselImages = images && images.length > 0 ? images : [image];
 
   return (
-    <LDCCardSurface featured={featured} className={className}>
+    <LDCCardSurface className={className}>
       {/* Image Section */}
       <div className="relative">
         <Link href={`/propiedad/${slug}`} className="block">
@@ -122,9 +121,6 @@ export function LDCPropertyCard({
             showDots={false}
             showCounter={false}
           >
-            {/* Featured pattern overlay */}
-            {featured && <LDCFeaturedRibbon />}
-
             {/* Minimal badges on image - only featured/new with tooltips */}
             {(featured || isNew) && (
               <div className="absolute top-2 right-2 z-10 flex gap-1.5">
