@@ -4,9 +4,15 @@ import { FaMapMarkerAlt } from "react-icons/fa";
 interface LDCLogoProps {
   className?: string;
   isotipoSize?: "xs" | "sm" | "md" | "lg";
+  /**
+   * Clases extra del logotipo (texto). Sirve para ocultarlo y dejar solo el isotipo,
+   * p. ej. `hidden` en el header móvil del panel o
+   * `group-data-[collapsible=icon]:hidden` en el sidebar colapsado.
+   */
+  textClassName?: string;
 }
 
-export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
+export function LDCLogo({ className, isotipoSize = "lg", textClassName }: LDCLogoProps) {
   // Size configurations for isotipo and text
   const sizeConfig = {
     xs: {
@@ -46,7 +52,7 @@ export function LDCLogo({ className, isotipoSize = "lg" }: LDCLogoProps) {
       </div>
 
       {/* Logotipo - Text */}
-      <div className={cn(config.textSize, "font-mulish leading-none text-blue-gray dark:text-white")}>
+      <div className={cn(config.textSize, "font-mulish leading-none text-blue-gray dark:text-white", textClassName)}>
         <div className="font-light tracking-[0.08em] leading-none">La Guía</div>
         <div className="font-black leading-none">
           de <span className="text-pink">Chile</span>

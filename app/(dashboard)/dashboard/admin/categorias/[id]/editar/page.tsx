@@ -24,7 +24,7 @@ export default async function EditCategoryPage({
       <LDCCategoryForm
         mode="edit"
         action={updateCategoryAction.bind(null, category.id)}
-        returnHref="/dashboard/categories"
+        returnHref="/dashboard/admin/categorias"
         initial={{
           name: category.name,
           slug: category.slug,

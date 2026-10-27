@@ -1,12 +1,20 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { isLDCRole } from "@/lib/auth/roles";
+import { isMockRolesEnabled, MOCK_ROLE_COOKIE } from "@/lib/dashboard/config";
 
 const AUTH_COOKIE = "lgdc-auth";
+
+/** Simulación de roles (solo dev, `NEXT_PUBLIC_MOCK_ROLES=true`): la cookie `ldc-mock-role` abre el panel. */
+function hasMockRole(request: NextRequest): boolean {
+  return isMockRolesEnabled() && isLDCRole(request.cookies.get(MOCK_ROLE_COOKIE)?.value ?? "");
+}
 
 /**
  * Next.js Proxy (formerly middleware.ts in Next 15-).
  * Responsibilities:
  *  1. Protect /dashboard/* by requiring the auth cookie (redirect to /dashboard/login if missing).
+ *     With NEXT_PUBLIC_MOCK_ROLES=true, a valid `ldc-mock-role` cookie also passes (dev only).
  *  2. Honor UNDER_CONSTRUCTION for public routes, while keeping /dashboard always accessible.
  */
 export function proxy(request: NextRequest) {
@@ -15,7 +23,7 @@ export function proxy(request: NextRequest) {
   // --- Auth gate for /dashboard ---
   if (pathname.startsWith("/dashboard")) {
     const isLoginPage = pathname === "/dashboard/login";
-    const hasAuth = request.cookies.has(AUTH_COOKIE);
+    const hasAuth = request.cookies.has(AUTH_COOKIE) || hasMockRole(request);
     if (!hasAuth && !isLoginPage) {
       const url = request.nextUrl.clone();
       url.pathname = "/dashboard/login";

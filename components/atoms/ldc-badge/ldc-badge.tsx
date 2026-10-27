@@ -11,6 +11,15 @@ const variants = {
   new: "bg-pink text-white",
   updated: "bg-purple text-white",
   default: "bg-pink dark:bg-purple text-white",
+  /** Rol del panel (badge del sidebar). */
+  "role-admin": "bg-purple text-white",
+  "role-comercio": "bg-pink text-white",
+  "role-usuario": "bg-blue-gray text-white",
+  /** Estado de una publicación propia en el panel. */
+  "status-published": "gap-1 bg-success text-success-foreground",
+  "status-review": "gap-1 border border-yellow bg-transparent text-foreground",
+  "status-expired": "gap-1 border border-border bg-muted text-muted-foreground",
+  "status-rejected": "gap-1 border border-destructive bg-transparent text-destructive",
 } as const;
 
 /**
@@ -34,6 +43,9 @@ const standaloneVariants = {
   "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-black",
   "classified-ofrezco":
     "inline-block text-xs font-bold px-2 py-0.5 rounded bg-emerald-500 text-white",
+  /** Marca de dato simulado en el panel (borde punteado, 10 px en mayúsculas). */
+  simulated:
+    "inline-flex items-center whitespace-nowrap rounded-full border border-dashed border-border px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-muted-foreground",
 } as const;
 
 export type LDCBadgeVariant = keyof typeof variants | keyof typeof standaloneVariants;
@@ -68,6 +80,9 @@ function isStandalone(variant: LDCBadgeVariant): variant is keyof typeof standal
  * <LDCBadge variant="featured">Destacado</LDCBadge>
  * <LDCBadge variant="new">Nuevo</LDCBadge>
  * <LDCBadge variant={`classified-${type}`}>{getClassifiedTypeBadgeLabel(type)}</LDCBadge>
+ * <LDCBadge variant="role-comercio">Comercio</LDCBadge>
+ * <LDCBadge variant="status-review">En revisión</LDCBadge>
+ * <LDCBadge variant="simulated">Simulado</LDCBadge>
  * <LDCBadge as="div" variant="featured-overlay"><Star className="w-3 h-3 fill-current" />Destacado</LDCBadge>
  * ```
  */
