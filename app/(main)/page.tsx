@@ -36,11 +36,11 @@ export default async function HomePage() {
     getCategories().catch(() => []),
     getCities().catch(() => []),
     getFeaturedCategories(),
-    getFeaturedListings(),
-    getRecentProperties(10),
+    getFeaturedListings(8),
+    getRecentProperties(8),
     getFeaturedCities(),
     getRecentClassifieds(6),
-    getRecentListings(10),
+    getRecentListings(8),
     getRecentPosts(10),
   ]);
 

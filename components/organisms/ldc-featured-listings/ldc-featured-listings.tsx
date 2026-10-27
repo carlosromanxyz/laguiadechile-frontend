@@ -14,7 +14,7 @@ interface LDCFeaturedListingsProps {
  * Server Component: recibe los datos por props (los carga la home).
  *
  * Features:
- * - Responsive grid layout (1 → 2 → 4 columns)
+ * - Responsive grid layout (1 → 2 → 3 → 4 columns)
  * - Image optimization with Next.js Image
  * - Dynamic badges (Featured, New, Updated)
  * - Hover effects on cards
@@ -32,7 +32,7 @@ export function LDCFeaturedListings({ listings }: LDCFeaturedListingsProps) {
         subtitle="Conoce lo más destacado de La Guía de Chile"
       />
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         {listings.map((listing) => (
           <LDCListingCard
             key={listing.id}
