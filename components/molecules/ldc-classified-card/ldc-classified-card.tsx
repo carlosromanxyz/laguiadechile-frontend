@@ -96,7 +96,7 @@ export function LDCClassifiedCard({
   const location = commune ? `${city.name}, ${commune}` : city.name;
 
   return (
-    <LDCCardSurface variant="horizontal" featured={featured} className={className}>
+    <LDCCardSurface variant="horizontal" className={className}>
       {/* Image */}
       <Link
         href={`/aviso/${slug}`}

@@ -42,7 +42,10 @@ interface LDCCardSurfaceProps extends Omit<HTMLAttributes<HTMLElement>, "classNa
   as?: "article" | "div";
   /** Fusiona las clases en el único hijo (p. ej. un `Link`) en vez de crear un elemento */
   asChild?: boolean;
-  /** Agrega el anillo amarillo de destacado */
+  /**
+   * @deprecated Sin efecto desde CLGDC-45: las cards destacadas ya no llevan anillo,
+   * solo el badge. Se acepta para no romper a quien aún la pasa.
+   */
   featured?: boolean;
   /** Optional className for custom styling */
   className?: string;
@@ -51,14 +54,14 @@ interface LDCCardSurfaceProps extends Omit<HTMLAttributes<HTMLElement>, "classNa
 /**
  * LDCCardSurface - Carcasa común de las cards
  *
- * Pone el fondo, borde, radio, overflow y hover de cada familia de card, más el
- * anillo de destacado. No impone layout interno.
+ * Pone el fondo, borde, radio, overflow y hover de cada familia de card. No
+ * impone layout interno. El destacado se marca solo con el badge, no en la carcasa.
  *
  * @example
  * ```tsx
- * <LDCCardSurface featured={featured} className={className}>…</LDCCardSurface>
- * <LDCCardSurface as="div" featured={featured}>…</LDCCardSurface>
- * <LDCCardSurface variant="horizontal" featured={featured}>…</LDCCardSurface>
+ * <LDCCardSurface className={className}>…</LDCCardSurface>
+ * <LDCCardSurface as="div">…</LDCCardSurface>
+ * <LDCCardSurface variant="horizontal">…</LDCCardSurface>
  * <LDCCardSurface variant="tile" asChild><Link href="/categoria/x">…</Link></LDCCardSurface>
  * ```
  */
@@ -67,7 +70,8 @@ export function LDCCardSurface({
   variant = "default",
   as: Tag = "article",
   asChild = false,
-  featured = false,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- prop obsoleta, se descarta para que no llegue al DOM
+  featured,
   className,
   ...props
 }: LDCCardSurfaceProps) {
@@ -75,7 +79,7 @@ export function LDCCardSurface({
 
   return (
     <Comp
-      className={cn(...surfaceVariants[variant], featured && "ring-2 ring-yellow", className)}
+      className={cn(...surfaceVariants[variant], className)}
       {...props}
     >
       {children}

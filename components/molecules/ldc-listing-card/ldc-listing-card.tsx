@@ -3,7 +3,6 @@
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
-import { LDCFeaturedRibbon } from "@/components/atoms/ldc-featured-ribbon";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import Link from "next/link";
 import Image from "next/image";
@@ -78,7 +77,7 @@ export function LDCListingCard({
   const isUpdated = isUpdatedListing(createdAt, updatedAt);
 
   return (
-    <LDCCardSurface as="div" featured={featured} className={className}>
+    <LDCCardSurface as="div" className={className}>
       {/* Image */}
       <Link href={`/${type}/${slug}`} className="block relative aspect-[4/3] overflow-hidden bg-muted">
         <Image
@@ -90,9 +89,6 @@ export function LDCListingCard({
           loading="lazy"
           quality={85}
         />
-
-        {/* Featured pattern overlay */}
-        {featured && <LDCFeaturedRibbon />}
 
         {/* Badges Overlay - Top */}
         <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
