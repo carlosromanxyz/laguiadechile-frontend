@@ -48,7 +48,7 @@ export function LDCThemeModeToggler({ className }: LDCThemeModeTogglerProps) {
     return (
       <div className={className}>
         <div className="flex items-center gap-2">
-          <LDCSwitch disabled />
+          <LDCSwitch checked={false} disabled />
           <div className="w-5 h-5" />
         </div>
       </div>
