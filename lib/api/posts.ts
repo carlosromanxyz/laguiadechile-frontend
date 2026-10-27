@@ -9,9 +9,13 @@ function toPost(n: ReturnType<typeof mapNews>): IPost {
     id: n.id,
     title: n.title,
     slug: n.slug,
+    excerpt: n.excerpt,
     category: n.category,
+    author: n.author,
     image: n.image,
+    featured: n.featured,
     createdAt: n.createdAt,
+    updatedAt: n.updatedAt,
   };
 }
 

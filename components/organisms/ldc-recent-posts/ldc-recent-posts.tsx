@@ -27,15 +27,20 @@ export function LDCRecentPosts({ posts }: LDCRecentPostsProps) {
       />
 
       {/* Posts Grid */}
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 items-start lg:grid-cols-2 xl:grid-cols-4">
         {posts.map((post) => (
           <LDCNewsCard
             key={post.id}
-            variant="post"
+            id={post.id}
             title={post.title}
             slug={post.slug}
+            excerpt={post.excerpt}
             category={post.category}
+            author={post.author}
             image={post.image}
+            featured={post.featured}
+            createdAt={post.createdAt}
+            updatedAt={post.updatedAt}
           />
         ))}
       </div>

@@ -41,7 +41,7 @@ export default async function HomePage() {
     getFeaturedCities(),
     getRecentClassifieds(6),
     getRecentListings(8),
-    getRecentPosts(10),
+    getRecentPosts(8),
   ]);
 
   return (
