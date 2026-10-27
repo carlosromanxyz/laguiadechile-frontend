@@ -42,7 +42,7 @@ export default async function ComerciosPage() {
       <LDCPaginatedListingsGrid
         listings={commerces}
         itemsPerPage={20}
-        columns={5}
+        columns={4}
         emptyMessage="No se encontraron comercios"
         loadMoreLabel="Cargar más comercios"
       />

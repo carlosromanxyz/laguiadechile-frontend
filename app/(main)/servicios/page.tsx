@@ -42,7 +42,7 @@ export default async function ServiciosPage() {
       <LDCPaginatedListingsGrid
         listings={services}
         itemsPerPage={20}
-        columns={5}
+        columns={4}
         emptyMessage="No se encontraron servicios"
         loadMoreLabel="Cargar más servicios"
       />
