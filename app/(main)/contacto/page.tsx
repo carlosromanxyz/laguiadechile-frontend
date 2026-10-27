@@ -1,4 +1,6 @@
+import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCContactTemplate } from "@/components/templates/ldc-contact-template";
+import { Mail } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,5 +10,20 @@ export const metadata: Metadata = {
 };
 
 export default function ContactoPage() {
-  return <LDCContactTemplate />;
+  const breadcrumbs = [
+    { label: "Inicio", href: "/" },
+    { label: "Contacto", href: "" },
+  ];
+
+  return (
+    <LDCContactTemplate
+      hero={
+        <LDCListingsPageHero
+          title="Contacto"
+          breadcrumbs={breadcrumbs}
+          icon={Mail}
+        />
+      }
+    />
+  );
 }
