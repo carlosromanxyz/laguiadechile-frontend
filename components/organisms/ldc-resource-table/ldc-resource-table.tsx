@@ -12,6 +12,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+/** Barra amarilla (token `--yellow`) en la primera celda de una fila destacada. */
+const HIGHLIGHTED_ROW = "[&>td:first-child]:shadow-[inset_3px_0_0_var(--yellow)]";
+
 export interface LDCResourceTableColumn<T> {
   /** Clave única de la columna */
   key: string;
@@ -39,6 +42,11 @@ export interface LDCResourceTableProps<T> {
   actionsHeader?: ReactNode;
   /** Mensaje cuando no hay filas */
   emptyMessage: ReactNode;
+  /**
+   * Fila destacada: barra amarilla de 3 px a la izquierda (en filas no se usa el `ring-2` de
+   * las cards, que choca con los bordes de la tabla).
+   */
+  isRowHighlighted?: (row: T) => boolean;
 }
 
 /**
@@ -52,7 +60,7 @@ export interface LDCResourceTableProps<T> {
  *   columns={[{ key: "name", header: "Nombre", cell: (c) => c.name }]}
  *   rows={categories}
  *   getRowKey={(c) => c.id}
- *   getRowActions={(c) => ({ editHref: `/dashboard/categories/${c.id}/edit` })}
+ *   getRowActions={(c) => ({ editHref: `/dashboard/admin/categorias/${c.id}/editar` })}
  *   emptyMessage="Sin categorías todavía."
  * />
  */
@@ -63,6 +71,7 @@ export function LDCResourceTable<T>({
   getRowActions,
   actionsHeader = "Acciones",
   emptyMessage,
+  isRowHighlighted,
 }: LDCResourceTableProps<T>) {
   const colSpan = columns.length + (getRowActions ? 1 : 0);
 
@@ -88,7 +97,10 @@ export function LDCResourceTable<T>({
             </TableRow>
           ) : (
             rows.map((row) => (
-              <TableRow key={getRowKey(row)}>
+              <TableRow
+                key={getRowKey(row)}
+                className={isRowHighlighted?.(row) ? HIGHLIGHTED_ROW : undefined}
+              >
                 {columns.map((column) => (
                   <TableCell key={column.key} className={column.cellClassName}>
                     {column.cell(row)}

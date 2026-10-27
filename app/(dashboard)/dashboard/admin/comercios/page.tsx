@@ -1,0 +1,22 @@
+import { Store } from "lucide-react";
+import { LDCPanel } from "@/components/atoms/ldc-panel";
+import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
+import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+
+export const metadata = {
+  title: "Comercios — Panel",
+};
+
+export default function AdminComerciosPage() {
+  return (
+    <LDCDashboardPageTemplate title="Comercios" description="Comercios y servicios publicados en La Guía.">
+      <LDCPanel>
+        <LDCEmptyState
+          icon={<Store className="size-10 text-muted-foreground" aria-hidden />}
+          title="Próximamente"
+          description="Esta sección del panel está en construcción."
+        />
+      </LDCPanel>
+    </LDCDashboardPageTemplate>
+  );
+}

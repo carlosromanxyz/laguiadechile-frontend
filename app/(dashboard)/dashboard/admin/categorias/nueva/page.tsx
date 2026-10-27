@@ -15,7 +15,7 @@ export default function NewCategoryPage() {
       <LDCCategoryForm
         mode="create"
         action={createCategoryAction}
-        returnHref="/dashboard/categories"
+        returnHref="/dashboard/admin/categorias"
       />
     </LDCDashboardPageTemplate>
   );

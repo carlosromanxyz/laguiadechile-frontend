@@ -1,8 +1,7 @@
 import { Plus } from "lucide-react";
-import Link from "next/link";
+import { LDCButton } from "@/components/atoms/ldc-button";
 import { LDCResourceTable } from "@/components/organisms/ldc-resource-table";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
-import { Button } from "@/components/ui/button";
 import { adminCategoriesService } from "@/services/admin/categories";
 import { deleteCategoryAction } from "./actions";
 
@@ -18,12 +17,10 @@ export default async function CategoriesPage() {
       title="Categorías"
       description="Catálogo de categorías usado por comercios, avisos y noticias."
       actions={
-        <Button asChild>
-          <Link href="/dashboard/categories/new">
-            <Plus className="size-4" />
-            Nueva
-          </Link>
-        </Button>
+        <LDCButton href="/dashboard/admin/categorias/nueva">
+          <Plus className="size-4" />
+          Nueva
+        </LDCButton>
       }
     >
       <LDCResourceTable
@@ -55,7 +52,7 @@ export default async function CategoriesPage() {
           },
         ]}
         getRowActions={(c) => ({
-          editHref: `/dashboard/categories/${c.id}/edit`,
+          editHref: `/dashboard/admin/categorias/${c.id}/editar`,
           onDelete: deleteCategoryAction.bind(null, c.id),
           deleteLabel: "¿Eliminar esta categoría?",
         })}
