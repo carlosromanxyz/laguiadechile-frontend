@@ -15,11 +15,11 @@ import { LDCDecorativeShape } from "@/components/atoms/ldc-decorative-shapes";
 export function LDCAboutWhat() {
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-pink/5 via-background to-background py-24 md:py-32">
-      {/* Decorative shape - top right */}
+      {/* Decorative shape - top right (top-24: no tiñe el borde que muerde LDCChileSkyline) */}
       <LDCDecorativeShape
         variant="blob"
         delay={0}
-        layout="right-0 top-0 h-96 w-96 -translate-y-1/2 translate-x-1/2"
+        layout="right-0 top-24 h-96 w-96 translate-x-1/2"
         fill="bg-gradient-to-br from-yellow/20 to-orange/10"
       />
 
