@@ -20,6 +20,22 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Estructura de componentes
+
+Los componentes siguen Atomic Design en `components/`. Cada carpeta tiene un README con la lista
+de lo que contiene y qué puede importar:
+
+- [`atoms/`](components/atoms/README.md): piezas mínimas; importan solo `ui`, `lib`, `interfaces` y otros atoms.
+- [`molecules/`](components/molecules/README.md): combinaciones de atoms y `ui`; importan atoms, `ui` y otras molecules.
+- [`organisms/`](components/organisms/README.md): secciones completas; importan organisms, molecules y atoms.
+- [`templates/`](components/templates/README.md): esqueletos de página; importan todo, pero sin datos (reciben props, siempre Server Components).
+- [`ui/`](components/ui/README.md): shadcn/ui sin prefijo; cuentan como átomos.
+- [`shared/`](components/shared/README.md): providers globales (tema).
+
+Los componentes propios llevan el prefijo LDC en la carpeta, el archivo y el export
+(`ldc-x/ldc-x.tsx` → `LDCX`) y se importan por la carpeta: `@/components/<nivel>/ldc-x`. Los datos
+se piden en las páginas de `app/` con la DAL de `lib/api/*` y bajan por props.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
