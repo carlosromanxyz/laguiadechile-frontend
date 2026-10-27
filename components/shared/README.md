@@ -1,24 +1,14 @@
-# Shared Components
+# Shared
 
-Componentes compartidos que no encajan en la metodología Atomic Design estricta. Incluye providers, wrappers y utilidades.
+Providers y envoltorios globales que no son parte de la interfaz visible y no encajan en Atomic
+Design. Sin prefijo LDC.
 
-## Propósito
+**Puede importar:** librerías externas, `@/lib` y `@/components/ui`. Ningún nivel de Atomic Design
+(atoms, molecules, organisms, templates). Los usa el layout raíz (`app/layout.tsx`).
 
-- Componentes utilitarios
-- Providers de contexto
-- Error boundaries
-- HOCs y wrappers
+Cada uno vive en `x/` con `x.tsx` e `index.ts`, y se importa por la carpeta:
+`@/components/shared/x`.
 
 ## Componentes
 
-- **providers/**: Context providers (theme, auth, etc.)
-- **error-boundary/**: Manejo de errores de React
-
-## Convenciones
-
-Cada componente debe tener:
-```
-component-name/
-├── component-name.tsx
-├── index.ts
-```
+- **theme-provider** (`ThemeProvider`): envoltorio cliente de `next-themes` que habilita el tema claro/oscuro en toda la app. Cliente.
