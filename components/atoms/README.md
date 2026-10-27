@@ -15,7 +15,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-card-surface** (`LDCCardSurface`): carcasa común de las cards (borde, fondo, sombra y hover).
 - **ldc-category-icon** (`LDCCategoryIcon`): ícono de categoría (react-icons) sobre fondo de color. Cliente.
 - **ldc-container** (`LDCContainer`): contenedor centrado con ancho máximo y padding horizontal.
-- **ldc-cta-button** (`LDCCTAButton`): botón de llamada a la acción; enlace si recibe `href`, botón si no.
+- **ldc-cta-button** (`LDCCTAButton`): botón de llamada a la acción; enlace si recibe `href`, botón si no (`type="submit"`, `loading` y `variant="contrast"` con texto negro).
 - **ldc-decorative-shapes** (`LDCDecorativeShape`, `LDCDecorativeLayer`): manchas, acentos y resplandores de las secciones de «Nosotros».
 - **ldc-details-link** (`LDCDetailsLink`): enlace «Ver detalles» con flecha de las cards.
 - **ldc-featured-ribbon** (`LDCFeaturedRibbon`): trama diagonal de destacado sobre la imagen de una card.
@@ -28,7 +28,9 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-nav-link** (`LDCNavLink`): enlace de la navegación principal con estado activo. Cliente.
 - **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en degradado o contorno.
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.
+- **ldc-password-input** (`LDCPasswordInput`): campo de contraseña con botón para mostrarla u ocultarla. Cliente.
 - **ldc-property-image-carousel** (`LDCPropertyImageCarousel`): carrusel de fotos de la card de propiedad. Cliente.
+- **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`lib/auth/roles.ts`) en un círculo con su color de marca.
 - **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero. Cliente.
 - **ldc-section** (`LDCSection`): sección de página con contenedor, padding y espaciado comunes.
 - **ldc-social-network-icon** (`LDCSocialNetworkIcon`): ícono de red social en un círculo con hover.

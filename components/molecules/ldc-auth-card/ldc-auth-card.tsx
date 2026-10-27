@@ -1,38 +1,53 @@
 import type { ReactNode } from "react";
-import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card";
+import { LDCLogo } from "@/components/atoms/ldc-logo";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import type { LDCRole } from "@/lib/auth/roles";
+import { LDCAuthHeader } from "@/components/molecules/ldc-auth-header";
 
 export interface LDCAuthCardProps {
-  /** Título de la tarjeta */
+  /** Título (h1) */
   title: ReactNode;
   /** Subtítulo bajo el título */
   description?: ReactNode;
-  /** Monograma del cuadro de marca */
-  mark?: ReactNode;
+  /** Rol cuyo ícono va sobre el título (opcional) */
+  role?: LDCRole;
+  /**
+   * Sin la carcasa `Card` ni el logo: encabezado alineado a la izquierda y el
+   * formulario debajo. Lo usa la pantalla dividida, donde el logo va en la barra
+   * de `LDCAuthTemplate`.
+   * @default false
+   */
+  bare?: boolean;
   /** Contenido (el formulario) */
   children: ReactNode;
 }
 
 /**
- * LDCAuthCard - Tarjeta de autenticación del panel
+ * LDCAuthCard - Bloque de autenticación: encabezado y formulario
  *
- * Marca, título (h1, con las clases de CardTitle), descripción y el formulario como hijo.
+ * En tarjeta (por defecto): `Card` centrada con `LDCLogo` y `LDCAuthHeader`.
+ * Con `bare`: sin tarjeta ni logo, encabezado a la izquierda (pantalla dividida).
  *
  * @example
- * <LDCAuthCard title="La Guía de Chile" description="Panel de administración">
- *   <LDCLoginForm />
+ * <LDCAuthCard bare role="admin" title="Panel de administración" description="…">
+ *   <LDCLoginForm role="admin" />
  * </LDCAuthCard>
  */
-export function LDCAuthCard({ title, description, mark = "LG", children }: LDCAuthCardProps) {
+export function LDCAuthCard({ title, description, role, bare = false, children }: LDCAuthCardProps) {
+  if (bare) {
+    return (
+      <div className="flex w-full flex-col gap-6">
+        <LDCAuthHeader role={role} title={title} description={description} align="start" size="lg" />
+        {children}
+      </div>
+    );
+  }
+
   return (
     <Card className="w-full max-w-sm">
-      <CardHeader className="text-center">
-        <div className="mx-auto mb-2 grid size-12 place-items-center rounded-lg bg-primary text-primary-foreground">
-          <span className="text-lg font-semibold">{mark}</span>
-        </div>
-        <h1 data-slot="card-title" className="font-semibold text-xl">
-          {title}
-        </h1>
-        {description != null && <CardDescription>{description}</CardDescription>}
+      <CardHeader className="justify-items-center gap-4 text-center">
+        <LDCLogo isotipoSize="sm" />
+        <LDCAuthHeader role={role} title={title} description={description} />
       </CardHeader>
       <CardContent>{children}</CardContent>
     </Card>

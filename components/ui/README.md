@@ -21,6 +21,7 @@ Se importan por archivo: `import { Button } from "@/components/ui/button"`.
 - **command**: lista con búsqueda (cmdk), base del combobox.
 - **dialog**: diálogo modal.
 - **dropdown-menu**: menú desplegable.
+- **field**: campo de formulario (etiqueta, descripción, error, grupos); lo envuelve `LDCFormField`.
 - **form**: integración de React Hook Form (campo, etiqueta, mensaje).
 - **input**: campo de texto.
 - **label**: etiqueta de formulario.
