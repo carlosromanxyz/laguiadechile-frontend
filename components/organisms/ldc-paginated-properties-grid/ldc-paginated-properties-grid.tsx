@@ -71,9 +71,9 @@ export function LDCPaginatedPropertiesGrid({
         Mostrando {visibleProperties.length} de {properties.length} propiedades
       </p>
 
-      {/* Properties grid - 5 columns on xl, items aligned at top */}
+      {/* Properties grid - 4 columns on xl, items aligned at top */}
       <LDCLoadMoreGrid
-        gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-6 items-start"
+        gridClassName="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-start"
         visibleCount={visibleCount}
         pageSize={itemsPerPage}
         hasMore={hasMore}
