@@ -29,11 +29,13 @@ export function LDCAboutWhy() {
       {/* Decorative shapes */}
       <LDCDecorativeShape
         variant="blob"
+        delay={0}
         layout="bottom-0 left-0 h-[500px] w-[500px] -translate-x-1/2 translate-y-1/2"
         fill="bg-gradient-to-tr from-orange/10 via-yellow/10 to-transparent"
       />
       <LDCDecorativeShape
         variant="spot"
+        delay={2.5}
         layout="right-20 top-20 h-20 w-20 rotate-12 rounded-lg"
         fill="bg-pink/20"
       />
@@ -93,6 +95,7 @@ export function LDCAboutWhy() {
             {/* Colored accent shape - corner */}
             <LDCDecorativeShape
               variant="corner"
+              delay={1}
               layout="-right-6 -top-6 h-24 w-24 rotate-12"
               fill="from-yellow to-orange"
             />
@@ -109,6 +112,7 @@ export function LDCAboutWhy() {
               {/* Colored glow */}
               <LDCDecorativeShape
                 variant="glow"
+                delay={3.5}
                 fill="bg-gradient-to-bl from-orange/20 via-yellow/20 to-pink/20"
               />
             </div>
