@@ -22,6 +22,8 @@ import type {
 } from "@/interfaces/listing";
 
 interface LDCListingInfoProps {
+  /** Listing id; the contact buttons send their click metrics with it */
+  listingId?: string;
   listingTitle: string;
   contact: IListingContact;
   schedule?: IListingSchedule;
@@ -44,6 +46,7 @@ const dayLabels: Record<string, string> = {
  * Displays contact buttons (Call, WhatsApp), contact form, and schedule.
  */
 export function LDCListingInfo({
+  listingId,
   listingTitle,
   contact,
   schedule,
@@ -93,6 +96,7 @@ export function LDCListingInfo({
           </h3>
           <LDCContactActions
             layout="row"
+            listingId={listingId}
             phone={contact.phone}
             whatsapp={contact.whatsapp}
             whatsappMessage={`Hola, me contacto desde La Guía de Chile por ${listingTitle}`}

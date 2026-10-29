@@ -26,6 +26,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-load-more-button** (`LDCLoadMoreButton`): botón «Cargar más» con estado de carga. Cliente.
 - **ldc-location-link** (`LDCLocationLink`): ícono y enlace a la ciudad (variantes `default`, `compact` y `split`).
 - **ldc-logo** (`LDCLogo`): logo de La Guía de Chile (isotipo y texto).
+- **ldc-metric-view** (`LDCMetricView`): isla sin DOM que manda el evento `view` de la ficha de un comercio o servicio al montar. Cliente.
 - **ldc-nav-link** (`LDCNavLink`): enlace de la navegación principal con estado activo. Cliente.
 - **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en degradado o contorno.
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.

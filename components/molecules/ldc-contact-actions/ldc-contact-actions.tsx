@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, Globe, ExternalLink } from "lucide-react";
 import { FaWhatsapp } from "react-icons/fa";
+import { trackMetric } from "@/lib/metrics/track-metric";
+import type { IMetricKind } from "@/interfaces/metric";
 
 interface LDCContactActionsBaseProps {
   /** Phone number; spaces are removed for the `tel:` link */
@@ -14,6 +16,13 @@ interface LDCContactActionsBaseProps {
   whatsappLabel?: string;
   /** Classes for the buttons container only */
   className?: string;
+  /**
+   * Listing (comercio/servicio) id. If given, each click on WhatsApp, call or
+   * website sends its metrics event without blocking the navigation. Only
+   * pass it from a client tree (it adds `onClick` handlers); classifieds and
+   * properties leave it out and send nothing.
+   */
+  listingId?: string;
 }
 
 interface LDCContactActionsStackProps extends LDCContactActionsBaseProps {
@@ -75,7 +84,11 @@ type LDCContactActionsProps =
  * ```
  */
 export function LDCContactActions(props: LDCContactActionsProps) {
-  const { phone, whatsapp, whatsappMessage, whatsappLabel, className } = props;
+  const { phone, whatsapp, whatsappMessage, whatsappLabel, className, listingId } =
+    props;
+
+  const track = (kind: IMetricKind) =>
+    listingId ? () => trackMetric(listingId, kind) : undefined;
 
   const whatsappHref = whatsapp
     ? `https://wa.me/${whatsapp.replace(/\D/g, "")}${
@@ -95,7 +108,10 @@ export function LDCContactActions(props: LDCContactActionsProps) {
               size="lg"
               className="flex-1 bg-pink hover:bg-pink/90 text-white"
             >
-              <a href={`tel:${phone.replace(/\s/g, "")}`}>
+              <a
+                href={`tel:${phone.replace(/\s/g, "")}`}
+                onClick={track("call")}
+              >
                 <Phone className="w-5 h-5 mr-2" />
                 Llamar
               </a>
@@ -107,7 +123,12 @@ export function LDCContactActions(props: LDCContactActionsProps) {
               size="lg"
               className="flex-1 bg-green-600 hover:bg-green-700 text-white"
             >
-              <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={track("whatsapp")}
+              >
                 <FaWhatsapp className="w-5 h-5 mr-2" />
                 {whatsappLabel ?? "Escribir"}
               </a>
@@ -120,6 +141,7 @@ export function LDCContactActions(props: LDCContactActionsProps) {
             href={website}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={track("web")}
             className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground hover:text-pink transition-colors"
           >
             <Globe className="w-4 h-4" />
@@ -141,7 +163,12 @@ export function LDCContactActions(props: LDCContactActionsProps) {
           size="lg"
           className="w-full bg-green-600 hover:bg-green-700 text-white"
         >
-          <a href={whatsappHref} target="_blank" rel="noopener noreferrer">
+          <a
+            href={whatsappHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={track("whatsapp")}
+          >
             <FaWhatsapp className="w-5 h-5 mr-2" />
             {whatsappLabel ?? "Escribir por WhatsApp"}
           </a>
@@ -150,7 +177,10 @@ export function LDCContactActions(props: LDCContactActionsProps) {
 
       {phone && (
         <Button asChild size="lg" variant="outline" className="w-full">
-          <a href={`tel:${phone.replace(/\s/g, "")}`}>
+          <a
+            href={`tel:${phone.replace(/\s/g, "")}`}
+            onClick={track("call")}
+          >
             <Phone className="w-5 h-5 mr-2" />
             Llamar
           </a>
