@@ -8,6 +8,7 @@ import { getFeaturedListings, getListings } from "@/lib/api/listings";
 import { getNews } from "@/lib/api/news";
 import { getProperties } from "@/lib/api/properties";
 import { LDC_ROLES } from "@/lib/auth/roles";
+import { safeNextPath } from "@/lib/auth/safe-next";
 import { getDashboardSession } from "@/lib/dashboard/session";
 
 export const metadata = {
@@ -38,18 +39,25 @@ async function getCoverData(): Promise<LDCAuthCoverProps | null> {
   }
 }
 
-export default async function LoginPage() {
+interface LoginPageProps {
+  searchParams: Promise<{ next?: string | string[] }>;
+}
+
+export default async function LoginPage({ searchParams }: LoginPageProps) {
   const admin = LDC_ROLES.admin;
-  // Con sesión, al inicio del panel (nadie se queda en el login del admin).
+  // `?next=` (p. ej. desde el corazón de favoritos): solo rutas internas relativas.
+  const { next: rawNext } = await searchParams;
+  const next = safeNextPath(Array.isArray(rawNext) ? rawNext[0] : rawNext);
+  // Con sesión, a `next` o al inicio del panel (nadie se queda en el login del admin).
   const session = await getDashboardSession();
-  if (session) redirect("/dashboard");
+  if (session) redirect(next ?? "/dashboard");
 
   const cover = await getCoverData();
 
   return (
     <LDCAuthTemplate aside={cover ? <LDCAuthCover {...cover} /> : undefined}>
       <LDCAuthCard bare role="admin" title={admin.title} description={admin.description}>
-        <LDCLoginForm role="admin" />
+        <LDCLoginForm role="admin" next={next ?? undefined} />
       </LDCAuthCard>
     </LDCAuthTemplate>
   );

@@ -1,6 +1,7 @@
 import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import { getOperationLabel, getPropertyTypeLabel } from "@/services/properties";
 import Link from "next/link";
 import { Star, Sparkles, MapPin } from "lucide-react";
@@ -69,7 +70,16 @@ export function LDCPropertyDetailHero({
           </span>
         </Link>
 
-        <LDCSocialShareButtons title={property.title} variant="dark" />
+        {/* Compartir y guardar en favoritos */}
+        <div className="flex flex-wrap items-center gap-2">
+          <LDCSocialShareButtons title={property.title} variant="dark" />
+          <LDCFavoriteButton
+            kind="PROPERTY"
+            targetId={property.id}
+            title={property.title}
+            variant="pill"
+          />
+        </div>
       </div>
     </LDCPageHero>
   );

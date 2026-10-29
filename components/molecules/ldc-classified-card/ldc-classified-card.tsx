@@ -5,6 +5,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import Link from "next/link";
 import Image from "next/image";
 import { Clock, Star } from "lucide-react";
@@ -16,6 +17,8 @@ import {
 } from "@/lib/format/classifieds";
 
 interface LDCClassifiedCardProps {
+  /** Id (UUID) del aviso, para el corazón de favoritos */
+  id: string;
   /** Classified title */
   title: string;
   /** Classified slug for URL */
@@ -65,6 +68,7 @@ const priceTypeColors: Record<ClassifiedPriceType, string> = {
  * @example
  * ```tsx
  * <LDCClassifiedCard
+ *   id="2fafc47f-ce62-4f68-b7e5-95140374b868"
  *   title="iPhone 13 Pro Max"
  *   slug="iphone-13-pro-max"
  *   type="vendo"
@@ -79,6 +83,7 @@ const priceTypeColors: Record<ClassifiedPriceType, string> = {
  * ```
  */
 export function LDCClassifiedCard({
+  id,
   title,
   slug,
   type,
@@ -97,29 +102,29 @@ export function LDCClassifiedCard({
 
   return (
     <LDCCardSurface variant="horizontal" className={className}>
-      {/* Image */}
-      <Link
-        href={`/aviso/${slug}`}
-        className="relative w-full sm:w-40 md:w-48 flex-shrink-0 aspect-square sm:aspect-auto"
-      >
-        <Image
-          src={image}
-          alt={title}
-          fill
-          sizes="(max-width: 640px) 100vw, 200px"
-          className="object-cover transition-transform duration-300 group-hover:scale-105"
-          loading="lazy"
-          quality={80}
-        />
+      {/* Image: el contenedor lleva el tamaño; el enlace lo llena y el corazón va como hermano */}
+      <div className="relative w-full sm:w-40 md:w-48 flex-shrink-0 aspect-square sm:aspect-auto">
+        <Link href={`/aviso/${slug}`} className="absolute inset-0">
+          <Image
+            src={image}
+            alt={title}
+            fill
+            sizes="(max-width: 640px) 100vw, 200px"
+            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            loading="lazy"
+            quality={80}
+          />
 
-        {/* Featured badge on image */}
-        {featured && (
-          <LDCBadge as="div" variant="featured-overlay">
-            <Star className="w-3 h-3 fill-current" />
-            Destacado
-          </LDCBadge>
-        )}
-      </Link>
+          {/* Featured badge on image */}
+          {featured && (
+            <LDCBadge as="div" variant="featured-overlay">
+              <Star className="w-3 h-3 fill-current" />
+              Destacado
+            </LDCBadge>
+          )}
+        </Link>
+        <LDCFavoriteButton kind="CLASSIFIED" targetId={id} title={title} />
+      </div>
 
       {/* Content */}
       <div className="flex-1 p-4 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">

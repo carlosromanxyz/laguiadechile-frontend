@@ -4,13 +4,20 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import Link from "next/link";
 import Image from "next/image";
 import { ImageIcon, MapPin, Star } from "lucide-react";
 import { isNewListing, isUpdatedListing } from "@/lib/format/listings";
 import { getIcon } from "@/lib/get-icon";
+import { cn } from "@/lib/utils";
 
 interface LDCListingCardProps {
+  /**
+   * Id (UUID) de la ficha, para el corazón de favoritos. Sin id (vista previa de una ficha
+   * nueva) no hay corazón.
+   */
+  id?: string;
   /** Listing title */
   title: string;
   /** Listing slug for URL */
@@ -54,6 +61,7 @@ interface LDCListingCardProps {
  * @example
  * ```tsx
  * <LDCListingCard
+ *   id="2fafc47f-ce62-4f68-b7e5-95140374b868"
  *   title="Restaurante El Buen Sabor"
  *   slug="restaurante-el-buen-sabor"
  *   type="comercio"
@@ -67,6 +75,7 @@ interface LDCListingCardProps {
  * ```
  */
 export function LDCListingCard({
+  id,
   title,
   slug,
   type,
@@ -82,6 +91,8 @@ export function LDCListingCard({
   const isNew = isNewListing(createdAt);
   const isUpdated = isUpdatedListing(createdAt, updatedAt);
   const imageClassName = "block relative aspect-[4/3] overflow-hidden bg-muted";
+  // En la vista previa no se guarda nada: sin corazón.
+  const showFavorite = Boolean(id) && !onDetailsClick;
 
   const media = (
     <>
@@ -101,8 +112,13 @@ export function LDCListingCard({
         </div>
       )}
 
-      {/* Badges Overlay - Top */}
-      <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
+      {/* Badges Overlay - Top (right-13 deja sitio al corazón) */}
+      <div
+        className={cn(
+          "absolute top-2 left-2 flex gap-1.5 flex-wrap z-10",
+          showFavorite ? "right-13" : "right-2"
+        )}
+      >
         {featured && (
           <LDCBadge variant="featured">
             <Star className="w-3 h-3 mr-1 fill-current" />
@@ -129,9 +145,12 @@ export function LDCListingCard({
       {onDetailsClick ? (
         <div className={imageClassName}>{media}</div>
       ) : (
-        <Link href={`/${type}/${slug}`} className={imageClassName}>
-          {media}
-        </Link>
+        <div className="relative">
+          <Link href={`/${type}/${slug}`} className={imageClassName}>
+            {media}
+          </Link>
+          {showFavorite && id && <LDCFavoriteButton kind="LISTING" targetId={id} title={title} />}
+        </div>
       )}
 
       {/* Content */}

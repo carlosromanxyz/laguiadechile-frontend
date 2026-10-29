@@ -13,6 +13,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
+import { markFavoritesSignedOut } from "@/hooks/use-favorite-ids";
 
 export interface LDCUserMenuProps {
   name: string;
@@ -37,6 +38,8 @@ export function LDCUserMenu({ name, email, roleLine, profileHref }: LDCUserMenuP
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
+    // La próxima sesión en esta pestaña no hereda los favoritos cacheados (`useFavoriteIds`).
+    markFavoritesSignedOut();
     router.replace("/dashboard/login");
   }
 

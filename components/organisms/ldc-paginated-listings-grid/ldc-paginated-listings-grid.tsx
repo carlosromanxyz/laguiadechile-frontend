@@ -105,6 +105,7 @@ export function LDCPaginatedListingsGrid({
         {visibleListings.map((listing) => (
           <LDCListingCard
             key={listing.id}
+            id={listing.id}
             title={listing.title}
             slug={listing.slug}
             type={listing.type}

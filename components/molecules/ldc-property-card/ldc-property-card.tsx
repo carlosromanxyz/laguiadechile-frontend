@@ -12,6 +12,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import { LDCPropertyImageCarousel } from "@/components/atoms/ldc-property-image-carousel";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import {
   Tooltip,
   TooltipContent,
@@ -19,6 +20,8 @@ import {
 } from "@/components/ui/tooltip";
 
 interface LDCPropertyCardProps {
+  /** Id (UUID) de la propiedad, para el corazón de favoritos */
+  id: string;
   /** Property title */
   title: string;
   /** Property slug for URL */
@@ -72,6 +75,7 @@ interface LDCPropertyCardProps {
  * @example
  * ```tsx
  * <LDCPropertyCard
+ *   id="2fafc47f-ce62-4f68-b7e5-95140374b868"
  *   title="Departamento 3D 2B"
  *   slug="departamento-3d-2b"
  *   type="departamento"
@@ -86,6 +90,7 @@ interface LDCPropertyCardProps {
  * ```
  */
 export function LDCPropertyCard({
+  id,
   title,
   slug,
   type,
@@ -121,9 +126,9 @@ export function LDCPropertyCard({
             showDots={false}
             showCounter={false}
           >
-            {/* Minimal badges on image - only featured/new with tooltips */}
+            {/* Minimal badges on image - only featured/new with tooltips (a la izquierda: a la derecha va el corazón) */}
             {(featured || isNew) && (
-              <div className="absolute top-2 right-2 z-10 flex gap-1.5">
+              <div className="absolute top-2 left-2 z-10 flex gap-1.5">
                 {featured && (
                   <Tooltip>
                     <TooltipTrigger asChild>
@@ -148,6 +153,7 @@ export function LDCPropertyCard({
             )}
           </LDCPropertyImageCarousel>
         </Link>
+        <LDCFavoriteButton kind="PROPERTY" targetId={id} title={title} />
       </div>
 
       {/* Content Section - Portal Inmobiliario style */}
