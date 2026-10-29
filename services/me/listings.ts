@@ -1,5 +1,5 @@
 import "server-only";
-import type { IMyListing, IMyListingUpdate } from "@/interfaces/my-listing";
+import type { IMyListing, IMyListingCreate, IMyListingUpdate } from "@/interfaces/my-listing";
 import { apiFetchServer } from "@/lib/api-client";
 import { mapListing } from "@/lib/api/mappers";
 import { toPublicationStatus } from "@/lib/dashboard/status";
@@ -28,4 +28,18 @@ export async function updateMyListing(id: string, data: IMyListingUpdate): Promi
     body: JSON.stringify(data),
   });
   return mapMyListing(raw);
+}
+
+/**
+ * Crea una ficha propia (`POST /me/listings`, USUARIO o COMERCIO). Nace en `REVIEW` y, si quien la
+ * crea es USUARIO, el backend lo promueve a COMERCIO en la misma transacción. El JWT no cambia:
+ * el rol nuevo se relee de `/auth/me` en el siguiente request.
+ */
+export async function createMyListing(data: IMyListingCreate): Promise<IMyListing> {
+  const { type, ...rest } = data;
+  const raw = await apiFetchServer<{ listing: RawMyListing; role: string }>("/me/listings", {
+    method: "POST",
+    body: JSON.stringify({ ...rest, type: type === "servicio" ? "SERVICIO" : "COMERCIO" }),
+  });
+  return mapMyListing(raw.listing);
 }

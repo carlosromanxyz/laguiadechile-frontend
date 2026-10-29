@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Globe, Info, Mail, MapPin, Phone, Save } from "lucide-react";
+import { Globe, Info, Mail, MapPin, Phone, Save, Send } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useState, useTransition, type ReactNode } from "react";
@@ -17,6 +17,7 @@ import { LDCFormSaveBar } from "@/components/molecules/ldc-form-save-bar";
 import { LDCImageGallery } from "@/components/molecules/ldc-image-gallery";
 import { LDCImageUpload } from "@/components/molecules/ldc-image-upload";
 import { LDCListingCard } from "@/components/molecules/ldc-listing-card";
+import { LDCListingTypeSelector } from "@/components/molecules/ldc-listing-type-selector";
 import { LDCScheduleField } from "@/components/molecules/ldc-schedule-field";
 import { LDC_STATUS_COPY, LDCStatusNotice } from "@/components/molecules/ldc-status-notice";
 import { LDCListingPreviewDialog } from "@/components/organisms/ldc-listing-preview-dialog";
@@ -33,7 +34,13 @@ import {
 import { Button } from "@/components/ui/button";
 import type { IListingCategory, IListingCity, IListingDetail } from "@/interfaces/listing";
 import type { IDashboardPublicationStatus } from "@/interfaces/dashboard";
-import type { IMyListing, IMyListingUpdate, IUpdateMyListingResult } from "@/interfaces/my-listing";
+import type {
+  ICreateMyListingResult,
+  IMyListing,
+  IMyListingCreate,
+  IMyListingUpdate,
+  IUpdateMyListingResult,
+} from "@/interfaces/my-listing";
 import { descriptionHtmlToText, descriptionTextToHtml } from "@/lib/format/description";
 import { scheduleFromApi, scheduleToApi } from "@/lib/format/schedule";
 import {
@@ -42,16 +49,34 @@ import {
   type LDCListingFormValues,
 } from "@/validations/listing-form-schema";
 
-export interface LDCListingFormProps {
-  /** Ficha propia, tal como la devuelve `GET /me/listings` */
-  listing: IMyListing;
+interface LDCListingFormBaseProps {
   /** Categorías para el combobox */
   categories: IListingCategory[];
   /** Ciudades para el combobox */
   cities: IListingCity[];
+}
+
+/** Editar una ficha existente (`/dashboard/comercio/ficha`). */
+interface LDCListingFormEditProps extends LDCListingFormBaseProps {
+  mode?: "edit";
+  /** Ficha propia, tal como la devuelve `GET /me/listings` */
+  listing: IMyListing;
   /** Server action que guarda (`PATCH /me/listings/:id`); deja la ficha en `REVIEW` */
   action: (id: string, input: IMyListingUpdate) => Promise<IUpdateMyListingResult>;
 }
+
+/** Crear una ficha nueva (`/dashboard/publicar`): sin estado previo y con selector Comercio | Servicio. */
+interface LDCListingFormCreateProps extends LDCListingFormBaseProps {
+  mode: "create";
+  /** Tipo elegido al abrir el formulario */
+  defaultType?: IListingDetail["type"];
+  /** Server action que crea (`POST /me/listings`); la ficha nace en `REVIEW` */
+  action: (input: IMyListingCreate) => Promise<ICreateMyListingResult>;
+  /** Adónde ir después de crearla */
+  successHref: string;
+}
+
+export type LDCListingFormProps = LDCListingFormEditProps | LDCListingFormCreateProps;
 
 const dateFormat = new Intl.DateTimeFormat("es-CL", {
   day: "numeric",
@@ -74,6 +99,28 @@ function toValues(l: IMyListing): LDCListingFormValues {
     email: l.contact.email ?? "",
     website: l.contact.website ?? "",
     schedule: scheduleFromApi(l.schedule),
+  };
+}
+
+/** Ficha en blanco para el modo crear: da los valores iniciales y la base de la vista previa. */
+function blankListing(type: IListingDetail["type"]): IMyListing {
+  const now = new Date().toISOString();
+  return {
+    id: "",
+    title: "",
+    slug: "",
+    type,
+    category: { id: "", name: "Categoría", slug: "", icon: "" },
+    city: { id: "", name: "Ciudad", slug: "" },
+    image: "",
+    featured: false,
+    createdAt: now,
+    updatedAt: now,
+    description: "",
+    contact: {},
+    socialMedia: {},
+    gallery: [],
+    status: "review",
   };
 }
 
@@ -137,11 +184,22 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub?
  * final y el guardado en una barra fija. «Ver detalles» de la tarjeta abre la vista de detalle
  * completa en un modal. Al guardar, la ficha pasa a revisión y sale de la guía hasta que se
  * apruebe; los avisos lo dicen antes de guardar.
+ *
+ * Con `mode="create"` (`/dashboard/publicar`) parte en blanco, suma el selector Comercio | Servicio
+ * arriba de «Datos del negocio», no muestra estado previo y el CTA dice «Enviar a revisión». Al
+ * crearla, avisa con un toast y navega a `successHref`.
  */
-export function LDCListingForm({ listing, categories, cities, action }: LDCListingFormProps) {
+export function LDCListingForm(props: LDCListingFormProps) {
+  const { categories, cities } = props;
+  const isCreate = props.mode === "create";
   const router = useRouter();
   const [saving, startSaving] = useTransition();
-  const [current, setCurrent] = useState(listing);
+  const [type, setType] = useState<IListingDetail["type"]>(
+    props.mode === "create" ? (props.defaultType ?? "comercio") : props.listing.type,
+  );
+  const [blank] = useState(() => blankListing(type));
+  const [saved, setSaved] = useState(props.mode === "create" ? undefined : props.listing);
+  const current = useMemo(() => saved ?? { ...blank, type }, [saved, blank, type]);
   const [imageBusy, setImageBusy] = useState(false);
   const [galleryBusy, setGalleryBusy] = useState(false);
   const [previewOpen, setPreviewOpen] = useState(false);
@@ -159,7 +217,8 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
   const status = current.status;
   const busy = imageBusy || galleryBusy;
   const dirty = formState.isDirty;
-  const canSubmit = !busy && !saving && (dirty || status === "rejected" || status === "expired");
+  const canSubmit =
+    !busy && !saving && (isCreate || dirty || status === "rejected" || status === "expired");
 
   const categoryItems = useMemo(
     () => categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug, icon: c.icon || undefined })),
@@ -170,7 +229,7 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
 
   const preview: IListingDetail = {
     id: current.id,
-    title: values.title?.trim() || current.title,
+    title: values.title?.trim() || current.title || "Nombre de tu negocio",
     slug: current.slug,
     type: current.type,
     category,
@@ -194,13 +253,29 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
   };
 
   function onSubmit(v: LDCListingFormValues) {
+    if (props.mode === "create") {
+      const { action, successHref } = props;
+      startSaving(async () => {
+        const result = await action({ ...toPayload(v), type });
+        if (!result.ok) {
+          toast.error(result.message);
+          return;
+        }
+        toast.success("Enviamos tu ficha a revisión", {
+          description: "Mientras la revisamos, la verás en tu panel como «En revisión».",
+        });
+        router.push(successHref);
+      });
+      return;
+    }
+    const { action } = props;
     startSaving(async () => {
       const result = await action(current.id, toPayload(v));
       if (!result.ok) {
         toast.error(result.message);
         return;
       }
-      setCurrent(result.listing);
+      setSaved(result.listing);
       form.reset(toValues(result.listing));
       toast.success("Enviamos tu ficha a revisión", {
         description: "Mientras la revisamos, no aparece en la guía.",
@@ -217,8 +292,12 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
     if (dirty) setConfirmDiscard(true);
   }
 
-  const saveNote =
-    status === "review" ? (
+  const submitText = isCreate ? "Enviar a revisión" : "Guardar y enviar a revisión";
+  const saveNote = isCreate ? (
+    <>
+      <b>Revisamos cada ficha antes de publicarla.</b> Mientras tanto, no aparece en la guía.
+    </>
+  ) : status === "review" ? (
       <>
         <b>Tu ficha ya está en revisión.</b> Si guardas de nuevo, revisamos la versión más reciente.
       </>
@@ -254,11 +333,16 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
       <form onSubmit={form.handleSubmit(onSubmit, onInvalid)} noValidate>
         <div className="grid items-start gap-6 lg:grid-cols-[minmax(0,1fr)_320px]">
           <div className="flex min-w-0 flex-col gap-4">
-            <LDCStatusNotice status={status} className="lg:hidden">
-              {statusText(status, current.updatedAt)}
-            </LDCStatusNotice>
+            {!isCreate && (
+              <LDCStatusNotice status={status} className="lg:hidden">
+                {statusText(status, current.updatedAt)}
+              </LDCStatusNotice>
+            )}
 
             <Section id="ficha-datos" title="Datos del negocio">
+              {isCreate && (
+                <LDCListingTypeSelector value={type} onChange={setType} disabled={saving} />
+              )}
               <LDCFormField control={control} name="title" label="Nombre del negocio" autoComplete="organization" />
               <div className="grid gap-6 sm:grid-cols-2">
                 <LDCFormField
@@ -422,19 +506,25 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
           <aside className="sticky top-20 hidden flex-col gap-4 lg:flex" aria-label="Estado y vista previa">
             <LDCDashboardCard
               id="ldc-ficha-estado"
-              title="Estado de tu ficha"
-              action={<LDCBadge variant={LDC_STATUS_COPY[status].badge}>{LDC_STATUS_COPY[status].label}</LDCBadge>}
+              title={isCreate ? "Tu ficha nueva" : "Estado de tu ficha"}
+              action={
+                isCreate ? undefined : (
+                  <LDCBadge variant={LDC_STATUS_COPY[status].badge}>{LDC_STATUS_COPY[status].label}</LDCBadge>
+                )
+              }
             >
               <p className="-mt-1 mb-4 font-open-sans text-sm text-muted-foreground" role="status">
-                {statusText(status, current.updatedAt)}
+                {isCreate
+                  ? "Cuando la envíes, la revisamos antes de publicarla en la guía."
+                  : statusText(status, current.updatedAt)}
               </p>
               <LDCCTAButton
                 type="submit"
-                text="Guardar y enviar a revisión"
+                text={submitText}
                 loading={saving}
-                loadingText="Guardando…"
+                loadingText={isCreate ? "Enviando…" : "Guardando…"}
                 disabled={!canSubmit}
-                icon={<Save className="size-4" aria-hidden />}
+                icon={isCreate ? <Send className="size-4" aria-hidden /> : <Save className="size-4" aria-hidden />}
                 className="h-10 w-full justify-center"
               />
               <p className="mt-2.5 flex gap-1.5 font-open-sans text-xs text-muted-foreground">
@@ -442,7 +532,9 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
                 <span>
                   {busy
                     ? "Espera a que terminen de subir las fotos para guardar."
-                    : "Al guardar, tu ficha pasa a revisión y no aparece en la guía hasta que la aprobemos."}
+                    : isCreate
+                      ? "No aparece en la guía hasta que la aprobemos."
+                      : "Al guardar, tu ficha pasa a revisión y no aparece en la guía hasta que la aprobemos."}
                 </span>
               </p>
               <Button type="button" variant="ghost" className="mt-2 w-full" onClick={discard} disabled={!dirty || saving}>
@@ -456,7 +548,8 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
         <LDCFormSaveBar
           className="mt-6 lg:hidden"
           note={busy ? <b>Espera a que terminen de subir las fotos para guardar.</b> : saveNote}
-          submitText="Guardar y enviar a revisión"
+          submitText={submitText}
+          savingText={isCreate ? "Enviando…" : undefined}
           saving={saving}
           submitDisabled={!canSubmit}
           discardDisabled={!dirty}
@@ -476,8 +569,9 @@ export function LDCListingForm({ listing, categories, cities, action }: LDCListi
           <AlertDialogHeader>
             <AlertDialogTitle>¿Descartar los cambios?</AlertDialogTitle>
             <AlertDialogDescription>
-              Tu ficha vuelve a como estaba la última vez que la guardaste. Las fotos que subiste y no
-              guardaste no se usarán.
+              {isCreate
+                ? "Se borra todo lo que escribiste. Las fotos que subiste no se usarán."
+                : "Tu ficha vuelve a como estaba la última vez que la guardaste. Las fotos que subiste y no guardaste no se usarán."}
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>

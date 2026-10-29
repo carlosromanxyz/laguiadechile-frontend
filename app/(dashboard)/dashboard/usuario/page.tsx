@@ -5,6 +5,7 @@ import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
 import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
+import { LDCPublishBanner } from "@/components/molecules/ldc-publish-banner";
 import { LDCStatCard } from "@/components/molecules/ldc-stat-card";
 import { LDCFavoritesList } from "@/components/organisms/ldc-favorites-list";
 import { LDCTaskList } from "@/components/organisms/ldc-task-list";
@@ -59,6 +60,8 @@ export default async function UsuarioHomePage() {
             : []
         }
       />
+
+      <LDCPublishBanner href="/dashboard/publicar" />
 
       <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3">
         <LDCStatCard

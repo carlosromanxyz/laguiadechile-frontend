@@ -6,7 +6,7 @@ import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import Link from "next/link";
 import Image from "next/image";
-import { MapPin, Star } from "lucide-react";
+import { ImageIcon, MapPin, Star } from "lucide-react";
 import { isNewListing, isUpdatedListing } from "@/lib/format/listings";
 import { getIcon } from "@/lib/get-icon";
 
@@ -28,7 +28,7 @@ interface LDCListingCardProps {
     name: string;
     slug: string;
   };
-  /** Image URL */
+  /** Image URL. Vacía (vista previa de una ficha nueva sin foto), se ve un marcador gris. */
   image: string;
   /** Is featured */
   featured: boolean;
@@ -85,15 +85,21 @@ export function LDCListingCard({
 
   const media = (
     <>
-      <Image
-        src={image}
-        alt={`${title} - ${category.name} en ${city.name}`}
-        fill
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        className="object-cover transition-transform duration-300 group-hover:scale-110"
-        loading="lazy"
-        quality={85}
-      />
+      {image ? (
+        <Image
+          src={image}
+          alt={`${title} - ${category.name} en ${city.name}`}
+          fill
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-110"
+          loading="lazy"
+          quality={85}
+        />
+      ) : (
+        <div className="absolute inset-0 grid place-items-center text-muted-foreground">
+          <ImageIcon className="size-10" aria-hidden />
+        </div>
+      )}
 
       {/* Badges Overlay - Top */}
       <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">

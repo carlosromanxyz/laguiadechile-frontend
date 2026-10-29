@@ -24,9 +24,17 @@ import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 /** Etiquetas de subrutas que no están en el menú. */
 const SEGMENT_LABELS: Record<string, string> = { nueva: "Nueva", editar: "Editar" };
 
+/** Páginas del panel fuera del prefijo de un rol (las comparten varios roles). */
+const SHARED_PAGES: Record<string, string> = { "/dashboard/publicar": "Publicar" };
+
 function buildCrumbs(pathname: string, role: LDCRole) {
   const home = getRoleHome(role);
   const crumbs: IBreadcrumbItem[] = [{ label: "Panel", href: home }];
+  const shared = SHARED_PAGES[pathname];
+  if (shared) {
+    crumbs.push({ label: shared, href: pathname });
+    return crumbs;
+  }
   if (pathname === home || !pathname.startsWith(`${home}/`)) {
     crumbs.push({ label: "Inicio", href: home });
     return crumbs;

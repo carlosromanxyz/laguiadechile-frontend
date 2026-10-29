@@ -33,6 +33,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-listing-gallery** (`LDCListingGallery`): galería de fotos en carrusel de las fichas. Cliente.
 - **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección.
 - **ldc-listing-social-media** (`LDCListingSocialMedia`): redes sociales de un comercio o servicio.
+- **ldc-listing-type-selector** (`LDCListingTypeSelector`): radios en tarjeta para elegir Comercio o Servicio al crear una ficha. Cliente.
 - **ldc-moderation-actions** (`LDCModerationActions`): Aprobar y Rechazar (con confirmación y motivo opcional) de la cola de moderación, con server actions. Cliente.
 - **ldc-nav-menu** (`LDCNavMenu`): navegación principal de escritorio del header.
 - **ldc-news-author** (`LDCNewsAuthor`): caja del autor, fecha y tiempo de lectura en la ficha de noticia.
@@ -42,6 +43,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-agent** (`LDCPropertyAgent`): caja del corredor o la agencia con botones de contacto en la ficha de propiedad. Cliente.
 - **ldc-property-card** (`LDCPropertyCard`): card de propiedad con precio, características y ubicación. Cliente.
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
+- **ldc-publish-banner** (`LDCPublishBanner`): banner «Publica tu comercio o servicio» con CTA a la página de alta del panel.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un tipo de cuenta con `LDCRoleIcon`, título, texto y chevron.
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
