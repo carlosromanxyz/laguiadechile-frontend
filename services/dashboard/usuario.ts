@@ -18,7 +18,7 @@ import { mapClassified, type RawClassified, type RawListing } from "@/lib/api/ma
 import { apiGetOrNull } from "@/lib/api/server-fetch";
 import { toPublicationStatus } from "@/lib/dashboard/status";
 
-type RawMyClassified = RawClassified & { status: string };
+type RawMyClassified = RawClassified & { status: string; rejectionReason?: string | null };
 
 interface RawFavorite {
   kind: IDashboardFavoriteKind;
@@ -41,13 +41,20 @@ async function safeList<T>(path: string): Promise<T[]> {
 
 const fetchMyClassifieds = cache(() => safeList<RawMyClassified>("/me/classifieds"));
 
-/** Avisos del usuario con su estado (un PUBLISHED con `expiresAt` pasado cuenta como vencido). */
+/**
+ * Avisos de la cuenta con su estado (un PUBLISHED con `expiresAt` pasado cuenta como vencido) y,
+ * si fue rechazado, el motivo. `GET /me/classifieds` exige AVISADOR: sin ese rol, lista vacía.
+ */
 export async function getMyClassifieds(): Promise<IDashboardOwned<IClassified>[]> {
   const now = Date.now();
-  return (await fetchMyClassifieds()).map((c) => ({
-    item: mapClassified(c),
-    ownership: { status: toPublicationStatus(c.status, c.expiresAt, now), visits30d: null },
-  }));
+  return (await fetchMyClassifieds()).map((c) => {
+    const status = toPublicationStatus(c.status, c.expiresAt, now);
+    const reason = status === "rejected" ? c.rejectionReason?.trim() : undefined;
+    return {
+      item: mapClassified(c),
+      ownership: { status, visits30d: null, ...(reason ? { rejectionReason: reason } : {}) },
+    };
+  });
 }
 
 /**
@@ -90,10 +97,11 @@ export const getMyFavorites = cache(async (): Promise<IDashboardFavorite[]> => {
   );
 });
 
-/** Avisos vencidos: contador del menú «Mis avisos». */
-export async function getMyExpiredCount(): Promise<number> {
+/** Avisos que piden acción (vencidos y rechazados): contador del menú «Mis avisos». */
+export async function getMyClassifiedsPendingCount(): Promise<number> {
   const now = Date.now();
-  return (await fetchMyClassifieds()).filter(
-    (c) => toPublicationStatus(c.status, c.expiresAt, now) === "expired",
-  ).length;
+  return (await fetchMyClassifieds()).filter((c) => {
+    const status = toPublicationStatus(c.status, c.expiresAt, now);
+    return status === "expired" || status === "rejected";
+  }).length;
 }

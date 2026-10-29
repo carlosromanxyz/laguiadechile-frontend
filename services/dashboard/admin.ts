@@ -20,6 +20,8 @@ interface RawModerationItem {
   image: string;
   updatedAt: string;
   owner: { name: string; email: string } | null;
+  /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); hoy la cola no lo trae y se asume comercio. */
+  type?: string;
   /** Texto plano (el backend quita las etiquetas). */
   description: string;
 }
@@ -109,7 +111,8 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
   const now = new Date();
   return raw.map((m) => {
     const kind = m.kind === "CLASSIFIED" ? "classified" : "listing";
-    const role = kind === "listing" ? "comercio" : "usuario";
+    // El rol que da cada publicación: un aviso, avisador; una ficha, comercio o servicio.
+    const role = kind === "classified" ? "avisador" : m.type === "SERVICIO" ? "servicio" : "comercio";
     return {
       id: m.id,
       kind,

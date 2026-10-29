@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { LDCRoleOption } from "@/components/molecules/ldc-role-option";
-import { LDC_PUBLIC_ROLE_KEYS, LDC_REGISTER, type LDCRole } from "@/lib/auth/roles";
+import { LDC_PUBLIC_ROLE_KEYS, LDC_REGISTER, type LDCAccessRole } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
 
 export interface LDCRoleGatewayProps {
@@ -8,7 +8,7 @@ export interface LDCRoleGatewayProps {
    * Roles que se ofrecen, en orden. Por defecto, los de login público
    * (comercio y usuario): el administrador no aparece.
    */
-  roles?: readonly LDCRole[];
+  roles?: readonly LDCAccessRole[];
 }
 
 /**

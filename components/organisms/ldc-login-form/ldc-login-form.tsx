@@ -10,9 +10,7 @@ import { z } from "zod";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
 import { LDCFormField } from "@/components/molecules/ldc-form-field";
-import { toLDCRole } from "@/lib/auth/backend-role";
-import { LDC_ROLES, type LDCRole } from "@/lib/auth/roles";
-import { getRoleHome } from "@/lib/dashboard/config";
+import { LDC_ROLES, type LDCAccessRole } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
 
 const schema = z.object({
@@ -28,7 +26,7 @@ export interface LDCLoginFormProps {
    * (`lib/auth/roles.ts`). No decide a qué panel se entra: eso lo dice la cuenta.
    * @default "admin"
    */
-  role?: LDCRole;
+  role?: LDCAccessRole;
 }
 
 /**
@@ -36,8 +34,8 @@ export interface LDCLoginFormProps {
  *
  * React Hook Form + Zod. Envía a `/api/auth/login` (Route Handler que guarda la
  * cookie JWT) con cualquier rol. Si falla, muestra el error del servidor en línea
- * (`role="alert"`) y en un toast; si sale bien, va al panel del rol real de la
- * cuenta (`getRoleHome`), aunque se haya entrado por el login de otro rol.
+ * (`role="alert"`) y en un toast; si sale bien, va al inicio del panel (`/dashboard`),
+ * el mismo para toda cuenta, aunque se haya entrado por el login de otro rol.
  *
  * Con comercio o usuario, el pie ofrece crear una cuenta (`registerPath`); con
  * admin, pedir acceso al equipo.
@@ -62,15 +60,10 @@ export function LDCLoginForm({ role = "admin" }: LDCLoginFormProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(values),
       });
-      const data = (await res.json().catch(() => ({}))) as {
-        message?: string;
-        user?: { role?: unknown };
-      };
+      const data = (await res.json().catch(() => ({}))) as { message?: string };
       if (!res.ok) throw new Error(data.message ?? "No se pudo iniciar sesión");
-      const accountRole = toLDCRole(data.user?.role);
       toast.success("Bienvenido");
-      // Sin rol conocido, `/dashboard` decide con la sesión del servidor.
-      router.replace(accountRole ? getRoleHome(accountRole) : "/dashboard");
+      router.replace("/dashboard");
       router.refresh();
     } catch (e) {
       const message = e instanceof Error ? e.message : "Error de inicio de sesión";

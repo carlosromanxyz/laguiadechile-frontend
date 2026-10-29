@@ -8,10 +8,10 @@ export interface IDashboardUser {
   greetingName: string;
 }
 
-/** Sesión del panel: la cuenta de `/auth/me` y su rol. */
+/** Sesión del panel: la cuenta de `/auth/me` y sus roles (al menos uno, en el orden de `LDC_ROLE_KEYS`). */
 export interface IDashboardSession {
   user: IDashboardUser;
-  role: LDCRole;
+  roles: LDCRole[];
 }
 
 /** Estado de una publicación propia (comercio o usuario). */
@@ -53,6 +53,8 @@ export interface IDashboardOwnership {
   status: IDashboardPublicationStatus;
   /** Visitas de los últimos 30 días; `null` si no se miden (avisos) o no se pudieron leer. */
   visits30d: number | null;
+  /** Motivo del rechazo que escribió el equipo (texto plano; solo con `rejected`). */
+  rejectionReason?: string;
 }
 
 /** Publicación propia (`T`) con su estado y métricas. */

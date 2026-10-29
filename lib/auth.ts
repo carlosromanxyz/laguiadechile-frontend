@@ -5,7 +5,8 @@ export interface AuthUser {
   id: string;
   email: string;
   name: string;
-  role: string;
+  /** Roles de la cuenta (`ADMIN`, `COMERCIO`…); se traducen con `toLDCRoles`. */
+  roles: string[];
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {

@@ -25,7 +25,7 @@ interface ComercioFichaPageProps {
  * Con más de una ficha, `?id=` elige cuál; por defecto, la editada más recientemente.
  */
 export default async function ComercioFichaPage({ searchParams }: ComercioFichaPageProps) {
-  await requireDashboardRole("comercio");
+  await requireDashboardRole(["comercio", "servicio"]);
   const [{ id }, listings, categories, cities] = await Promise.all([
     searchParams,
     getMyListings(),

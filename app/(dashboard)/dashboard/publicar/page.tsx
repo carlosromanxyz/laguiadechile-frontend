@@ -1,6 +1,8 @@
 import { LDCListingForm } from "@/components/organisms/ldc-listing-form";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import { DASHBOARD_PUBLISH_ROLES } from "@/config/dashboard-navigation";
 import { getCategories, getCities } from "@/lib/api/catalog";
+import { hasAnyRole } from "@/lib/auth/roles";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 import { createMyListingAction } from "./actions";
 
@@ -13,13 +15,14 @@ interface PublicarPageProps {
 }
 
 /**
- * Alta de una ficha propia (`POST /me/listings`). La comparten el usuario (al publicar pasa a
- * comercio) y el comercio (otra ficha más); el admin vuelve a su inicio. `?tipo=servicio` abre con
- * Servicio elegido. Al enviarla, el formulario lleva a `/dashboard/comercio`.
+ * Alta de una ficha propia (`POST /me/listings`). Entra quien tenga usuario, comercio o servicio
+ * (al publicar, la cuenta suma comercio o servicio según el tipo); un admin sin esos roles vuelve
+ * al inicio. `?tipo=servicio` abre con Servicio elegido. Al enviarla, el formulario lleva a
+ * `/dashboard/comercio`.
  */
 export default async function PublicarPage({ searchParams }: PublicarPageProps) {
   const [session, { tipo }, categories, cities] = await Promise.all([
-    requireDashboardRole(["usuario", "comercio"]),
+    requireDashboardRole(DASHBOARD_PUBLISH_ROLES),
     searchParams,
     getCategories(),
     getCities(),
@@ -27,7 +30,11 @@ export default async function PublicarPage({ searchParams }: PublicarPageProps) 
 
   return (
     <LDCDashboardPageTemplate
-      title={session.role === "comercio" ? "Publicar otra ficha" : "Publica tu comercio o servicio"}
+      title={
+        hasAnyRole(session.roles, ["comercio", "servicio"])
+          ? "Publicar otra ficha"
+          : "Publica tu comercio o servicio"
+      }
       description="Cuéntanos qué ofreces, dónde y cómo contactarte. La revisamos antes de publicarla en la guía."
     >
       <LDCListingForm

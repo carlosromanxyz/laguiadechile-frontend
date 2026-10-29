@@ -87,6 +87,14 @@ export async function getMyListings(): Promise<IDashboardOwned<IListingDetail>[]
   }));
 }
 
+/** Fichas de la cuenta con su estado, sin pedir métricas (tarjetas del inicio del panel). */
+export async function getMyListingsStatus(): Promise<IDashboardOwned<IListingDetail>[]> {
+  return (await fetchMyListings()).map((l) => ({
+    item: mapListing(l),
+    ownership: { status: toPublicationStatus(l.status), visits30d: null },
+  }));
+}
+
 /** Visitas y clics de los últimos 30 días, de todas sus fichas. */
 export async function getMyStats(): Promise<IDashboardComercioStats> {
   const m = await fetchMyMetrics(30);
@@ -197,7 +205,9 @@ export async function getMyContactSummary(): Promise<IDashboardContactSummary | 
   };
 }
 
-/** Publicaciones en revisión: contador del menú «Mis publicaciones». */
-export async function getMyInReviewCount(): Promise<number> {
-  return (await fetchMyListings()).filter((l) => l.status === "REVIEW").length;
+/** Fichas en revisión por tipo: contadores de «Mis fichas» en «Mis comercios» y «Mis servicios». */
+export async function getMyInReviewCountByType(): Promise<{ comercio: number; servicio: number }> {
+  const inReview = (await fetchMyListings()).filter((l) => l.status === "REVIEW");
+  const servicio = inReview.filter((l) => l.type === "SERVICIO").length;
+  return { comercio: inReview.length - servicio, servicio };
 }

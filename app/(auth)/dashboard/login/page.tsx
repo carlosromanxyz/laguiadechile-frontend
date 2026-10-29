@@ -8,7 +8,6 @@ import { getFeaturedListings, getListings } from "@/lib/api/listings";
 import { getNews } from "@/lib/api/news";
 import { getProperties } from "@/lib/api/properties";
 import { LDC_ROLES } from "@/lib/auth/roles";
-import { getRoleHome } from "@/lib/dashboard/config";
 import { getDashboardSession } from "@/lib/dashboard/session";
 
 export const metadata = {
@@ -41,9 +40,9 @@ async function getCoverData(): Promise<LDCAuthCoverProps | null> {
 
 export default async function LoginPage() {
   const admin = LDC_ROLES.admin;
-  // Con sesión, al panel de su rol (un comercio o un usuario no se queda en el login del admin).
+  // Con sesión, al inicio del panel (nadie se queda en el login del admin).
   const session = await getDashboardSession();
-  if (session) redirect(getRoleHome(session.role));
+  if (session) redirect("/dashboard");
 
   const cover = await getCoverData();
 

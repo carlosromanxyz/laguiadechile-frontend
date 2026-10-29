@@ -7,7 +7,6 @@ import { LDCLoginForm } from "@/components/organisms/ldc-login-form";
 import { LDCAuthTemplate } from "@/components/templates/ldc-auth-template";
 import { getAuthCoverData } from "@/lib/api/auth-cover";
 import { getRoleConfig, isLDCPublicRole, LDC_PUBLIC_ROLE_KEYS } from "@/lib/auth/roles";
-import { getRoleHome } from "@/lib/dashboard/config";
 import { getDashboardSession } from "@/lib/dashboard/session";
 
 interface RoleLoginPageProps {
@@ -27,13 +26,13 @@ export async function generateMetadata({ params }: RoleLoginPageProps): Promise<
   return { title: `Ingresar como ${getRoleConfig(rol).label.toLowerCase()} — La Guía de Chile` };
 }
 
-/** Login de un rol (comercio o usuario). Con sesión, al panel del rol real de la cuenta. */
+/** Login de un rol (comercio o usuario). Con sesión, al inicio del panel. */
 export default async function RoleLoginPage({ params }: RoleLoginPageProps) {
   const { rol } = await params;
   if (!isLDCPublicRole(rol)) notFound();
 
   const session = await getDashboardSession();
-  if (session) redirect(getRoleHome(session.role));
+  if (session) redirect("/dashboard");
 
   const config = getRoleConfig(rol);
   const cover = await getAuthCoverData();

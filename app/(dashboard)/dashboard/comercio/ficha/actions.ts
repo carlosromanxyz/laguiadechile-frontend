@@ -16,7 +16,7 @@ export async function updateMyListingAction(
   id: string,
   input: IMyListingUpdate,
 ): Promise<IUpdateMyListingResult> {
-  await requireDashboardRole("comercio");
+  await requireDashboardRole(["comercio", "servicio"]);
 
   const parsed = myListingUpdateSchema.safeParse(input);
   if (typeof id !== "string" || !id || !parsed.success) {

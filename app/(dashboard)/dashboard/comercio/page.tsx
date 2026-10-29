@@ -37,7 +37,7 @@ const numberFormat = new Intl.NumberFormat("es-CL");
 
 export default async function ComercioHomePage() {
   const [session, stats, series, completion, listings, contact, tasks] = await Promise.all([
-    requireDashboardRole("comercio"),
+    requireDashboardRole(["comercio", "servicio"]),
     getMyStats(),
     getMyVisitsSeries(),
     getMyProfileCompletion(),
