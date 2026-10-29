@@ -44,12 +44,14 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-card** (`LDCPropertyCard`): card de propiedad con precio, características y ubicación. Cliente.
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
 - **ldc-publish-banner** (`LDCPublishBanner`): banner «Publica tu comercio o servicio» con CTA a la página de alta del panel.
+- **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano) con «Corregir y reenviar». Cliente.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
-- **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un tipo de cuenta con `LDCRoleIcon`, título, texto y chevron.
+- **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
 - **ldc-sidebar-item** (`LDCSidebarItem`): ítem del menú lateral del panel con estado activo. Cliente.
 - **ldc-social-network-list** (`LDCSocialNetworkList`): fila de íconos de redes sociales de La Guía.
 - **ldc-social-share-buttons** (`LDCSocialShareButtons`): botón de compartir (Web Share API o copia al portapapeles). Cliente.
+- **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`.
 - **ldc-stat-card** (`LDCStatCard`): tarjeta de métrica del panel.
 - **ldc-theme-mode-toggler** (`LDCThemeModeToggler`): switch de tema claro/oscuro con íconos. Cliente.
-- **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel. Cliente.
+- **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel, con la línea de roles. Cliente.

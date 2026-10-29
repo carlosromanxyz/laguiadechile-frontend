@@ -17,21 +17,28 @@ export const metadata = {
 const DESCRIPTION = "Descripción, fotos, categoría, contacto y horario de tu negocio.";
 
 interface ComercioFichaPageProps {
-  searchParams: Promise<{ id?: string | string[] }>;
+  searchParams: Promise<{ id?: string | string[]; tipo?: string | string[] }>;
 }
 
 /**
  * Ficha del comercio: edita su listing propio (`PATCH /me/listings/:id`, queda en revisión).
  * Con más de una ficha, `?id=` elige cuál; por defecto, la editada más recientemente.
+ * `?tipo=comercio|servicio` (el grupo del menú desde el que se llega) filtra las fichas de ese
+ * tipo; si la cuenta no tiene ninguna de ese tipo, se muestran todas.
  */
 export default async function ComercioFichaPage({ searchParams }: ComercioFichaPageProps) {
-  await requireDashboardRole("comercio");
-  const [{ id }, listings, categories, cities] = await Promise.all([
+  await requireDashboardRole(["comercio", "servicio"]);
+  const [{ id, tipo }, allListings, categories, cities] = await Promise.all([
     searchParams,
     getMyListings(),
     getCategories(),
     getCities(),
   ]);
+
+  const type = tipo === "comercio" || tipo === "servicio" ? tipo : undefined;
+  const ofType = type ? allListings.filter((l) => l.type === type) : [];
+  const listings = ofType.length > 0 ? ofType : allListings;
+  const tipoQuery = type ? `&tipo=${type}` : "";
 
   if (listings.length === 0) {
     return (
@@ -49,7 +56,7 @@ export default async function ComercioFichaPage({ searchParams }: ComercioFichaP
   }
 
   const wanted = typeof id === "string" ? id : undefined;
-  const listing = listings.find((l) => l.id === wanted) ?? listings[0];
+  const listing = allListings.find((l) => l.id === wanted) ?? listings[0];
 
   return (
     <LDCDashboardPageTemplate
@@ -69,7 +76,7 @@ export default async function ComercioFichaPage({ searchParams }: ComercioFichaP
           {listings.map((l) => (
             <LDCButton
               key={l.id}
-              href={`/dashboard/comercio/ficha?id=${l.id}`}
+              href={`/dashboard/comercio/ficha?id=${l.id}${tipoQuery}`}
               variant={l.id === listing.id ? "default" : "outline"}
               size="sm"
               aria-label={l.id === listing.id ? `${l.title} (editando)` : undefined}

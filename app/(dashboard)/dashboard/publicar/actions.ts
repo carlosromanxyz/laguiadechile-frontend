@@ -2,20 +2,21 @@
 
 import { revalidatePath } from "next/cache";
 import type { ICreateMyListingResult, IMyListingCreate } from "@/interfaces/my-listing";
+import { DASHBOARD_PUBLISH_ROLES } from "@/config/dashboard-navigation";
 import { ApiError } from "@/lib/api-client";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 import { createMyListing } from "@/services/me/listings";
 import { myListingCreateSchema } from "@/validations/listing-form-schema";
 
 /**
- * Crea la ficha propia (`POST /me/listings`). Nace en `REVIEW`; si quien la crea es usuario, el
- * backend lo pasa a comercio. Se revalida todo el panel (`layout`) para que el layout y el menú
- * relean el rol desde `/auth/me`. Devuelve un resultado en vez de lanzar, así el mensaje llega al
+ * Crea la ficha propia (`POST /me/listings`). Nace en `REVIEW`; el backend suma a la cuenta el rol
+ * comercio o servicio según el tipo. Se revalida todo el panel (`layout`) para que el layout y el
+ * menú relean los roles desde `/auth/me`. Devuelve un resultado en vez de lanzar, así el mensaje llega al
  * formulario también en producción; la redirección a `/dashboard/comercio` la hace el formulario
  * después del toast.
  */
 export async function createMyListingAction(input: IMyListingCreate): Promise<ICreateMyListingResult> {
-  await requireDashboardRole(["usuario", "comercio"]);
+  await requireDashboardRole(DASHBOARD_PUBLISH_ROLES);
 
   const parsed = myListingCreateSchema.safeParse(input);
   if (!parsed.success) {

@@ -1,7 +1,10 @@
-import { requireDashboardRole } from "@/lib/dashboard/session";
+import { requireDashboardSession } from "@/lib/dashboard/session";
 
-/** Solo el rol `usuario` entra en `/dashboard/usuario/*`; otro rol vuelve a su inicio. */
+/**
+ * `/dashboard/usuario/*` (favoritos y perfil) es de toda cuenta, tenga los roles que tenga: solo
+ * pide sesión.
+ */
 export default async function DashboardUsuarioLayout({ children }: { children: React.ReactNode }) {
-  await requireDashboardRole("usuario");
+  await requireDashboardSession();
   return children;
 }

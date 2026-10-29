@@ -1,3 +1,4 @@
+import { LDC_ROLE_META } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 import type { HTMLAttributes, ReactNode, Ref } from "react";
 
@@ -11,10 +12,12 @@ const variants = {
   new: "bg-pink text-white",
   updated: "bg-purple text-white",
   default: "bg-pink dark:bg-purple text-white",
-  /** Rol del panel (badge del sidebar). */
-  "role-admin": "bg-purple text-white",
-  "role-comercio": "bg-pink text-white",
-  "role-usuario": "bg-blue-gray text-white",
+  /** Rol de una cuenta: mismo color que `LDCRoleIcon` (criterio en `LDC_ROLE_META`). */
+  "role-usuario": LDC_ROLE_META.usuario.tone,
+  "role-avisador": LDC_ROLE_META.avisador.tone,
+  "role-comercio": LDC_ROLE_META.comercio.tone,
+  "role-servicio": LDC_ROLE_META.servicio.tone,
+  "role-admin": LDC_ROLE_META.admin.tone,
   /** Estado de una publicación propia en el panel. */
   "status-published": "gap-1 bg-success text-success-foreground",
   "status-review": "gap-1 border border-yellow bg-transparent text-foreground",
@@ -36,13 +39,16 @@ const standaloneVariants = {
   /** Badge mínimo de solo ícono (nuevo) con tooltip, como en la card de propiedad. */
   "new-icon":
     "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500 text-white cursor-help",
-  /** Tipo de aviso clasificado (card de aviso). */
-  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-white",
+  /**
+   * Tipo de aviso clasificado (card de aviso). Texto con contraste ≥ 4,5:1: negro sobre rosado,
+   * naranjo, amarillo y esmeralda; blanco sobre morado.
+   */
+  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-black",
   "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-purple text-white",
-  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-white",
+  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-black",
   "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-black",
   "classified-ofrezco":
-    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-emerald-500 text-white",
+    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-emerald-500 text-black",
   /** Marca de dato simulado en el panel (borde punteado, 10 px en mayúsculas). */
   simulated:
     "inline-flex items-center whitespace-nowrap rounded-full border border-dashed border-border px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-muted-foreground",

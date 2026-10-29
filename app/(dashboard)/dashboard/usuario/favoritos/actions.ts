@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import type { IDashboardActionResult, IDashboardFavoriteKind } from "@/interfaces/dashboard";
 import { ApiError, apiFetchServer } from "@/lib/api-client";
-import { requireDashboardRole } from "@/lib/dashboard/session";
+import { requireDashboardSession } from "@/lib/dashboard/session";
 import { isValidFavoriteTarget } from "@/lib/favorites/target";
 
 /** Texto fijo para el usuario según el status de la API (nunca el mensaje crudo del backend). */
@@ -20,7 +20,7 @@ export async function removeFavoriteAction(
   kind: IDashboardFavoriteKind,
   targetId: string,
 ): Promise<IDashboardActionResult> {
-  await requireDashboardRole("usuario");
+  await requireDashboardSession();
   if (!isValidFavoriteTarget(kind, targetId)) {
     return { ok: false, message: "Favorito inválido." };
   }

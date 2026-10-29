@@ -11,9 +11,7 @@ import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCCheckboxField } from "@/components/molecules/ldc-checkbox-field";
 import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
 import { LDCFormField } from "@/components/molecules/ldc-form-field";
-import { toLDCRole } from "@/lib/auth/backend-role";
 import { LDC_REGISTER, LDC_ROLES } from "@/lib/auth/roles";
-import { getRoleHome } from "@/lib/dashboard/config";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
 
 const schema = z
@@ -46,7 +44,7 @@ const EMAIL_TAKEN = "server";
  * (Route Handler que crea la cuenta como USUARIO y guarda la cookie JWT).
  * - 409: el error va en el campo email, con el enlace a iniciar sesión, y lo enfoca.
  * - Otro error: caja de error en línea (`role="alert"`) y toast, como el login.
- * - Éxito: toast «Cuenta creada» y al panel del rol de la cuenta.
+ * - Éxito: toast «Cuenta creada» y al inicio del panel (`/dashboard`).
  */
 export function LDCRegisterForm() {
   const router = useRouter();
@@ -84,7 +82,6 @@ export function LDCRegisterForm() {
       }
       const data = (await res.json().catch(() => ({}))) as {
         message?: string | string[];
-        user?: { role?: unknown };
       };
       if (res.status === 409) {
         form.setError("email", { type: EMAIL_TAKEN, message: "Ya existe una cuenta con este email." });
@@ -95,7 +92,7 @@ export function LDCRegisterForm() {
         throw new Error(message || NETWORK_ERROR);
       }
       toast.success("Cuenta creada");
-      router.replace(getRoleHome(toLDCRole(data.user?.role) ?? LDC_REGISTER.role));
+      router.replace("/dashboard");
       router.refresh();
     } catch (e) {
       const message = e instanceof Error ? e.message : NETWORK_ERROR;

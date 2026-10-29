@@ -58,9 +58,10 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-wikipedia-section** (`LDCWikipediaSection`): resumen, imagen y enlace del artículo de Wikipedia de la ciudad.
 
 ### Panel (dashboard)
-- **ldc-dashboard-header** (`LDCDashboardHeader`): barra superior del panel con migas de pan. Cliente.
-- **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con el usuario. Cliente.
-- **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión (`/api/auth/login`) para los tres roles, con `LDCFormField`, error en línea y enlace al registro; entra al panel del rol real de la cuenta. Cliente.
+- **ldc-dashboard-header** (`LDCDashboardHeader`): barra superior del panel con migas de pan desde `/dashboard`. Cliente.
+- **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con grupos según los roles de la cuenta, CTA «Publicar» y el usuario. Cliente.
+- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una opción por tipo (aviso, comercio, servicio).
+- **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión (`/api/auth/login`) para los tres roles, con `LDCFormField`, error en línea y enlace al registro; entra al inicio del panel (`/dashboard`). Cliente.
 - **ldc-register-form** (`LDCRegisterForm`): formulario del registro público (`/registro`): nombre, email, contraseña, confirmación y términos; el 409 va en el campo email. Cliente.
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
 - **ldc-role-gateway** (`LDCRoleGateway`): repartidor de `/ingresar`: tarjetas de los roles con login público y enlace al registro.

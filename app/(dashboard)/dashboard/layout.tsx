@@ -1,35 +1,48 @@
 import { redirect } from "next/navigation";
+import { LDCSkipLink } from "@/components/atoms/ldc-skip-link";
 import { LDCDashboardHeader } from "@/components/organisms/ldc-dashboard-header";
 import { LDCDashboardSidebar } from "@/components/organisms/ldc-dashboard-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { getDashboardSession } from "@/lib/dashboard/session";
-import type { LDCRole } from "@/lib/auth/roles";
+import { hasAnyRole, type LDCRole } from "@/lib/auth/roles";
 import { getModerationQueue } from "@/services/dashboard/admin";
-import { getMyInReviewCount } from "@/services/dashboard/comercio";
-import { getMyExpiredCount } from "@/services/dashboard/usuario";
+import { getMyInReviewCountByType } from "@/services/dashboard/comercio";
+import { getMyClassifiedsPendingCount } from "@/services/dashboard/usuario";
 
-/** Contadores del menú de cada rol, por `href` del ítem. */
-async function getNavBadges(role: LDCRole): Promise<Record<string, number>> {
-  if (role === "admin") {
-    return { "/dashboard/admin/moderacion": (await getModerationQueue()).length };
-  }
-  if (role === "comercio") {
-    return { "/dashboard/comercio/publicaciones": await getMyInReviewCount() };
-  }
-  return { "/dashboard/usuario/avisos": await getMyExpiredCount() };
+/**
+ * Contadores del menú por `href` del ítem («Mis fichas» lleva `?tipo=`, uno por grupo): solo los
+ * de los grupos que ve la cuenta.
+ */
+async function getNavBadges(roles: readonly LDCRole[]): Promise<Record<string, number>> {
+  const [moderation, inReview, classifieds] = await Promise.all([
+    roles.includes("admin") ? getModerationQueue().then((q) => q.length) : 0,
+    hasAnyRole(roles, ["comercio", "servicio"])
+      ? getMyInReviewCountByType()
+      : { comercio: 0, servicio: 0 },
+    roles.includes("avisador") ? getMyClassifiedsPendingCount() : 0,
+  ]);
+  return {
+    "/dashboard/admin/moderacion": moderation,
+    "/dashboard/comercio/publicaciones?tipo=comercio": inReview.comercio,
+    "/dashboard/comercio/publicaciones?tipo=servicio": inReview.servicio,
+    "/dashboard/avisos": classifieds,
+  };
 }
 
 export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
   const session = await getDashboardSession();
   if (!session) redirect("/dashboard/login");
-  const badges = await getNavBadges(session.role);
+  const badges = await getNavBadges(session.roles);
 
   return (
     <SidebarProvider>
-      <LDCDashboardSidebar role={session.role} user={session.user} badges={badges} />
+      <LDCSkipLink />
+      <LDCDashboardSidebar roles={session.roles} user={session.user} badges={badges} />
       <SidebarInset>
-        <LDCDashboardHeader role={session.role} />
-        <main className="flex-1 p-4 md:p-6">{children}</main>
+        <LDCDashboardHeader />
+        <main id="contenido" tabIndex={-1} className="flex-1 p-4 outline-none md:p-6">
+          {children}
+        </main>
       </SidebarInset>
     </SidebarProvider>
   );

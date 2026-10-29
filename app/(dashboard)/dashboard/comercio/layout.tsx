@@ -1,7 +1,10 @@
 import { requireDashboardRole } from "@/lib/dashboard/session";
 
-/** Solo el rol `comercio` entra en `/dashboard/comercio/*`; otro rol vuelve a su inicio. */
+/**
+ * `/dashboard/comercio/*` sirve a «Mis comercios» y a «Mis servicios»: entra quien tenga comercio
+ * o servicio; si no, vuelve al inicio del panel.
+ */
 export default async function DashboardComercioLayout({ children }: { children: React.ReactNode }) {
-  await requireDashboardRole("comercio");
+  await requireDashboardRole(["comercio", "servicio"]);
   return children;
 }

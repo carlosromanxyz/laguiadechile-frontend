@@ -1,6 +1,6 @@
 import { LDCFavoritesList } from "@/components/organisms/ldc-favorites-list";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
-import { requireDashboardRole } from "@/lib/dashboard/session";
+import { requireDashboardSession } from "@/lib/dashboard/session";
 import { getMyFavorites } from "@/services/dashboard/usuario";
 import { removeFavoriteAction } from "./actions";
 
@@ -9,7 +9,7 @@ export const metadata = {
 };
 
 export default async function UsuarioFavoritosPage() {
-  const [, favorites] = await Promise.all([requireDashboardRole("usuario"), getMyFavorites()]);
+  const [, favorites] = await Promise.all([requireDashboardSession(), getMyFavorites()]);
 
   return (
     <LDCDashboardPageTemplate title="Favoritos" description="Comercios, avisos, propiedades y noticias que guardaste.">

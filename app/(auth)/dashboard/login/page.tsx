@@ -9,7 +9,6 @@ import { getNews } from "@/lib/api/news";
 import { getProperties } from "@/lib/api/properties";
 import { LDC_ROLES } from "@/lib/auth/roles";
 import { safeNextPath } from "@/lib/auth/safe-next";
-import { getRoleHome } from "@/lib/dashboard/config";
 import { getDashboardSession } from "@/lib/dashboard/session";
 
 export const metadata = {
@@ -49,9 +48,9 @@ export default async function LoginPage({ searchParams }: LoginPageProps) {
   // `?next=` (p. ej. desde el corazón de favoritos): solo rutas internas relativas.
   const { next: rawNext } = await searchParams;
   const next = safeNextPath(Array.isArray(rawNext) ? rawNext[0] : rawNext);
-  // Con sesión, a `next` o al panel de su rol (un comercio o un usuario no se queda en el login del admin).
+  // Con sesión, a `next` o al inicio del panel (nadie se queda en el login del admin).
   const session = await getDashboardSession();
-  if (session) redirect(next ?? getRoleHome(session.role));
+  if (session) redirect(next ?? "/dashboard");
 
   const cover = await getCoverData();
 

@@ -25,7 +25,7 @@ export interface LDCTaskItemProps {
  *
  * @example
  * <LDCTaskItem tone="warning" title="Tienes 2 avisos vencidos" description="…"
- *   action={{ label: "Renovar", href: "/dashboard/usuario/avisos" }} actionIcon={<RefreshCw />} />
+ *   action={{ label: "Renovar", href: "/dashboard/avisos" }} actionIcon={<RefreshCw />} />
  */
 export function LDCTaskItem({ tone, title, description, action, actionIcon }: LDCTaskItemProps) {
   return (

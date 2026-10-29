@@ -28,7 +28,7 @@ export interface LDCButtonProps {
  *
  * @example
  * <LDCButton href="/" variant="outline"><ExternalLink />Ver el sitio</LDCButton>
- * <LDCButton href="/dashboard/usuario/avisos" size="sm"><RefreshCw />Renovar</LDCButton>
+ * <LDCButton href="/dashboard/avisos" size="sm"><RefreshCw />Renovar</LDCButton>
  */
 export function LDCButton({
   children,
