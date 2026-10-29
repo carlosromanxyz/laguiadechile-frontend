@@ -6,7 +6,7 @@ import { LDCDetailsLink } from "@/components/atoms/ldc-details-link";
 import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import Link from "next/link";
 import Image from "next/image";
-import { Star } from "lucide-react";
+import { MapPin, Star } from "lucide-react";
 import { isNewListing, isUpdatedListing } from "@/lib/format/listings";
 import { getIcon } from "@/lib/get-icon";
 
@@ -38,6 +38,11 @@ interface LDCListingCardProps {
   updatedAt: string;
   /** Optional className for custom styling */
   className?: string;
+  /**
+   * Vista previa (panel del comercio): «Ver detalles» llama a esto en vez de navegar, y la imagen
+   * y la ciudad no son enlaces, para no salir del formulario.
+   */
+  onDetailsClick?: () => void;
 }
 
 /**
@@ -72,44 +77,56 @@ export function LDCListingCard({
   createdAt,
   updatedAt,
   className,
+  onDetailsClick,
 }: LDCListingCardProps) {
   const isNew = isNewListing(createdAt);
   const isUpdated = isUpdatedListing(createdAt, updatedAt);
+  const imageClassName = "block relative aspect-[4/3] overflow-hidden bg-muted";
+
+  const media = (
+    <>
+      <Image
+        src={image}
+        alt={`${title} - ${category.name} en ${city.name}`}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        className="object-cover transition-transform duration-300 group-hover:scale-110"
+        loading="lazy"
+        quality={85}
+      />
+
+      {/* Badges Overlay - Top */}
+      <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
+        {featured && (
+          <LDCBadge variant="featured">
+            <Star className="w-3 h-3 mr-1 fill-current" />
+            Destacado
+          </LDCBadge>
+        )}
+        {isNew && <LDCBadge variant="new">Nuevo</LDCBadge>}
+        {isUpdated && <LDCBadge variant="updated">Actualizado</LDCBadge>}
+      </div>
+
+      {/* Category Badge - Bottom */}
+      <div className="absolute bottom-2 left-2 z-10">
+        <LDCBadge variant="default">
+          {renderCategoryIcon(category.icon)}
+          {category.name}
+        </LDCBadge>
+      </div>
+    </>
+  );
 
   return (
     <LDCCardSurface as="div" className={className}>
       {/* Image */}
-      <Link href={`/${type}/${slug}`} className="block relative aspect-[4/3] overflow-hidden bg-muted">
-        <Image
-          src={image}
-          alt={`${title} - ${category.name} en ${city.name}`}
-          fill
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-          className="object-cover transition-transform duration-300 group-hover:scale-110"
-          loading="lazy"
-          quality={85}
-        />
-
-        {/* Badges Overlay - Top */}
-        <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
-          {featured && (
-            <LDCBadge variant="featured">
-              <Star className="w-3 h-3 mr-1 fill-current" />
-              Destacado
-            </LDCBadge>
-          )}
-          {isNew && <LDCBadge variant="new">Nuevo</LDCBadge>}
-          {isUpdated && <LDCBadge variant="updated">Actualizado</LDCBadge>}
-        </div>
-
-        {/* Category Badge - Bottom */}
-        <div className="absolute bottom-2 left-2 z-10">
-          <LDCBadge variant="default">
-            {renderCategoryIcon(category.icon)}
-            {category.name}
-          </LDCBadge>
-        </div>
-      </Link>
+      {onDetailsClick ? (
+        <div className={imageClassName}>{media}</div>
+      ) : (
+        <Link href={`/${type}/${slug}`} className={imageClassName}>
+          {media}
+        </Link>
+      )}
 
       {/* Content */}
       <div className="p-4">
@@ -121,10 +138,17 @@ export function LDCListingCard({
         {/* Footer */}
         <div className="flex items-center justify-between gap-4 pt-3 border-t border-border">
           {/* City */}
-          <LDCLocationLink href={`/ciudad/${city.slug}`}>{city.name}</LDCLocationLink>
+          {onDetailsClick ? (
+            <span className="flex items-center gap-1.5 text-sm text-muted-foreground min-w-0">
+              <MapPin className="w-4 h-4 flex-shrink-0 text-pink dark:text-yellow" aria-hidden />
+              <span className="truncate">{city.name}</span>
+            </span>
+          ) : (
+            <LDCLocationLink href={`/ciudad/${city.slug}`}>{city.name}</LDCLocationLink>
+          )}
 
           {/* View Details Link */}
-          <LDCDetailsLink href={`/${type}/${slug}`} />
+          <LDCDetailsLink href={`/${type}/${slug}`} onClick={onDetailsClick} />
         </div>
       </div>
     </LDCCardSurface>

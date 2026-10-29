@@ -1,22 +1,6 @@
-import { Clock } from "lucide-react";
-import { LDCPanel } from "@/components/atoms/ldc-panel";
-import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
-import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import { redirect } from "next/navigation";
 
-export const metadata = {
-  title: "Horario y contacto — Panel",
-};
-
+/** «Horario y contacto» vive dentro de la ficha del comercio (sección `#horario`). */
 export default function ComercioHorarioYContactoPage() {
-  return (
-    <LDCDashboardPageTemplate title="Horario y contacto" description="Horario semanal, feriados, teléfono y WhatsApp.">
-      <LDCPanel>
-        <LDCEmptyState
-          icon={<Clock className="size-10 text-muted-foreground" aria-hidden />}
-          title="Próximamente"
-          description="Esta sección del panel está en construcción."
-        />
-      </LDCPanel>
-    </LDCDashboardPageTemplate>
-  );
+  redirect("/dashboard/comercio/ficha#horario");
 }

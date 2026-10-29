@@ -1,22 +1,91 @@
-import { Pencil } from "lucide-react";
+import { ExternalLink, Store } from "lucide-react";
+import { LDCButton } from "@/components/atoms/ldc-button";
+import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
+import { LDCListingForm } from "@/components/organisms/ldc-listing-form";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import { getCategories, getCities } from "@/lib/api/catalog";
+import { requireDashboardRole } from "@/lib/dashboard/session";
+import { getMyListings } from "@/services/me/listings";
+import { updateMyListingAction } from "./actions";
 
 export const metadata = {
   title: "Editar ficha — Panel",
 };
 
-export default function ComercioFichaPage() {
+const DESCRIPTION = "Descripción, fotos, categoría, contacto y horario de tu negocio.";
+
+interface ComercioFichaPageProps {
+  searchParams: Promise<{ id?: string | string[] }>;
+}
+
+/**
+ * Ficha del comercio: edita su listing propio (`PATCH /me/listings/:id`, queda en revisión).
+ * Con más de una ficha, `?id=` elige cuál; por defecto, la editada más recientemente.
+ */
+export default async function ComercioFichaPage({ searchParams }: ComercioFichaPageProps) {
+  await requireDashboardRole("comercio");
+  const [{ id }, listings, categories, cities] = await Promise.all([
+    searchParams,
+    getMyListings(),
+    getCategories(),
+    getCities(),
+  ]);
+
+  if (listings.length === 0) {
+    return (
+      <LDCDashboardPageTemplate title="Editar ficha" description={DESCRIPTION}>
+        <LDCPanel>
+          <LDCEmptyState
+            icon={<Store className="size-10 text-muted-foreground" aria-hidden />}
+            title="Aún no tienes una ficha"
+            description="Tu cuenta de comercio todavía no tiene una ficha asociada. Escríbenos y la creamos contigo."
+            action={<LDCCTAButton href="/contacto" text="Escríbenos" showIcon={false} className="mt-6" />}
+          />
+        </LDCPanel>
+      </LDCDashboardPageTemplate>
+    );
+  }
+
+  const wanted = typeof id === "string" ? id : undefined;
+  const listing = listings.find((l) => l.id === wanted) ?? listings[0];
+
   return (
-    <LDCDashboardPageTemplate title="Editar ficha" description="Descripción, fotos, categoría y redes de tu negocio.">
-      <LDCPanel>
-        <LDCEmptyState
-          icon={<Pencil className="size-10 text-muted-foreground" aria-hidden />}
-          title="Próximamente"
-          description="Esta sección del panel está en construcción."
-        />
-      </LDCPanel>
+    <LDCDashboardPageTemplate
+      title="Editar ficha"
+      description={DESCRIPTION}
+      actions={
+        listing.status === "published" ? (
+          <LDCButton href={`/${listing.type}/${listing.slug}`} variant="outline">
+            <ExternalLink aria-hidden />
+            Ver mi ficha
+          </LDCButton>
+        ) : undefined
+      }
+    >
+      {listings.length > 1 && (
+        <nav aria-label="Tus fichas" className="flex flex-wrap gap-2">
+          {listings.map((l) => (
+            <LDCButton
+              key={l.id}
+              href={`/dashboard/comercio/ficha?id=${l.id}`}
+              variant={l.id === listing.id ? "default" : "outline"}
+              size="sm"
+              aria-label={l.id === listing.id ? `${l.title} (editando)` : undefined}
+            >
+              {l.title}
+            </LDCButton>
+          ))}
+        </nav>
+      )}
+      <LDCListingForm
+        key={listing.id}
+        listing={listing}
+        categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug, icon: c.icon ?? "" }))}
+        cities={cities.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
+        action={updateMyListingAction}
+      />
     </LDCDashboardPageTemplate>
   );
 }
