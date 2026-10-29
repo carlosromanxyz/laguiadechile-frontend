@@ -84,6 +84,7 @@ export function LDCPaginatedPropertiesGrid({
         {visibleProperties.map((property) => (
           <LDCPropertyCard
             key={property.id}
+            id={property.id}
             title={property.title}
             slug={property.slug}
             type={property.type}

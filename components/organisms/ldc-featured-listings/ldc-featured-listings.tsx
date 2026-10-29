@@ -36,6 +36,7 @@ export function LDCFeaturedListings({ listings }: LDCFeaturedListingsProps) {
         {listings.map((listing) => (
           <LDCListingCard
             key={listing.id}
+            id={listing.id}
             title={listing.title}
             slug={listing.slug}
             type={listing.type}

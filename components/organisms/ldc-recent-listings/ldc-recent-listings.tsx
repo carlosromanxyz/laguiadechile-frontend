@@ -31,6 +31,7 @@ export function LDCRecentListings({ listings }: LDCRecentListingsProps) {
         {listings.map((listing) => (
           <LDCListingCard
             key={listing.id}
+            id={listing.id}
             title={listing.title}
             slug={listing.slug}
             type={listing.type}

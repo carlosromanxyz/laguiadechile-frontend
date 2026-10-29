@@ -84,6 +84,7 @@ export function LDCPaginatedClassifiedsList({
         {visibleClassifieds.map((classified) => (
           <LDCClassifiedCard
             key={classified.id}
+            id={classified.id}
             title={classified.title}
             slug={classified.slug}
             type={classified.type}

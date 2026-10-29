@@ -31,6 +31,7 @@ export function LDCRecentClassifieds({ classifieds }: LDCRecentClassifiedsProps)
         {classifieds.map((classified) => (
           <LDCClassifiedCard
             key={classified.id}
+            id={classified.id}
             title={classified.title}
             slug={classified.slug}
             type={classified.type}
