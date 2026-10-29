@@ -5,41 +5,27 @@ import { cache } from "react";
 import type { IDashboardSession } from "@/interfaces/dashboard";
 import { AUTH_COOKIE } from "@/lib/api-client";
 import { getCurrentUser } from "@/lib/auth";
-import { MOCK_DASHBOARD_USERS } from "@/lib/mock/dashboard/users";
 import { toLDCRole } from "@/lib/auth/backend-role";
-import { isLDCRole, type LDCRole } from "@/lib/auth/roles";
-import { getRoleHome, isMockRolesEnabled, MOCK_ROLE_COOKIE } from "./config";
+import type { LDCRole } from "@/lib/auth/roles";
+import { getRoleHome } from "./config";
 
 /**
- * Sesión del panel.
- * 1. Con la cookie de sesión real (`lgdc-auth`), solo cuenta `/auth/me`: el rol es el `role` que
- *    devuelve, traducido con `toLDCRole`. Si falla (token vencido o backend caído) o el rol es
- *    desconocido o no viene, `null` (deniega). Así una caída del backend no se disfraza de sesión
- *    simulada.
- * 2. Sin esa cookie, y con la simulación activa, el usuario simulado de la cookie `ldc-mock-role`.
- * 3. Si no, `null`.
+ * Sesión del panel. Sin la cookie de sesión (`lgdc-auth`), `null`. Con ella, solo cuenta
+ * `/auth/me`: el rol es el `role` que devuelve, traducido con `toLDCRole`. Si falla (token
+ * vencido o backend caído) o el rol es desconocido o no viene, `null` (deniega).
  *
- * Memoizada por request: la piden el layout del panel y el layout de cada rol.
+ * Memoizada por request: la piden el layout del panel, el layout de cada rol y las páginas de
+ * acceso (para mandar al panel a quien ya entró).
  */
 export const getDashboardSession = cache(async (): Promise<IDashboardSession | null> => {
   const jar = await cookies();
-  if (jar.has(AUTH_COOKIE)) {
-    const user = await getCurrentUser();
-    if (!user) return null;
-    const role = toLDCRole(user.role);
-    if (!role) return null;
-    const firstName = user.name.split(" ")[0] || user.name;
-    return {
-      user: { name: user.name, email: user.email, greetingName: firstName },
-      role,
-      simulated: false,
-    };
-  }
-
-  if (!isMockRolesEnabled()) return null;
-  const role = jar.get(MOCK_ROLE_COOKIE)?.value ?? "";
-  if (!isLDCRole(role)) return null;
-  return { user: MOCK_DASHBOARD_USERS[role], role, simulated: true };
+  if (!jar.has(AUTH_COOKIE)) return null;
+  const user = await getCurrentUser();
+  if (!user) return null;
+  const role = toLDCRole(user.role);
+  if (!role) return null;
+  const firstName = user.name.split(" ")[0] || user.name;
+  return { user: { name: user.name, email: user.email, greetingName: firstName }, role };
 });
 
 /**

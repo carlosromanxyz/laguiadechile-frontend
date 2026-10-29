@@ -15,6 +15,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-auth-header** (`LDCAuthHeader`): encabezado de acceso: ícono del rol, h1 de marca y descripción.
 - **ldc-breadcrumbs** (`LDCBreadcrumbs`): migas de pan, en variante clara u oscura.
 - **ldc-category-card** (`LDCCategoryCard`): card de categoría con ícono, nombre y conteo. Cliente.
+- **ldc-checkbox-field** (`LDCCheckboxField`): casilla de React Hook Form sobre `Checkbox` y `Field` de shadcn (etiqueta con enlaces y error). Cliente.
 - **ldc-city-card** (`LDCCityCard`): card de ciudad con imagen de fondo y conteo de publicaciones. Cliente.
 - **ldc-classified-card** (`LDCClassifiedCard`): card horizontal de aviso clasificado. Cliente.
 - **ldc-classified-seller** (`LDCClassifiedSeller`): caja del vendedor con botones de contacto en la ficha de aviso. Cliente.
@@ -25,6 +26,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-favorite-remove-button** (`LDCFavoriteRemoveButton`): botón de ícono que quita un favorito con una server action y avisa con un toast. Cliente.
 - **ldc-footer-nav-list** (`LDCFooterNavList`): lista de enlaces del pie dentro de un `<nav>` etiquetado.
 - **ldc-footer-widget** (`LDCFooterWidget`): columna del pie de página con título opcional.
+- **ldc-form-alert** (`LDCFormAlert`): caja de error del servidor de un formulario (login y registro), con borde `destructive` y foco al aparecer. Cliente.
 - **ldc-form-field** (`LDCFormField`): campo de React Hook Form sobre `Field` de shadcn (etiqueta, control y error). Cliente.
 - **ldc-hero-slider** (`LDCHeroSlider`): carrusel automático de imágenes de fondo del hero. Cliente.
 - **ldc-listing-card** (`LDCListingCard`): card de comercio o servicio. Cliente.
