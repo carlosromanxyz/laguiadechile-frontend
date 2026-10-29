@@ -10,6 +10,7 @@ import type { IDashboardTask } from "@/interfaces/dashboard";
 import { formatShortDate } from "@/lib/dashboard/dates";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 import { getAdminOverview, getModerationQueue } from "@/services/dashboard/admin";
+import { approveModerationAction, rejectModerationAction } from "./moderacion/actions";
 
 export const metadata = {
   title: "Inicio — Panel",
@@ -87,7 +88,14 @@ export default async function AdminHomePage() {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <LDCModerationQueue items={queue} moderationHref="/dashboard/admin/moderacion" simulated />
+        <LDCModerationQueue
+          items={queue}
+          moderationHref="/dashboard/admin/moderacion"
+          onApprove={approveModerationAction}
+          onReject={rejectModerationAction}
+          limit={3}
+          showDescription={false}
+        />
         <LDCDashboardCard
           title="Últimas noticias"
           action={

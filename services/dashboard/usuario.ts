@@ -1,22 +1,99 @@
 import "server-only";
 /**
- * Fachada del panel del rol Usuario. Misma firma que tendrá el servicio real: hoy devuelve
- * los datos simulados de `lib/mock/dashboard/usuario`.
+ * Datos del panel del rol Usuario, desde la API con la sesión del request (`apiFetchServer`):
+ * sus avisos (`GET /me/classifieds`) y sus favoritos (`GET /me/favorites`).
+ *
+ * Ante un error de la API, listas vacías: el layout del panel también pide el contador del
+ * menú y no debe caerse por eso.
  */
+import { cache } from "react";
 import type { IClassified } from "@/interfaces/classified";
-import type { IDashboardFavorite } from "@/interfaces/dashboard";
-import { MOCK_USUARIO_CLASSIFIEDS, MOCK_USUARIO_FAVORITES } from "@/lib/mock/dashboard/usuario";
-import type { IMockOwned } from "@/lib/mock/dashboard/types";
+import type {
+  IDashboardFavorite,
+  IDashboardFavoriteKind,
+  IDashboardOwned,
+} from "@/interfaces/dashboard";
+import { apiFetchServer } from "@/lib/api-client";
+import { mapClassified, type RawClassified, type RawListing } from "@/lib/api/mappers";
+import { apiGetOrNull } from "@/lib/api/server-fetch";
+import { toPublicationStatus } from "@/lib/dashboard/status";
 
-export async function getMyClassifieds(): Promise<IMockOwned<IClassified>[]> {
-  return MOCK_USUARIO_CLASSIFIEDS;
+type RawMyClassified = RawClassified & { status: string };
+
+interface RawFavorite {
+  kind: IDashboardFavoriteKind;
+  targetId: string;
+  createdAt: string;
+  title: string;
+  slug: string;
+  image: string;
+  city: { name: string; slug: string } | null;
 }
 
-export async function getMyFavorites(): Promise<IDashboardFavorite[]> {
-  return MOCK_USUARIO_FAVORITES;
+async function safeList<T>(path: string): Promise<T[]> {
+  try {
+    const data = await apiFetchServer<unknown>(path);
+    return Array.isArray(data) ? (data as T[]) : [];
+  } catch {
+    return [];
+  }
 }
+
+const fetchMyClassifieds = cache(() => safeList<RawMyClassified>("/me/classifieds"));
+
+/** Avisos del usuario con su estado (un PUBLISHED con `expiresAt` pasado cuenta como vencido). */
+export async function getMyClassifieds(): Promise<IDashboardOwned<IClassified>[]> {
+  const now = Date.now();
+  return (await fetchMyClassifieds()).map((c) => ({
+    item: mapClassified(c),
+    ownership: { status: toPublicationStatus(c.status, c.expiresAt, now), visits30d: null },
+  }));
+}
+
+/**
+ * Comercio o servicio: el favorito no trae el `type` del listing, así que se lee la ficha
+ * pública (`GET /listings/:slug`, con caché ISR). Si no se puede, cae en `/comercio/`.
+ */
+async function listingRoute(slug: string): Promise<{ label: string; base: string }> {
+  try {
+    const l = await apiGetOrNull<Pick<RawListing, "type">>(`/listings/${encodeURIComponent(slug)}`);
+    if (l?.type === "SERVICIO") return { label: "Servicio", base: "/servicio" };
+  } catch {
+    // ficha no disponible: ruta de comercio por defecto
+  }
+  return { label: "Comercio", base: "/comercio" };
+}
+
+const ROUTES: Record<Exclude<IDashboardFavoriteKind, "LISTING">, { label: string; base: string }> = {
+  CLASSIFIED: { label: "Aviso", base: "/aviso" },
+  PROPERTY: { label: "Propiedad", base: "/propiedad" },
+  NEWS: { label: "Noticia", base: "/noticia" },
+};
+
+/** Favoritos del usuario, del más reciente al más antiguo, con su enlace público. */
+export const getMyFavorites = cache(async (): Promise<IDashboardFavorite[]> => {
+  const raw = await safeList<RawFavorite>("/me/favorites");
+  return Promise.all(
+    raw.map(async (f) => {
+      const route = f.kind === "LISTING" ? await listingRoute(f.slug) : ROUTES[f.kind];
+      return {
+        id: `${f.kind}:${f.targetId}`,
+        kindKey: f.kind,
+        targetId: f.targetId,
+        kind: route?.label ?? "Favorito",
+        title: f.title,
+        place: f.city?.name ?? "",
+        image: f.image,
+        href: route ? `${route.base}/${f.slug}` : "/",
+      };
+    }),
+  );
+});
 
 /** Avisos vencidos: contador del menú «Mis avisos». */
 export async function getMyExpiredCount(): Promise<number> {
-  return MOCK_USUARIO_CLASSIFIEDS.filter((c) => c.ownership.status === "expired").length;
+  const now = Date.now();
+  return (await fetchMyClassifieds()).filter(
+    (c) => toPublicationStatus(c.status, c.expiresAt, now) === "expired",
+  ).length;
 }

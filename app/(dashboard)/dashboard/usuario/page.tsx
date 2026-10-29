@@ -4,10 +4,12 @@ import { LDCButton } from "@/components/atoms/ldc-button";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
+import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
 import { LDCStatCard } from "@/components/molecules/ldc-stat-card";
 import { LDCFavoritesList } from "@/components/organisms/ldc-favorites-list";
 import { LDCTaskList } from "@/components/organisms/ldc-task-list";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import type { IDashboardPublicationStatus } from "@/interfaces/dashboard";
 import { formatShortDate } from "@/lib/dashboard/dates";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 import { formatClassifiedPrice, typeLabels } from "@/lib/format/classifieds";
@@ -18,6 +20,13 @@ export const metadata = {
 };
 
 const AVISOS_HREF = "/dashboard/usuario/avisos";
+
+const STATUS_LABELS: Record<IDashboardPublicationStatus, string> = {
+  published: "Publicado",
+  review: "En revisión",
+  expired: "Vencido",
+  rejected: "Rechazado",
+};
 
 export default async function UsuarioHomePage() {
   const [session, classifieds, favorites] = await Promise.all([
@@ -56,13 +65,13 @@ export default async function UsuarioHomePage() {
           label="Favoritos"
           value={favorites.length}
           icon={<Heart className="size-4" />}
-          simulated
+          href="/dashboard/usuario/favoritos"
         />
         <LDCStatCard
           label="Avisos activos"
           value={active.length}
           icon={<Tags className="size-4" />}
-          hint={`de ${classifieds.length} publicados`}
+          hint={`de ${classifieds.length} en total`}
         />
         <LDCStatCard
           label="Avisos vencidos"
@@ -89,6 +98,14 @@ export default async function UsuarioHomePage() {
             </LDCButton>
           }
         >
+          {classifieds.length === 0 ? (
+            <LDCEmptyState
+              className="py-8"
+              icon={<Tags className="size-8 text-muted-foreground" aria-hidden />}
+              title="Aún no publicas avisos"
+              description="Cuando publiques un aviso, lo verás aquí con su estado y vencimiento."
+            />
+          ) : (
           <ul>
             {classifieds.map(({ item, ownership }) => (
               <LDCDashboardListItem
@@ -98,14 +115,22 @@ export default async function UsuarioHomePage() {
                 meta={
                   <>
                     <LDCBadge variant={`classified-${item.type}`}>{typeLabels[item.type]}</LDCBadge>
-                    {ownership.status === "expired" && (
-                      <LDCBadge variant="status-expired">Vencido</LDCBadge>
+                    {ownership.status !== "published" && (
+                      <LDCBadge variant={`status-${ownership.status}`}>
+                        {STATUS_LABELS[ownership.status]}
+                      </LDCBadge>
                     )}
                   </>
                 }
-                subtitle={`${formatClassifiedPrice(item.price)} · ${item.commune ?? item.city.name} · ${
-                  ownership.status === "expired" ? "venció" : "vence"
-                } el ${formatShortDate(item.expiresAt)}`}
+                subtitle={[
+                  formatClassifiedPrice(item.price),
+                  item.commune ?? item.city.name,
+                  item.expiresAt
+                    ? `${ownership.status === "expired" ? "venció" : "vence"} el ${formatShortDate(item.expiresAt)}`
+                    : null,
+                ]
+                  .filter(Boolean)
+                  .join(" · ")}
                 actions={
                   <>
                     <LDCButton href={AVISOS_HREF} size="sm">
@@ -121,8 +146,9 @@ export default async function UsuarioHomePage() {
               />
             ))}
           </ul>
+          )}
         </LDCDashboardCard>
-        <LDCFavoritesList favorites={favorites} viewAllHref="/dashboard/usuario/favoritos" simulated />
+        <LDCFavoritesList favorites={favorites} viewAllHref="/dashboard/usuario/favoritos" />
       </div>
     </LDCDashboardPageTemplate>
   );

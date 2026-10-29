@@ -11,6 +11,8 @@ export interface LDCDashboardListItemProps {
   meta?: ReactNode;
   /** Línea bajo el título, en gris */
   subtitle?: ReactNode;
+  /** Párrafo de texto bajo el subtítulo, en hasta 3 líneas (siempre texto, nunca HTML) */
+  description?: string;
   /** Botones bajo el texto */
   actions?: ReactNode;
   /** Título en hasta 2 líneas (por defecto, 1 línea truncada) */
@@ -32,6 +34,7 @@ export function LDCDashboardListItem({
   title,
   meta,
   subtitle,
+  description,
   actions,
   clampTitle,
 }: LDCDashboardListItemProps) {
@@ -53,6 +56,11 @@ export function LDCDashboardListItem({
         <p className={cn("font-bold", clampTitle ? "line-clamp-2 text-sm" : "truncate")}>{title}</p>
         {subtitle != null && (
           <p className="truncate font-open-sans text-xs text-muted-foreground">{subtitle}</p>
+        )}
+        {description && (
+          <p className="mt-1 line-clamp-3 font-open-sans text-sm text-muted-foreground">
+            {description}
+          </p>
         )}
         {actions != null && <div className="mt-2 flex flex-wrap gap-2">{actions}</div>}
       </div>
