@@ -34,12 +34,18 @@ export interface IDashboardNavGroup {
   items: IDashboardNavItem[];
 }
 
-/** Ítems de las fichas: los mismos en «Mis comercios» y «Mis servicios» (las rutas sirven a los dos roles). */
-const listingItems: IDashboardNavItem[] = [
-  { href: "/dashboard/comercio/publicaciones", label: "Mis fichas", icon: Store },
-  { href: "/dashboard/comercio/ficha", label: "Editar ficha", icon: Pencil },
-  { href: "/dashboard/comercio/estadisticas", label: "Estadísticas", icon: ChartColumn },
-];
+/**
+ * Ítems de las fichas: los mismos en «Mis comercios» y «Mis servicios» (las rutas
+ * `/dashboard/comercio/*` sirven a los dos roles). Cada grupo suma `?tipo=` a sus enlaces: así la
+ * página filtra por tipo y el menú marca solo el ítem del grupo actual.
+ */
+function listingItems(tipo: "comercio" | "servicio"): IDashboardNavItem[] {
+  return [
+    { href: `/dashboard/comercio/publicaciones?tipo=${tipo}`, label: "Mis fichas", icon: Store },
+    { href: `/dashboard/comercio/ficha?tipo=${tipo}`, label: "Editar ficha", icon: Pencil },
+    { href: `/dashboard/comercio/estadisticas?tipo=${tipo}`, label: "Estadísticas", icon: ChartColumn },
+  ];
+}
 
 /**
  * Menú del panel: un solo menú con grupos apilados según los roles de la cuenta (diseño A1 de
@@ -63,8 +69,8 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
       { href: "/dashboard/avisos/nuevo", label: "Publicar aviso", icon: CirclePlus },
     ],
   },
-  { label: "Mis comercios", requires: "comercio", items: listingItems },
-  { label: "Mis servicios", requires: "servicio", items: listingItems },
+  { label: "Mis comercios", requires: "comercio", items: listingItems("comercio") },
+  { label: "Mis servicios", requires: "servicio", items: listingItems("servicio") },
   {
     label: "Admin",
     requires: "admin",

@@ -25,6 +25,11 @@ interface LDCAvatarProps {
    * ancho/alto fijos (panel de autor).
    */
   framed?: boolean;
+  /**
+   * Decorativo: el nombre ya está escrito al lado (p. ej. el menú de usuario). Oculta el avatar a
+   * los lectores de pantalla y pinta las iniciales en `text-foreground` (más contraste).
+   */
+  decorative?: boolean;
   /** Optional className for custom styling (va al elemento raíz) */
   className?: string;
 }
@@ -55,13 +60,22 @@ export function getInitials(name: string): string {
  * <LDCAvatar name={user.name} />
  * ```
  */
-export function LDCAvatar({ name, src, size = "md", framed = true, className }: LDCAvatarProps) {
+export function LDCAvatar({
+  name,
+  src,
+  size = "md",
+  framed = true,
+  decorative = false,
+  className,
+}: LDCAvatarProps) {
   const px = SIZE_PX[size];
 
   if (!src) {
     return (
-      <Avatar className={cn(fallbackSize[size], className)}>
-        <AvatarFallback>{getInitials(name)}</AvatarFallback>
+      <Avatar className={cn(fallbackSize[size], className)} aria-hidden={decorative || undefined}>
+        <AvatarFallback className={decorative ? "font-semibold text-foreground" : undefined}>
+          {getInitials(name)}
+        </AvatarFallback>
       </Avatar>
     );
   }

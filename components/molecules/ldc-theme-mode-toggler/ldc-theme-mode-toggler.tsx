@@ -67,7 +67,7 @@ export function LDCThemeModeToggler({ className }: LDCThemeModeTogglerProps) {
         <LDCSwitch
           checked={isDarkMode}
           onCheckedChange={handleToggle}
-          aria-label="Toggle theme mode"
+          aria-label="Cambiar tema"
         />
         <div className="w-5 h-5 flex items-center justify-center transition-all duration-300">
           {isDarkMode ? (

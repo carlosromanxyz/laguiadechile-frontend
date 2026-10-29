@@ -24,15 +24,16 @@ export type LDCRoleIconName = "ShieldCheck" | "Store" | "Tag" | "UserRound" | "W
  * `LDCBadge` (`role-*`), así un rol se reconoce igual en todo el panel. Criterio:
  * - un color de marca por rol, sin repetir: usuario rosado, avisador amarillo, comercio naranjo,
  *   servicio naranjo-rojo y admin morado;
- * - texto negro sobre los fondos claros (amarillo, naranjo y naranjo-rojo) y blanco sobre los
- *   oscuros (rosado y morado): contraste de texto ≥ 4,5:1 y de ícono ≥ 3:1 (WCAG 1.4.3 y 1.4.11);
+ * - texto con contraste ≥ 4,5:1 (WCAG 1.4.3; el ícono pide ≥ 3:1, 1.4.11): negro sobre rosado
+ *   (5,3:1), amarillo (11,9:1), naranjo (8,9:1) y naranjo-rojo (6,5:1); blanco sobre morado
+ *   (4,8:1). El blanco sobre rosado daba 4,0:1 y por eso el usuario lleva texto negro;
  * - comercio y servicio son vecinos (naranjo y naranjo-rojo) porque los dos publican fichas; se
  *   distinguen por el ícono (tienda y llave) y por el nombre, que siempre acompaña al color;
  * - los badges de tipo de aviso usan los mismos colores (vendo rosado, compro morado, busco
  *   amarillo, arriendo naranjo), pero nunca van en la misma fila que un badge de rol.
  */
 export const LDC_ROLE_META = {
-  usuario: { label: "Usuario", iconName: "UserRound", tone: "bg-pink text-white" },
+  usuario: { label: "Usuario", iconName: "UserRound", tone: "bg-pink text-black" },
   avisador: { label: "Avisador", iconName: "Tag", tone: "bg-yellow text-black" },
   comercio: { label: "Comercio", iconName: "Store", tone: "bg-orange text-black" },
   servicio: { label: "Servicio", iconName: "Wrench", tone: "bg-orange-red text-black" },

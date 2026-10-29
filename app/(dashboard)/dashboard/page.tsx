@@ -98,14 +98,14 @@ function ListingRoleCard({
             actions={
               <>
                 <LDCButton
-                  href={`/dashboard/comercio/ficha?id=${encodeURIComponent(main.item.id)}`}
+                  href={`/dashboard/comercio/ficha?id=${encodeURIComponent(main.item.id)}&tipo=${role}`}
                   variant="outline"
                   size="sm"
                 >
                   <Pencil />
                   Editar ficha
                 </LDCButton>
-                <LDCButton href="/dashboard/comercio/estadisticas" variant="ghost" size="sm">
+                <LDCButton href={`/dashboard/comercio/estadisticas?tipo=${role}`} variant="ghost" size="sm">
                   <ChartColumn />
                   Estadísticas
                 </LDCButton>

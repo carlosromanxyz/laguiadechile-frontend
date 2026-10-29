@@ -28,10 +28,7 @@ export interface LDCDashboardSidebarProps {
   /** Roles de la cuenta: definen los grupos del menú, el CTA y la línea de roles del menú de usuario */
   roles: readonly LDCRole[];
   user: { name: string; email: string };
-  /**
-   * Contadores por `href` del ítem (`{ "/dashboard/admin/moderacion": 3 }`) o, si el ítem se repite
-   * en dos grupos, por `rol:href` (`{ "servicio:/dashboard/comercio/publicaciones": 1 }`)
-   */
+  /** Contadores por `href` del ítem (p. ej. `{ "/dashboard/admin/moderacion": 3 }`) */
   badges?: Record<string, number>;
 }
 
@@ -45,6 +42,16 @@ export interface LDCDashboardSidebarProps {
  */
 export function LDCDashboardSidebar({ roles, user, badges }: LDCDashboardSidebarProps) {
   const canPublish = hasAnyRole(roles, DASHBOARD_PUBLISH_ROLES);
+  const groups = getDashboardNavigation(roles);
+  // Ítems con la misma ruta en dos grupos (las fichas): sin `?tipo=` en la URL se marca el del
+  // primer grupo visible.
+  const seenPaths = new Set<string>();
+  const defaultHrefs = new Set<string>();
+  for (const item of groups.flatMap((g) => g.items)) {
+    const [path, query] = item.href.split("?");
+    if (query && !seenPaths.has(path)) defaultHrefs.add(item.href);
+    seenPaths.add(path);
+  }
   // El rol usuario lo tiene toda cuenta: la línea muestra los demás (sin ellos, el email).
   const roleLine = roles
     .filter((r) => r !== "usuario")
@@ -76,27 +83,27 @@ export function LDCDashboardSidebar({ roles, user, badges }: LDCDashboardSidebar
         )}
       </SidebarHeader>
 
-      <SidebarContent>
-        {getDashboardNavigation(roles).map((group) => (
-          <SidebarGroup key={group.label}>
-            <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
-            <SidebarGroupContent>
-              <SidebarMenu>
-                {group.items.map((item) => (
-                  <LDCSidebarItem
-                    key={item.href}
-                    {...item}
-                    badge={
-                      badges?.[group.requires ? `${group.requires}:${item.href}` : item.href] ??
-                      badges?.[item.href]
-                    }
-                  />
-                ))}
-              </SidebarMenu>
-            </SidebarGroupContent>
-          </SidebarGroup>
-        ))}
-      </SidebarContent>
+      <nav aria-label="Menú del panel" className="flex min-h-0 flex-1 flex-col">
+        <SidebarContent>
+          {groups.map((group) => (
+            <SidebarGroup key={group.label}>
+              <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+              <SidebarGroupContent>
+                <SidebarMenu>
+                  {group.items.map((item) => (
+                    <LDCSidebarItem
+                      key={item.href}
+                      {...item}
+                      queryDefault={defaultHrefs.has(item.href)}
+                      badge={badges?.[item.href]}
+                    />
+                  ))}
+                </SidebarMenu>
+              </SidebarGroupContent>
+            </SidebarGroup>
+          ))}
+        </SidebarContent>
+      </nav>
 
       <SidebarFooter className="border-t border-sidebar-border">
         <LDCUserMenu

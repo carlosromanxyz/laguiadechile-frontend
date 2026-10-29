@@ -35,5 +35,6 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`.
 - **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero. Cliente.
 - **ldc-section** (`LDCSection`): sección de página con contenedor, padding y espaciado comunes.
+- **ldc-skip-link** (`LDCSkipLink`): enlace «Saltar al contenido», visible al recibir el foco.
 - **ldc-social-network-icon** (`LDCSocialNetworkIcon`): ícono de red social en un círculo con hover.
 - **ldc-switch** (`LDCSwitch`): switch de Radix con los colores de la marca. Cliente.

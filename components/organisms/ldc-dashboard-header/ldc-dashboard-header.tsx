@@ -36,9 +36,9 @@ const PAGE_LABELS: Record<string, string> = {
   "/dashboard/admin": "Admin",
 };
 
-/** Etiqueta de cada ruta del menú (todos los grupos: las rutas no cambian con el rol). */
+/** Etiqueta de cada ruta del menú, sin la query (`?tipo=` no cambia la etiqueta). */
 const NAV_LABELS: Record<string, string> = Object.fromEntries(
-  dashboardNavigation.flatMap((g) => g.items).map((i) => [i.href, i.label]),
+  dashboardNavigation.flatMap((g) => g.items).map((i) => [i.href.split("?")[0], i.label]),
 );
 
 function capitalize(seg: string) {

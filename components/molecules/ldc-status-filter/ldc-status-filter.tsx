@@ -27,7 +27,8 @@ export interface LDCStatusFilterProps {
  *
  * Server Component: cada pill es un enlace a la misma página con `?estado=`, así el filtro vive
  * en la URL (se comparte y sobrevive a recargar). La activa lleva `aria-current="page"` y el
- * color de marca (rosado en claro, amarillo en oscuro). En móvil las pills bajan de línea.
+ * borde de marca (rosado en claro, amarillo en oscuro); el texto queda en `text-foreground` para
+ * el contraste (el rosado sobre la card da 4,0:1). En móvil las pills bajan de línea.
  *
  * @example
  * <LDCStatusFilter current="todos" items={[{ key: "todos", label: "Todos", count: 6, href: "/dashboard/avisos" }]} />
@@ -49,14 +50,12 @@ export function LDCStatusFilter({
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "inline-flex h-8 items-center gap-1.5 rounded-full border bg-card px-3 text-sm font-semibold transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
-                  active
-                    ? "border-pink text-pink dark:border-yellow dark:text-yellow"
-                    : "border-border text-foreground",
+                  "inline-flex h-8 items-center gap-1.5 rounded-full border bg-card px-3 text-sm font-semibold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
+                  active ? "border-pink dark:border-yellow" : "border-border",
                 )}
               >
                 {item.label}
-                <span className={cn("text-xs", active ? "" : "text-muted-foreground")}>{item.count}</span>
+                <span className="text-xs font-extrabold text-muted-foreground">{item.count}</span>
               </Link>
             </li>
           );
