@@ -18,6 +18,7 @@ Se importan por archivo: `import { Button } from "@/components/ui/button"`.
 - **button**: botón con variantes y tamaños.
 - **card**: tarjeta con encabezado, contenido y pie.
 - **carousel**: carrusel sobre Embla.
+- **checkbox**: casilla de verificación (Radix); la envuelve `LDCCheckboxField`.
 - **command**: lista con búsqueda (cmdk), base del combobox.
 - **dialog**: diálogo modal.
 - **dropdown-menu**: menú desplegable.

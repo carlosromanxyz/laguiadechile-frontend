@@ -12,8 +12,8 @@ export type LDCPasswordInputProps = Omit<ComponentProps<typeof Input>, "type">;
  * LDCPasswordInput - Campo de contraseña con botón para mostrarla u ocultarla
  *
  * `Input` de shadcn (h-10, objetivo táctil de 40 px) con un `Button` ghost
- * dentro, a la derecha. El botón anuncia su estado con `aria-pressed` y
- * cambia su nombre entre «Mostrar contraseña» y «Ocultar contraseña».
+ * dentro, a la derecha. El botón tiene un nombre fijo, «Mostrar contraseña», y
+ * anuncia su estado con `aria-pressed`.
  * El resto de props (incluido `ref`, `name` y `aria-invalid`) va al `<input>`.
  *
  * @example
@@ -35,7 +35,7 @@ export function LDCPasswordInput({ className, disabled, ...props }: LDCPasswordI
         variant="ghost"
         size="icon-sm"
         disabled={disabled}
-        aria-label={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
+        aria-label="Mostrar contraseña"
         aria-pressed={visible}
         onClick={() => setVisible((v) => !v)}
         className="absolute top-1 right-1 text-muted-foreground hover:text-foreground"

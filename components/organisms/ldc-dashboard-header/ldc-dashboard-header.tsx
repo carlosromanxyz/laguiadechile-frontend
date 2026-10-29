@@ -47,7 +47,7 @@ function buildCrumbs(pathname: string, role: LDCRole) {
 export interface LDCDashboardHeaderProps {
   /** Rol del panel: base de las migas («Panel › …») */
   role: LDCRole;
-  /** Controles extra a la derecha (p. ej. `LDCDevRoleSwitcher`) */
+  /** Controles extra a la derecha, antes del cambio de tema */
   actions?: ReactNode;
 }
 

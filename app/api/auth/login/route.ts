@@ -1,11 +1,14 @@
-import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
-import { AUTH_COOKIE } from "@/lib/api-client";
+import { rejectCrossSiteAuth } from "@/lib/auth/request-guard";
+import { setSessionCookie } from "@/lib/auth/session-cookie";
+import { forwardedForHeader } from "@/lib/auth/socket-ip";
 
 const INTERNAL_BASE = process.env.INTERNAL_API_URL ?? "http://backend:3000/api";
-const SEVEN_DAYS = 60 * 60 * 24 * 7;
 
 export async function POST(request: Request) {
+  const rejected = rejectCrossSiteAuth(request);
+  if (rejected) return rejected;
+
   let body: unknown;
   try {
     body = await request.json();
@@ -15,7 +18,8 @@ export async function POST(request: Request) {
 
   const res = await fetch(`${INTERNAL_BASE}/auth/login`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    // La IP del socket del cliente, nunca la cabecera que mande él: es la clave del throttle.
+    headers: { "Content-Type": "application/json", ...forwardedForHeader(request) },
     body: JSON.stringify(body),
     cache: "no-store",
   });
@@ -33,14 +37,7 @@ export async function POST(request: Request) {
     );
   }
 
-  const jar = await cookies();
-  jar.set(AUTH_COOKIE, payload.accessToken, {
-    httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
-    path: "/",
-    maxAge: SEVEN_DAYS,
-  });
+  await setSessionCookie(payload.accessToken);
 
   return NextResponse.json({ user: payload.user });
 }

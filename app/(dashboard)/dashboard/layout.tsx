@@ -1,5 +1,4 @@
 import { redirect } from "next/navigation";
-import { LDCDevRoleSwitcher } from "@/components/molecules/ldc-dev-role-switcher";
 import { LDCDashboardHeader } from "@/components/organisms/ldc-dashboard-header";
 import { LDCDashboardSidebar } from "@/components/organisms/ldc-dashboard-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -29,10 +28,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
     <SidebarProvider>
       <LDCDashboardSidebar role={session.role} user={session.user} badges={badges} />
       <SidebarInset>
-        <LDCDashboardHeader
-          role={session.role}
-          actions={session.simulated ? <LDCDevRoleSwitcher role={session.role} /> : undefined}
-        />
+        <LDCDashboardHeader role={session.role} />
         <main className="flex-1 p-4 md:p-6">{children}</main>
       </SidebarInset>
     </SidebarProvider>

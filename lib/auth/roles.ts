@@ -32,6 +32,8 @@ export interface LDCRoleConfig {
   loginPath: string;
   /** Destino tras iniciar sesión */
   redirectTo: string;
+  /** Registro público (`/registro`); el administrador no tiene: lo crea el seed */
+  registerPath?: string;
   /** Título de la tarjeta del rol en el repartidor `/ingresar` */
   optionTitle: string;
   /** Texto de la tarjeta del rol en el repartidor `/ingresar` */
@@ -61,6 +63,7 @@ export const LDC_ROLES = {
     emailPlaceholder: "contacto@tucomercio.cl",
     loginPath: "/ingresar/comercio",
     redirectTo: "/dashboard/comercio",
+    registerPath: "/registro",
     optionTitle: "Comercio o anunciante",
     optionDescription: "Gestiona tu ficha, tus avisos y tus propiedades.",
   },
@@ -73,10 +76,23 @@ export const LDC_ROLES = {
     emailPlaceholder: "tu@correo.cl",
     loginPath: "/ingresar/usuario",
     redirectTo: "/dashboard/usuario",
+    registerPath: "/registro",
     optionTitle: "Usuario",
     optionDescription: "Favoritos y avisos que sigues.",
   },
 } as const satisfies Record<LDCRole, LDCRoleConfig>;
+
+/**
+ * Registro público (`/registro`): una sola página, sin elegir rol. Toda cuenta nueva nace como
+ * usuario; pasa a comercio desde su panel al publicar su comercio o servicio.
+ */
+export const LDC_REGISTER = {
+  path: "/registro",
+  /** Rol con que nace la cuenta: da el ícono del encabezado y el destino tras crearla */
+  role: "usuario",
+  title: "Crea tu cuenta",
+  description: "Guarda tus favoritos y publica tu comercio o servicio cuando quieras.",
+} as const satisfies { path: string; role: LDCRole; title: string; description: string };
 
 /** Roles en orden de presentación. */
 export const LDC_ROLE_KEYS = ["admin", "comercio", "usuario"] as const satisfies readonly LDCRole[];

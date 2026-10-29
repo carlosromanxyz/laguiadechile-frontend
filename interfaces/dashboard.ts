@@ -8,12 +8,10 @@ export interface IDashboardUser {
   greetingName: string;
 }
 
-/** Sesión del panel: el admin real o el usuario simulado por la cookie `ldc-mock-role`. */
+/** Sesión del panel: la cuenta de `/auth/me` y su rol. */
 export interface IDashboardSession {
   user: IDashboardUser;
   role: LDCRole;
-  /** `true` si viene de la simulación de roles (sin backend). */
-  simulated: boolean;
 }
 
 /** Estado de una publicación propia (comercio o usuario). */

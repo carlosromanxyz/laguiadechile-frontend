@@ -63,6 +63,13 @@ export interface LDCFormFieldProps<T extends FieldValues, TName extends FieldPat
   rows?: number;
   /** Control propio en vez del input: recibe `field`, el id y los atributos de accesibilidad */
   render?: (props: LDCFormFieldRenderProps<T, TName>) => ReactNode;
+  /** Campo obligatorio: `aria-required` en el control (la validación la hace Zod) */
+  required?: boolean;
+  /**
+   * Acción tras el mensaje de error, dentro del mismo `role="alert"` (p. ej. el enlace
+   * «Inicia sesión» cuando el email ya tiene cuenta). Solo se pinta si el campo tiene error.
+   */
+  errorAction?: ReactNode;
 }
 
 /**
@@ -92,6 +99,8 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
   icon,
   rows,
   render,
+  required,
+  errorAction,
 }: LDCFormFieldProps<T, TName>) {
   const id = `${useId()}-${name}`;
   const errorId = `${id}-error`;
@@ -115,6 +124,7 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
           placeholder,
           autoComplete,
           disabled,
+          "aria-required": required || undefined,
           "aria-invalid": invalid,
           "aria-describedby": describedBy,
         };
@@ -160,12 +170,17 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
             {description && (
               <FieldDescription id={descriptionId}>{description}</FieldDescription>
             )}
-            {invalid && (
-              <FieldError
-                id={errorId}
-                errors={[localError !== null ? { message: localError } : fieldState.error]}
-              />
-            )}
+            {invalid &&
+              (errorAction && localError === null ? (
+                <FieldError id={errorId} className="break-words">
+                  {fieldState.error?.message} {errorAction}
+                </FieldError>
+              ) : (
+                <FieldError
+                  id={errorId}
+                  errors={[localError !== null ? { message: localError } : fieldState.error]}
+                />
+              ))}
           </Field>
         );
       }}
