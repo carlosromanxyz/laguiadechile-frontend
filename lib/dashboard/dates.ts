@@ -51,3 +51,21 @@ export function lastDays(days: number, now = new Date()): string[] {
     new Date(now.getTime() - (days - 1 - i) * dayMs).toISOString(),
   );
 }
+
+/** «hace 5 min», «hace 2 h», «ayer», «hace 3 días»; más de una semana, «24 ene 2025». */
+export function formatRelative(date: Date | string, now = new Date()): string {
+  const diffMin = Math.max(0, Math.floor((now.getTime() - new Date(date).getTime()) / 60000));
+  if (diffMin < 1) return "recién";
+  if (diffMin < 60) return `hace ${diffMin} min`;
+  const diffH = Math.floor(diffMin / 60);
+  if (diffH < 24) return `hace ${diffH} h`;
+  const diffD = Math.floor(diffH / 24);
+  if (diffD === 1) return "ayer";
+  if (diffD < 7) return `hace ${diffD} días`;
+  return formatShortDate(date);
+}
+
+/** `YYYY-MM-DD` (día de America/Santiago) → ISO a mediodía UTC, que cae el mismo día en Santiago. */
+export function santiagoDayToIso(day: string): string {
+  return `${day}T12:00:00.000Z`;
+}

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import type { IDashboardFavorite } from "@/interfaces/dashboard";
 
-export type LDCFavoriteItemProps = Omit<IDashboardFavorite, "id">;
+export type LDCFavoriteItemProps = Pick<IDashboardFavorite, "kind" | "title" | "place" | "image" | "href">;
 
 /**
  * LDCFavoriteItem - Favorito compacto del panel del usuario
@@ -36,7 +36,7 @@ export function LDCFavoriteItem({ kind, title, place, image, href }: LDCFavorite
             {kind}
           </p>
           <p className="line-clamp-2 text-sm font-bold">{title}</p>
-          <p className="truncate font-open-sans text-xs text-muted-foreground">{place}</p>
+          {place && <p className="truncate font-open-sans text-xs text-muted-foreground">{place}</p>}
         </div>
         <Heart className="ml-auto size-4 shrink-0 fill-pink text-pink" aria-hidden />
       </Link>

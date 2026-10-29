@@ -29,24 +29,43 @@ export interface IDashboardTask {
   action?: { label: string; href: string };
 }
 
-/** Elemento de la cola de moderación del administrador. */
+/** Tipo de publicación que se modera (ruta `/admin/moderation/:kind/:id`). */
+export type IDashboardModerationKind = "listing" | "classified";
+
+/** Elemento de la cola de moderación del administrador (`GET /admin/moderation`). */
 export interface IDashboardModerationItem {
   id: string;
-  kind: "new-listing" | "renewal" | "report";
+  kind: IDashboardModerationKind;
   title: string;
-  /** Quién lo envió o el motivo del reporte. */
+  slug: string;
+  image: string;
+  /** Quién lo envió («Mascotas Felices SpA · comercio»). */
   by: string;
-  city: string;
   /** Tiempo relativo ya redactado («hace 2 h», «ayer»). */
   when: string;
-  image: string;
-  /** Página pública del elemento. */
-  href: string;
+  /** Descripción en texto plano: se muestra como texto, nunca como HTML. */
+  description: string;
+}
+
+/** Resultado de una server action del panel (aprobar, rechazar, quitar un favorito). */
+export type IDashboardActionResult = { ok: true } | { ok: false; message: string };
+
+/** Estado y métricas de una publicación propia (comercio o usuario). */
+export interface IDashboardOwnership {
+  status: IDashboardPublicationStatus;
+  /** Visitas de los últimos 30 días; `null` si no se miden (avisos) o no se pudieron leer. */
+  visits30d: number | null;
+}
+
+/** Publicación propia (`T`) con su estado y métricas. */
+export interface IDashboardOwned<T> {
+  item: T;
+  ownership: IDashboardOwnership;
 }
 
 /** Punto de la serie de visitas por día. */
 export interface IDashboardVisitPoint {
-  /** Fecha ISO (medianoche del día en America/Santiago). */
+  /** Fecha ISO (mediodía UTC del día de America/Santiago, para que no cambie de día al formatear). */
   date: string;
   value: number;
 }
@@ -69,13 +88,19 @@ export interface IDashboardContactSummary {
   address?: string;
 }
 
+/** Tipo de favorito del backend (`DELETE /me/favorites/:kind/:targetId`). */
+export type IDashboardFavoriteKind = "LISTING" | "CLASSIFIED" | "PROPERTY" | "NEWS";
+
 /** Favorito guardado por el usuario. */
 export interface IDashboardFavorite {
+  /** `${kindKey}:${targetId}` */
   id: string;
+  kindKey: IDashboardFavoriteKind;
+  targetId: string;
   /** Tipo visible: «Comercio», «Servicio», «Propiedad», «Noticia». */
   kind: string;
   title: string;
-  /** Ciudad o categoría bajo el título. */
+  /** Ciudad bajo el título (vacío si no tiene, p. ej. una noticia). */
   place: string;
   image: string;
   href: string;
@@ -104,11 +129,11 @@ export interface IDashboardAdminCounts {
   regions: number;
 }
 
-/** Métricas simuladas del comercio (30 días). */
+/** Métricas del comercio en los últimos 30 días (`GET /me/metrics?days=30`). */
 export interface IDashboardComercioStats {
   visits: number;
-  /** Variación en % contra los 30 días previos. */
-  visitsDelta: number;
+  /** Variación en % contra los 30 días previos; `null` si antes hubo 0 visitas y ahora no. */
+  visitsDelta: number | null;
   whatsapp: number;
   calls: number;
   web: number;

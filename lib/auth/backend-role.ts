@@ -9,6 +9,8 @@ import { isLDCRole, type LDCRole } from "./roles";
 /** Rol del backend → rol del front. Agrega aquí los roles nuevos del enum `Role`. */
 const BACKEND_ROLE_MAP: Readonly<Record<string, string>> = {
   ADMIN: "admin",
+  COMERCIO: "comercio",
+  USUARIO: "usuario",
 };
 
 /** Rol del front para el `role` que devuelve el backend, o `null` si es desconocido o no viene. */

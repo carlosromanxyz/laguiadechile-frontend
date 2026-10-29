@@ -22,6 +22,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-contact-actions** (`LDCContactActions`): botones de contacto directo (WhatsApp, llamar, correo) que tengan datos.
 - **ldc-contact-info** (`LDCContactInfo`): redes sociales de La Guía en la página de contacto.
 - **ldc-empty-state** (`LDCEmptyState`): estado vacío con ícono, título y texto.
+- **ldc-favorite-remove-button** (`LDCFavoriteRemoveButton`): botón de ícono que quita un favorito con una server action y avisa con un toast. Cliente.
 - **ldc-footer-nav-list** (`LDCFooterNavList`): lista de enlaces del pie dentro de un `<nav>` etiquetado.
 - **ldc-footer-widget** (`LDCFooterWidget`): columna del pie de página con título opcional.
 - **ldc-form-field** (`LDCFormField`): campo de React Hook Form sobre `Field` de shadcn (etiqueta, control y error). Cliente.
@@ -30,6 +31,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-listing-gallery** (`LDCListingGallery`): galería de fotos en carrusel de las fichas. Cliente.
 - **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección.
 - **ldc-listing-social-media** (`LDCListingSocialMedia`): redes sociales de un comercio o servicio.
+- **ldc-moderation-actions** (`LDCModerationActions`): Aprobar y Rechazar (con confirmación y motivo opcional) de la cola de moderación, con server actions. Cliente.
 - **ldc-nav-menu** (`LDCNavMenu`): navegación principal de escritorio del header.
 - **ldc-news-author** (`LDCNewsAuthor`): caja del autor, fecha y tiempo de lectura en la ficha de noticia.
 - **ldc-news-card** (`LDCNewsCard`): card de noticia. Cliente.

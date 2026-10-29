@@ -1,15 +1,28 @@
 import "server-only";
 /**
- * Datos del inicio del administrador: conteos y noticias reales de la API, y la cola de
- * moderación simulada (el backend aún no tiene envíos de comercios ni reportes).
+ * Datos del inicio del administrador: conteos y noticias de la API pública, y la cola de
+ * moderación (`GET /admin/moderation`, con la sesión del request).
  */
+import { cache } from "react";
 import type {
   IDashboardAdminCounts,
   IDashboardModerationItem,
   IDashboardNewsItem,
 } from "@/interfaces/dashboard";
 import { apiFetchServer } from "@/lib/api-client";
-import { MOCK_MODERATION_QUEUE } from "@/lib/mock/dashboard/moderacion";
+import { formatRelative } from "@/lib/dashboard/dates";
+
+interface RawModerationItem {
+  kind: "LISTING" | "CLASSIFIED";
+  id: string;
+  title: string;
+  slug: string;
+  image: string;
+  updatedAt: string;
+  owner: { name: string; email: string } | null;
+  /** Texto plano (el backend quita las etiquetas). */
+  description: string;
+}
 
 interface RawListingLite {
   featured?: boolean;
@@ -87,7 +100,25 @@ export async function getAdminOverview(): Promise<{
   };
 }
 
-/** Cola de moderación (simulada). */
-export async function getModerationQueue(): Promise<IDashboardModerationItem[]> {
-  return MOCK_MODERATION_QUEUE;
-}
+/**
+ * Cola de moderación: lo que comercios y usuarios enviaron o editaron, lo más antiguo primero.
+ * Ante un error, lista vacía (el layout también la pide para el contador del menú).
+ */
+export const getModerationQueue = cache(async (): Promise<IDashboardModerationItem[]> => {
+  const raw = await safeList<RawModerationItem>("/admin/moderation");
+  const now = new Date();
+  return raw.map((m) => {
+    const kind = m.kind === "CLASSIFIED" ? "classified" : "listing";
+    const role = kind === "listing" ? "comercio" : "usuario";
+    return {
+      id: m.id,
+      kind,
+      title: m.title,
+      slug: m.slug,
+      image: m.image,
+      by: m.owner ? `${m.owner.name} · ${role}` : "Sin dueño",
+      when: formatRelative(m.updatedAt, now),
+      description: m.description,
+    };
+  });
+});

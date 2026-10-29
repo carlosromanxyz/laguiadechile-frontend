@@ -59,33 +59,31 @@ export default async function ComercioHomePage() {
           label="Visitas a tu ficha"
           value={stats.visits}
           icon={<Eye className="size-4" />}
-          trend={stats.visitsDelta}
-          hint="vs. 30 días previos"
-          simulated
+          trend={stats.visitsDelta ?? undefined}
+          hint={stats.visitsDelta === null ? "sin visitas en los 30 días previos" : "vs. 30 días previos"}
         />
         <LDCStatCard
           label="Clics en WhatsApp"
           value={stats.whatsapp}
           icon={<MessageCircle className="size-4" />}
-          simulated
         />
-        <LDCStatCard label="Llamadas" value={stats.calls} icon={<Phone className="size-4" />} simulated />
+        <LDCStatCard label="Llamadas" value={stats.calls} icon={<Phone className="size-4" />} />
         <LDCStatCard
           label="Clics a tu sitio web"
           value={stats.web}
           icon={<Globe className="size-4" />}
-          simulated
         />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
-        <LDCVisitsChart points={series} simulated />
-        <LDCProfileCompletion
-          pct={completion.pct}
-          items={completion.items}
-          actionHref="/dashboard/comercio/ficha"
-          simulated
-        />
+        <LDCVisitsChart points={series} />
+        {completion && (
+          <LDCProfileCompletion
+            pct={completion.pct}
+            items={completion.items}
+            actionHref="/dashboard/comercio/ficha"
+          />
+        )}
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,2fr)_minmax(0,1fr)]">
@@ -155,13 +153,15 @@ export default async function ComercioHomePage() {
                 headClassName: "hidden text-right md:table-cell",
                 cellClassName: "hidden text-right font-bold md:table-cell",
                 cell: (l) =>
-                  l.ownership.visits30d ? numberFormat.format(l.ownership.visits30d) : "—",
+                  l.ownership.visits30d != null ? numberFormat.format(l.ownership.visits30d) : "—",
               },
             ]}
             getRowActions={() => ({ editHref: "/dashboard/comercio/ficha" })}
           />
         </LDCDashboardCard>
-        <LDCContactSummary contact={contact} editHref="/dashboard/comercio/horario-y-contacto" />
+        {contact && (
+          <LDCContactSummary contact={contact} editHref="/dashboard/comercio/horario-y-contacto" />
+        )}
       </div>
     </LDCDashboardPageTemplate>
   );
