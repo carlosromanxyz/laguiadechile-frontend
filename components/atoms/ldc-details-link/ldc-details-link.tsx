@@ -41,6 +41,8 @@ interface LDCDetailsLinkProps {
   variant?: LDCDetailsLinkVariant;
   /** Optional className for custom styling (va al enlace) */
   className?: string;
+  /** Si viene, se pinta un `<button>` que llama a esto en vez de navegar (p. ej. abrir un modal) */
+  onClick?: () => void;
 }
 
 /**
@@ -60,8 +62,18 @@ export function LDCDetailsLink({
   label = "Ver detalles",
   variant = "default",
   className,
+  onClick,
 }: LDCDetailsLinkProps) {
   const classes = detailsLinkVariants[variant];
+
+  if (onClick) {
+    return (
+      <button type="button" onClick={onClick} className={cn(classes.link, "cursor-pointer", className)}>
+        <span className={classes.label}>{label}</span>
+        <ChevronRight className={classes.icon} aria-hidden />
+      </button>
+    );
+  }
 
   return (
     <Link href={href} className={cn(classes.link, className)}>

@@ -59,6 +59,13 @@ interface LDCComboboxProps {
   searchPlaceholder?: string;
   emptyText?: string;
   className?: string;
+  /** Id del botón (para asociarlo a una etiqueta, p. ej. desde `LDCFormField`) */
+  id?: string;
+  /** Marca el control como inválido */
+  "aria-invalid"?: boolean;
+  /** Ids de la descripción y del error del campo */
+  "aria-describedby"?: string;
+  disabled?: boolean;
 }
 
 export function LDCCombobox({
@@ -69,6 +76,9 @@ export function LDCCombobox({
   searchPlaceholder = "Buscar...",
   emptyText = "No se encontraron resultados.",
   className,
+  id,
+  disabled,
+  ...aria
 }: LDCComboboxProps) {
   const [open, setOpen] = useState(false);
 
@@ -77,8 +87,11 @@ export function LDCCombobox({
       <PopoverTrigger className="w-full" asChild>
         <Button
           variant="outline"
+          id={id}
           role="combobox"
           aria-expanded={open}
+          disabled={disabled}
+          {...aria}
           className={cn(
             "w-full justify-between bg-white/90 text-foreground",
             !value && "text-muted-foreground",

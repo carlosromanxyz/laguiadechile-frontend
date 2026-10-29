@@ -11,6 +11,10 @@ interface LDCPanelProps {
   as?: "div" | "section" | "aside" | "article";
   /** Clases adicionales (se agregan al final) */
   className?: string;
+  /** Id del elemento (p. ej. un ancla `#horario`) */
+  id?: string;
+  /** Id del título que nombra la región */
+  "aria-labelledby"?: string;
 }
 
 /**
@@ -27,9 +31,11 @@ export function LDCPanel({
   padding = "md",
   as: Component = "div",
   className,
+  id,
+  "aria-labelledby": labelledBy,
 }: LDCPanelProps) {
   return (
-    <Component className={cn(PANEL_BASE, PANEL_PADDING[padding], className)}>
+    <Component id={id} aria-labelledby={labelledBy} className={cn(PANEL_BASE, PANEL_PADDING[padding], className)}>
       {children}
     </Component>
   );

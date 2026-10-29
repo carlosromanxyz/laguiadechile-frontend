@@ -1,6 +1,5 @@
 import {
   ChartColumn,
-  Clock,
   Folder,
   Heart,
   Home,
@@ -76,7 +75,6 @@ export const dashboardNavigation: Record<LDCRole, IDashboardNavGroup[]> = {
       items: [
         { href: "/dashboard/comercio/publicaciones", label: "Mis publicaciones", icon: Store },
         { href: "/dashboard/comercio/ficha", label: "Editar ficha", icon: Pencil },
-        { href: "/dashboard/comercio/horario-y-contacto", label: "Horario y contacto", icon: Clock },
       ],
     },
     {

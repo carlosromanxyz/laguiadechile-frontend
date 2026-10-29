@@ -19,6 +19,13 @@ export interface LDCDashboardCardProps {
   children: ReactNode;
   /** Clases adicionales del contenedor */
   className?: string;
+  /**
+   * Id de la sección (p. ej. el ancla `#horario`). Si viene, el título lleva `${id}-title` y la
+   * sección se nombra con `aria-labelledby`.
+   */
+  id?: string;
+  /** Bajada bajo el título */
+  description?: ReactNode;
 }
 
 /**
@@ -40,10 +47,15 @@ export function LDCDashboardCard({
   variant = "panel",
   children,
   className,
+  id,
+  description,
 }: LDCDashboardCardProps) {
+  const titleId = id ? `${id}-title` : undefined;
   const header = (
     <div className="mb-3 flex min-h-8 items-center justify-between gap-2">
-      <h2 className="text-base font-extrabold">{title}</h2>
+      <h2 id={titleId} className="text-base font-extrabold">
+        {title}
+      </h2>
       {(simulated || action) && (
         <div className="flex shrink-0 items-center gap-2">
           {simulated && <LDCBadge variant="simulated">Simulado</LDCBadge>}
@@ -52,19 +64,25 @@ export function LDCDashboardCard({
       )}
     </div>
   );
+  const sub =
+    description != null ? (
+      <p className="-mt-2 mb-4 font-open-sans text-sm text-muted-foreground">{description}</p>
+    ) : null;
 
   if (variant === "plain") {
     return (
-      <section className={cn("min-w-0", className)}>
+      <section id={id} aria-labelledby={titleId} className={cn("min-w-0", className)}>
         {header}
+        {sub}
         {children}
       </section>
     );
   }
 
   return (
-    <LDCPanel as="section" className={cn("min-w-0 p-4", className)}>
+    <LDCPanel as="section" id={id} aria-labelledby={titleId} className={cn("min-w-0 p-4", className)}>
       {header}
+      {sub}
       {children}
     </LDCPanel>
   );
