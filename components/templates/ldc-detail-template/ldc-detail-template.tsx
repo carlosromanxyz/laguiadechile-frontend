@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
+import { LDCMetricView } from "@/components/atoms/ldc-metric-view";
 import { LDCPriceBox } from "@/components/molecules/ldc-price-box";
 import { LDCListingGallery } from "@/components/molecules/ldc-listing-gallery";
 import { LDCListingMap } from "@/components/molecules/ldc-listing-map";
@@ -175,7 +176,9 @@ function ListingDetail({
       }
       sidebar={
         <>
+          <LDCMetricView listingId={listing.id} />
           <LDCListingInfo
+            listingId={listing.id}
             listingTitle={listing.title}
             contact={listing.contact}
             schedule={listing.schedule}
