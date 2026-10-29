@@ -192,6 +192,7 @@ function ListingDetail({
             {related.map((item) => (
               <LDCListingCard
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 slug={item.slug}
                 type={item.type}
@@ -268,6 +269,7 @@ function ClassifiedDetail({
             {related.map((item) => (
               <LDCClassifiedCard
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 slug={item.slug}
                 type={item.type}
@@ -360,6 +362,7 @@ function PropertyDetail({
             {related.map((item) => (
               <LDCPropertyCard
                 key={item.id}
+                id={item.id}
                 title={item.title}
                 slug={item.slug}
                 type={item.type}

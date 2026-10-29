@@ -2,6 +2,7 @@ import Image from "next/image";
 import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import { Star, Sparkles, CalendarDays, Clock } from "lucide-react";
 import type { INews } from "@/interfaces/news";
 import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
@@ -85,7 +86,16 @@ export function LDCNewsArticleHero({
           </span>
         </div>
 
-        <LDCSocialShareButtons title={news.title} variant="dark" />
+        {/* Compartir y guardar en favoritos */}
+        <div className="flex flex-wrap items-center gap-2">
+          <LDCSocialShareButtons title={news.title} variant="dark" />
+          <LDCFavoriteButton
+            kind="NEWS"
+            targetId={news.id}
+            title={news.title}
+            variant="pill"
+          />
+        </div>
       </div>
     </LDCPageHero>
   );

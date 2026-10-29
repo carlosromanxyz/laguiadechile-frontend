@@ -117,6 +117,7 @@ export function LDCCityTemplate({
               {listings.slice(0, 10).map((listing) => (
                 <LDCListingCard
                   key={listing.id}
+                  id={listing.id}
                   title={listing.title}
                   slug={listing.slug}
                   type={listing.type}
@@ -172,6 +173,7 @@ export function LDCCityTemplate({
               {properties.slice(0, 10).map((property) => (
                 <LDCPropertyCard
                   key={property.id}
+                  id={property.id}
                   title={property.title}
                   slug={property.slug}
                   type={property.type}
@@ -234,6 +236,7 @@ export function LDCCityTemplate({
               {classifieds.slice(0, 6).map((classified) => (
                 <LDCClassifiedCard
                   key={classified.id}
+                  id={classified.id}
                   title={classified.title}
                   slug={classified.slug}
                   type={classified.type}

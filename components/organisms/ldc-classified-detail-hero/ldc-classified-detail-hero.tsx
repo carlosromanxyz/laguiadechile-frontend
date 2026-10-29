@@ -1,6 +1,7 @@
 import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import { getIcon } from "@/lib/get-icon";
 import { getClassifiedTypeBadgeLabel } from "@/lib/format/classifieds";
 import Link from "next/link";
@@ -66,7 +67,16 @@ export function LDCClassifiedDetailHero({
           </span>
         </Link>
 
-        <LDCSocialShareButtons title={classified.title} variant="dark" />
+        {/* Compartir y guardar en favoritos */}
+        <div className="flex flex-wrap items-center gap-2">
+          <LDCSocialShareButtons title={classified.title} variant="dark" />
+          <LDCFavoriteButton
+            kind="CLASSIFIED"
+            targetId={classified.id}
+            title={classified.title}
+            variant="pill"
+          />
+        </div>
       </div>
     </LDCPageHero>
   );

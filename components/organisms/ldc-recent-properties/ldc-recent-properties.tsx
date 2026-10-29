@@ -31,6 +31,7 @@ export function LDCRecentProperties({ properties }: LDCRecentPropertiesProps) {
         {properties.map((property) => (
           <LDCPropertyCard
             key={property.id}
+            id={property.id}
             title={property.title}
             slug={property.slug}
             type={property.type}

@@ -11,6 +11,7 @@ import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
 import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { toLDCRole } from "@/lib/auth/backend-role";
+import { safeNextPath } from "@/lib/auth/safe-next";
 import { LDC_ROLES, type LDCRole } from "@/lib/auth/roles";
 import { getRoleHome } from "@/lib/dashboard/config";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
@@ -29,6 +30,11 @@ export interface LDCLoginFormProps {
    * @default "admin"
    */
   role?: LDCRole;
+  /**
+   * Ruta interna a la que volver tras iniciar sesión (`?next=` del login). Se vuelve a validar
+   * con `safeNextPath`; si no es válida, se va al panel del rol.
+   */
+  next?: string;
 }
 
 /**
@@ -37,12 +43,13 @@ export interface LDCLoginFormProps {
  * React Hook Form + Zod. Envía a `/api/auth/login` (Route Handler que guarda la
  * cookie JWT) con cualquier rol. Si falla, muestra el error del servidor en línea
  * (`role="alert"`) y en un toast; si sale bien, va al panel del rol real de la
- * cuenta (`getRoleHome`), aunque se haya entrado por el login de otro rol.
+ * cuenta (`getRoleHome`), aunque se haya entrado por el login de otro rol. Con `next`, vuelve
+ * a esa ruta con una navegación completa (la página pública vuelve a pedir sus favoritos).
  *
  * Con comercio o usuario, el pie ofrece crear una cuenta (`registerPath`); con
  * admin, pedir acceso al equipo.
  */
-export function LDCLoginForm({ role = "admin" }: LDCLoginFormProps) {
+export function LDCLoginForm({ role = "admin", next }: LDCLoginFormProps) {
   const config = LDC_ROLES[role];
   const registerPath = "registerPath" in config ? config.registerPath : undefined;
   const router = useRouter();
@@ -69,6 +76,11 @@ export function LDCLoginForm({ role = "admin" }: LDCLoginFormProps) {
       if (!res.ok) throw new Error(data.message ?? "No se pudo iniciar sesión");
       const accountRole = toLDCRole(data.user?.role);
       toast.success("Bienvenido");
+      const target = safeNextPath(next);
+      if (target) {
+        window.location.assign(target);
+        return;
+      }
       // Sin rol conocido, `/dashboard` decide con la sesión del servidor.
       router.replace(accountRole ? getRoleHome(accountRole) : "/dashboard");
       router.refresh();

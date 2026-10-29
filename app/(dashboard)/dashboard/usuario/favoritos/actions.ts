@@ -4,10 +4,7 @@ import { revalidatePath } from "next/cache";
 import type { IDashboardActionResult, IDashboardFavoriteKind } from "@/interfaces/dashboard";
 import { ApiError, apiFetchServer } from "@/lib/api-client";
 import { requireDashboardRole } from "@/lib/dashboard/session";
-
-const KINDS: readonly IDashboardFavoriteKind[] = ["LISTING", "CLASSIFIED", "PROPERTY", "NEWS"];
-const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
+import { isValidFavoriteTarget } from "@/lib/favorites/target";
 
 /** Texto fijo para el usuario según el status de la API (nunca el mensaje crudo del backend). */
 function friendlyError(e: unknown): string {
@@ -24,7 +21,7 @@ export async function removeFavoriteAction(
   targetId: string,
 ): Promise<IDashboardActionResult> {
   await requireDashboardRole("usuario");
-  if (!KINDS.includes(kind) || typeof targetId !== "string" || !UUID.test(targetId)) {
+  if (!isValidFavoriteTarget(kind, targetId)) {
     return { ok: false, message: "Favorito inválido." };
   }
   try {

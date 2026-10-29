@@ -2,6 +2,7 @@
 
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
+import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import Link from "next/link";
 import Image from "next/image";
 import { Star, Calendar } from "lucide-react";
@@ -59,6 +60,7 @@ interface LDCNewsCardProps {
  * ```
  */
 export function LDCNewsCard({
+  id,
   title,
   slug,
   excerpt,
@@ -83,72 +85,75 @@ export function LDCNewsCard({
   return (
     <TooltipProvider delayDuration={300}>
       <LDCCardSurface className={className}>
-        {/* Image */}
-        <Link
-          href={`/noticia/${slug}`}
-          className="block relative aspect-[16/9] overflow-hidden bg-muted"
-        >
-          <Image
-            src={image}
-            alt={title}
-            fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-            className="object-cover transition-transform duration-300 group-hover:scale-110"
-            loading="lazy"
-            quality={85}
-          />
+        {/* Image (el corazón va como hermano del enlace, no dentro) */}
+        <div className="relative">
+          <Link
+            href={`/noticia/${slug}`}
+            className="block relative aspect-[16/9] overflow-hidden bg-muted"
+          >
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover transition-transform duration-300 group-hover:scale-110"
+              loading="lazy"
+              quality={85}
+            />
 
-          {/* Badges Overlay - Top */}
-          <div className="absolute top-2 left-2 right-2 flex gap-1.5 flex-wrap z-10">
-            {featured && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span>
-                    <LDCBadge variant="featured">
-                      <Star className="w-3 h-3 mr-1 fill-current" />
-                      Destacado
-                    </LDCBadge>
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Artículo destacado por el equipo editorial</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-            {isNew && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span>
-                    <LDCBadge variant="new">Nuevo</LDCBadge>
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Publicado en los últimos 7 días</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-            {isUpdated && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <span>
-                    <LDCBadge variant="updated">Actualizado</LDCBadge>
-                  </span>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Este artículo ha sido actualizado recientemente</p>
-                </TooltipContent>
-              </Tooltip>
-            )}
-          </div>
+            {/* Badges Overlay - Top (right-13 deja sitio al corazón) */}
+            <div className="absolute top-2 left-2 right-13 flex gap-1.5 flex-wrap z-10">
+              {featured && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span>
+                      <LDCBadge variant="featured">
+                        <Star className="w-3 h-3 mr-1 fill-current" />
+                        Destacado
+                      </LDCBadge>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Artículo destacado por el equipo editorial</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              {isNew && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span>
+                      <LDCBadge variant="new">Nuevo</LDCBadge>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Publicado en los últimos 7 días</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+              {isUpdated && (
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <span>
+                      <LDCBadge variant="updated">Actualizado</LDCBadge>
+                    </span>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Este artículo ha sido actualizado recientemente</p>
+                  </TooltipContent>
+                </Tooltip>
+              )}
+            </div>
 
-          {/* Category Badge - Bottom */}
-          <div className="absolute bottom-2 left-2 z-10">
-            <LDCBadge variant="default">
-              {renderCategoryIcon(category.icon)}
-              {category.name}
-            </LDCBadge>
-          </div>
-        </Link>
+            {/* Category Badge - Bottom */}
+            <div className="absolute bottom-2 left-2 z-10">
+              <LDCBadge variant="default">
+                {renderCategoryIcon(category.icon)}
+                {category.name}
+              </LDCBadge>
+            </div>
+          </Link>
+          <LDCFavoriteButton kind="NEWS" targetId={id} title={title} />
+        </div>
 
         {/* Content */}
         <div className="p-4 space-y-3">
