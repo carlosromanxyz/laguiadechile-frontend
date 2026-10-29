@@ -30,11 +30,15 @@ export const getDashboardSession = cache(async (): Promise<IDashboardSession | n
 
 /**
  * Exige el rol del prefijo (`/dashboard/{rol}`): sin sesión, al login; con otro rol, a su inicio.
- * Se llama desde el `layout.tsx` de cada rol.
+ * Se llama desde el `layout.tsx` de cada rol. Las páginas que comparten dos roles (p. ej.
+ * `/dashboard/publicar`) pasan la lista de roles que aceptan.
  */
-export async function requireDashboardRole(role: LDCRole): Promise<IDashboardSession> {
+export async function requireDashboardRole(
+  role: LDCRole | readonly LDCRole[],
+): Promise<IDashboardSession> {
   const session = await getDashboardSession();
   if (!session) redirect("/dashboard/login");
-  if (session.role !== role) redirect(getRoleHome(session.role));
+  const allowed: readonly LDCRole[] = typeof role === "string" ? [role] : role;
+  if (!allowed.includes(session.role)) redirect(getRoleHome(session.role));
   return session;
 }

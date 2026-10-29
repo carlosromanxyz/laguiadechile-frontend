@@ -50,7 +50,7 @@ export default async function ComercioHomePage() {
     <LDCDashboardPageTemplate
       title={`Hola, ${session.user.greetingName}`}
       description="Así le fue a tu ficha en los últimos 30 días."
-      actions={<LDCCTAButton href="/publicar" text="Publicar" />}
+      actions={<LDCCTAButton href="/dashboard/publicar" text="Publicar otra ficha" />}
     >
       <LDCTaskList tasks={tasks} />
 

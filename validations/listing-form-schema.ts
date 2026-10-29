@@ -87,3 +87,8 @@ export const myListingUpdateSchema = z.object({
   website: z.string().max(500).refine(isHttpUrl).nullable(),
   schedule: z.record(z.string(), z.string().max(100)).nullable(),
 });
+
+/** Cuerpo que la server action de alta acepta y reenvía a `POST /me/listings` (ya convertido). */
+export const myListingCreateSchema = myListingUpdateSchema.extend({
+  type: z.enum(["comercio", "servicio"]),
+});

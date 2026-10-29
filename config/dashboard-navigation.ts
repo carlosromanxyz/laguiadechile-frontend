@@ -1,5 +1,6 @@
 import {
   ChartColumn,
+  CirclePlus,
   Folder,
   Heart,
   Home,
@@ -75,6 +76,7 @@ export const dashboardNavigation: Record<LDCRole, IDashboardNavGroup[]> = {
       items: [
         { href: "/dashboard/comercio/publicaciones", label: "Mis publicaciones", icon: Store },
         { href: "/dashboard/comercio/ficha", label: "Editar ficha", icon: Pencil },
+        { href: "/dashboard/publicar", label: "Publicar otra ficha", icon: CirclePlus },
       ],
     },
     {
