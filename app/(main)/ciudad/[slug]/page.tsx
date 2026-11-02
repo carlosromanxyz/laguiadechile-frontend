@@ -79,7 +79,7 @@ export default async function CityPage({ params }: CityPageProps) {
       listings={listings}
       properties={properties}
       classifieds={classifieds}
-      wikipedia={<LDCCityWikipedia cityName={city.name} />}
+      wikipedia={<LDCCityWikipedia cityName={city.name} image={city.image} />}
       liveInfo={<LDCCityLiveInfo cityName={city.name} />}
     />
   );

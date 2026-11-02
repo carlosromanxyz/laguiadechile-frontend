@@ -14,11 +14,6 @@ const nextConfig: NextConfig = {
         hostname: "i.pravatar.cc",
         pathname: "/**",
       },
-      {
-        protocol: "https",
-        hostname: "upload.wikimedia.org",
-        pathname: "/**",
-      },
     ],
   },
   // Anti-clickjacking: nadie fuera del propio sitio puede embeberlo en un iframe.

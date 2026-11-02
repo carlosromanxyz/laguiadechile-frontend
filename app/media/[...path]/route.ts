@@ -17,13 +17,19 @@ const MEDIA_UPSTREAM = (process.env.MEDIA_UPSTREAM_URL ?? "http://minio:9000/lgd
 const SEGMENT = /^[A-Za-z0-9._-]+$/;
 
 const SECURITY_HEADERS = {
-  // El tipo lo fijó el backend al subir (validado por sus bytes): que el navegador no adivine otro.
+  // El tipo lo fijó quien subió el objeto, validado por sus bytes: las subidas de usuario (`u/`) en el
+  // backend y las fotos de ciudad (`cities/`) en `prisma/scripts/city-images.ts`. Que el navegador
+  // no adivine otro.
   "X-Content-Type-Options": "nosniff",
   // Si alguna vez se abre directo, que no ejecute nada.
   "Content-Security-Policy": "default-src 'none'; img-src 'self'; style-src 'unsafe-inline'; sandbox",
 };
 
-/** Cada clave es un UUID nuevo: el objeto nunca cambia. */
+/**
+ * Ninguna clave se reescribe: las de usuario (`u/`) son UUID nuevos y las de ciudad
+ * (`cities/<slug>-<hash8>.<ext>`) llevan el hash del contenido, así que un reemplazo es otra clave.
+ * El objeto nunca cambia.
+ */
 const CACHE_HIT = "public, max-age=31536000, immutable";
 
 const IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp"]);

@@ -6,7 +6,8 @@ import type { IWikipediaCityInfo, IWikipediaSummary } from "@/interfaces/wikiped
  * Resumen de una ciudad desde la Wikipedia en español (REST v1).
  *
  * Solo servidor: lo usa el route handler `/api/wikipedia`, que es lo que pide el cliente
- * (`useCityWikipedia`). Se revalida una vez al día.
+ * (`useCityWikipedia`). Se revalida una vez al día. No devuelve la miniatura: la foto de la ciudad
+ * sale del bucket (`City.image`, CLGDC-145), no de Wikimedia.
  */
 
 const REVALIDATE = 86400; // 1 día
@@ -39,7 +40,6 @@ export async function getCityWikipedia(city: string): Promise<IWikipediaCityInfo
   return {
     title: data.title,
     extract: data.extract,
-    thumbnail: data.thumbnail,
     url: data.content_urls.desktop.page,
     description: data.description,
   };

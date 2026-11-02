@@ -12,6 +12,7 @@ interface RawRegionCity {
   name: string;
   slug: string;
   isCapital: boolean;
+  image?: string | null;
 }
 interface RawRegion {
   id: string;
@@ -40,6 +41,7 @@ const mapRegionCity = (c: RawRegionCity): IRegionCity => ({
   name: c.name,
   slug: c.slug,
   isCapital: c.isCapital,
+  image: c.image ?? undefined,
 });
 const mapRegion = (r: RawRegion): IRegion => ({
   id: r.id,

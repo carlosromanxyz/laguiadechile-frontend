@@ -6,6 +6,8 @@ import type { IWikipediaCityInfo } from "@/interfaces/wikipedia";
 interface LDCWikipediaSectionProps {
   /** City name shown in the heading («Acerca de <ciudad>») */
   cityName: string;
+  /** Foto de la ciudad (`City.image`, servida desde el bucket); sin ella no se pinta foto */
+  image?: string;
   /** Resumen de Wikipedia; `null` no pinta nada (salvo mientras `loading`) */
   data: IWikipediaCityInfo | null;
   /** Muestra el esqueleto de carga */
@@ -17,17 +19,19 @@ interface LDCWikipediaSectionProps {
 /**
  * LDCWikipediaSection - Wikipedia City Information
  *
- * Presentacional: muestra la descripción, la imagen y el enlace al artículo de la Wikipedia en
- * español que recibe, o un esqueleto mientras `loading`. Los datos los pide `useCityWikipedia`.
+ * Presentacional: muestra la foto de la ciudad (`image`), la descripción y el enlace al artículo de
+ * la Wikipedia en español que recibe, o un esqueleto mientras `loading`. Los datos los pide
+ * `useCityWikipedia`; la foto no sale de Wikipedia sino del bucket (CLGDC-145).
  *
  * @example
  * ```tsx
  * const { data, loading } = useCityWikipedia("Santiago");
- * <LDCWikipediaSection cityName="Santiago" data={data} loading={loading} />
+ * <LDCWikipediaSection cityName="Santiago" image={city.image} data={data} loading={loading} />
  * ```
  */
 export function LDCWikipediaSection({
   cityName,
+  image,
   data,
   loading = false,
   className,
@@ -73,11 +77,11 @@ export function LDCWikipediaSection({
     >
       <div className="flex flex-col md:flex-row">
         {/* Image */}
-        {data.thumbnail && (
+        {image && (
           <div className="relative w-full md:w-72 h-48 md:h-auto shrink-0">
             <Image
-              src={data.thumbnail.source}
-              alt={data.title}
+              src={image}
+              alt={cityName}
               fill
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 288px"
