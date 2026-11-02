@@ -3,6 +3,8 @@ export interface IRegionCity {
   name: string;
   slug: string;
   isCapital: boolean;
+  /** Foto de la ciudad en el bucket (`/media/cities/<slug>-<hash8>.<ext>`), si la tiene */
+  image?: string;
 }
 
 export interface IRegion {

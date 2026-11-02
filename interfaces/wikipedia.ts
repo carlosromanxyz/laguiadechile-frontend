@@ -25,7 +25,6 @@ export interface IWikipediaSummary {
 export interface IWikipediaCityInfo {
   title: string;
   extract: string;
-  thumbnail?: IWikipediaThumbnail;
   url: string;
   description?: string;
 }
