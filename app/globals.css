@@ -45,6 +45,7 @@
   --color-orange: var(--orange);
   --color-orange-red: var(--orange-red);
   --color-pink: var(--pink);
+  --color-pink-strong: var(--pink-strong);
   --color-purple: var(--purple);
   --color-blue-gray: var(--blue-gray);
   --radius-sm: calc(var(--radius) - 4px);
@@ -95,6 +96,8 @@
   --orange: oklch(0.75 0.18 55);
   --orange-red: oklch(0.68 0.22 35);
   --pink: oklch(0.62 0.28 350);
+  /* Rosado intenso: fondo de los CTA con texto blanco (5,23:1 en ambos temas). */
+  --pink-strong: oklch(0.56 0.24 350);
   --purple: oklch(0.58 0.24 290);
   --blue-gray: oklch(0.57 0.06 255);
 }

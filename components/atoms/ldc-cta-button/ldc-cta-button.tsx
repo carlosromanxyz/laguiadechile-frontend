@@ -58,8 +58,8 @@ interface LDCCTAButtonProps {
   loadingText?: string;
 
   /**
-   * Tono del texto sobre el naranjo. `contrast` usa texto negro (8,9:1 en vez
-   * de 2,4:1 del blanco). Por ahora solo lo usa el login.
+   * `default`: rosado intenso con texto blanco (5,23:1). `contrast`: naranjo con
+   * texto negro (8,9:1); lo usan el login y el registro.
    * @default "default"
    */
   variant?: "default" | "contrast";
@@ -74,7 +74,8 @@ interface LDCCTAButtonProps {
  * LDCCTAButton - Call-to-Action Button Component
  *
  * A prominent button component with La Guía de Chile branding.
- * Features orange background with yellow hover state and smooth transitions.
+ * Rosado intenso (`bg-pink-strong`) con texto blanco, hover amarillo con texto negro
+ * y anillo de foco rosado en claro y amarillo en oscuro.
  * Can be used as a link (Next.js Link) or a button element.
  *
  * @example
@@ -111,11 +112,12 @@ export function LDCCTAButton({
     "inline-flex items-center gap-2 px-6 py-2.5 rounded-full",
     variant === "contrast"
       ? "bg-orange text-black font-semibold text-sm"
-      : "bg-orange text-white font-semibold text-sm",
-    "transition-all duration-200",
+      : "bg-pink-strong text-white font-semibold text-sm",
+    "transition-[transform,background-color,color] duration-200 motion-reduce:transition-none",
+    "focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink dark:focus-visible:outline-yellow",
     disabled
       ? "opacity-50 cursor-not-allowed"
-      : "hover:bg-yellow hover:text-black hover:scale-105 active:scale-95",
+      : "hover:bg-yellow hover:text-black hover:scale-105 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
     className
   );
 
