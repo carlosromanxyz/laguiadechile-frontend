@@ -79,7 +79,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
       <LDCPaginatedListingsGrid
         listings={listings}
         itemsPerPage={20}
-        columns={5}
+        columns={4}
         emptyMessage={`No se encontraron publicaciones en ${category.name}`}
         loadMoreLabel="Cargar más publicaciones"
       />
