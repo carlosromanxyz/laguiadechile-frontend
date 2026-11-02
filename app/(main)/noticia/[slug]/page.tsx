@@ -61,7 +61,7 @@ export default async function NoticiaPage({ params }: NoticiaPageProps) {
     notFound();
   }
 
-  const relatedNews = await getRelatedNews(news.id, news.category.slug, 3);
+  const relatedNews = await getRelatedNews(news.id, news.category.slug, 4);
 
   return <LDCDetailTemplate kind="noticia" news={news} related={relatedNews} />;
 }

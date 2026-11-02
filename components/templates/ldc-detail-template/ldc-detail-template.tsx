@@ -13,7 +13,6 @@ import { LDCPropertyFeatures } from "@/components/molecules/ldc-property-feature
 import { LDCPropertyAgent } from "@/components/molecules/ldc-property-agent";
 import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
 import { LDCNewsAuthor } from "@/components/molecules/ldc-news-author";
-import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { LDCNewsCard } from "@/components/molecules/ldc-news-card";
 import { LDCListingDetailHero } from "@/components/organisms/ldc-listing-detail-hero";
 import { LDCListingInfo } from "@/components/organisms/ldc-listing-info";
@@ -33,7 +32,7 @@ import {
   getOperationLabel,
 } from "@/lib/format/properties";
 import { getReadingTime, isNewArticle } from "@/lib/format/news";
-import { FileText, Clock, CalendarDays, Share2 } from "lucide-react";
+import { FileText, Clock, CalendarDays } from "lucide-react";
 import type { ReactNode } from "react";
 import type { IListingDetail, IListingDetails } from "@/interfaces/listing";
 import type { IClassified, IClassifieds } from "@/interfaces/classified";
@@ -432,25 +431,15 @@ function NewsDetail({
         </>
       }
       sidebar={
-        <>
-          <LDCNewsAuthor
-            author={news.author}
-            createdAt={news.createdAt}
-            readingTime={readingTime}
-          />
-
-          <LDCPanel>
-            <h3 className="text-lg font-bold font-mulish text-foreground mb-4 flex items-center gap-2">
-              <Share2 className="w-5 h-5 text-pink" />
-              Compartir
-            </h3>
-            <LDCSocialShareButtons title={news.title} variant="dark" />
-          </LDCPanel>
-        </>
+        <LDCNewsAuthor
+          author={news.author}
+          createdAt={news.createdAt}
+          readingTime={readingTime}
+        />
       }
       related={
         related.length > 0 && (
-          <LDCRelatedSection title="Noticias Relacionadas" layout="grid-3">
+          <LDCRelatedSection title="Noticias Relacionadas" layout="grid-4">
             {related.map((item) => (
               <LDCNewsCard
                 key={item.id}
