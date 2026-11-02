@@ -38,7 +38,7 @@ const VARIANT_CLASS = {
   overlay:
     "absolute top-2 right-2 z-20 size-10 sm:size-9 rounded-full bg-card/90 backdrop-blur-sm border border-border shadow-sm text-foreground hover:bg-card hover:scale-105",
   pill:
-    "min-h-9 px-4 py-2 rounded-full bg-foreground/10 border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/20 data-saved:bg-pink/10 data-saved:border-pink/60 dark:data-saved:bg-yellow/10 dark:data-saved:border-yellow/40",
+    "min-h-11 md:min-h-9 px-4 py-2 rounded-full bg-foreground/10 border border-foreground/20 text-foreground text-sm font-medium hover:bg-foreground/20 data-saved:bg-pink/10 data-saved:border-pink/60 dark:data-saved:bg-yellow/10 dark:data-saved:border-yellow/40",
 } as const;
 
 /** Tamaño del corazón y radio de la ráfaga (px) por variante. */
