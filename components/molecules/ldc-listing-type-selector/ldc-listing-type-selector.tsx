@@ -78,7 +78,7 @@ export function LDCListingTypeSelector({
                 aria-hidden
                 className={cn(
                   "grid size-9 shrink-0 place-items-center rounded-full transition-colors",
-                  checked ? "bg-pink text-white dark:bg-yellow dark:text-black" : "bg-muted text-muted-foreground",
+                  checked ? "bg-pink-strong text-white dark:bg-yellow dark:text-black" : "bg-muted text-muted-foreground",
                 )}
               >
                 <Icon className="size-[18px]" />

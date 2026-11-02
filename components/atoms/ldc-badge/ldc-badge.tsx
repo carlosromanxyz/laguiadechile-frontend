@@ -9,7 +9,7 @@ const baseClasses =
 /** Variantes que se suman a `baseClasses`. */
 const variants = {
   featured: "bg-yellow text-black",
-  new: "bg-pink text-white",
+  new: "bg-pink-strong text-white",
   updated: "bg-purple text-white",
   default: "bg-pink dark:bg-purple text-white",
   /** Rol de una cuenta: mismo color que `LDCRoleIcon` (criterio en `LDC_ROLE_META`). */
@@ -38,7 +38,7 @@ const standaloneVariants = {
     "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-black cursor-help",
   /** Badge mínimo de solo ícono (nuevo) con tooltip, como en la card de propiedad. */
   "new-icon":
-    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-500 text-white cursor-help",
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-700 text-white cursor-help",
   /**
    * Tipo de aviso clasificado (card de aviso). Texto con contraste ≥ 4,5:1: negro sobre rosado,
    * naranjo, amarillo y esmeralda; blanco sobre morado.

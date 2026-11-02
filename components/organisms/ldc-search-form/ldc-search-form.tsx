@@ -139,7 +139,7 @@ export function LDCSearchForm({ categories, cities }: LDCSearchFormProps) {
         <Button
           type="submit"
           disabled={isFormEmpty}
-          className="col-span-2 cursor-pointer bg-pink text-white transition-all hover:bg-yellow hover:text-black disabled:cursor-not-allowed disabled:opacity-50"
+          className="col-span-2 cursor-pointer bg-pink-strong text-white transition-[background-color,color] duration-200 hover:bg-yellow hover:text-black focus-visible:ring-0 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50"
         >
           <Search className="mr-2 h-4 w-4" />
           Buscar en La Guía de Chile
