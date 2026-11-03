@@ -12,6 +12,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 
 - **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
+- **ldc-archive-button** (`LDCArchiveButton`): «Archivar» / «Desarchivar» de una publicación propia con una server action; archivar confirma con `LDCArchiveConfirmDialog` (también exporta `useLDCArchiveToggle`, que usa el menú de `LDCResourceRowActions`). Cliente.
 - **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida, con enlace de vuelta opcional en `back`), y el formulario como hijo.
 - **ldc-auth-header** (`LDCAuthHeader`): encabezado de acceso: ícono del rol, h1 de marca y descripción.
 - **ldc-breadcrumbs** (`LDCBreadcrumbs`): migas de pan, en variante clara u oscura.

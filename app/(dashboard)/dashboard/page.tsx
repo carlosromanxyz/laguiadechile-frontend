@@ -4,6 +4,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCButton } from "@/components/atoms/ldc-button";
 import { LDCRoleIcon } from "@/components/atoms/ldc-role-icon";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
+import { LDCArchiveButton } from "@/components/molecules/ldc-archive-button";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
 import { LDCStatCard } from "@/components/molecules/ldc-stat-card";
 import { LDC_PUBLISH_KINDS, LDCPublishChooser } from "@/components/organisms/ldc-publish-chooser";
@@ -20,6 +21,7 @@ import { requireDashboardSession } from "@/lib/dashboard/session";
 import { getModerationQueue } from "@/services/dashboard/admin";
 import { getMyListingsStatus, getMyTasks } from "@/services/dashboard/comercio";
 import { getMyClassifieds, getMyFavorites } from "@/services/dashboard/usuario";
+import { archiveMyPublicationAction, unarchiveMyPublicationAction } from "./archive-actions";
 
 export const metadata = {
   title: "Inicio — Panel",
@@ -34,6 +36,7 @@ const LISTING_STATUS_LABELS: Record<IDashboardPublicationStatus, string> = {
   review: "En revisión",
   expired: "Vencida",
   rejected: "Rechazada",
+  archived: "Archivada",
 };
 
 /** Lo que cubre el inicio según los roles, para la bajada («Tus avisos, tu comercio y …»). */
@@ -107,6 +110,15 @@ function ListingRoleCard({
                   <ChartColumn />
                   Estadísticas
                 </LDCButton>
+                <LDCArchiveButton
+                  kind="listing"
+                  id={main.item.id}
+                  slug={main.item.slug}
+                  title={main.item.title}
+                  archived={main.ownership.status === "archived"}
+                  onArchive={archiveMyPublicationAction}
+                  onUnarchive={unarchiveMyPublicationAction}
+                />
               </>
             }
           />

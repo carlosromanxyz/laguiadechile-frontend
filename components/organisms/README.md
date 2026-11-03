@@ -68,4 +68,4 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-category-form** (`LDCCategoryForm`): formulario para crear o editar una categoría. Cliente.
 - **ldc-resource-table** (`LDCResourceTable`): tabla genérica de recursos con columna de acciones opcional (menú o `renderActions` con `actionsClassName`), tarjetas bajo `md` (`renderCard`), esqueleto (`loading`) y estado vacío (`emptyState`).
 - **ldc-admin-publication-list** (`LDCAdminPublicationList`): listado admin de fichas: toolbar, tabla o tarjetas con `LDCPublicationStatusActions` y paginación. Cliente.
-- **ldc-resource-row-actions** (`LDCResourceRowActions`): menú de editar y eliminar de una fila, con confirmación. Cliente.
+- **ldc-resource-row-actions** (`LDCResourceRowActions`): menú de editar, archivar o desarchivar (`archive`) y eliminar de una fila, con confirmación. Cliente.

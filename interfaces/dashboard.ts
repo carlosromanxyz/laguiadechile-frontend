@@ -14,8 +14,11 @@ export interface IDashboardSession {
   roles: LDCRole[];
 }
 
-/** Estado de una publicación propia (comercio o usuario). */
-export type IDashboardPublicationStatus = "published" | "review" | "expired" | "rejected";
+/**
+ * Estado de una publicación propia (comercio o usuario). `archived`: la archivó su dueño (el
+ * «borrar» del panel, CLGDC-157); no se ve en La Guía y, al desarchivarla, vuelve a revisión.
+ */
+export type IDashboardPublicationStatus = "published" | "review" | "expired" | "rejected" | "archived";
 
 /** Tarea o aviso destacado del inicio («Para hoy», avisos vencidos). */
 export interface IDashboardTask {

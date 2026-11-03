@@ -3,6 +3,7 @@ import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCButton } from "@/components/atoms/ldc-button";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
+import { LDCArchiveButton } from "@/components/molecules/ldc-archive-button";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
 import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
 import { LDCRejectionReasonDialog } from "@/components/molecules/ldc-rejection-reason-dialog";
@@ -13,6 +14,7 @@ import { formatShortDate } from "@/lib/dashboard/dates";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 import { formatClassifiedPrice, typeLabels } from "@/lib/format/classifieds";
 import { getMyClassifieds } from "@/services/dashboard/usuario";
+import { archiveMyPublicationAction, unarchiveMyPublicationAction } from "../archive-actions";
 
 export const metadata = {
   title: "Mis avisos — Panel",
@@ -28,6 +30,7 @@ const STATUS_LABELS: Record<IDashboardPublicationStatus, string> = {
   review: "En revisión",
   expired: "Vencido",
   rejected: "Rechazado",
+  archived: "Archivado",
 };
 
 /** Orden por urgencia: lo que pide acción primero. */
@@ -36,6 +39,7 @@ const URGENCY: Record<IDashboardPublicationStatus, number> = {
   expired: 1,
   review: 2,
   published: 3,
+  archived: 4,
 };
 
 /** Filtros de `?estado=`, en orden; `todos` no filtra. */
@@ -45,6 +49,7 @@ const FILTERS = [
   { key: "revision", label: "En revisión", status: "review" },
   { key: "rechazados", label: "Rechazados", status: "rejected" },
   { key: "vencidos", label: "Vencidos", status: "expired" },
+  { key: "archivados", label: "Archivados", status: "archived" },
 ] as const satisfies readonly { key: string; label: string; status: IDashboardPublicationStatus | null }[];
 
 const EMPTY: Record<(typeof FILTERS)[number]["key"], string> = {
@@ -53,6 +58,7 @@ const EMPTY: Record<(typeof FILTERS)[number]["key"], string> = {
   revision: "No tienes avisos esperando revisión.",
   rechazados: "No tienes avisos rechazados.",
   vencidos: "No tienes avisos vencidos.",
+  archivados: "No tienes avisos archivados.",
 };
 
 interface AvisosPageProps {
@@ -64,6 +70,7 @@ interface AvisosPageProps {
  * por urgencia, con pills de filtro por estado (`?estado=`) y las acciones de cada estado. El
  * motivo de un rechazo se abre desde su badge, en un modal. Los formularios de aviso son de
  * CLGDC-125: «Editar», «Renovar» y «Corregir y reenviar» apuntan a `/dashboard/avisos/[id]`.
+ * «Archivar» (con confirmación) y «Desarchivar» (vuelve a revisión) son de CLGDC-159.
  */
 export default async function AvisosPage({ searchParams }: AvisosPageProps) {
   const [, { estado }, classifieds] = await Promise.all([
@@ -166,6 +173,15 @@ export default async function AvisosPage({ searchParams }: AvisosPageProps) {
                           Ver en La Guía
                         </LDCButton>
                       )}
+                      <LDCArchiveButton
+                        kind="classified"
+                        id={item.id}
+                        slug={item.slug}
+                        title={item.title}
+                        archived={status === "archived"}
+                        onArchive={archiveMyPublicationAction}
+                        onUnarchive={unarchiveMyPublicationAction}
+                      />
                     </>
                   }
                 />
