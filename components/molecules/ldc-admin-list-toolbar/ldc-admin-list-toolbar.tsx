@@ -22,9 +22,9 @@ export interface LDCAdminListToolbarProps {
   /** Búsqueda actual (`?q=`) */
   q: string;
   /** Slug de la ciudad elegida (`?ciudad=`); vacío, todas */
-  city: string;
-  /** Ciudades del filtro */
-  cities: readonly { id: string; name: string; slug: string }[];
+  city?: string;
+  /** Ciudades del filtro; sin ellas no se muestra el filtro de ciudad (p. ej. «Mensajes») */
+  cities?: readonly { id: string; name: string; slug: string }[];
   /** Pills de estado en orden («Todos» primero), con los `counts` del listado */
   statusItems: readonly LDCAdminListToolbarStatusItem[];
   /** Clave del estado activo */
@@ -42,7 +42,8 @@ export interface LDCAdminListToolbarProps {
  *
  * Todo vive en la URL y cada cambio vuelve a la página 1: la búsqueda escribe `?q=` 300 ms después
  * de la última tecla, el `LDCCombobox` de ciudad escribe `?ciudad=` y las pills de `LDCStatusFilter`
- * (tal cual, con los `counts` de la API) escriben `?estado=`. Los enlaces de las pills se
+ * (tal cual, con los `counts` de la API) escriben `?estado=`. Sin `cities`, no hay filtro de ciudad
+ * (la bandeja «Mensajes», CLGDC-124). Los enlaces de las pills se
  * interceptan para pasar por `onNavigate` (así el listado muestra su esqueleto mientras carga).
  *
  * @example
@@ -51,7 +52,7 @@ export interface LDCAdminListToolbarProps {
  */
 export function LDCAdminListToolbar({
   q,
-  city,
+  city = "",
   cities,
   statusItems,
   status,
@@ -117,7 +118,7 @@ export function LDCAdminListToolbar({
     navigate(link.getAttribute("href") ?? pathname);
   }
 
-  const cityItems = [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities];
+  const cityItems = cities ? [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities] : null;
 
   return (
     <div className="flex flex-col gap-3">
@@ -154,21 +155,23 @@ export function LDCAdminListToolbar({
             </Button>
           )}
         </div>
-        <div className="md:w-60">
-          <label htmlFor={cityId} className="sr-only">
-            Ciudad
-          </label>
-          <LDCCombobox
-            id={cityId}
-            items={cityItems}
-            value={city}
-            onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
-            placeholder="Todas las ciudades"
-            searchPlaceholder="Buscar ciudad…"
-            emptyText="No encontramos esa ciudad."
-            className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
-          />
-        </div>
+        {cityItems && (
+          <div className="md:w-60">
+            <label htmlFor={cityId} className="sr-only">
+              Ciudad
+            </label>
+            <LDCCombobox
+              id={cityId}
+              items={cityItems}
+              value={city}
+              onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
+              placeholder="Todas las ciudades"
+              searchPlaceholder="Buscar ciudad…"
+              emptyText="No encontramos esa ciudad."
+              className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
+            />
+          </div>
+        )}
       </div>
       <div onClickCapture={interceptPill}>
         <LDCStatusFilter

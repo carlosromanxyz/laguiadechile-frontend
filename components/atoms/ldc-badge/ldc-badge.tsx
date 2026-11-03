@@ -33,6 +33,12 @@ const variants = {
   /** Archivada por su dueño: neutro, como `status-expired` (tampoco se ve en La Guía). */
   "status-archived": "gap-1 border border-border bg-muted text-muted-foreground",
   "status-rejected": "gap-1 border border-destructive bg-transparent text-destructive",
+  /**
+   * Leído / no leído de la bandeja «Mensajes» del admin (CLGDC-124): «No leído» pide atención como
+   * `status-review` (borde amarillo); «Leído» es neutro como `status-expired`.
+   */
+  "message-unread": "gap-1 border border-yellow bg-transparent text-foreground",
+  "message-read": "gap-1 border border-border bg-muted text-muted-foreground",
 } as const;
 
 /**

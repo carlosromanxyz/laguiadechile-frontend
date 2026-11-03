@@ -1,6 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
+import { sendContactMessageAction } from "@/lib/contact/actions";
+import { CONTACT_LIMITS } from "@/lib/contact/limits";
+import { contactFormSchema } from "@/validations/contact-form-schema";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,16 +21,20 @@ interface LDCContactFormProps {
  * LDCContactForm - Contact Form Component
  *
  * A styled contact form with name, email, subject, and message fields.
- * Includes client-side validation and submission state handling.
+ * Envía de verdad con `sendContactMessageAction` (`POST /contact`, CLGDC-124): estados enviando,
+ * éxito y error (incluido el throttle 429), con el error en `LDCFormAlert`. Lleva el honeypot
+ * `website` oculto (fuera de la vista, `aria-hidden`, `tabIndex=-1` y `autocomplete=off`).
  */
 export function LDCContactForm({ className }: LDCContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     subject: "",
     message: "",
+    website: "",
   });
 
   const handleChange = (
@@ -38,17 +46,38 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting) return;
+    // Mismo esquema que la server action (`validations/contact-form-schema.ts`).
+    const parsed = contactFormSchema.safeParse(formData);
+    if (!parsed.success) {
+      setServerError(parsed.error.issues[0]?.message ?? "Revisa los campos del formulario.");
+      return;
+    }
     setIsSubmitting(true);
+    setServerError(null);
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    let result: Awaited<ReturnType<typeof sendContactMessageAction>>;
+    try {
+      result = await sendContactMessageAction(parsed.data);
+    } catch {
+      result = {
+        ok: false,
+        reason: "error",
+        message: "No pudimos enviar tu mensaje. Inténtalo de nuevo en unos minutos.",
+      };
+    }
 
     setIsSubmitting(false);
+    if (!result.ok) {
+      // Se conservan los datos para corregir o reintentar.
+      setServerError(result.message);
+      return;
+    }
     setIsSubmitted(true);
 
     // Reset form after showing success
     setTimeout(() => {
-      setFormData({ name: "", email: "", subject: "", message: "" });
+      setFormData({ name: "", email: "", subject: "", message: "", website: "" });
       setIsSubmitted(false);
     }, 3000);
   };
@@ -89,6 +118,8 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
       </h2>
 
       <div className="space-y-5">
+        {serverError && <LDCFormAlert message={serverError} />}
+
         {/* Name Field */}
         <div className="space-y-2">
           <Label htmlFor="name">Nombre completo</Label>
@@ -97,6 +128,8 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
             name="name"
             type="text"
             placeholder="Tu nombre"
+            autoComplete="name"
+            maxLength={CONTACT_LIMITS.name}
             value={formData.name}
             onChange={handleChange}
             required
@@ -112,6 +145,8 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
             name="email"
             type="email"
             placeholder="tu@email.com"
+            autoComplete="email"
+            maxLength={CONTACT_LIMITS.email}
             value={formData.email}
             onChange={handleChange}
             required
@@ -127,6 +162,7 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
             name="subject"
             type="text"
             placeholder="¿En qué podemos ayudarte?"
+            maxLength={CONTACT_LIMITS.subject}
             value={formData.subject}
             onChange={handleChange}
             required
@@ -141,6 +177,7 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
             id="message"
             name="message"
             placeholder="Escribe tu mensaje aquí..."
+            maxLength={CONTACT_LIMITS.message}
             value={formData.message}
             onChange={handleChange}
             required
@@ -169,6 +206,20 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
             </>
           )}
         </Button>
+      </div>
+
+      {/* Honeypot: fuera de la vista y del árbol accesible; una persona nunca lo llena. */}
+      <div className="sr-only" aria-hidden="true">
+        <label htmlFor="website">Sitio web</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={formData.website}
+          onChange={handleChange}
+        />
       </div>
     </form>
   );

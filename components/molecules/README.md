@@ -10,7 +10,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 
 ## Componentes
 
-- **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
+- **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad opcional (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
 - **ldc-archive-button** (`LDCArchiveButton`): «Archivar» / «Desarchivar» de una publicación propia con una server action; archivar confirma con `LDCArchiveConfirmDialog` (también exporta `useLDCArchiveToggle`, que usa el menú de `LDCResourceRowActions`). Cliente.
 - **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida, con enlace de vuelta opcional en `back`), y el formulario como hijo.
@@ -24,6 +24,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-combobox** (`LDCCombobox`): combobox con búsqueda (Command + Popover). Cliente.
 - **ldc-contact-actions** (`LDCContactActions`): botones de contacto directo (WhatsApp, llamar, correo) que tengan datos.
 - **ldc-contact-info** (`LDCContactInfo`): redes sociales de La Guía en la página de contacto.
+- **ldc-contact-message-actions** (`LDCContactMessageActions`): Ver (diálogo con el mensaje como texto), Marcar leído y `⋯` (leído / no leído, Responder por correo) de una fila de la bandeja «Mensajes», con una server action. Cliente.
 - **ldc-empty-state** (`LDCEmptyState`): estado vacío con ícono, título y texto.
 - **ldc-favorite-remove-button** (`LDCFavoriteRemoveButton`): botón de ícono que quita un favorito con una server action y avisa con un toast. Cliente.
 - **ldc-footer-nav-list** (`LDCFooterNavList`): lista de enlaces del pie dentro de un `<nav>` etiquetado.

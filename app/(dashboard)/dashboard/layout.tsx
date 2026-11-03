@@ -6,6 +6,7 @@ import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { DASHBOARD_PUBLISH_ROLES } from "@/config/dashboard-navigation";
 import { getDashboardSession } from "@/lib/dashboard/session";
 import { hasAnyRole, type LDCRole } from "@/lib/auth/roles";
+import { getUnreadContactMessagesCount } from "@/services/admin/contact-messages";
 import { getModerationQueue } from "@/services/dashboard/admin";
 import { getMyInReviewCountByType } from "@/services/dashboard/comercio";
 import { getMyClassifiedsPendingCount } from "@/services/dashboard/usuario";
@@ -15,8 +16,9 @@ import { getMyClassifiedsPendingCount } from "@/services/dashboard/usuario";
  * de los grupos que ve la cuenta.
  */
 async function getNavBadges(roles: readonly LDCRole[]): Promise<Record<string, number>> {
-  const [moderation, inReview, classifieds] = await Promise.all([
+  const [moderation, unreadMessages, inReview, classifieds] = await Promise.all([
     roles.includes("admin") ? getModerationQueue().then((q) => q.length) : 0,
+    roles.includes("admin") ? getUnreadContactMessagesCount() : 0,
     hasAnyRole(roles, ["comercio", "servicio"])
       ? getMyInReviewCountByType()
       : { comercio: 0, servicio: 0 },
@@ -24,6 +26,7 @@ async function getNavBadges(roles: readonly LDCRole[]): Promise<Record<string, n
   ]);
   return {
     "/dashboard/admin/moderacion": moderation,
+    "/dashboard/admin/mensajes": unreadMessages,
     "/dashboard/comercio/publicaciones?tipo=comercio": inReview.comercio,
     "/dashboard/comercio/publicaciones?tipo=servicio": inReview.servicio,
     "/dashboard/avisos": classifieds,
