@@ -42,11 +42,18 @@ const NAV_LABELS: Record<string, string> = Object.fromEntries(
   dashboardNavigation.flatMap((g) => g.items).map((i) => [i.href.split("?")[0], i.label]),
 );
 
+/** Segmento dinámico `[id]`: UUID (los `@id` del schema) o número. Nunca se muestra en las migas. */
+const ID_SEGMENT = /^(?:[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}|\d+)$/i;
+
 function capitalize(seg: string) {
   return seg.charAt(0).toUpperCase() + seg.slice(1);
 }
 
-/** Migas desde `/dashboard`: «Panel › Mis avisos › Editar». */
+/**
+ * Migas desde `/dashboard`: «Panel › Mis avisos › Editar». Un `[id]` no tiene miga propia: si es
+ * el último segmento (`/avisos/[id]`) es la página de edición y dice «Editar»; si no
+ * (`/regiones/[id]/editar`), se omite y el segmento siguiente pone la etiqueta.
+ */
 function buildCrumbs(pathname: string) {
   const crumbs: IBreadcrumbItem[] = [{ label: "Panel", href: HOME }];
   if (pathname === HOME || !pathname.startsWith(`${HOME}/`)) {
@@ -58,7 +65,9 @@ function buildCrumbs(pathname: string) {
   segments.forEach((seg, i) => {
     acc += `/${seg}`;
     const navLabel = NAV_LABELS[acc];
-    if (navLabel) {
+    if (i > 0 && ID_SEGMENT.test(seg)) {
+      if (i === segments.length - 1) crumbs.push({ label: SEGMENT_LABELS.editar, href: acc });
+    } else if (navLabel) {
       crumbs.push({ label: navLabel, href: acc });
     } else if (i > 0) {
       crumbs.push({ label: SEGMENT_LABELS[seg] ?? capitalize(seg), href: acc });
