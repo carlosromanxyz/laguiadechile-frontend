@@ -3,7 +3,9 @@
 import { useState } from "react";
 import { ChevronsUpDown } from "lucide-react";
 import { CiCircleCheck } from "react-icons/ci";
+import { defaultFilter } from "cmdk";
 import { cn } from "@/lib/utils";
+import { stripAccents } from "@/lib/format/text";
 import { getIcon } from "@/lib/get-icon";
 import {
   Command,
@@ -43,6 +45,27 @@ import { Button } from "@/components/ui/button";
  *   emptyText="No se encontraron ciudades."
  * />
  */
+
+/** Texto comparable: sin tildes ni diacríticos y en minúsculas («Concepción» → «concepcion»). */
+function normalizeSearch(text: string): string {
+  return stripAccents(text).toLowerCase();
+}
+
+/**
+ * Filtro de cmdk que ignora tildes y mayúsculas: normaliza el valor, las palabras clave y la
+ * búsqueda, y delega el puntaje en el filtro por defecto de cmdk (que solo pasa a minúsculas).
+ */
+function accentInsensitiveFilter(
+  value: string,
+  search: string,
+  keywords?: string[]
+): number {
+  return defaultFilter(
+    normalizeSearch(value),
+    normalizeSearch(search),
+    keywords?.map(normalizeSearch)
+  );
+}
 
 interface ComboboxItem {
   id: string;
@@ -107,7 +130,7 @@ export function LDCCombobox({
         align="start"
         style={{ width: "var(--radix-popover-trigger-width)" }}
       >
-        <Command>
+        <Command filter={accentInsensitiveFilter}>
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
             <CommandEmpty>{emptyText}</CommandEmpty>
