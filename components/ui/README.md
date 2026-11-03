@@ -26,6 +26,7 @@ Se importan por archivo: `import { Button } from "@/components/ui/button"`.
 - **form**: integración de React Hook Form (campo, etiqueta, mensaje).
 - **input**: campo de texto.
 - **label**: etiqueta de formulario.
+- **pagination**: primitivas de paginación; la envuelve `LDCPagination`.
 - **popover**: contenido flotante anclado a un disparador.
 - **select**: selector desplegable.
 - **separator**: línea divisoria.

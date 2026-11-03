@@ -20,8 +20,11 @@ export interface LDCRejectionReasonDialogProps {
   title: string;
   /** Motivo que escribió el equipo: se muestra como texto plano, nunca como HTML */
   reason: string;
-  /** Destino de «Corregir y reenviar» (el formulario de la publicación) */
-  fixHref: string;
+  /**
+   * Destino de «Corregir y reenviar» (el formulario de la publicación). Sin él, el modal es de solo
+   * lectura (p. ej. en los listados admin): solo el motivo y «Cerrar».
+   */
+  fixHref?: string;
   /** Texto del badge (por defecto «Rechazado») */
   badgeLabel?: string;
 }
@@ -32,8 +35,8 @@ export interface LDCRejectionReasonDialogProps {
  * El badge `status-rejected` es el botón que abre un `ui/dialog` (`aria-haspopup="dialog"`, con un
  * nombre accesible que conserva el texto visible: «Rechazado: ver motivo del rechazo de «…»»). El
  * modal trae el título de la publicación, el motivo como texto (React lo escapa; los saltos de
- * línea se respetan), el CTA «Corregir y reenviar» y «Cerrar». Lo usa «Mis avisos»; sirve igual
- * para fichas.
+ * línea se respetan), el CTA «Corregir y reenviar» (solo con `fixHref`) y «Cerrar». Lo usan «Mis
+ * avisos» y, en solo lectura, los listados admin (CLGDC-156).
  *
  * @example
  * <LDCRejectionReasonDialog title="Casa 3D 2B" reason="La foto no muestra la casa." fixHref="/dashboard/avisos/123" />
@@ -69,10 +72,12 @@ export function LDCRejectionReasonDialog({
           <DialogClose asChild>
             <Button variant="outline">Cerrar</Button>
           </DialogClose>
-          <LDCButton href={fixHref}>
-            <Pencil />
-            Corregir y reenviar
-          </LDCButton>
+          {fixHref && (
+            <LDCButton href={fixHref}>
+              <Pencil />
+              Corregir y reenviar
+            </LDCButton>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
