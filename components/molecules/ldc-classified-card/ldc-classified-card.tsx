@@ -139,7 +139,11 @@ export function LDCClassifiedCard({
             <MapPin className="size-4 flex-shrink-0 text-pink dark:text-yellow" aria-hidden />
             <span className="truncate">{commune ? `${commune}, ${city.name}` : city.name}</span>
           </p>
-          <span className="font-mulish text-lg font-black text-pink dark:text-yellow">{formattedPrice}</span>
+          {price.type === "fixed" && price.amount == null ? (
+            <span className="font-mulish text-lg font-black text-muted-foreground">Precio por definir</span>
+          ) : (
+            <span className="font-mulish text-lg font-black text-pink dark:text-yellow">{formattedPrice}</span>
+          )}
         </div>
       </LDCCardSurface>
     );
