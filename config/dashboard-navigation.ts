@@ -57,7 +57,7 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
     items: [
       { href: "/dashboard", label: "Inicio", icon: LayoutDashboard, exact: true },
       { href: "/dashboard/usuario/favoritos", label: "Favoritos", icon: Heart },
-      { href: "/dashboard/usuario/perfil", label: "Perfil", icon: User },
+      { href: "/dashboard/perfil", label: "Perfil", icon: User },
     ],
   },
   {
@@ -104,5 +104,5 @@ export const DASHBOARD_PUBLISH_ROLES = ["usuario", "comercio", "servicio"] as co
  */
 export const dashboardPublishCta = { label: "Publicar", href: "/dashboard/publicar" } as const;
 
-/** Página de perfil (enlace del menú de usuario). */
-export const dashboardProfileHref = "/dashboard/usuario/perfil";
+/** Página de perfil de toda cuenta (enlace del menú de usuario; CLGDC-155). */
+export const dashboardProfileHref = "/dashboard/perfil";

@@ -1,8 +1,19 @@
-import { ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
+import { CalendarDays, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
 import { LDC_ROLE_META, type LDCRole, type LDCRoleIconName } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
-const icons: Record<LDCRoleIconName, LucideIcon> = { ShieldCheck, Store, Tag, UserRound, Wrench };
+/**
+ * Ícono Lucide de cada `LDCRoleIconName`. Se exporta para los Client Components que ponen el ícono
+ * del rol dentro de un badge (`LDCBadge role-*`); desde un Server Component, usa `LDCRoleIcon`.
+ */
+export const LDC_ROLE_ICONS: Record<LDCRoleIconName, LucideIcon> = {
+  CalendarDays,
+  ShieldCheck,
+  Store,
+  Tag,
+  UserRound,
+  Wrench,
+};
 
 const sizes = {
   xs: { box: "size-6", icon: "size-3.5" },
@@ -32,7 +43,7 @@ export interface LDCRoleIconProps {
  */
 export function LDCRoleIcon({ role, size = "md", className }: LDCRoleIconProps) {
   const meta = LDC_ROLE_META[role];
-  const Icon = icons[meta.iconName];
+  const Icon = LDC_ROLE_ICONS[meta.iconName];
   const s = sizes[size];
 
   return (

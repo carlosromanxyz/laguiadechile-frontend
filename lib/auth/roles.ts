@@ -11,22 +11,23 @@
  */
 
 /** Roles de una cuenta (enum `Role` del backend). */
-export type LDCRole = "usuario" | "avisador" | "comercio" | "servicio" | "admin";
+export type LDCRole = "usuario" | "avisador" | "comercio" | "servicio" | "organizador" | "admin";
 
 /** Roles con login propio (`/dashboard/login` y `/ingresar/[rol]`). */
 export type LDCAccessRole = "admin" | "comercio" | "usuario";
 
 /** Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). */
-export type LDCRoleIconName = "ShieldCheck" | "Store" | "Tag" | "UserRound" | "Wrench";
+export type LDCRoleIconName = "CalendarDays" | "ShieldCheck" | "Store" | "Tag" | "UserRound" | "Wrench";
 
 /**
  * Nombre visible, ícono y color de cada rol. El color es el mismo en `LDCRoleIcon` y en
  * `LDCBadge` (`role-*`), así un rol se reconoce igual en todo el panel. Criterio:
  * - un color de marca por rol, sin repetir: usuario rosado, avisador amarillo, comercio naranjo,
- *   servicio naranjo-rojo y admin morado;
+ *   servicio naranjo-rojo, organizador azul grisáceo y admin morado;
  * - texto con contraste ≥ 4,5:1 (WCAG 1.4.3; el ícono pide ≥ 3:1, 1.4.11): negro sobre rosado
- *   (5,3:1), amarillo (11,9:1), naranjo (8,9:1) y naranjo-rojo (6,5:1); blanco sobre morado
- *   (4,8:1). El blanco sobre rosado daba 4,0:1 y por eso el usuario lleva texto negro;
+ *   (5,3:1), amarillo (11,9:1), naranjo (8,9:1), naranjo-rojo (6,5:1) y azul grisáceo (4,7:1);
+ *   blanco sobre morado (4,8:1). El blanco sobre rosado daba 4,0:1 y por eso el usuario lleva
+ *   texto negro; sobre azul grisáceo daba 4,46:1 y por eso el organizador también (CLGDC-155);
  * - comercio y servicio son vecinos (naranjo y naranjo-rojo) porque los dos publican fichas; se
  *   distinguen por el ícono (tienda y llave) y por el nombre, que siempre acompaña al color;
  * - los badges de tipo de aviso usan los mismos colores (vendo rosado, compro morado, busco
@@ -37,15 +38,20 @@ export const LDC_ROLE_META = {
   avisador: { label: "Avisador", iconName: "Tag", tone: "bg-yellow text-black" },
   comercio: { label: "Comercio", iconName: "Store", tone: "bg-orange text-black" },
   servicio: { label: "Servicio", iconName: "Wrench", tone: "bg-orange-red text-black" },
+  organizador: { label: "Organizador", iconName: "CalendarDays", tone: "bg-blue-gray text-black" },
   admin: { label: "Administrador", iconName: "ShieldCheck", tone: "bg-purple text-white" },
 } as const satisfies Record<LDCRole, { label: string; iconName: LDCRoleIconName; tone: string }>;
 
-/** Roles en orden de presentación (el del menú: General, Mis avisos, Mis comercios, Mis servicios, Admin). */
+/**
+ * Roles en orden de presentación (el del menú: General, Mis avisos, Mis comercios, Mis servicios,
+ * Admin; el organizador, que publica eventos, va antes del admin).
+ */
 export const LDC_ROLE_KEYS = [
   "usuario",
   "avisador",
   "comercio",
   "servicio",
+  "organizador",
   "admin",
 ] as const satisfies readonly LDCRole[];
 

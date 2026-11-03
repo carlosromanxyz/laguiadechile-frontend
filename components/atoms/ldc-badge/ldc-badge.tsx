@@ -17,6 +17,7 @@ const variants = {
   "role-avisador": LDC_ROLE_META.avisador.tone,
   "role-comercio": LDC_ROLE_META.comercio.tone,
   "role-servicio": LDC_ROLE_META.servicio.tone,
+  "role-organizador": LDC_ROLE_META.organizador.tone,
   "role-admin": LDC_ROLE_META.admin.tone,
   /**
    * Tipo de publicación en la cola de moderación. Ficha y aviso conservan el aspecto de `new` y

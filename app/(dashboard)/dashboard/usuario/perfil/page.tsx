@@ -1,22 +1,7 @@
-import { User } from "lucide-react";
-import { LDCPanel } from "@/components/atoms/ldc-panel";
-import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
-import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
+import { permanentRedirect } from "next/navigation";
+import { dashboardProfileHref } from "@/config/dashboard-navigation";
 
-export const metadata = {
-  title: "Perfil — Panel",
-};
-
+/** Ruta vieja del perfil: el perfil de toda cuenta vive en `/dashboard/perfil` (CLGDC-155). */
 export default function UsuarioPerfilPage() {
-  return (
-    <LDCDashboardPageTemplate title="Perfil" description="Tus datos de contacto.">
-      <LDCPanel>
-        <LDCEmptyState
-          icon={<User className="size-10 text-muted-foreground" aria-hidden />}
-          title="Próximamente"
-          description="Esta sección del panel está en construcción."
-        />
-      </LDCPanel>
-    </LDCDashboardPageTemplate>
-  );
+  permanentRedirect(dashboardProfileHref);
 }
