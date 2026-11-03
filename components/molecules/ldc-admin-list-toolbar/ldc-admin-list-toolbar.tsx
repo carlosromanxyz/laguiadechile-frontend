@@ -22,13 +22,13 @@ export interface LDCAdminListToolbarProps {
   /** Búsqueda actual (`?q=`) */
   q: string;
   /** Slug de la ciudad elegida (`?ciudad=`); vacío, todas */
-  city: string;
-  /** Ciudades del filtro */
-  cities: readonly { id: string; name: string; slug: string }[];
-  /** Pills de estado en orden («Todos» primero), con los `counts` del listado */
-  statusItems: readonly LDCAdminListToolbarStatusItem[];
+  city?: string;
+  /** Ciudades del filtro; sin ellas, no hay filtro de ciudad (p. ej. Regiones) */
+  cities?: readonly { id: string; name: string; slug: string }[];
+  /** Pills de estado en orden («Todos» primero), con los `counts` del listado; sin ellas, no hay pills */
+  statusItems?: readonly LDCAdminListToolbarStatusItem[];
   /** Clave del estado activo */
-  status: string;
+  status?: string;
   /** Clave de «Todos» (se omite en la URL) */
   allKey?: string;
   /** Navega a la URL con el filtro nuevo (p. ej. dentro de una transición); por defecto `router.replace` */
@@ -42,7 +42,8 @@ export interface LDCAdminListToolbarProps {
  *
  * Todo vive en la URL y cada cambio vuelve a la página 1: la búsqueda escribe `?q=` 300 ms después
  * de la última tecla, el `LDCCombobox` de ciudad escribe `?ciudad=` y las pills de `LDCStatusFilter`
- * (tal cual, con los `counts` de la API) escriben `?estado=`. Los enlaces de las pills se
+ * (tal cual, con los `counts` de la API) escriben `?estado=`. Sin `cities` no hay filtro de ciudad y
+ * sin `statusItems` no hay pills (listados del catálogo, CLGDC-126). Los enlaces de las pills se
  * interceptan para pasar por `onNavigate` (así el listado muestra su esqueleto mientras carga).
  *
  * @example
@@ -51,10 +52,10 @@ export interface LDCAdminListToolbarProps {
  */
 export function LDCAdminListToolbar({
   q,
-  city,
+  city = "",
   cities,
   statusItems,
-  status,
+  status = "",
   allKey = "todos",
   onNavigate,
   searchLabel = "Buscar por nombre",
@@ -117,7 +118,7 @@ export function LDCAdminListToolbar({
     navigate(link.getAttribute("href") ?? pathname);
   }
 
-  const cityItems = [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities];
+  const cityItems = cities ? [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities] : [];
 
   return (
     <div className="flex flex-col gap-3">
@@ -154,31 +155,35 @@ export function LDCAdminListToolbar({
             </Button>
           )}
         </div>
-        <div className="md:w-60">
-          <label htmlFor={cityId} className="sr-only">
-            Ciudad
-          </label>
-          <LDCCombobox
-            id={cityId}
-            items={cityItems}
-            value={city}
-            onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
-            placeholder="Todas las ciudades"
-            searchPlaceholder="Buscar ciudad…"
-            emptyText="No encontramos esa ciudad."
-            className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
+        {cities && (
+          <div className="md:w-60">
+            <label htmlFor={cityId} className="sr-only">
+              Ciudad
+            </label>
+            <LDCCombobox
+              id={cityId}
+              items={cityItems}
+              value={city}
+              onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
+              placeholder="Todas las ciudades"
+              searchPlaceholder="Buscar ciudad…"
+              emptyText="No encontramos esa ciudad."
+              className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
+            />
+          </div>
+        )}
+      </div>
+      {statusItems && statusItems.length > 0 && (
+        <div onClickCapture={interceptPill}>
+          <LDCStatusFilter
+            current={status}
+            items={statusItems.map((item) => ({
+              ...item,
+              href: hrefWith({ estado: item.key === allKey ? "" : item.key }),
+            }))}
           />
         </div>
-      </div>
-      <div onClickCapture={interceptPill}>
-        <LDCStatusFilter
-          current={status}
-          items={statusItems.map((item) => ({
-            ...item,
-            href: hrefWith({ estado: item.key === allKey ? "" : item.key }),
-          }))}
-        />
-      </div>
+      )}
     </div>
   );
 }

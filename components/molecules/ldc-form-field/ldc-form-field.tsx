@@ -46,7 +46,9 @@ export interface LDCFormFieldProps<T extends FieldValues, TName extends FieldPat
    * Tipo del control; `password` usa `LDCPasswordInput` (mostrar u ocultar) y `textarea`, el
    * `Textarea` de shadcn. Se ignora si hay `render`.
    */
-  type?: "text" | "email" | "password" | "tel" | "url" | "textarea";
+  type?: "text" | "email" | "password" | "tel" | "url" | "date" | "textarea";
+  /** `inputmode` del input de texto (p. ej. `decimal` para precios con teclado numérico) */
+  inputMode?: "text" | "decimal" | "numeric";
   /** Placeholder del input */
   placeholder?: string;
   /** `autocomplete` del input */
@@ -111,6 +113,7 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
   render,
   required,
   errorAction,
+  inputMode,
 }: LDCFormFieldProps<T, TName>) {
   const id = `${useId()}-${name}`;
   const errorId = `${id}-error`;
@@ -157,6 +160,7 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
               type={type}
               readOnly={readOnly}
               maxLength={maxLength}
+              inputMode={inputMode}
               className={cn(
                 "h-10",
                 icon && "pl-9",

@@ -27,11 +27,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import type { IDashboardActionResult } from "@/interfaces/dashboard";
+import { cn } from "@/lib/utils";
 
 export interface LDCResourceRowActionsProps {
   editHref?: string;
-  onDelete?: () => Promise<{ status: string } | void>;
+  /**
+   * Server action que elimina. Puede lanzar (Categorías) o devolver `{ ok, message }`: con
+   * `ok: false`, el mensaje va en un toast de error (y la fila se queda como estaba).
+   */
+  onDelete?: () => Promise<{ status: string } | IDashboardActionResult | void>;
   deleteLabel?: string;
+  /** Texto bajo el título del diálogo (por defecto, «Esta acción no se puede deshacer.») */
+  deleteDescription?: string;
+  /** Clases del botón `⋯` (p. ej. 44 px bajo `md` en las tarjetas móviles) */
+  triggerClassName?: string;
   /**
    * «Archivar» / «Desarchivar» en el menú (publicaciones propias, CLGDC-159): archivar confirma con
    * `LDCArchiveConfirmDialog`; desarchivar va directo. Las acciones son server actions.
@@ -43,6 +53,8 @@ export function LDCResourceRowActions({
   editHref,
   onDelete,
   deleteLabel = "¿Eliminar este registro?",
+  deleteDescription = "Esta acción no se puede deshacer.",
+  triggerClassName,
   archive,
 }: LDCResourceRowActionsProps) {
   const router = useRouter();
@@ -55,7 +67,11 @@ export function LDCResourceRowActions({
     if (!onDelete) return;
     startTransition(async () => {
       try {
-        await onDelete();
+        const result = await onDelete();
+        if (result && "ok" in result && !result.ok) {
+          toast.error(result.message);
+          return;
+        }
         toast.success("Registro eliminado");
         setOpen(false);
         router.refresh();
@@ -73,7 +89,7 @@ export function LDCResourceRowActions({
             ref={triggerRef}
             variant="ghost"
             size="icon"
-            className="size-8"
+            className={cn("size-8", triggerClassName)}
             disabled={archiving.pending}
           >
             {archiving.pending && !archiving.open ? (
@@ -116,9 +132,7 @@ export function LDCResourceRowActions({
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>{deleteLabel}</AlertDialogTitle>
-            <AlertDialogDescription>
-              Esta acción no se puede deshacer.
-            </AlertDialogDescription>
+            <AlertDialogDescription>{deleteDescription}</AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={pending}>Cancelar</AlertDialogCancel>
