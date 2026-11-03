@@ -39,11 +39,14 @@ export async function updateMyProfile(data: IMyProfileUpdate): Promise<IMyProfil
 
 /**
  * Cambia la contraseña (`POST /me/password`). 400 si la actual no coincide o la nueva es igual;
- * 429 tras 5 intentos en 15 minutos. La sesión vigente sigue abierta.
+ * 429 tras 5 intentos en 15 minutos. El backend invalida los JWT anteriores (CLGDC-130) y responde
+ * un `accessToken` nuevo para la sesión actual: se devuelve para que quien llama reemplace la
+ * cookie. Sin él, `null`.
  */
-export async function changeMyPassword(data: IMyPasswordChange): Promise<void> {
-  await apiFetchServer<{ status: string }>("/me/password", {
+export async function changeMyPassword(data: IMyPasswordChange): Promise<string | null> {
+  const res = await apiFetchServer<{ status: string; accessToken?: string }>("/me/password", {
     method: "POST",
     body: JSON.stringify({ currentPassword: data.currentPassword, newPassword: data.newPassword }),
   });
+  return typeof res?.accessToken === "string" && res.accessToken ? res.accessToken : null;
 }

@@ -9,6 +9,7 @@ import type {
 } from "@/interfaces/profile";
 import { changeMyPassword, updateMyProfile } from "@/lib/api/me-profile";
 import { ApiError } from "@/lib/api-client";
+import { setSessionCookie } from "@/lib/auth/session-cookie";
 import { requireDashboardSession } from "@/lib/dashboard/session";
 import { passwordChangeInputSchema, profileDetailsSchema } from "@/validations/profile-form-schema";
 
@@ -41,7 +42,10 @@ export async function updateMyProfileAction(input: IMyProfileUpdate): Promise<IU
 
 /**
  * Cambia la contraseña (`POST /me/password`). El 400 del backend va al campo que lo causó (la
- * actual errónea o la nueva igual a la actual); el 429 bloquea el formulario.
+ * actual errónea o la nueva igual a la actual); el 409 (la contraseña cambió en paralelo) pide
+ * volver a iniciar sesión; el 429 bloquea el formulario. Si el backend devuelve un token nuevo (los
+ * anteriores quedan inválidos), reemplaza la cookie de sesión en el servidor con las mismas opciones
+ * que el login, para que la sesión siga abierta; el token nunca vuelve al cliente.
  */
 export async function changeMyPasswordAction(input: IMyPasswordChange): Promise<IChangeMyPasswordResult> {
   await requireDashboardSession();
@@ -52,7 +56,8 @@ export async function changeMyPasswordAction(input: IMyPasswordChange): Promise<
   }
 
   try {
-    await changeMyPassword(parsed.data);
+    const accessToken = await changeMyPassword(parsed.data);
+    if (accessToken) await setSessionCookie(accessToken);
     return { ok: true };
   } catch (e) {
     if (e instanceof ApiError) {
@@ -64,6 +69,12 @@ export async function changeMyPasswordAction(input: IMyPasswordChange): Promise<
           return { ok: false, field: "newPassword", message: "La contraseña nueva debe ser distinta de la actual." };
         }
         return { ok: false, field: "newPassword", message: "Usa entre 8 y 128 caracteres." };
+      }
+      if (e.status === 409) {
+        return {
+          ok: false,
+          message: "Tu contraseña cambió desde otra sesión mientras guardabas. Vuelve a iniciar sesión.",
+        };
       }
       if (e.status === 429) {
         return {
