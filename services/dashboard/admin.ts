@@ -7,20 +7,21 @@ import { cache } from "react";
 import type {
   IDashboardAdminCounts,
   IDashboardModerationItem,
+  IDashboardModerationKind,
   IDashboardNewsItem,
 } from "@/interfaces/dashboard";
 import { apiFetchServer } from "@/lib/api-client";
 import { formatRelative } from "@/lib/dashboard/dates";
 
 interface RawModerationItem {
-  kind: "LISTING" | "CLASSIFIED";
+  kind: "LISTING" | "CLASSIFIED" | "EVENT";
   id: string;
   title: string;
   slug: string;
   image: string;
   updatedAt: string;
   owner: { name: string; email: string } | null;
-  /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); hoy la cola no lo trae y se asume comercio. */
+  /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); hoy la cola no lo trae y la ficha sale sin rol. */
   type?: string;
   /** Texto plano (el backend quita las etiquetas). */
   description: string;
@@ -103,23 +104,33 @@ export async function getAdminOverview(): Promise<{
 }
 
 /**
- * Cola de moderación: lo que comercios y usuarios enviaron o editaron, lo más antiguo primero.
+ * Cola de moderación: fichas, avisos y eventos enviados o editados, lo más antiguo primero.
  * Ante un error, lista vacía (el layout también la pide para el contador del menú).
  */
 export const getModerationQueue = cache(async (): Promise<IDashboardModerationItem[]> => {
   const raw = await safeList<RawModerationItem>("/admin/moderation");
   const now = new Date();
   return raw.map((m) => {
-    const kind = m.kind === "CLASSIFIED" ? "classified" : "listing";
-    // El rol que da cada publicación: un aviso, avisador; una ficha, comercio o servicio.
-    const role = kind === "classified" ? "avisador" : m.type === "SERVICIO" ? "servicio" : "comercio";
+    const kind: IDashboardModerationKind =
+      m.kind === "CLASSIFIED" ? "classified" : m.kind === "EVENT" ? "event" : "listing";
+    const listingType =
+      kind !== "listing" ? undefined
+      : m.type === "SERVICIO" ? "servicio"
+      : m.type === "COMERCIO" ? "comercio"
+      : undefined;
+    // El rol que da cada publicación: un aviso, avisador; un evento, organizador; una ficha,
+    // comercio o servicio según su tipo. Si la API no trae el tipo de la ficha, no se adivina.
+    // «organizador» es una etiqueta local hasta que `LDC_ROLE_META` tenga ese rol.
+    const role =
+      kind === "classified" ? "avisador" : kind === "event" ? "organizador" : listingType;
     return {
       id: m.id,
       kind,
+      listingType,
       title: m.title,
       slug: m.slug,
       image: m.image,
-      by: m.owner ? `${m.owner.name} · ${role}` : "Sin dueño",
+      by: m.owner ? (role ? `${m.owner.name} · ${role}` : m.owner.name) : "Sin dueño",
       when: formatRelative(m.updatedAt, now),
       description: m.description,
     };

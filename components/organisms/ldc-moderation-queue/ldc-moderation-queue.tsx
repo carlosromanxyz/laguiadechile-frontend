@@ -8,7 +8,14 @@ import {
   LDCModerationActions,
   type LDCModerationActionsProps,
 } from "@/components/molecules/ldc-moderation-actions";
-import type { IDashboardModerationItem } from "@/interfaces/dashboard";
+import type { IDashboardModerationItem, IDashboardModerationKind } from "@/interfaces/dashboard";
+
+/** Etiqueta del badge de cada tipo de publicación (variante `kind-*` de `LDCBadge`). */
+const KIND_LABEL: Record<IDashboardModerationKind, string> = {
+  listing: "Ficha",
+  classified: "Aviso",
+  event: "Evento",
+};
 
 export interface LDCModerationQueueProps {
   items: IDashboardModerationItem[];
@@ -27,7 +34,7 @@ export interface LDCModerationQueueProps {
 /**
  * LDCModerationQueue - Cola de moderación del administrador
  *
- * Fichas y avisos en revisión, con quién los envió, cuándo y su descripción en texto plano.
+ * Fichas, avisos y eventos en revisión, con quién los envió, cuándo y su descripción en texto plano.
  * Con `onApprove` y `onReject`, cada elemento lleva Aprobar y Rechazar; si no, «Revisar» lleva
  * a la página de moderación.
  *
@@ -60,7 +67,7 @@ export function LDCModerationQueue({
           className="py-8"
           icon={<ShieldCheck className="size-10 text-muted-foreground" aria-hidden />}
           title="Nada por revisar"
-          description="Cuando un comercio o usuario envíe o edite algo, aparecerá aquí."
+          description="Cuando un comercio, organizador o usuario envíe o edite algo, aparecerá aquí."
         />
       ) : (
         <ul>
@@ -73,11 +80,7 @@ export function LDCModerationQueue({
               description={showDescription ? item.description : undefined}
               meta={
                 <>
-                  {item.kind === "listing" ? (
-                    <LDCBadge variant="new">Ficha</LDCBadge>
-                  ) : (
-                    <LDCBadge variant="updated">Aviso</LDCBadge>
-                  )}
+                  <LDCBadge variant={`kind-${item.kind}`}>{KIND_LABEL[item.kind]}</LDCBadge>
                   <span>{item.when}</span>
                 </>
               }
