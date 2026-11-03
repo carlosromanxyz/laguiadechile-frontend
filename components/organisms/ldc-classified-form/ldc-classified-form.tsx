@@ -236,7 +236,9 @@ export function LDCClassifiedForm(props: LDCClassifiedFormProps) {
   const city = cities.find((c) => c.id === values.cityId) ?? current.city;
   const previewTitle = values.title?.trim() || current.title || "Título de tu aviso";
   const priceType = values.priceType ?? current.price.type;
-  const previewAmount = priceType === "fixed" ? (parseClpAmount(values.priceAmount ?? "") ?? 0) : undefined;
+  // Sin monto válido (vacío, texto o 0) no se inventa un «$0»: la vista previa muestra «Precio por definir».
+  const parsedAmount = priceType === "fixed" ? parseClpAmount(values.priceAmount ?? "") : null;
+  const previewAmount = parsedAmount !== null && parsedAmount > 0 ? parsedAmount : undefined;
 
   const badge = (
     <LDCBadge variant={LDC_STATUS_COPY[status].badge}>{STATUS_COPY[status].label}</LDCBadge>
