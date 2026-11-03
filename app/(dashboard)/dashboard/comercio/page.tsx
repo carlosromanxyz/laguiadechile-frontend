@@ -21,6 +21,7 @@ import {
   getMyTasks,
   getMyVisitsSeries,
 } from "@/services/dashboard/comercio";
+import { archiveMyPublicationAction, unarchiveMyPublicationAction } from "../archive-actions";
 
 export const metadata = {
   title: "Inicio — Panel",
@@ -31,6 +32,7 @@ const STATUS_LABELS: Record<IDashboardPublicationStatus, string> = {
   review: "En revisión",
   expired: "Vencida",
   rejected: "Rechazada",
+  archived: "Archivada",
 };
 
 const numberFormat = new Intl.NumberFormat("es-CL");
@@ -156,7 +158,18 @@ export default async function ComercioHomePage() {
                   l.ownership.visits30d != null ? numberFormat.format(l.ownership.visits30d) : "—",
               },
             ]}
-            getRowActions={() => ({ editHref: "/dashboard/comercio/ficha" })}
+            getRowActions={(l) => ({
+              editHref: "/dashboard/comercio/ficha",
+              archive: {
+                kind: "listing",
+                id: l.item.id,
+                slug: l.item.slug,
+                title: l.item.title,
+                archived: l.ownership.status === "archived",
+                onArchive: archiveMyPublicationAction,
+                onUnarchive: unarchiveMyPublicationAction,
+              },
+            })}
           />
         </LDCDashboardCard>
         {contact && (

@@ -163,6 +163,8 @@ function statusText(status: IDashboardPublicationStatus, updatedAt: string): Rea
       );
     case "expired":
       return "Guárdala de nuevo para enviarla a revisión y volver a publicarla.";
+    case "archived":
+      return "La archivaste y no aparece en la guía. Si cambias algo, la enviamos a revisión.";
   }
 }
 

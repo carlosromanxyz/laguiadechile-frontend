@@ -30,6 +30,8 @@ const variants = {
   "status-published": "gap-1 bg-success text-success-foreground",
   "status-review": "gap-1 border border-yellow bg-transparent text-foreground",
   "status-expired": "gap-1 border border-border bg-muted text-muted-foreground",
+  /** Archivada por su dueño: neutro, como `status-expired` (tampoco se ve en La Guía). */
+  "status-archived": "gap-1 border border-border bg-muted text-muted-foreground",
   "status-rejected": "gap-1 border border-destructive bg-transparent text-destructive",
 } as const;
 

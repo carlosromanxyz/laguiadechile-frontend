@@ -1,4 +1,4 @@
-import { CircleCheck, CircleX, Clock, Hourglass } from "lucide-react";
+import { Archive, CircleCheck, CircleX, Clock, Hourglass } from "lucide-react";
 import type { ReactNode } from "react";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
@@ -11,12 +11,17 @@ import { cn } from "@/lib/utils";
  */
 export const LDC_STATUS_COPY: Record<
   IDashboardPublicationStatus,
-  { badge: "status-published" | "status-review" | "status-rejected" | "status-expired"; label: string; title: string }
+  {
+    badge: "status-published" | "status-review" | "status-rejected" | "status-expired" | "status-archived";
+    label: string;
+    title: string;
+  }
 > = {
   published: { badge: "status-published", label: "Publicada", title: "Tu ficha se ve en la guía" },
   review: { badge: "status-review", label: "En revisión", title: "Estamos revisando tus cambios" },
   rejected: { badge: "status-rejected", label: "Rechazada", title: "No pudimos aprobar tu ficha" },
   expired: { badge: "status-expired", label: "Vencida", title: "Tu ficha está vencida" },
+  archived: { badge: "status-archived", label: "Archivada", title: "Tu ficha está archivada" },
 };
 
 const ICONS: Record<IDashboardPublicationStatus, ReactNode> = {
@@ -24,6 +29,7 @@ const ICONS: Record<IDashboardPublicationStatus, ReactNode> = {
   review: <Hourglass className="text-orange dark:text-yellow" aria-hidden />,
   rejected: <CircleX className="text-destructive" aria-hidden />,
   expired: <Clock className="text-muted-foreground" aria-hidden />,
+  archived: <Archive className="text-muted-foreground" aria-hidden />,
 };
 
 export interface LDCStatusNoticeProps {
