@@ -20,7 +20,10 @@ export function getClassifiedTypeBadgeLabel(type: ClassifiedType): string {
 export function formatClassifiedPrice(price: IClassified["price"]): string {
   switch (price.type) {
     case "fixed":
-      return `$${price.amount?.toLocaleString("es-CL")}`;
+      // Sin monto (dato viejo o incompleto) no se inventa «$undefined»: se degrada a «Consultar».
+      return price.amount != null && price.amount > 0
+        ? `$${price.amount.toLocaleString("es-CL")}`
+        : "Consultar";
     case "free":
       return "Gratis";
     case "negotiable":
