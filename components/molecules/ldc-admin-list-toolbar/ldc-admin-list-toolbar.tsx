@@ -23,7 +23,7 @@ export interface LDCAdminListToolbarProps {
   q: string;
   /** Slug de la ciudad elegida (`?ciudad=`); vacío, todas */
   city?: string;
-  /** Ciudades del filtro; sin ellas no hay filtro de ciudad (p. ej. Usuarios) */
+  /** Ciudades del filtro; sin ellas, no hay filtro de ciudad (p. ej. Usuarios o Regiones) */
   cities?: readonly { id: string; name: string; slug: string }[];
   /** Pills de estado en orden («Todos» primero), con los `counts` del listado; sin ellas, no hay pills */
   statusItems?: readonly LDCAdminListToolbarStatusItem[];
@@ -45,7 +45,8 @@ export interface LDCAdminListToolbarProps {
  *
  * Todo vive en la URL y cada cambio vuelve a la página 1: la búsqueda escribe `?q=` 300 ms después
  * de la última tecla, el `LDCCombobox` de ciudad escribe `?ciudad=` y las pills de `LDCStatusFilter`
- * (tal cual, con los `counts` de la API) escriben `?estado=`. Los enlaces de las pills se
+ * (tal cual, con los `counts` de la API) escriben `?estado=`. Sin `cities` no hay filtro de ciudad y
+ * sin `statusItems` no hay pills (listados del catálogo, CLGDC-126). Los enlaces de las pills se
  * interceptan para pasar por `onNavigate` (así el listado muestra su esqueleto mientras carga).
  *
  * @example
@@ -175,7 +176,7 @@ export function LDCAdminListToolbar({
           </div>
         )}
       </div>
-      {statusItems && (
+      {statusItems && statusItems.length > 0 && (
         <div onClickCapture={interceptPill}>
           <LDCStatusFilter
             current={status}

@@ -66,6 +66,9 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
 - **ldc-role-gateway** (`LDCRoleGateway`): repartidor de `/ingresar`: tarjetas de los roles con login público y enlace al registro.
 - **ldc-category-form** (`LDCCategoryForm`): formulario para crear o editar una categoría. Cliente.
+- **ldc-region-form** (`LDCRegionForm`) y **ldc-city-form** (`LDCCityForm`): alta y edición de una región o una ciudad del catálogo admin (la ciudad con región, imagen y marcas). Cliente.
+- **ldc-news-form** (`LDCNewsForm`) y **ldc-property-form** (`LDCPropertyForm`): alta y edición de una noticia o una propiedad en página propia, por secciones, con subida de imágenes y `LDCFormSaveBar`. Cliente.
 - **ldc-resource-table** (`LDCResourceTable`): tabla genérica de recursos con columna de acciones opcional (menú o `renderActions` con `actionsClassName`), tarjetas bajo `md` (`renderCard`), esqueleto (`loading`) y estado vacío (`emptyState`).
 - **ldc-admin-publication-list** (`LDCAdminPublicationList`): listado admin de fichas: toolbar, tabla o tarjetas con `LDCPublicationStatusActions` y paginación. Cliente.
+- **ldc-admin-catalog-list** (`LDCAdminCatalogList`): listado del catálogo admin (regiones, ciudades, noticias, propiedades): toolbar de búsqueda (y ciudad), la tabla que arma la página, esqueleto, vacíos y paginación. Cliente.
 - **ldc-resource-row-actions** (`LDCResourceRowActions`): menú de editar, archivar o desarchivar (`archive`) y eliminar de una fila, con confirmación. Cliente.
