@@ -117,6 +117,9 @@ export function LDCScheduleField({ value, onChange, errors, disabled, id }: LDCS
           type="button"
           variant="outline"
           disabled={disabled}
+          // A 320 px el texto no cabe en una línea: puede partirse en vez de desbordar. Con
+          // py-1.5 + min-h-9 mide 36 px en una línea, igual que el h-9 del tamaño por defecto.
+          className="h-auto min-h-9 max-w-full py-1.5 whitespace-normal"
           onClick={() =>
             onChange(
               Object.fromEntries(SCHEDULE_DAYS.map(([key]) => [key, { ...value.monday }])) as IScheduleValue,
