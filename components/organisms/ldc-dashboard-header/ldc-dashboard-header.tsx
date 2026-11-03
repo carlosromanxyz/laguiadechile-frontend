@@ -4,6 +4,7 @@ import { ExternalLink } from "lucide-react";
 import { Fragment, type ReactNode } from "react";
 import { usePathname } from "next/navigation";
 import { LDCButton } from "@/components/atoms/ldc-button";
+import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCLogo } from "@/components/atoms/ldc-logo";
 import {
   Breadcrumb,
@@ -16,7 +17,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { LDCThemeModeToggler } from "@/components/molecules/ldc-theme-mode-toggler";
-import { dashboardNavigation } from "@/config/dashboard-navigation";
+import { dashboardNavigation, dashboardPublishCta } from "@/config/dashboard-navigation";
 import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 
 const HOME = "/dashboard";
@@ -70,17 +71,19 @@ function buildCrumbs(pathname: string) {
 }
 
 export interface LDCDashboardHeaderProps {
-  /** Controles extra a la derecha, antes del cambio de tema */
+  /** Muestra el CTA «Publicar» (cuentas con rol publicador); se oculta en `/dashboard/publicar` */
+  canPublish?: boolean;
+  /** Controles extra a la derecha, tras «Publicar» y antes de «Ver el sitio» */
   actions?: ReactNode;
 }
 
 /**
  * LDCDashboardHeader - Barra superior del panel
  *
- * Botón del menú, isotipo (solo en móvil), migas desde `/dashboard`, «Ver el sitio» (desde md),
- * controles extra y el cambio de tema.
+ * Botón del menú, isotipo (solo en móvil), migas desde `/dashboard` y, a la derecha, el CTA
+ * «Publicar» (solo «+» bajo md), los controles extra, «Ver el sitio» (desde md) y el cambio de tema.
  */
-export function LDCDashboardHeader({ actions }: LDCDashboardHeaderProps) {
+export function LDCDashboardHeader({ canPublish = false, actions }: LDCDashboardHeaderProps) {
   const pathname = usePathname();
   const crumbs = buildCrumbs(pathname);
 
@@ -97,7 +100,9 @@ export function LDCDashboardHeader({ actions }: LDCDashboardHeaderProps) {
                 {i === crumbs.length - 1 ? (
                   <BreadcrumbPage className="truncate">{c.label}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={c.href}>{c.label}</BreadcrumbLink>
+                  <BreadcrumbLink href={c.href} className="truncate">
+                    {c.label}
+                  </BreadcrumbLink>
                 )}
               </BreadcrumbItem>
               {i < crumbs.length - 1 && (
@@ -107,7 +112,14 @@ export function LDCDashboardHeader({ actions }: LDCDashboardHeaderProps) {
           ))}
         </BreadcrumbList>
       </Breadcrumb>
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex shrink-0 items-center gap-2">
+        {canPublish && pathname !== dashboardPublishCta.href && (
+          <LDCCTAButton
+            href={dashboardPublishCta.href}
+            text={dashboardPublishCta.label}
+            iconOnlyBelow="md"
+          />
+        )}
         {actions}
         <LDCButton href="/" variant="ghost" size="sm" className="hidden md:inline-flex">
           <ExternalLink />

@@ -65,6 +65,12 @@ interface LDCCTAButtonProps {
   variant?: "default" | "contrast";
 
   /**
+   * Bajo este ancho queda solo el ícono en un círculo de 44 px; el texto pasa a `sr-only` y
+   * sigue dando el nombre accesible. Desde ese ancho se ve el botón completo.
+   */
+  iconOnlyBelow?: "md";
+
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -105,6 +111,7 @@ export function LDCCTAButton({
   loading = false,
   loadingText,
   variant = "default",
+  iconOnlyBelow,
   className,
 }: LDCCTAButtonProps) {
   const disabled = disabledProp || loading;
@@ -118,6 +125,7 @@ export function LDCCTAButton({
     disabled
       ? "opacity-50 cursor-not-allowed"
       : "hover:bg-yellow hover:text-black hover:scale-105 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
+    iconOnlyBelow === "md" && "size-11 justify-center px-0 md:size-auto md:px-6",
     className
   );
 
@@ -130,7 +138,9 @@ export function LDCCTAButton({
   const content = (
     <>
       {iconElement}
-      <span>{loading && loadingText ? loadingText : text}</span>
+      <span className={iconOnlyBelow === "md" ? "sr-only md:not-sr-only" : undefined}>
+        {loading && loadingText ? loadingText : text}
+      </span>
     </>
   );
 

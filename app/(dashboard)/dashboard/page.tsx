@@ -2,7 +2,6 @@ import type { ReactNode } from "react";
 import { ChartColumn, ChevronRight, CirclePlus, Heart, Pencil, RefreshCw, ShieldCheck } from "lucide-react";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCButton } from "@/components/atoms/ldc-button";
-import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCRoleIcon } from "@/components/atoms/ldc-role-icon";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
@@ -10,7 +9,6 @@ import { LDCStatCard } from "@/components/molecules/ldc-stat-card";
 import { LDC_PUBLISH_KINDS, LDCPublishChooser } from "@/components/organisms/ldc-publish-chooser";
 import { LDCTaskList } from "@/components/organisms/ldc-task-list";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
-import { DASHBOARD_PUBLISH_ROLES, dashboardPublishCta } from "@/config/dashboard-navigation";
 import type {
   IDashboardOwned,
   IDashboardPublicationStatus,
@@ -176,11 +174,6 @@ export default async function DashboardHomePage() {
     <LDCDashboardPageTemplate
       title={`Hola, ${session.user.greetingName}`}
       description={describe(roles)}
-      actions={
-        hasAnyRole(roles, DASHBOARD_PUBLISH_ROLES) ? (
-          <LDCCTAButton href={dashboardPublishCta.href} text={dashboardPublishCta.label} />
-        ) : undefined
-      }
     >
       <LDCTaskList tasks={tasks} />
 

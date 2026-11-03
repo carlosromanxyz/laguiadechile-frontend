@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCLogo } from "@/components/atoms/ldc-logo";
 import { LDCSidebarItem } from "@/components/molecules/ldc-sidebar-item";
 import { LDCUserMenu } from "@/components/molecules/ldc-user-menu";
@@ -16,16 +15,11 @@ import {
   SidebarMenu,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  DASHBOARD_PUBLISH_ROLES,
-  dashboardProfileHref,
-  dashboardPublishCta,
-  getDashboardNavigation,
-} from "@/config/dashboard-navigation";
-import { hasAnyRole, LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
+import { dashboardProfileHref, getDashboardNavigation } from "@/config/dashboard-navigation";
+import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 
 export interface LDCDashboardSidebarProps {
-  /** Roles de la cuenta: definen los grupos del menú, el CTA y la línea de roles del menú de usuario */
+  /** Roles de la cuenta: definen los grupos del menú y la línea de roles del menú de usuario */
   roles: readonly LDCRole[];
   user: { name: string; email: string };
   /** Contadores por `href` del ítem (p. ej. `{ "/dashboard/admin/moderacion": 3 }`) */
@@ -35,13 +29,12 @@ export interface LDCDashboardSidebarProps {
 /**
  * LDCDashboardSidebar - Menú lateral del panel
  *
- * Sidebar de shadcn con identidad LDC: logo, el CTA naranjo «Publicar», los grupos del menú que
+ * Sidebar de shadcn con identidad LDC: logo, los grupos del menú que
  * tocan a los roles de la cuenta (General siempre; Mis avisos, Mis comercios, Mis servicios y
  * Admin según el rol) y el menú de usuario con sus roles. En móvil, el propio Sidebar lo abre en
  * un Sheet.
  */
 export function LDCDashboardSidebar({ roles, user, badges }: LDCDashboardSidebarProps) {
-  const canPublish = hasAnyRole(roles, DASHBOARD_PUBLISH_ROLES);
   const groups = getDashboardNavigation(roles);
   // Ítems con la misma ruta en dos grupos (las fichas): sin `?tipo=` en la URL se marca el del
   // primer grupo visible.
@@ -74,13 +67,6 @@ export function LDCDashboardSidebar({ roles, user, badges }: LDCDashboardSidebar
             />
           </Link>
         </div>
-        {canPublish && (
-          <LDCCTAButton
-            href={dashboardPublishCta.href}
-            text={dashboardPublishCta.label}
-            className="w-full justify-center group-data-[collapsible=icon]:hidden"
-          />
-        )}
       </SidebarHeader>
 
       <nav aria-label="Menú del panel" className="flex min-h-0 flex-1 flex-col">
