@@ -1,7 +1,10 @@
-import { requireDashboardRole } from "@/lib/dashboard/session";
+import { requireDashboardSession } from "@/lib/dashboard/session";
 
-/** `/dashboard/avisos/*` es de quien tiene el rol avisador; si no, vuelve al inicio del panel. */
+/**
+ * `/dashboard/avisos/*` exige sesión. El rol avisador lo exigen «Mis avisos» y la edición
+ * (`[id]`); `nuevo` queda abierto a cualquier cuenta, porque publicar el primer aviso suma el rol.
+ */
 export default async function DashboardAvisosLayout({ children }: { children: React.ReactNode }) {
-  await requireDashboardRole("avisador");
+  await requireDashboardSession();
   return children;
 }

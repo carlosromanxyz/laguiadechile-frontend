@@ -49,6 +49,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-listing-info** (`LDCListingInfo`): contacto, formulario y horario de un comercio o servicio. Cliente.
 - **ldc-property-detail-hero** (`LDCPropertyDetailHero`): hero de la ficha de propiedad.
 - **ldc-classified-detail-hero** (`LDCClassifiedDetailHero`): hero de la ficha de aviso.
+- **ldc-classified-form** (`LDCClassifiedForm`): formulario del aviso clasificado del panel (crear y editar), con estado, envío a revisión y vista previa. Cliente.
 - **ldc-news-article-hero** (`LDCNewsArticleHero`): hero de la ficha de noticia con autor, fecha y lectura.
 - **ldc-related-section** (`LDCRelatedSection`): franja de contenido relacionado al pie de una ficha.
 

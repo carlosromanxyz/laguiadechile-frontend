@@ -8,7 +8,7 @@ import { LDCLocationLink } from "@/components/atoms/ldc-location-link";
 import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import Link from "next/link";
 import Image from "next/image";
-import { Clock, Star } from "lucide-react";
+import { Clock, ImageIcon, MapPin, Star } from "lucide-react";
 import { ClassifiedType, ClassifiedPriceType } from "@/interfaces/classified";
 import {
   formatClassifiedPrice,
@@ -50,6 +50,12 @@ interface LDCClassifiedCardProps {
   createdAt: string;
   /** Optional className for custom styling */
   className?: string;
+  /**
+   * Vista previa (formulario del aviso en el panel, diseño B1): apilada a cualquier ancho, foto
+   * cuadrada de hasta 180 px, «comuna, ciudad» y el precio en el color de marca, sin fecha, sin
+   * enlaces ni corazón (para no salir del formulario) y con un marcador si aún no hay imagen.
+   */
+  preview?: boolean;
 }
 
 const priceTypeColors: Record<ClassifiedPriceType, string> = {
@@ -95,10 +101,49 @@ export function LDCClassifiedCard({
   featured,
   createdAt,
   className,
+  preview = false,
 }: LDCClassifiedCardProps) {
   const formattedPrice = formatClassifiedPrice(price);
   const relativeTime = getRelativeTime(createdAt);
   const location = commune ? `${city.name}, ${commune}` : city.name;
+
+  if (preview) {
+    return (
+      <LDCCardSurface variant="horizontal" className={cn("sm:flex-col", className)}>
+        <div className="relative aspect-square max-h-[180px] w-full overflow-hidden bg-muted">
+          {image ? (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              sizes="(min-width: 1024px) 320px, 100vw"
+              className="object-cover"
+              quality={80}
+            />
+          ) : (
+            <div className="absolute inset-0 grid place-items-center text-muted-foreground">
+              <ImageIcon className="size-10" aria-hidden />
+            </div>
+          )}
+          {featured && (
+            <LDCBadge as="div" variant="featured-overlay">
+              <Star className="w-3 h-3 fill-current" />
+              Destacado
+            </LDCBadge>
+          )}
+        </div>
+        <div className="flex flex-col items-start gap-2 p-4">
+          <LDCBadge variant={`classified-${type}`}>{getClassifiedTypeBadgeLabel(type)}</LDCBadge>
+          <h3 className="font-bold font-mulish text-[15px] text-foreground line-clamp-2">{title}</h3>
+          <p className="flex min-w-0 max-w-full items-center gap-1 font-open-sans text-[13px] text-muted-foreground">
+            <MapPin className="size-4 flex-shrink-0 text-pink dark:text-yellow" aria-hidden />
+            <span className="truncate">{commune ? `${commune}, ${city.name}` : city.name}</span>
+          </p>
+          <span className="font-mulish text-lg font-black text-pink dark:text-yellow">{formattedPrice}</span>
+        </div>
+      </LDCCardSurface>
+    );
+  }
 
   return (
     <LDCCardSurface variant="horizontal" className={className}>

@@ -19,8 +19,9 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-category-card** (`LDCCategoryCard`): card de categoría con ícono, nombre y conteo. Cliente.
 - **ldc-checkbox-field** (`LDCCheckboxField`): casilla de React Hook Form sobre `Checkbox` y `Field` de shadcn (etiqueta con enlaces y error). Cliente.
 - **ldc-city-card** (`LDCCityCard`): card de ciudad con imagen de fondo y conteo de publicaciones. Cliente.
-- **ldc-classified-card** (`LDCClassifiedCard`): card horizontal de aviso clasificado. Cliente.
+- **ldc-classified-card** (`LDCClassifiedCard`): card horizontal de aviso clasificado; con `preview`, apilada y sin enlaces (vista previa del formulario). Cliente.
 - **ldc-classified-seller** (`LDCClassifiedSeller`): caja del vendedor con botones de contacto en la ficha de aviso. Cliente.
+- **ldc-classified-type-selector** (`LDCClassifiedTypeSelector`): pills de radios (solo texto) para elegir Vendo, Compro, Arriendo, Busco u Ofrezco en el formulario de aviso; la elegida toma los colores de su insignia `classified-*`, con check y anillo de marca. Cliente.
 - **ldc-combobox** (`LDCCombobox`): combobox con búsqueda (Command + Popover). Cliente.
 - **ldc-contact-actions** (`LDCContactActions`): botones de contacto directo (WhatsApp, llamar, correo) que tengan datos.
 - **ldc-contact-info** (`LDCContactInfo`): redes sociales de La Guía en la página de contacto.
@@ -54,6 +55,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
+- **ldc-segmented-field** (`LDCSegmentedField`): control segmentado de radios nativos (una opción entre pocas) sobre pista `bg-muted`, con la elegida neutra; p. ej. la forma del precio del aviso. Cliente.
 - **ldc-sidebar-item** (`LDCSidebarItem`): ítem del menú lateral del panel con estado activo. Cliente.
 - **ldc-social-network-list** (`LDCSocialNetworkList`): fila de íconos de redes sociales de La Guía.
 - **ldc-social-share-buttons** (`LDCSocialShareButtons`): botón de compartir (Web Share API o copia al portapapeles). Cliente.
