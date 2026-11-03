@@ -11,6 +11,7 @@ import type {
   IDashboardNewsItem,
 } from "@/interfaces/dashboard";
 import { apiFetchServer } from "@/lib/api-client";
+import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 import { formatRelative } from "@/lib/dashboard/dates";
 
 interface RawModerationItem {
@@ -20,9 +21,10 @@ interface RawModerationItem {
   slug: string;
   image: string;
   updatedAt: string;
-  owner: { name: string; email: string } | null;
-  /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); hoy la cola no lo trae y la ficha sale sin rol. */
-  type?: string;
+  /** `null` si el dueño se borró. `roles`: todos los del dueño (enum `Role` del backend). */
+  owner: { name: string; email: string; roles: string[] } | null;
+  /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); solo en `LISTING`. */
+  type?: "COMERCIO" | "SERVICIO";
   /** Texto plano (el backend quita las etiquetas). */
   description: string;
 }
@@ -118,10 +120,9 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
       : m.type === "SERVICIO" ? "servicio"
       : m.type === "COMERCIO" ? "comercio"
       : undefined;
-    // El rol que da cada publicación: un aviso, avisador; un evento, organizador; una ficha,
-    // comercio o servicio según su tipo. Si la API no trae el tipo de la ficha, no se adivina.
-    // «organizador» es una etiqueta local hasta que `LDC_ROLE_META` tenga ese rol.
-    const role =
+    // Se muestra el rol que da la publicación (ficha → comercio o servicio según su tipo, aviso →
+    // avisador, evento → organizador), aunque el dueño no lo tenga en `owner.roles`.
+    const role: LDCRole | undefined =
       kind === "classified" ? "avisador" : kind === "event" ? "organizador" : listingType;
     return {
       id: m.id,
@@ -130,7 +131,11 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
       title: m.title,
       slug: m.slug,
       image: m.image,
-      by: m.owner ? (role ? `${m.owner.name} · ${role}` : m.owner.name) : "Sin dueño",
+      by: m.owner
+        ? role
+          ? `${m.owner.name} · ${LDC_ROLE_META[role].label}`
+          : m.owner.name
+        : "Sin dueño",
       when: formatRelative(m.updatedAt, now),
       description: m.description,
     };

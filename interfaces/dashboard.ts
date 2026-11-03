@@ -34,12 +34,12 @@ export type IDashboardModerationKind = "listing" | "classified" | "event";
 export interface IDashboardModerationItem {
   id: string;
   kind: IDashboardModerationKind;
-  /** Tipo de la ficha (solo `listing`), si la API lo entrega; da el rol de `by`. */
+  /** Tipo de la ficha (solo `listing`); da el rol de `by`. */
   listingType?: "comercio" | "servicio";
   title: string;
   slug: string;
   image: string;
-  /** Quién lo envió («Mascotas Felices SpA · comercio»); sin rol si la API no permite saberlo. */
+  /** Quién lo envió y el rol que da la publicación («Mascotas Felices SpA · Comercio»). */
   by: string;
   /** Tiempo relativo ya redactado («hace 2 h», «ayer»). */
   when: string;
