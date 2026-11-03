@@ -31,3 +31,16 @@ export function toLDCRoles(backendRoles: unknown): LDCRole[] {
   }
   return LDC_ROLE_KEYS.filter((r) => found.has(r));
 }
+
+/**
+ * Roles del backend para una lista de `LDCRole` (el cuerpo de `PATCH /admin/users/:id/roles`,
+ * CLGDC-127), sin repetir. Lo inverso de `toLDCRoles`; un valor que no es `LDCRole` se ignora.
+ */
+export function toBackendRoles(roles: readonly string[]): string[] {
+  const found = new Set<string>();
+  for (const role of roles) {
+    const backend = Object.keys(BACKEND_ROLE_MAP).find((k) => BACKEND_ROLE_MAP[k] === role);
+    if (backend) found.add(backend);
+  }
+  return [...found];
+}

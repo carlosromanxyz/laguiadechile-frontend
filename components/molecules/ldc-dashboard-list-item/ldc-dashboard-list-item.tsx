@@ -3,8 +3,8 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export interface LDCDashboardListItemProps {
-  /** Miniatura (48 px, decorativa) */
-  image: string;
+  /** Miniatura (48 px, decorativa); sin ella, la fila empieza por el texto (p. ej. Usuarios) */
+  image?: string;
   /** Título del elemento */
   title: ReactNode;
   /** Línea sobre el título: badges y datos cortos («hace 2 h · Valparaíso») */
@@ -47,13 +47,15 @@ export function LDCDashboardListItem({
 }: LDCDashboardListItemProps) {
   return (
     <li className="@container flex min-w-0 items-start gap-3 border-t border-border py-3 first:border-t-0 first:pt-0 last:pb-0">
-      <Image
-        src={image}
-        alt=""
-        width={48}
-        height={48}
-        className="size-12 shrink-0 rounded-md bg-muted object-cover"
-      />
+      {image && (
+        <Image
+          src={image}
+          alt=""
+          width={48}
+          height={48}
+          className="size-12 shrink-0 rounded-md bg-muted object-cover"
+        />
+      )}
       <div className="flex min-w-0 flex-1 flex-col gap-2 @lg:flex-row @lg:items-center @lg:gap-4">
         <div className="min-w-0 flex-1">
           {meta != null && (
