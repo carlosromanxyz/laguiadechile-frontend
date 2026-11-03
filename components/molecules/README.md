@@ -10,6 +10,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 
 ## Componentes
 
+- **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
 - **ldc-auth-card** (`LDCAuthCard`): bloque de acceso: tarjeta con `LDCLogo` y `LDCAuthHeader`, o sin tarjeta con `bare` (pantalla dividida, con enlace de vuelta opcional en `back`), y el formulario como hijo.
 - **ldc-auth-header** (`LDCAuthHeader`): encabezado de acceso: ícono del rol, h1 de marca y descripción.
@@ -34,17 +35,20 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección.
 - **ldc-listing-social-media** (`LDCListingSocialMedia`): redes sociales de un comercio o servicio.
 - **ldc-listing-type-selector** (`LDCListingTypeSelector`): radios en tarjeta para elegir Comercio o Servicio al crear una ficha. Cliente.
-- **ldc-moderation-actions** (`LDCModerationActions`): Aprobar y Rechazar (con confirmación y motivo opcional) de la cola de moderación, con server actions. Cliente.
+- **ldc-moderation-actions** (`LDCModerationActions`): Aprobar y Rechazar (con confirmación y motivo obligatorio en `LDCRejectDialog`) de la cola de moderación, con server actions. Cliente.
 - **ldc-nav-menu** (`LDCNavMenu`): navegación principal de escritorio del header.
 - **ldc-news-author** (`LDCNewsAuthor`): caja del autor, fecha y tiempo de lectura en la ficha de noticia.
 - **ldc-news-card** (`LDCNewsCard`): card de noticia. Cliente.
 - **ldc-page-header** (`LDCPageHeader`): título, descripción y acciones de una página del panel.
+- **ldc-pagination** (`LDCPagination`): paginación por URL (`?page=`) sobre `ui/pagination`; en móvil, «Página N de M» con Anterior y Siguiente de 44 px. Cliente.
 - **ldc-price-box** (`LDCPriceBox`): caja de precio con la línea de publicación.
 - **ldc-property-agent** (`LDCPropertyAgent`): caja del corredor o la agencia con botones de contacto en la ficha de propiedad. Cliente.
 - **ldc-property-card** (`LDCPropertyCard`): card de propiedad con precio, características y ubicación. Cliente.
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
+- **ldc-publication-status-actions** (`LDCPublicationStatusActions`): acción del estado a la vista (Aprobar/Rechazar, Editar o Republicar) y `⋯` con «Cambiar estado», Editar y Ver en el sitio. Cliente.
 - **ldc-publish-banner** (`LDCPublishBanner`): banner «Publica tu comercio o servicio» con CTA a la página de alta del panel.
-- **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano) con «Corregir y reenviar». Cliente.
+- **ldc-reject-dialog** (`LDCRejectDialog`): diálogo controlado para rechazar con motivo obligatorio (hasta 500 caracteres); lo usan `LDCModerationActions` y `LDCPublicationStatusActions`. Cliente.
+- **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano), con «Corregir y reenviar» si hay `fixHref` o en solo lectura sin él. Cliente.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).

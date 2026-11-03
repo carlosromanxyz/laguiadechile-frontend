@@ -66,5 +66,6 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
 - **ldc-role-gateway** (`LDCRoleGateway`): repartidor de `/ingresar`: tarjetas de los roles con login público y enlace al registro.
 - **ldc-category-form** (`LDCCategoryForm`): formulario para crear o editar una categoría. Cliente.
-- **ldc-resource-table** (`LDCResourceTable`): tabla genérica de recursos con columna de acciones opcional.
+- **ldc-resource-table** (`LDCResourceTable`): tabla genérica de recursos con columna de acciones opcional (menú o `renderActions` con `actionsClassName`), tarjetas bajo `md` (`renderCard`), esqueleto (`loading`) y estado vacío (`emptyState`).
+- **ldc-admin-publication-list** (`LDCAdminPublicationList`): listado admin de fichas: toolbar, tabla o tarjetas con `LDCPublicationStatusActions` y paginación. Cliente.
 - **ldc-resource-row-actions** (`LDCResourceRowActions`): menú de editar y eliminar de una fila, con confirmación. Cliente.

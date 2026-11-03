@@ -15,6 +15,7 @@ import {
   Tags,
   User,
   Users,
+  Wrench,
   type LucideIcon,
 } from "lucide-react";
 import type { LDCRole } from "@/lib/auth/roles";
@@ -77,6 +78,7 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
     items: [
       { href: "/dashboard/admin/moderacion", label: "Moderación", icon: ShieldCheck },
       { href: "/dashboard/admin/comercios", label: "Comercios", icon: Store },
+      { href: "/dashboard/admin/servicios", label: "Servicios", icon: Wrench },
       { href: "/dashboard/admin/avisos", label: "Avisos", icon: Tags },
       { href: "/dashboard/admin/propiedades", label: "Propiedades", icon: Home },
       { href: "/dashboard/admin/noticias", label: "Noticias", icon: Newspaper },
