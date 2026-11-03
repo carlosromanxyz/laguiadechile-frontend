@@ -21,8 +21,8 @@ import {
   ADMIN_SETTABLE_STATUSES,
   type IAdminPublicationStatus,
 } from "@/interfaces/admin-publication";
-import type { IDashboardActionResult } from "@/interfaces/dashboard";
-import { ADMIN_PUBLICATION_STATUS_META } from "@/lib/dashboard/admin-publication-status";
+import type { IDashboardActionResult, IDashboardModerationKind } from "@/interfaces/dashboard";
+import { adminStatusLabel, type IAdminNounGender } from "@/lib/dashboard/admin-publication-status";
 import { cn } from "@/lib/utils";
 
 export interface LDCPublicationStatusActionsProps {
@@ -42,6 +42,10 @@ export interface LDCPublicationStatusActionsProps {
   editHref?: string;
   /** Página pública; «Ver en el sitio» solo se habilita con `PUBLISHED` */
   publicHref?: string;
+  /** Género del sustantivo: `f` (ficha, por defecto) o `m` (aviso); concuerda menú, toast y diálogo */
+  gender?: IAdminNounGender;
+  /** Tipo que recibe `LDCModerationActions` (por defecto `listing`) */
+  kind?: IDashboardModerationKind;
   className?: string;
 }
 
@@ -51,7 +55,12 @@ const TARGET = "h-11 md:h-8";
 const canChangeStatus = (s: IAdminPublicationStatus) => s !== "ARCHIVED";
 
 /** Texto del toast según el cambio. */
-function successMessage(from: IAdminPublicationStatus, to: IAdminPublicationStatus, title: string) {
+function successMessage(
+  from: IAdminPublicationStatus,
+  to: IAdminPublicationStatus,
+  title: string,
+  gender: IAdminNounGender,
+) {
   const verb =
     to === "PUBLISHED"
       ? from === "REVIEW"
@@ -64,7 +73,7 @@ function successMessage(from: IAdminPublicationStatus, to: IAdminPublicationStat
         : to === "REJECTED"
           ? "Rechazaste"
           : to === "EXPIRED"
-            ? "Marcaste como vencida"
+            ? `Marcaste como ${gender === "m" ? "vencido" : "vencida"}`
             : "Archivaste";
   return `${verb} «${title}»`;
 }
@@ -90,6 +99,8 @@ export function LDCPublicationStatusActions({
   onSetStatus,
   editHref,
   publicHref,
+  gender = "f",
+  kind = "listing",
   className,
 }: LDCPublicationStatusActionsProps) {
   const [rejectOpen, setRejectOpen] = useState(false);
@@ -102,7 +113,7 @@ export function LDCPublicationStatusActions({
     startTransition(async () => {
       const result = await onSetStatus(id, slug, to, rejection);
       if (result.ok) {
-        toast.success(successMessage(status, to, title));
+        toast.success(successMessage(status, to, title, gender));
         setRejectOpen(false);
       } else {
         toast.error(result.message);
@@ -132,7 +143,7 @@ export function LDCPublicationStatusActions({
     >
       {status === "REVIEW" && (
         <LDCModerationActions
-          kind="listing"
+          kind={kind}
           id={id}
           slug={slug}
           title={title}
@@ -193,10 +204,10 @@ export function LDCPublicationStatusActions({
                 {ADMIN_SETTABLE_STATUSES.map((s) => (
                   <DropdownMenuRadioItem key={s} value={s}>
                     {s === "PUBLISHED" && status === "REVIEW"
-                      ? "Publicada (aprobar)"
+                      ? `${adminStatusLabel("PUBLISHED", gender)} (aprobar)`
                       : s === "REJECTED"
-                        ? "Rechazada…"
-                        : ADMIN_PUBLICATION_STATUS_META[s].label}
+                        ? `${adminStatusLabel("REJECTED", gender)}…`
+                        : adminStatusLabel(s, gender)}
                   </DropdownMenuRadioItem>
                 ))}
               </DropdownMenuRadioGroup>
@@ -237,7 +248,9 @@ export function LDCPublicationStatusActions({
         open={rejectOpen}
         onOpenChange={setRejectOpen}
         title={`¿Rechazar «${title}»?`}
-        description="Dejará de verse en La Guía. Su dueño verá el motivo y podrá corregirla y volver a enviarla."
+        description={`Dejará de verse en La Guía. Su dueño verá el motivo y podrá ${
+          gender === "m" ? "corregirlo y volver a enviarlo" : "corregirla y volver a enviarla"
+        }.`}
         pending={pendingTo === "REJECTED"}
         onConfirm={(reason) => change("REJECTED", reason)}
       />

@@ -6,16 +6,76 @@ import type { IAdminPublicationStatus } from "@/interfaces/admin-publication";
 import { ADMIN_PUBLICATION_STATUSES } from "@/interfaces/admin-publication";
 
 export const ADMIN_PUBLICATION_STATUS_META = {
-  PUBLISHED: { key: "publicadas", label: "Publicada", pill: "Publicadas", badge: "status-published" },
-  REVIEW: { key: "revision", label: "En revisión", pill: "En revisión", badge: "status-review" },
-  REJECTED: { key: "rechazadas", label: "Rechazada", pill: "Rechazadas", badge: "status-rejected" },
-  EXPIRED: { key: "vencidas", label: "Vencida", pill: "Vencidas", badge: "status-expired" },
+  PUBLISHED: {
+    key: "publicadas",
+    label: "Publicada",
+    pill: "Publicadas",
+    labelM: "Publicado",
+    pillM: "Publicados",
+    badge: "status-published",
+  },
+  REVIEW: {
+    key: "revision",
+    label: "En revisión",
+    pill: "En revisión",
+    labelM: "En revisión",
+    pillM: "En revisión",
+    badge: "status-review",
+  },
+  REJECTED: {
+    key: "rechazadas",
+    label: "Rechazada",
+    pill: "Rechazadas",
+    labelM: "Rechazado",
+    pillM: "Rechazados",
+    badge: "status-rejected",
+  },
+  EXPIRED: {
+    key: "vencidas",
+    label: "Vencida",
+    pill: "Vencidas",
+    labelM: "Vencido",
+    pillM: "Vencidos",
+    badge: "status-expired",
+  },
   // Neutro, como «Vencida»: el dueño la sacó de la guía (CLGDC-157).
-  ARCHIVED: { key: "archivadas", label: "Archivada", pill: "Archivadas", badge: "status-expired" },
+  ARCHIVED: {
+    key: "archivadas",
+    label: "Archivada",
+    pill: "Archivadas",
+    labelM: "Archivado",
+    pillM: "Archivados",
+    badge: "status-expired",
+  },
 } as const satisfies Record<
   IAdminPublicationStatus,
-  { key: string; label: string; pill: string; badge: `status-${string}` }
+  {
+    key: string;
+    label: string;
+    pill: string;
+    labelM: string;
+    pillM: string;
+    badge: `status-${string}`;
+  }
 >;
+
+/**
+ * Género del sustantivo de las filas: `f` para fichas (por defecto), `m` para avisos (CLGDC-127).
+ * Solo cambia los textos; la clave de `?estado=` es la misma («publicadas», «vencidas»…).
+ */
+export type IAdminNounGender = "f" | "m";
+
+/** Etiqueta de un estado («Publicada» / «Publicado») para badges, menú y mensajes. */
+export function adminStatusLabel(status: IAdminPublicationStatus, gender: IAdminNounGender = "f") {
+  const meta = ADMIN_PUBLICATION_STATUS_META[status];
+  return gender === "m" ? meta.labelM : meta.label;
+}
+
+/** Texto de la pill de un estado («Publicadas» / «Publicados»). */
+export function adminStatusPill(status: IAdminPublicationStatus, gender: IAdminNounGender = "f") {
+  const meta = ADMIN_PUBLICATION_STATUS_META[status];
+  return gender === "m" ? meta.pillM : meta.pill;
+}
 
 /** Clave de «Todos» en `?estado=` (no filtra; en la URL se omite). */
 export const ADMIN_STATUS_ALL = "todos";

@@ -22,13 +22,13 @@ export interface LDCAdminListToolbarProps {
   /** Búsqueda actual (`?q=`) */
   q: string;
   /** Slug de la ciudad elegida (`?ciudad=`); vacío, todas */
-  city: string;
-  /** Ciudades del filtro */
-  cities: readonly { id: string; name: string; slug: string }[];
-  /** Pills de estado en orden («Todos» primero), con los `counts` del listado */
-  statusItems: readonly LDCAdminListToolbarStatusItem[];
+  city?: string;
+  /** Ciudades del filtro; sin ellas no hay filtro de ciudad (p. ej. Usuarios) */
+  cities?: readonly { id: string; name: string; slug: string }[];
+  /** Pills de estado en orden («Todos» primero), con los `counts` del listado; sin ellas, no hay pills */
+  statusItems?: readonly LDCAdminListToolbarStatusItem[];
   /** Clave del estado activo */
-  status: string;
+  status?: string;
   /** Clave de «Todos» (se omite en la URL) */
   allKey?: string;
   /** Navega a la URL con el filtro nuevo (p. ej. dentro de una transición); por defecto `router.replace` */
@@ -39,6 +39,9 @@ export interface LDCAdminListToolbarProps {
 
 /**
  * LDCAdminListToolbar - Búsqueda, ciudad y estado de un listado del panel admin
+ *
+ * La ciudad y las pills son opcionales: sin `cities` o sin `statusItems` no se muestran (Usuarios
+ * solo lleva la búsqueda, CLGDC-127).
  *
  * Todo vive en la URL y cada cambio vuelve a la página 1: la búsqueda escribe `?q=` 300 ms después
  * de la última tecla, el `LDCCombobox` de ciudad escribe `?ciudad=` y las pills de `LDCStatusFilter`
@@ -51,10 +54,10 @@ export interface LDCAdminListToolbarProps {
  */
 export function LDCAdminListToolbar({
   q,
-  city,
+  city = "",
   cities,
   statusItems,
-  status,
+  status = "todos",
   allKey = "todos",
   onNavigate,
   searchLabel = "Buscar por nombre",
@@ -117,7 +120,7 @@ export function LDCAdminListToolbar({
     navigate(link.getAttribute("href") ?? pathname);
   }
 
-  const cityItems = [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities];
+  const cityItems = cities ? [{ id: "", name: "Todas las ciudades", slug: "" }, ...cities] : null;
 
   return (
     <div className="flex flex-col gap-3">
@@ -154,31 +157,35 @@ export function LDCAdminListToolbar({
             </Button>
           )}
         </div>
-        <div className="md:w-60">
-          <label htmlFor={cityId} className="sr-only">
-            Ciudad
-          </label>
-          <LDCCombobox
-            id={cityId}
-            items={cityItems}
-            value={city}
-            onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
-            placeholder="Todas las ciudades"
-            searchPlaceholder="Buscar ciudad…"
-            emptyText="No encontramos esa ciudad."
-            className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
+        {cityItems && (
+          <div className="md:w-60">
+            <label htmlFor={cityId} className="sr-only">
+              Ciudad
+            </label>
+            <LDCCombobox
+              id={cityId}
+              items={cityItems}
+              value={city}
+              onValueChange={(slug) => navigate(hrefWith({ ciudad: slug }))}
+              placeholder="Todas las ciudades"
+              searchPlaceholder="Buscar ciudad…"
+              emptyText="No encontramos esa ciudad."
+              className="h-11 bg-card font-normal md:h-9 dark:bg-input/30"
+            />
+          </div>
+        )}
+      </div>
+      {statusItems && (
+        <div onClickCapture={interceptPill}>
+          <LDCStatusFilter
+            current={status}
+            items={statusItems.map((item) => ({
+              ...item,
+              href: hrefWith({ estado: item.key === allKey ? "" : item.key }),
+            }))}
           />
         </div>
-      </div>
-      <div onClickCapture={interceptPill}>
-        <LDCStatusFilter
-          current={status}
-          items={statusItems.map((item) => ({
-            ...item,
-            href: hrefWith({ estado: item.key === allKey ? "" : item.key }),
-          }))}
-        />
-      </div>
+      )}
     </div>
   );
 }

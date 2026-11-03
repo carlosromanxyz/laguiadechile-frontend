@@ -26,21 +26,41 @@ export type IAdminSettableStatus = (typeof ADMIN_SETTABLE_STATUSES)[number];
 /** Tipo de ficha (`ListingType` de la API). */
 export type IAdminListingType = "COMERCIO" | "SERVICIO";
 
-/** Fila de `GET /admin/listings`: sin descripción, con dueño y motivo del rechazo. */
-export interface IAdminListingRow {
+/**
+ * Lo común de una fila de los listados admin de publicaciones (fichas y avisos): lo que pinta
+ * `LDCAdminPublicationList`. Un aviso puede no tener categoría (CLGDC-127).
+ */
+export interface IAdminPublicationRow {
   id: string;
   title: string;
   slug: string;
-  type: IAdminListingType;
   image: string;
   featured: boolean;
   status: IAdminPublicationStatus;
   /** Texto plano que escribió el equipo; solo con `REJECTED`. */
   rejectionReason: string | null;
   updatedAt: string;
-  category: { id: string; name: string; slug: string };
+  category: { id: string; name: string; slug: string } | null;
   city: { id: string; name: string; slug: string };
   owner: { id: string; name: string } | null;
+}
+
+/** Fila de `GET /admin/listings`: sin descripción, con dueño y motivo del rechazo. */
+export interface IAdminListingRow extends IAdminPublicationRow {
+  type: IAdminListingType;
+  category: { id: string; name: string; slug: string };
+}
+
+/** Tipo de aviso (`ClassifiedType` de la API). */
+export type IAdminClassifiedType = "VENDO" | "COMPRO" | "ARRIENDO" | "BUSCO" | "OFREZCO";
+
+/**
+ * Fila de `GET /admin/classifieds` (CLGDC-120): como la de fichas, con el tipo de aviso y su
+ * vencimiento. `status` llega **efectivo**: un aviso publicado con `expiresAt` pasado es `EXPIRED`.
+ */
+export interface IAdminClassifiedRow extends IAdminPublicationRow {
+  type: IAdminClassifiedType;
+  expiresAt: string | null;
 }
 
 /**

@@ -17,19 +17,35 @@ import { Button } from "@/components/ui/button";
 import {
   ADMIN_PUBLICATION_STATUSES,
   type IAdminCityOption,
-  type IAdminListingRow,
+  type IAdminPublicationRow,
   type IAdminPublicationStatus,
 } from "@/interfaces/admin-publication";
-import type { IDashboardActionResult } from "@/interfaces/dashboard";
+import type { IDashboardActionResult, IDashboardModerationKind } from "@/interfaces/dashboard";
 import {
   ADMIN_PUBLICATION_STATUS_META,
   ADMIN_STATUS_ALL,
+  adminStatusLabel,
+  adminStatusPill,
+  type IAdminNounGender,
 } from "@/lib/dashboard/admin-publication-status";
 import { formatShortDate } from "@/lib/dashboard/dates";
 
+/** Cómo se nombra cada fila: encabezado de la columna y conteo para lectores de pantalla. */
+export interface LDCAdminPublicationListNoun {
+  /** Encabezado de la primera columna («Ficha», «Aviso») */
+  header: string;
+  /** Singular y plural en minúscula («ficha», «fichas») */
+  one: string;
+  many: string;
+  /** Género para concordar estados, toasts y menú («Publicada» / «Publicado»); por defecto `f` */
+  gender?: IAdminNounGender;
+}
+
+const DEFAULT_NOUN: LDCAdminPublicationListNoun = { header: "Ficha", one: "ficha", many: "fichas" };
+
 export interface LDCAdminPublicationListProps {
-  /** Filas de la página actual */
-  items: IAdminListingRow[];
+  /** Filas de la página actual (fichas o avisos) */
+  items: IAdminPublicationRow[];
   /** Total con los filtros actuales (incluido el de estado) */
   total: number;
   page: number;
@@ -57,22 +73,32 @@ export interface LDCAdminPublicationListProps {
   emptyIcon: ReactNode;
   /** Nombre accesible del listado («Listado de comercios») */
   label: string;
+  /** Nombre de las filas; por defecto «Ficha» / «ficha» / «fichas» */
+  noun?: LDCAdminPublicationListNoun;
+  /** Tipo de publicación para `LDCModerationActions` (por defecto `listing`; avisos, `classified`) */
+  kind?: IDashboardModerationKind;
+}
+
+/** «Categoría · Ciudad»; un aviso sin categoría muestra solo la ciudad. */
+function placeLine(row: IAdminPublicationRow) {
+  return [row.category?.name, row.city.name].filter(Boolean).join(" · ");
 }
 
 /** Badge del estado; «Rechazada» con motivo es el botón que abre el motivo (solo lectura). */
-function StatusBadge({ row }: { row: IAdminListingRow }) {
+function StatusBadge({ row, gender }: { row: IAdminPublicationRow; gender: IAdminNounGender }) {
   const meta = ADMIN_PUBLICATION_STATUS_META[row.status];
+  const label = adminStatusLabel(row.status, gender);
   if (row.status === "REJECTED" && row.rejectionReason) {
-    return <LDCRejectionReasonDialog title={row.title} reason={row.rejectionReason} badgeLabel={meta.label} />;
+    return <LDCRejectionReasonDialog title={row.title} reason={row.rejectionReason} badgeLabel={label} />;
   }
-  return <LDCBadge variant={meta.badge}>{meta.label}</LDCBadge>;
+  return <LDCBadge variant={meta.badge}>{label}</LDCBadge>;
 }
 
-function FeaturedBadge() {
+function FeaturedBadge({ gender }: { gender: IAdminNounGender }) {
   return (
     <LDCBadge variant="featured-icon">
       <Star className="size-2.5 fill-current" aria-hidden />
-      Destacada
+      {gender === "m" ? "Destacado" : "Destacada"}
     </LDCBadge>
   );
 }
@@ -108,7 +134,10 @@ export function LDCAdminPublicationList({
   emptyDescription,
   emptyIcon,
   label,
+  noun = DEFAULT_NOUN,
+  kind = "listing",
 }: LDCAdminPublicationListProps) {
+  const gender = noun.gender ?? "f";
   const router = useRouter();
   const pathname = usePathname();
   const [pending, startTransition] = useTransition();
@@ -124,9 +153,9 @@ export function LDCAdminPublicationList({
   );
   const filtered = Boolean(q || city || status);
   const cityName = cities.find((c) => c.slug === city)?.name;
-  const publicHref = (row: IAdminListingRow) => `${publicPathPrefix}/${row.slug}`;
+  const publicHref = (row: IAdminPublicationRow) => `${publicPathPrefix}/${row.slug}`;
 
-  const actions = (row: IAdminListingRow) => (
+  const actions = (row: IAdminPublicationRow) => (
     <LDCPublicationStatusActions
       id={row.id}
       slug={row.slug}
@@ -134,6 +163,8 @@ export function LDCAdminPublicationList({
       status={row.status}
       publicHref={publicHref(row)}
       onSetStatus={onSetStatus}
+      gender={gender}
+      kind={kind}
       className="md:flex-nowrap"
     />
   );
@@ -141,7 +172,7 @@ export function LDCAdminPublicationList({
   const noResults = [
     q && `«${q}»`,
     cityName && `en ${cityName}`,
-    status && `con estado «${ADMIN_PUBLICATION_STATUS_META[status].label}»`,
+    status && `con estado «${adminStatusLabel(status, gender)}»`,
   ]
     .filter(Boolean)
     .join(" ");
@@ -178,7 +209,7 @@ export function LDCAdminPublicationList({
           { key: ADMIN_STATUS_ALL, label: "Todos", count: allCount },
           ...statusFilters.map((s) => ({
             key: ADMIN_PUBLICATION_STATUS_META[s].key,
-            label: ADMIN_PUBLICATION_STATUS_META[s].pill,
+            label: adminStatusPill(s, gender),
             count: counts[s] ?? 0,
           })),
         ]}
@@ -186,21 +217,25 @@ export function LDCAdminPublicationList({
       />
 
       <p className="sr-only" aria-live="polite">
-        {pending ? "Cargando fichas" : `${total} ${total === 1 ? "ficha" : "fichas"}`}
+        {pending ? `Cargando ${noun.many}` : `${total} ${total === 1 ? noun.one : noun.many}`}
       </p>
 
       <LDCResourceTable
         rows={items}
         getRowKey={(row) => row.id}
         loading={pending}
-        loadingLabel="Cargando fichas"
-        caption={`${label}, de la última actualizada a la más antigua`}
+        loadingLabel={`Cargando ${noun.many}`}
+        caption={
+          gender === "m"
+            ? `${label}, del último actualizado al más antiguo`
+            : `${label}, de la última actualizada a la más antigua`
+        }
         emptyState={emptyState}
         isRowHighlighted={(row) => row.featured}
         columns={[
           {
             key: "title",
-            header: "Ficha",
+            header: noun.header,
             cellClassName: "w-full max-w-0",
             cell: (row) => (
               <div className="flex min-w-0 items-center gap-3">
@@ -226,10 +261,10 @@ export function LDCAdminPublicationList({
                         {row.title}
                       </span>
                     )}
-                    {row.featured && <FeaturedBadge />}
+                    {row.featured && <FeaturedBadge gender={gender} />}
                   </div>
                   <p className="truncate font-open-sans text-xs text-muted-foreground">
-                    {row.category.name} · {row.city.name}
+                    {placeLine(row)}
                   </p>
                 </div>
               </div>
@@ -238,7 +273,7 @@ export function LDCAdminPublicationList({
           {
             key: "status",
             header: "Estado",
-            cell: (row) => <StatusBadge row={row} />,
+            cell: (row) => <StatusBadge row={row} gender={gender} />,
           },
           {
             key: "owner",
@@ -251,7 +286,7 @@ export function LDCAdminPublicationList({
           },
           {
             key: "updatedAt",
-            header: "Actualizada",
+            header: gender === "m" ? "Actualizado" : "Actualizada",
             cellClassName: "whitespace-nowrap text-muted-foreground",
             cell: (row) => <time dateTime={row.updatedAt}>{formatShortDate(row.updatedAt)}</time>,
           },
@@ -264,12 +299,12 @@ export function LDCAdminPublicationList({
             title={row.title}
             meta={
               <>
-                <StatusBadge row={row} />
-                {row.featured && <FeaturedBadge />}
+                <StatusBadge row={row} gender={gender} />
+                {row.featured && <FeaturedBadge gender={gender} />}
               </>
             }
             subtitle={[
-              `${row.category.name} · ${row.city.name}`,
+              placeLine(row),
               formatShortDate(row.updatedAt),
               row.owner ? row.owner.name : "Sin dueño",
             ].join(" · ")}
