@@ -39,12 +39,12 @@ export interface IProperty {
     surface: number;
     /** Total area in m² (for houses with land) */
     totalSurface?: number;
-    /** Number of bedrooms */
-    bedrooms: number;
-    /** Number of bathrooms */
-    bathrooms: number;
-    /** Number of parking spots */
-    parking: number;
+    /** Number of bedrooms (undefined si no viene informado) */
+    bedrooms?: number;
+    /** Number of bathrooms (undefined si no viene informado) */
+    bathrooms?: number;
+    /** Number of parking spots (undefined si no viene informado) */
+    parking?: number;
   };
   location: {
     city: {

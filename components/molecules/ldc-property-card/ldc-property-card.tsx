@@ -7,6 +7,7 @@ import {
   formatPropertyPriceWithPeriod,
   getPropertyTypeLabel,
   getOperationLabel,
+  getPropertyRooms,
 } from "@/lib/format/properties";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
@@ -40,9 +41,9 @@ interface LDCPropertyCardProps {
   /** Property features */
   features: {
     surface: number;
-    bedrooms: number;
-    bathrooms: number;
-    parking: number;
+    bedrooms?: number;
+    bathrooms?: number;
+    parking?: number;
   };
   /** Location info */
   location: {
@@ -107,6 +108,7 @@ export function LDCPropertyCard({
   const formattedPrice = formatPropertyPriceWithPeriod(price);
   const propertyTypeLabel = getPropertyTypeLabel(type);
   const operationLabel = getOperationLabel(operation);
+  const { bedrooms, bathrooms, parking } = getPropertyRooms(type, features);
   const locationDetails = location.neighborhood
     ? `${location.commune}, ${location.neighborhood}`
     : location.commune;
@@ -199,35 +201,41 @@ export function LDCPropertyCard({
             <TooltipContent>Superficie útil</TooltipContent>
           </Tooltip>
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span className="flex items-center gap-0.5 cursor-help">
-                <Bed className="w-3 h-3" />
-                {features.bedrooms}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>Dormitorios</TooltipContent>
-          </Tooltip>
+          {bedrooms !== undefined && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="flex items-center gap-0.5 cursor-help">
+                  <Bed className="w-3 h-3" />
+                  {bedrooms}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>Dormitorios</TooltipContent>
+            </Tooltip>
+          )}
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span className="flex items-center gap-0.5 cursor-help">
-                <Bath className="w-3 h-3" />
-                {features.bathrooms}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>Baños</TooltipContent>
-          </Tooltip>
+          {bathrooms !== undefined && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="flex items-center gap-0.5 cursor-help">
+                  <Bath className="w-3 h-3" />
+                  {bathrooms}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>Baños</TooltipContent>
+            </Tooltip>
+          )}
 
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <span className="flex items-center gap-0.5 cursor-help">
-                <Car className="w-3 h-3" />
-                {features.parking}
-              </span>
-            </TooltipTrigger>
-            <TooltipContent>Estacionamientos</TooltipContent>
-          </Tooltip>
+          {parking !== undefined && (
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span className="flex items-center gap-0.5 cursor-help">
+                  <Car className="w-3 h-3" />
+                  {parking}
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>Estacionamientos</TooltipContent>
+            </Tooltip>
+          )}
         </div>
       </div>
     </LDCCardSurface>

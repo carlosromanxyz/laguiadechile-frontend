@@ -326,7 +326,7 @@ function PropertyDetail({
         <>
           <LDCListingGallery images={galleryImages} title={property.title} />
 
-          <LDCPropertyFeatures features={property.features} />
+          <LDCPropertyFeatures type={property.type} features={property.features} />
 
           <DescriptionPanel>
             <p className="text-muted-foreground text-justify whitespace-pre-line">

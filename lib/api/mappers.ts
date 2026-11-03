@@ -195,9 +195,9 @@ export function mapProperty(p: RawProperty): IProperty {
     features: {
       surface: p.surface,
       totalSurface: p.totalSurface ?? undefined,
-      bedrooms: p.bedrooms ?? 0,
-      bathrooms: p.bathrooms ?? 0,
-      parking: p.parking ?? 0,
+      bedrooms: p.bedrooms ?? undefined,
+      bathrooms: p.bathrooms ?? undefined,
+      parking: p.parking ?? undefined,
     },
     location: {
       city: { name: p.city.name, slug: p.city.slug },
