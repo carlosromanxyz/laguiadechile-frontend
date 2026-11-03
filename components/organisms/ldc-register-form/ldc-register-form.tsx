@@ -118,6 +118,7 @@ export function LDCRegisterForm() {
         label="Nombre"
         placeholder="Nombre y apellido"
         autoComplete="name"
+        maxLength={80}
         required
         disabled={submitting}
       />

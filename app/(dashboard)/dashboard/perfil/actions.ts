@@ -34,7 +34,7 @@ export async function updateMyProfileAction(input: IMyProfileUpdate): Promise<IU
     return { ok: true, profile };
   } catch (e) {
     if (e instanceof ApiError) {
-      if (e.status === 400) return { ok: false, field: "name", message: "Revisa tu nombre: usa entre 1 y 100 caracteres." };
+      if (e.status === 400) return { ok: false, field: "name", message: "Revisa tu nombre: usa entre 2 y 80 caracteres." };
       if (e.status === 401 || e.status === 403) return { ok: false, message: SESSION_EXPIRED };
     }
     return { ok: false, message: "No pudimos guardar tu nombre. Inténtalo de nuevo en unos minutos." };

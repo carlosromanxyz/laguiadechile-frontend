@@ -5,9 +5,16 @@ import {
   PASSWORD_MAX_BYTES_MESSAGE,
 } from "@/validations/password-bytes";
 
-/** «Tus datos» de `/dashboard/perfil`: el nombre, como lo valida `UpdateMeDto` (1 a 100, recortado). */
+/**
+ * «Tus datos» de `/dashboard/perfil`: el nombre, como lo validan `UpdateMeDto` y el registro (2 a
+ * 80, recortado; CLGDC-132).
+ */
 export const profileDetailsSchema = z.object({
-  name: z.string().trim().min(1, "Escribe tu nombre.").max(100, "Usa como máximo 100 caracteres."),
+  name: z
+    .string()
+    .trim()
+    .min(2, "Escribe tu nombre: al menos 2 caracteres.")
+    .max(80, "Usa como máximo 80 caracteres."),
 });
 
 export type LDCProfileDetailsValues = z.infer<typeof profileDetailsSchema>;
