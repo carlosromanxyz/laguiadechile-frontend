@@ -14,7 +14,7 @@ export default async function AdminModeracionPage() {
   return (
     <LDCDashboardPageTemplate
       title="Moderación"
-      description="Fichas y avisos que comercios y usuarios enviaron o editaron. Apruébalos para publicarlos en La Guía."
+      description="Fichas, avisos y eventos que comercios, organizadores y usuarios enviaron o editaron. Apruébalos para publicarlos en La Guía."
     >
       <LDCModerationQueue
         items={queue}

@@ -18,6 +18,13 @@ const variants = {
   "role-comercio": LDC_ROLE_META.comercio.tone,
   "role-servicio": LDC_ROLE_META.servicio.tone,
   "role-admin": LDC_ROLE_META.admin.tone,
+  /**
+   * Tipo de publicación en la cola de moderación. Ficha y aviso conservan el aspecto de `new` y
+   * `updated`; evento, azul grisáceo con texto negro (4,7:1), el color del rol organizador.
+   */
+  "kind-listing": "bg-pink-strong text-white",
+  "kind-classified": "bg-purple text-white",
+  "kind-event": "bg-blue-gray text-black",
   /** Estado de una publicación propia en el panel. */
   "status-published": "gap-1 bg-success text-success-foreground",
   "status-review": "gap-1 border border-yellow bg-transparent text-foreground",

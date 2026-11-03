@@ -28,16 +28,18 @@ export interface IDashboardTask {
 }
 
 /** Tipo de publicación que se modera (ruta `/admin/moderation/:kind/:id`). */
-export type IDashboardModerationKind = "listing" | "classified";
+export type IDashboardModerationKind = "listing" | "classified" | "event";
 
 /** Elemento de la cola de moderación del administrador (`GET /admin/moderation`). */
 export interface IDashboardModerationItem {
   id: string;
   kind: IDashboardModerationKind;
+  /** Tipo de la ficha (solo `listing`), si la API lo entrega; da el rol de `by`. */
+  listingType?: "comercio" | "servicio";
   title: string;
   slug: string;
   image: string;
-  /** Quién lo envió («Mascotas Felices SpA · comercio»). */
+  /** Quién lo envió («Mascotas Felices SpA · comercio»); sin rol si la API no permite saberlo. */
   by: string;
   /** Tiempo relativo ya redactado («hace 2 h», «ayer»). */
   when: string;
