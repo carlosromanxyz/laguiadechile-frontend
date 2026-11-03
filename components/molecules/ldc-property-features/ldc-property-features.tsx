@@ -1,8 +1,11 @@
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { Bed, Bath, Car, Maximize, LandPlot } from "lucide-react";
-import type { IProperty } from "@/interfaces/property";
+import type { IProperty, PropertyType } from "@/interfaces/property";
+import { getPropertyRooms } from "@/lib/format/properties";
 
 interface LDCPropertyFeaturesProps {
+  /** Tipo de propiedad: define si aplican dormitorios y baños */
+  type: PropertyType;
   features: IProperty["features"];
   className?: string;
 }
@@ -12,11 +15,14 @@ interface LDCPropertyFeaturesProps {
  *
  * Displays surface, bedrooms, bathrooms and parking with icons.
  * Includes total surface when available (e.g. houses with land).
+ * Omite dormitorios, baños y estacionamientos si no vienen informados o no aplican al tipo.
  */
 export function LDCPropertyFeatures({
+  type,
   features,
   className,
 }: LDCPropertyFeaturesProps) {
+  const { bedrooms, bathrooms, parking } = getPropertyRooms(type, features);
   const items = [
     { icon: Maximize, value: `${features.surface} m²`, label: "Superficie útil" },
     ...(features.totalSurface
@@ -28,9 +34,15 @@ export function LDCPropertyFeatures({
           },
         ]
       : []),
-    { icon: Bed, value: features.bedrooms, label: features.bedrooms === 1 ? "Dormitorio" : "Dormitorios" },
-    { icon: Bath, value: features.bathrooms, label: features.bathrooms === 1 ? "Baño" : "Baños" },
-    { icon: Car, value: features.parking, label: features.parking === 1 ? "Estacionamiento" : "Estacionamientos" },
+    ...(bedrooms !== undefined
+      ? [{ icon: Bed, value: bedrooms, label: bedrooms === 1 ? "Dormitorio" : "Dormitorios" }]
+      : []),
+    ...(bathrooms !== undefined
+      ? [{ icon: Bath, value: bathrooms, label: bathrooms === 1 ? "Baño" : "Baños" }]
+      : []),
+    ...(parking !== undefined
+      ? [{ icon: Car, value: parking, label: parking === 1 ? "Estacionamiento" : "Estacionamientos" }]
+      : []),
   ];
 
   return (
