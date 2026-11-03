@@ -3,6 +3,7 @@ import { LDCSkipLink } from "@/components/atoms/ldc-skip-link";
 import { LDCDashboardHeader } from "@/components/organisms/ldc-dashboard-header";
 import { LDCDashboardSidebar } from "@/components/organisms/ldc-dashboard-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { DASHBOARD_PUBLISH_ROLES } from "@/config/dashboard-navigation";
 import { getDashboardSession } from "@/lib/dashboard/session";
 import { hasAnyRole, type LDCRole } from "@/lib/auth/roles";
 import { getModerationQueue } from "@/services/dashboard/admin";
@@ -39,7 +40,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
       <LDCSkipLink />
       <LDCDashboardSidebar roles={session.roles} user={session.user} badges={badges} />
       <SidebarInset>
-        <LDCDashboardHeader />
+        <LDCDashboardHeader canPublish={hasAnyRole(session.roles, DASHBOARD_PUBLISH_ROLES)} />
         <main id="contenido" tabIndex={-1} className="flex-1 p-4 outline-none md:p-6">
           {children}
         </main>

@@ -98,8 +98,9 @@ export function getDashboardNavigation(roles: readonly LDCRole[]): IDashboardNav
 export const DASHBOARD_PUBLISH_ROLES = ["usuario", "comercio", "servicio"] as const satisfies readonly LDCRole[];
 
 /**
- * CTA naranjo único del sidebar: «Publicar», al selector de `/dashboard/publicar`. Lo ven las
- * cuentas que pueden publicar (un admin sin otro rol, no).
+ * CTA único «Publicar» del panel: va en la barra superior (`LDCDashboardHeader`) de todas las
+ * páginas, al selector de `/dashboard/publicar`. Lo ven las cuentas que pueden publicar (un admin
+ * sin otro rol, no).
  */
 export const dashboardPublishCta = { label: "Publicar", href: "/dashboard/publicar" } as const;
 
