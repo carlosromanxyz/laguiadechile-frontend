@@ -137,8 +137,8 @@ export function LDCProfileDetailsForm({ profile, headingId, action }: LDCProfile
               name="name"
               label="Nombre"
               autoComplete="name"
-              maxLength={100}
-              description="Entre 1 y 100 caracteres."
+              maxLength={80}
+              description="Entre 2 y 80 caracteres."
               required
               disabled={saving}
             />

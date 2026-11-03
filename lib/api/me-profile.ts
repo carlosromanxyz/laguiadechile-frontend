@@ -28,7 +28,7 @@ export async function getMyProfile(): Promise<IMyProfile> {
   return mapMyProfile(await apiFetchServer<RawMyProfile>("/me"));
 }
 
-/** Cambia el nombre (`PATCH /me`; el backend lo recorta y exige 1 a 100 caracteres). */
+/** Cambia el nombre (`PATCH /me`; el backend lo recorta y exige 2 a 80 caracteres). */
 export async function updateMyProfile(data: IMyProfileUpdate): Promise<IMyProfile> {
   const raw = await apiFetchServer<RawMyProfile>("/me", {
     method: "PATCH",
