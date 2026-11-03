@@ -13,10 +13,14 @@ import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { safeNextPath } from "@/lib/auth/safe-next";
 import { LDC_ROLES, type LDCAccessRole } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
+import { CURRENT_PASSWORD_MAX_LENGTH } from "@/validations/password-bytes";
 
 const schema = z.object({
   email: z.string().email("Escribe un email completo, como nombre@dominio.cl"),
-  password: z.string().min(6, "Mínimo 6 caracteres"),
+  password: z
+    .string()
+    .min(6, "Mínimo 6 caracteres")
+    .max(CURRENT_PASSWORD_MAX_LENGTH, "Máximo 256 caracteres"),
 });
 
 type FormValues = z.infer<typeof schema>;
