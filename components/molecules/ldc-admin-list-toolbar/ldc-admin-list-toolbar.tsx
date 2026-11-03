@@ -23,7 +23,7 @@ export interface LDCAdminListToolbarProps {
   q: string;
   /** Slug de la ciudad elegida (`?ciudad=`); vacío, todas */
   city?: string;
-  /** Ciudades del filtro; sin ellas, no hay filtro de ciudad (p. ej. Usuarios o Regiones) */
+  /** Ciudades del filtro; sin ellas, no hay filtro de ciudad (p. ej. Usuarios, Regiones o «Mensajes») */
   cities?: readonly { id: string; name: string; slug: string }[];
   /** Pills de estado en orden («Todos» primero), con los `counts` del listado; sin ellas, no hay pills */
   statusItems?: readonly LDCAdminListToolbarStatusItem[];

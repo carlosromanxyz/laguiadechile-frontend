@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export interface LDCDashboardListItemProps {
-  /** Miniatura (48 px, decorativa); sin ella, la fila empieza por el texto (p. ej. Usuarios o Regiones) */
+  /** Miniatura (48 px, decorativa); sin ella, la fila empieza por el texto (p. ej. Usuarios, Regiones o «Mensajes») */
   image?: string | null;
   /** Título del elemento */
   title: ReactNode;
