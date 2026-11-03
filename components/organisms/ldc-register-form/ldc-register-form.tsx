@@ -13,12 +13,16 @@ import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
 import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { LDC_REGISTER, LDC_ROLES } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
+import { fitsPasswordBytes, PASSWORD_MAX_BYTES_MESSAGE } from "@/validations/password-bytes";
 
 const schema = z
   .object({
     name: z.string().trim().min(2, "Escribe tu nombre").max(80, "Máximo 80 caracteres"),
     email: z.string().trim().email("Escribe un email completo, como nombre@dominio.cl"),
-    password: z.string().min(8, "Mínimo 8 caracteres"),
+    password: z
+      .string()
+      .min(8, "Mínimo 8 caracteres")
+      .refine(fitsPasswordBytes, PASSWORD_MAX_BYTES_MESSAGE),
     confirmPassword: z.string(),
     terms: z.boolean().refine((v) => v, "Acepta los términos para crear tu cuenta"),
   })

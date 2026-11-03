@@ -10,6 +10,7 @@ import type {
 import { changeMyPassword, updateMyProfile } from "@/lib/api/me-profile";
 import { ApiError } from "@/lib/api-client";
 import { requireDashboardSession } from "@/lib/dashboard/session";
+import { PASSWORD_MAX_BYTES_MESSAGE } from "@/validations/password-bytes";
 import { passwordChangeInputSchema, profileDetailsSchema } from "@/validations/profile-form-schema";
 
 const SESSION_EXPIRED = "Tu sesión expiró. Vuelve a ingresar para guardar.";
@@ -63,7 +64,11 @@ export async function changeMyPasswordAction(input: IMyPasswordChange): Promise<
         if (/distinta de la actual/i.test(e.message)) {
           return { ok: false, field: "newPassword", message: "La contraseña nueva debe ser distinta de la actual." };
         }
-        return { ok: false, field: "newPassword", message: "Usa entre 8 y 128 caracteres." };
+        return {
+          ok: false,
+          field: "newPassword",
+          message: `Usa al menos 8 caracteres. ${PASSWORD_MAX_BYTES_MESSAGE}`,
+        };
       }
       if (e.status === 429) {
         return {
