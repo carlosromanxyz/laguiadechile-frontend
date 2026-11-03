@@ -55,6 +55,14 @@ export interface LDCFormFieldProps<T extends FieldValues, TName extends FieldPat
   description?: string;
   /** Deshabilita el control (p. ej. mientras se envía) */
   disabled?: boolean;
+  /**
+   * Solo lectura (input de texto): `readOnly` con fondo `bg-muted` (en oscuro, borde punteado sin
+   * fondo). A diferencia de `disabled`,
+   * conserva el contraste y deja copiar el valor (p. ej. el correo del perfil).
+   */
+  readOnly?: boolean;
+  /** Largo máximo del input de texto (`maxLength`) */
+  maxLength?: number;
   /** Muestra «(opcional)» junto a la etiqueta */
   optional?: boolean;
   /** Ícono a la izquierda del input (JSX ya renderizado) */
@@ -95,6 +103,8 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
   autoComplete,
   description,
   disabled,
+  readOnly,
+  maxLength,
   optional,
   icon,
   rows,
@@ -142,7 +152,19 @@ export function LDCFormField<T extends FieldValues, TName extends FieldPath<T> =
         } else if (type === "textarea") {
           controlNode = <Textarea rows={rows} className="field-sizing-fixed" {...controlProps} />;
         } else {
-          const input = <Input type={type} className={cn("h-10", icon && "pl-9")} {...controlProps} />;
+          const input = (
+            <Input
+              type={type}
+              readOnly={readOnly}
+              maxLength={maxLength}
+              className={cn(
+                "h-10",
+                icon && "pl-9",
+                readOnly && "cursor-default bg-muted shadow-none dark:border-dashed dark:bg-transparent",
+              )}
+              {...controlProps}
+            />
+          );
           controlNode = icon ? (
             <div className="relative">
               <span

@@ -17,6 +17,7 @@ const variants = {
   "role-avisador": LDC_ROLE_META.avisador.tone,
   "role-comercio": LDC_ROLE_META.comercio.tone,
   "role-servicio": LDC_ROLE_META.servicio.tone,
+  "role-organizador": LDC_ROLE_META.organizador.tone,
   "role-admin": LDC_ROLE_META.admin.tone,
   /** Estado de una publicación propia en el panel. */
   "status-published": "gap-1 bg-success text-success-foreground",

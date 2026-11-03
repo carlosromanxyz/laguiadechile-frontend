@@ -122,7 +122,7 @@ export function LDCCTAButton({
   );
 
   const iconElement = loading ? (
-    <Loader2 className="size-4 animate-spin" aria-hidden="true" />
+    <Loader2 className="size-4 animate-spin motion-reduce:animate-none" aria-hidden="true" />
   ) : (
     showIcon && (icon ?? <FaPlus className="h-3.5 w-3.5" />)
   );

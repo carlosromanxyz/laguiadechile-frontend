@@ -12,6 +12,7 @@ const BACKEND_ROLE_MAP: Readonly<Record<string, string>> = {
   ADMIN: "admin",
   AVISADOR: "avisador",
   COMERCIO: "comercio",
+  ORGANIZADOR: "organizador",
   SERVICIO: "servicio",
   USUARIO: "usuario",
 };
