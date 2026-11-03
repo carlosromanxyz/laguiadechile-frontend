@@ -4,7 +4,7 @@ import { AUTH_COOKIE } from "@/lib/api-client";
 
 const SEVEN_DAYS = 60 * 60 * 24 * 7;
 
-/** Guarda el JWT del backend en la cookie de sesión (httpOnly). La usan login y registro. */
+/** Guarda el JWT del backend en la cookie de sesión (httpOnly). La usan login, registro y el cambio de contraseña. */
 export async function setSessionCookie(accessToken: string): Promise<void> {
   const jar = await cookies();
   jar.set(AUTH_COOKIE, accessToken, {
