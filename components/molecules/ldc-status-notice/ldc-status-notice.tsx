@@ -37,6 +37,13 @@ export interface LDCStatusNoticeProps {
   status: IDashboardPublicationStatus;
   /** Texto bajo el título (cambia según el estado; p. ej. la fecha del envío) */
   children: ReactNode;
+  /** Título en vez del de `LDC_STATUS_COPY` (p. ej. en masculino para un aviso) */
+  title?: string;
+  /**
+   * Insignia propia en vez de la `LDCBadge` por defecto (p. ej. `LDCRejectionReasonDialog`, que
+   * abre el motivo del rechazo)
+   */
+  badge?: ReactNode;
   className?: string;
 }
 
@@ -49,7 +56,7 @@ export interface LDCStatusNoticeProps {
  * @example
  * <LDCStatusNotice status="review">Mientras los revisamos, tu ficha no aparece en la guía.</LDCStatusNotice>
  */
-export function LDCStatusNotice({ status, children, className }: LDCStatusNoticeProps) {
+export function LDCStatusNotice({ status, children, title, badge, className }: LDCStatusNoticeProps) {
   const copy = LDC_STATUS_COPY[status];
   return (
     <Alert
@@ -63,8 +70,8 @@ export function LDCStatusNotice({ status, children, className }: LDCStatusNotice
     >
       {ICONS[status]}
       <AlertTitle className="line-clamp-none flex flex-wrap items-center gap-x-2.5 gap-y-1.5 font-extrabold">
-        <span className={cn(status === "rejected" && "text-destructive")}>{copy.title}</span>
-        <LDCBadge variant={copy.badge}>{copy.label}</LDCBadge>
+        <span className={cn(status === "rejected" && "text-destructive")}>{title ?? copy.title}</span>
+        {badge ?? <LDCBadge variant={copy.badge}>{copy.label}</LDCBadge>}
       </AlertTitle>
       <AlertDescription className="font-open-sans">{children}</AlertDescription>
     </Alert>

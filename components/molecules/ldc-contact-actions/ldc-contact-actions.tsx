@@ -190,7 +190,7 @@ export function LDCContactActions(props: LDCContactActionsProps) {
       {email && (
         <Button asChild size="lg" variant="outline" className="w-full">
           <a
-            href={`mailto:${email}${
+            href={`mailto:${encodeURIComponent(email)}${
               emailSubject ? `?subject=${encodeURIComponent(emailSubject)}` : ""
             }`}
           >
