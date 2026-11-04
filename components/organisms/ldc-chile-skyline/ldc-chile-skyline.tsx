@@ -12,7 +12,7 @@
  * borde inferior. Es decorativa: `aria-hidden` y sin interacción.
  *
  * Variante `bite`: la silueta y la franja de suelo toman el color del primer
- * píxel de la sección siguiente (`from-pink/5` sobre `bg-background`), así el
+ * píxel de la sección siguiente (`bg-background`, plano), así el
  * horizonte «muerde» el borde. Sale de tokens, por lo que sigue al tema.
  *
  * @example
@@ -57,7 +57,7 @@ export function LDCChileSkyline({ variant = "bite" }: LDCChileSkylineProps) {
     <div
       aria-hidden="true"
       data-variant={variant}
-      className="pointer-events-none absolute inset-x-0 -bottom-px text-[color-mix(in_oklab,var(--color-pink)_5%,var(--color-background))]"
+      className="pointer-events-none absolute inset-x-0 -bottom-px text-background"
     >
       <svg
         viewBox="17.8 0 621.2 108"

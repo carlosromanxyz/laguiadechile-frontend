@@ -11,7 +11,7 @@ import { LDCAboutWhyIllustration } from "@/components/molecules/ldc-about-why-il
  * LDCAboutWhy - "Why La Guía de Chile" Section
  *
  * Section explaining why users should use La Guía de Chile.
- * Features flowing narrative design with gradient badges and decorative elements,
+ * Features flowing narrative design with flat number badges and decorative elements,
  * and an animated illustration (LDCAboutWhyIllustration) with a pause button
  * (WCAG 2.2.2) that freezes it and the decorative shapes of the section through
  * LDCMotionPauseProvider; hidden with prefers-reduced-motion. The button is
@@ -32,13 +32,13 @@ export function LDCAboutWhy() {
 
   return (
     <LDCMotionPauseProvider>
-      <section className="relative w-full overflow-hidden bg-gradient-to-b from-background via-purple/5 to-background py-24 md:py-32">
+      <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
         {/* Decorative shapes */}
         <LDCDecorativeShape
           variant="blob"
           delay={0}
           layout="bottom-0 left-0 h-[500px] w-[500px] -translate-x-1/2 translate-y-1/2"
-          fill="bg-gradient-to-tr from-orange/10 via-yellow/10 to-transparent"
+          fill="bg-orange/10"
         />
         <LDCDecorativeShape
           variant="spot"
@@ -53,27 +53,27 @@ export function LDCAboutWhy() {
             <div className="space-y-8 lg:col-span-7">
               <div>
                 {/* Accent badge */}
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange/10 to-yellow/10 px-4 py-2 text-sm font-medium text-orange-red dark:from-orange/20 dark:to-yellow/20">
-                  <span className="flex h-2 w-2 rounded-full bg-orange" />
+                <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-pink-strong/5 px-4 py-2 text-sm font-medium text-pink-strong dark:bg-yellow/10 dark:text-yellow">
+                  <span className="flex h-2 w-2 rounded-full bg-pink-strong dark:bg-yellow" />
                   Para quien publica
                 </div>
 
                 <h2 className="text-4xl font-bold font-mulish lg:text-5xl">
                   Si tienes un{" "}
-                  <span className="bg-gradient-to-r from-orange via-orange-red to-pink bg-clip-text text-transparent whitespace-nowrap">
+                  <span className="text-pink-strong whitespace-nowrap dark:text-yellow">
                     comercio o servicio
                   </span>
                 </h2>
               </div>
 
-              {/* Features List - Enhanced with gradient badges */}
+              {/* Features List - flat number badges */}
               <ul className="space-y-6">
                 {features.map((feature, index) => (
                   <li key={index} className="group flex items-start gap-4">
-                    {/* Gradient Number Badge */}
+                    {/* Number Badge */}
                     <LDCNumberBadge
                       number={index + 1}
-                      variant="gradient"
+                      variant="solid"
                       className="flex-shrink-0 transition-transform group-hover:scale-110"
                     />
 
@@ -90,8 +90,8 @@ export function LDCAboutWhy() {
               {/* Decorative accent bars */}
               <LDCAccentBars
                 bars={[
-                  { width: "w-12", fill: "bg-gradient-to-r from-purple to-pink" },
-                  { width: "w-8", fill: "bg-gradient-to-r from-orange to-yellow" },
+                  { width: "w-12", fill: "bg-purple" },
+                  { width: "w-8", fill: "bg-orange" },
                   { width: "w-4", fill: "bg-blue-gray" },
                 ]}
               />
@@ -104,7 +104,7 @@ export function LDCAboutWhy() {
                 variant="corner"
                 delay={1}
                 layout="-right-6 -top-6 h-24 w-24 rotate-12"
-                fill="from-yellow to-orange"
+                fill="bg-yellow"
               />
 
               <div className="relative">
@@ -114,7 +114,7 @@ export function LDCAboutWhy() {
                 <LDCDecorativeShape
                   variant="glow"
                   delay={3.5}
-                  fill="bg-gradient-to-bl from-orange/20 via-yellow/20 to-pink/20"
+                  fill="bg-orange/20"
                 />
               </div>
 

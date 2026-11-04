@@ -58,8 +58,8 @@ interface LDCPositionedShapeProps extends LDCDecorativeShapeBaseProps {
    * Tipo de forma:
    * - `blob`: mancha circular grande (`rounded-full … blur-3xl`)
    * - `spot`: acento pequeño (`… blur-xl`); el redondeo va en `layout`
-   * - `corner`: acento de esquina (`rounded-2xl bg-gradient-to-br … opacity-60 blur-md`)
-   * - `bar`: barra vertical de 2 px (`w-2 rounded-full bg-gradient-to-b …`)
+   * - `corner`: acento de esquina (`rounded-2xl … opacity-60 blur-md`)
+   * - `bar`: barra vertical de 2 px (`w-2 rounded-full …`)
    */
   variant: Exclude<LDCDecorativeShapeVariant, "glow">;
 
@@ -70,11 +70,8 @@ interface LDCPositionedShapeProps extends LDCDecorativeShapeBaseProps {
   layout: string;
 
   /**
-   * Relleno de la forma:
-   * - `blob` y `spot`: color o degradado completo, con dirección
-   *   (p. ej. `bg-yellow/20` o `bg-gradient-to-br from-purple/30 via-pink/20 to-transparent`)
-   * - `corner` y `bar`: solo las paradas del degradado (p. ej. `from-pink to-purple`);
-   *   la dirección la fija la variante (`to-br` y `to-b`)
+   * Relleno de la forma: un color plano de la paleta, con su opacidad si hace falta
+   * (p. ej. `bg-yellow/20` o `bg-pink`). Sin degradados: el sitio usa colores planos.
    */
   fill: string;
 }
@@ -88,8 +85,7 @@ interface LDCGlowShapeProps extends LDCDecorativeShapeBaseProps {
   layout?: never;
 
   /**
-   * Degradado completo, con dirección
-   * (p. ej. `bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20`).
+   * Color plano de la paleta con opacidad (p. ej. `bg-yellow/30`).
    */
   fill: string;
 }
@@ -103,9 +99,9 @@ function shapeClassName(props: LDCDecorativeShapeProps): string {
     case "spot":
       return `absolute ${props.layout} ${props.fill} blur-xl`;
     case "corner":
-      return `absolute ${props.layout} rounded-2xl bg-gradient-to-br ${props.fill} opacity-60 blur-md`;
+      return `absolute ${props.layout} rounded-2xl ${props.fill} opacity-60 blur-md`;
     case "bar":
-      return `absolute ${props.layout} w-2 rounded-full bg-gradient-to-b ${props.fill}`;
+      return `absolute ${props.layout} w-2 rounded-full ${props.fill}`;
     case "glow":
       return `absolute inset-0 -z-10 scale-110 ${props.fill} blur-2xl`;
   }
@@ -138,7 +134,7 @@ const SHAPE_LOOPS: Record<
  * Forma decorativa absoluta, animada en loop (quieta con `prefers-reduced-motion`).
  *
  * @example
- * <LDCDecorativeShape variant="glow" fill="bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20" />
+ * <LDCDecorativeShape variant="glow" fill="bg-yellow/30" />
  */
 export function LDCDecorativeShape(props: LDCDecorativeShapeProps) {
   const { ariaHidden = true, delay = 0, variant } = props;

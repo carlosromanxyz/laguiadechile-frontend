@@ -18,6 +18,9 @@ import { cn } from "@/lib/utils";
  *   El foco es un anillo doble, blanco por fuera y negro por dentro: sobre el
  *   degradado del hero el blanco solo llega a ~3,1:1 en la zona orange-red, y el
  *   negro garantiza el 3:1 sobre cualquier fondo.
+ * - `ink`: como `overlay`, pero del color de `--ldc-hero-ink`, la tinta que
+ *   sigue a la banda visible del hero de «Nosotros» (negra o blanca). El anillo
+ *   de foco usa la tinta por fuera y negro por dentro.
  * - `surface`: sobre el fondo del tema (claro u oscuro), con borde y texto del
  *   tema. El hover oscurece en claro (`muted`) y aclara en oscuro (`input/50`,
  *   como el botón `outline` de shadcn), porque en oscuro `muted` y `accent`
@@ -34,7 +37,7 @@ export function LDCMotionPauseButton({
 }: {
   className?: string;
   /** Fondo sobre el que va el botón. @default "overlay" */
-  tone?: "overlay" | "surface";
+  tone?: "overlay" | "ink" | "surface";
 }) {
   const { paused, toggle } = useLDCMotionPause();
   const Icon = paused ? Play : Pause;
@@ -47,9 +50,12 @@ export function LDCMotionPauseButton({
       aria-label="Pausar animación"
       className={cn(
         "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:hidden",
-        tone === "overlay"
-          ? "border-white/30 bg-white/20 text-white hover:bg-white/30 focus-visible:ring-white focus-visible:ring-offset-black"
-          : "border-border bg-background/70 text-foreground hover:bg-muted dark:hover:bg-input/50 focus-visible:ring-foreground focus-visible:ring-offset-background",
+        tone === "overlay" &&
+          "border-white/30 bg-white/20 text-white hover:bg-white/30 focus-visible:ring-white focus-visible:ring-offset-black",
+        tone === "ink" &&
+          "border-(--ldc-hero-ink)/30 bg-(--ldc-hero-ink)/15 text-(--ldc-hero-ink) hover:bg-(--ldc-hero-ink)/25 focus-visible:ring-(--ldc-hero-ink) focus-visible:ring-offset-black",
+        tone === "surface" &&
+          "border-border bg-background/70 text-foreground hover:bg-muted dark:hover:bg-input/50 focus-visible:ring-foreground focus-visible:ring-offset-background",
         className,
       )}
     >

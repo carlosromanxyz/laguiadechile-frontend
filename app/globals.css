@@ -198,3 +198,41 @@
   );
   background-size: 500% 100%;
 }
+
+/*
+ * Hero ink: the hero of «Nosotros» (LDCAboutHero) slides the brand stripes
+ * and its text follows the visible band, with the same 10 s, ease-in-out and
+ * stops as `color-slide`. With 500% background-size, each position shows:
+ * 100% pink, 75% orange, 50% yellow, 25% purple, 0% pink.
+ * The ink is the one that gives AA on each band: black over pink (5.26:1),
+ * orange (8.84:1) and yellow (11.88:1), white over purple (4.79:1; white on
+ * pink is only 3.99:1). It swaps in 0.15 s, late in the slide into purple
+ * (black keeps 4.39:1 on purple while yellow leaves) and early in the slide
+ * back to pink (white keeps 3.99:1 on pink while purple leaves).
+ * Registered so it interpolates as a color and inherits to every child.
+ * Without animation (prefers-reduced-motion) it stays at its initial black,
+ * over the initial pink band.
+ */
+@property --ldc-hero-ink {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #000;
+}
+
+@keyframes color-slide-ink {
+  0%, 73.5% {
+    --ldc-hero-ink: #000;
+  }
+  75%, 95% {
+    --ldc-hero-ink: #fff;
+  }
+  96.5%, 100% {
+    --ldc-hero-ink: #000;
+  }
+}
+
+.animate-color-slide-ink {
+  animation:
+    color-slide 10s ease-in-out infinite,
+    color-slide-ink 10s ease-in-out infinite;
+}
