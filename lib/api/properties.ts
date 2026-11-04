@@ -1,6 +1,7 @@
 import "server-only";
 import type { IProperty, IProperties, PropertyType } from "@/interfaces/property";
-import { apiGet, apiGetOrNull, qs } from "./server-fetch";
+import { apiGet, apiGetNoStore, apiGetOrNull, qs } from "./server-fetch";
+import { SEARCH_LIMIT, SEARCH_TERM_MAX_LENGTH } from "./listings";
 import { mapProperty, type RawProperty } from "./mappers";
 
 async function fetchAll(params: Record<string, string | number | undefined> = {}): Promise<IProperties> {
@@ -42,4 +43,23 @@ export async function getRelatedProperties(
   return all
     .filter((p) => p.slug !== currentSlug && (p.location.city.slug === citySlug || p.type === type))
     .slice(0, limit);
+}
+
+/**
+ * Propiedades que coinciden con la búsqueda de `/resultados` (CLGDC-189). El backend busca en el
+ * título y la descripción sin distinguir tildes ni mayúsculas y filtra por ciudad (id). Las
+ * propiedades no tienen categoría ni estado de publicación. Sin data cache (`apiGetNoStore`).
+ */
+export async function searchProperties(filters: {
+  term?: string;
+  cityId?: string;
+}): Promise<IProperties> {
+  const raw = await apiGetNoStore<RawProperty[]>(
+    `/properties${qs({
+      search: filters.term?.slice(0, SEARCH_TERM_MAX_LENGTH),
+      cityId: filters.cityId,
+      limit: SEARCH_LIMIT,
+    })}`,
+  );
+  return raw.map(mapProperty);
 }

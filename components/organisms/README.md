@@ -18,6 +18,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-footer** (`LDCFooter`): pie de página con logo, enlaces, redes y apps.
 - **ldc-hero** (`LDCHero`): hero de la home con carrusel de fondo, titular y buscador. Cliente.
 - **ldc-search-form** (`LDCSearchForm`): buscador con texto, categoría y ciudad (React Hook Form + Zod). Cliente.
+- **ldc-search-results** (`LDCSearchResults`): resultados de `/resultados` agrupados por tipo (comercios y servicios, avisos, propiedades), cada grupo con su grilla paginada.
 - **ldc-page-hero** (`LDCPageHero`): carcasa común de los heroes de listado y de detalle.
 - **ldc-listings-page-hero** (`LDCListingsPageHero`): hero de las páginas de listado con migas, título e ícono.
 - **ldc-under-construction** (`LDCUnderConstruction`): bloque central de «En construcción» con logo, título y redes. Cliente.

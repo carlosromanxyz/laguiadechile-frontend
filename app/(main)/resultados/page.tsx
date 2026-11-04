@@ -2,9 +2,12 @@ import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCPaginatedListingsGrid } from "@/components/organisms/ldc-paginated-listings-grid";
 import { LDCSection } from "@/components/atoms/ldc-section";
+import { LDCSearchResults } from "@/components/organisms/ldc-search-results";
 import { LDCSearchSummary } from "@/components/molecules/ldc-search-summary";
 import { getCategoryFullBySlug, getCityFullBySlug } from "@/lib/api/catalog";
+import { searchClassifieds } from "@/lib/api/classifieds";
 import { searchListings, SEARCH_TERM_MAX_LENGTH } from "@/lib/api/listings";
+import { searchProperties } from "@/lib/api/properties";
 import { Search } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -52,7 +55,8 @@ export async function generateMetadata({
     title: term
       ? `Resultados para «${term}» - La Guía de Chile`
       : "Resultados de búsqueda - La Guía de Chile",
-    description: "Comercios y servicios de La Guía de Chile que coinciden con tu búsqueda.",
+    description:
+      "Comercios, servicios, avisos y propiedades de La Guía de Chile que coinciden con tu búsqueda.",
     // Las páginas de resultados no se indexan; los enlaces a las fichas sí se siguen.
     robots: { index: false, follow: true },
   };
@@ -61,10 +65,16 @@ export async function generateMetadata({
 /**
  * Resultados Page - La Guía de Chile
  *
- * Destino del buscador del hero del inicio (`LDCSearchForm`). Busca comercios y servicios
- * publicados por título (sin distinguir tildes) y filtra por categoría y ciudad.
+ * Destino del buscador del hero del inicio (`LDCSearchForm`). Busca en el título y la descripción
+ * (sin distinguir tildes) de comercios y servicios, avisos y propiedades publicados, y muestra los
+ * resultados agrupados por tipo (`LDCSearchResults`, CLGDC-189). Las consultas van en paralelo y
+ * sin data cache. La ciudad filtra los tres tipos; la categoría, comercios, servicios y avisos: las
+ * propiedades no tienen categoría, así que con una categoría elegida no se buscan.
  * Una categoría o ciudad que no existe se ignora como filtro. Si la API falla, la página no
  * responde 500: muestra un estado vacío que pide volver a intentarlo.
+ *
+ * TODO(CLGDC-139): sumar `searchEvents` (`lib/api/event-search.ts`) al `Promise.all` y al total
+ * cuando `LDCEventCard` esté en main; el backend ya busca eventos (solo publicados y no terminados).
  */
 export default async function ResultadosPage({ searchParams }: ResultadosPageProps) {
   const { term, categorySlug, citySlug } = await readSearch(searchParams);
@@ -72,6 +82,8 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   let category: Awaited<ReturnType<typeof getCategoryFullBySlug>> = undefined;
   let city: Awaited<ReturnType<typeof getCityFullBySlug>> = undefined;
   let listings: Awaited<ReturnType<typeof searchListings>> = [];
+  let classifieds: Awaited<ReturnType<typeof searchClassifieds>> = [];
+  let properties: Awaited<ReturnType<typeof searchProperties>> = [];
   let failed = false;
   try {
     [category, city] = await Promise.all([
@@ -79,7 +91,12 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
       citySlug ? getCityFullBySlug(citySlug) : undefined,
     ]);
     if (term || category || city) {
-      listings = await searchListings({ term, categoryId: category?.id, cityId: city?.id });
+      const filters = { term, categoryId: category?.id, cityId: city?.id };
+      [listings, classifieds, properties] = await Promise.all([
+        searchListings(filters),
+        searchClassifieds(filters),
+        category ? [] : searchProperties({ term, cityId: city?.id }),
+      ]);
     }
   } catch (error) {
     console.error("[resultados] la búsqueda falló:", error);
@@ -87,6 +104,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   }
 
   const hasSearch = Boolean(term || category || city);
+  const total = listings.length + classifieds.length + properties.length;
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },
@@ -103,9 +121,9 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   const emptyDescription = failed
     ? "Vuelve a intentarlo en unos minutos."
     : !hasSearch
-    ? "Busca un comercio o servicio por su nombre, o elige una categoría o una ciudad en el buscador del inicio."
+    ? "Busca comercios, servicios, avisos o propiedades por su nombre o su descripción, o elige una categoría o una ciudad en el buscador del inicio."
     : !term
-      ? "Quita la categoría o la ciudad para ver más comercios y servicios."
+      ? "Quita la categoría o la ciudad para ver más resultados."
       : category || city
         ? "Revisa cómo lo escribiste, prueba con una palabra más corta o quita la categoría o la ciudad."
         : "Revisa cómo lo escribiste o prueba con una palabra más corta.";
@@ -126,19 +144,20 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
             term={term}
             categoryName={category?.name}
             cityName={city?.name}
-            count={listings.length}
+            count={total}
           />
         </LDCSection>
       )}
-      <LDCPaginatedListingsGrid
-        listings={listings}
-        itemsPerPage={20}
-        columns={4}
-        emptyMessage={emptyMessage}
-        emptyDescription={emptyDescription}
-        loadMoreLabel="Cargar más resultados"
-        className={hasSearch && !failed ? "pt-8 md:pt-10" : undefined}
-      />
+      {total > 0 ? (
+        <LDCSearchResults listings={listings} classifieds={classifieds} properties={properties} />
+      ) : (
+        // Un único estado vacío para toda la búsqueda (la grilla vacía pinta solo su estado vacío).
+        <LDCPaginatedListingsGrid
+          listings={[]}
+          emptyMessage={emptyMessage}
+          emptyDescription={emptyDescription}
+        />
+      )}
     </LDCListingPageTemplate>
   );
 }
