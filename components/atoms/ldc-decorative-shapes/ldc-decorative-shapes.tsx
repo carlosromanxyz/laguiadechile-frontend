@@ -1,6 +1,14 @@
 "use client";
 
-import { motion, useReducedMotion, type TargetAndTransition } from "framer-motion";
+import {
+  motion,
+  useAnimate,
+  useReducedMotion,
+  type AnimationPlaybackControls,
+  type DOMKeyframesDefinition,
+} from "framer-motion";
+import { useEffect, useRef } from "react";
+import { useLDCMotionPause } from "@/components/shared/ldc-motion-pause-provider";
 
 /**
  * LDCDecorativeShapes - Formas decorativas de las secciones de «Nosotros»
@@ -13,6 +21,9 @@ import { motion, useReducedMotion, type TargetAndTransition } from "framer-motio
  * las propiedades `translate`, `rotate` y `scale` de las clases de Tailwind v4:
  * en reposo (y con `prefers-reduced-motion`) cada forma queda en la misma
  * posición, tamaño y color que sin animación.
+ *
+ * El loop se arranca con `useAnimate` para poder congelarlo en su sitio cuando
+ * el `LDCMotionPauseProvider` que lo envuelve está en pausa (WCAG 2.2.2).
  *
  * Las clases se arman concatenando cadenas, sin `cn`/`twMerge`: así la cadena
  * final es literal y predecible, y `twMerge` no puede descartar ninguna clase
@@ -109,7 +120,7 @@ const SHAPE_REST = { x: 0, y: 0, rotate: 0, scale: 1 };
  */
 const SHAPE_LOOPS: Record<
   LDCDecorativeShapeVariant,
-  { animate: TargetAndTransition; duration: number }
+  { animate: DOMKeyframesDefinition; duration: number }
 > = {
   // Flota en diagonal y crece apenas
   blob: { animate: { x: [0, 16, 0], y: [0, -24, 0], scale: [1, 1.05, 1] }, duration: 14 },
@@ -130,21 +141,43 @@ const SHAPE_LOOPS: Record<
  * <LDCDecorativeShape variant="glow" fill="bg-gradient-to-tr from-yellow/30 via-orange/20 to-pink/20" />
  */
 export function LDCDecorativeShape(props: LDCDecorativeShapeProps) {
-  const { ariaHidden = true, delay = 0 } = props;
+  const { ariaHidden = true, delay = 0, variant } = props;
   const reduceMotion = useReducedMotion();
-  const loop = SHAPE_LOOPS[props.variant];
+  const { paused } = useLDCMotionPause();
+  const [scope, animate] = useAnimate<HTMLDivElement>();
+  const loop = useRef<AnimationPlaybackControls | null>(null);
+
+  useEffect(() => {
+    if (!scope.current) return;
+    if (reduceMotion) {
+      animate(scope.current, SHAPE_REST, { duration: 0 });
+      return;
+    }
+    const { animate: keyframes, duration } = SHAPE_LOOPS[variant];
+    const controls = animate(scope.current, keyframes, {
+      duration,
+      delay,
+      ease: "easeInOut",
+      repeat: Infinity,
+    });
+    loop.current = controls;
+    return () => {
+      controls.stop();
+      loop.current = null;
+    };
+  }, [animate, delay, reduceMotion, scope, variant]);
+
+  useEffect(() => {
+    if (paused) loop.current?.pause();
+    else loop.current?.play();
+  }, [paused, reduceMotion]);
 
   return (
     <motion.div
+      ref={scope}
       className={shapeClassName(props)}
       aria-hidden={ariaHidden ? "true" : undefined}
       initial={SHAPE_REST}
-      animate={reduceMotion ? SHAPE_REST : loop.animate}
-      transition={
-        reduceMotion
-          ? { duration: 0 }
-          : { duration: loop.duration, delay, ease: "easeInOut", repeat: Infinity }
-      }
     />
   );
 }
