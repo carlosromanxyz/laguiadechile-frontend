@@ -57,6 +57,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano), con «Corregir y reenviar» si hay `fixHref` o en solo lectura sin él. Cliente.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
+- **ldc-search-summary** (`LDCSearchSummary`): resumen de una búsqueda en `/resultados`: cantidad de resultados, término, filtros de categoría y ciudad, y enlace «Nueva búsqueda».
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
 - **ldc-segmented-field** (`LDCSegmentedField`): control segmentado de radios nativos (una opción entre pocas) sobre pista `bg-muted`, con la elegida neutra; p. ej. la forma del precio del aviso. Cliente.
 - **ldc-sidebar-item** (`LDCSidebarItem`): ítem del menú lateral del panel con estado activo. Cliente.

@@ -52,7 +52,7 @@ export function LDCEmptyState({
       <div className="w-24 h-24 mb-6 rounded-full bg-muted flex items-center justify-center">
         {icon}
       </div>
-      <h3 className="text-xl font-bold font-mulish text-foreground mb-2">
+      <h3 className="text-xl font-bold font-mulish text-foreground mb-2 max-w-full [overflow-wrap:anywhere]">
         {title}
       </h3>
       {description && (

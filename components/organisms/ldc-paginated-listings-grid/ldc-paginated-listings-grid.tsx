@@ -17,6 +17,8 @@ interface LDCPaginatedListingsGridProps {
   columns?: 3 | 4 | 5;
   /** Empty state message */
   emptyMessage?: string;
+  /** Texto de apoyo del estado vacío (por defecto, sugerir ajustar filtros) */
+  emptyDescription?: string;
   /** Load more button label */
   loadMoreLabel?: string;
   /** Optional className for custom styling */
@@ -44,6 +46,7 @@ export function LDCPaginatedListingsGrid({
   itemsPerPage = 15,
   columns = 5,
   emptyMessage = "No se encontraron resultados",
+  emptyDescription = "Intenta ajustar los filtros o vuelve más tarde para ver nuevos resultados.",
   loadMoreLabel = "Cargar más",
   className,
 }: LDCPaginatedListingsGridProps) {
@@ -82,7 +85,7 @@ export function LDCPaginatedListingsGrid({
             </svg>
           }
           title={emptyMessage}
-          description="Intenta ajustar los filtros o vuelve más tarde para ver nuevos resultados."
+          description={emptyDescription}
         />
       </LDCSection>
     );

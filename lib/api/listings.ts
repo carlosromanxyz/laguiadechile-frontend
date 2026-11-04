@@ -1,6 +1,6 @@
 import "server-only";
 import type { IListingDetail, IListingDetails } from "@/interfaces/listing";
-import { apiGet, apiGetOrNull, qs } from "./server-fetch";
+import { apiGet, apiGetNoStore, apiGetOrNull, qs } from "./server-fetch";
 import { mapListing, type RawListing } from "./mappers";
 
 type ListType = "comercio" | "servicio";
@@ -50,6 +50,34 @@ export async function getComercioSlugs(): Promise<{ slug: string }[]> {
 
 export async function getServicioSlugs(): Promise<{ slug: string }[]> {
   return (await fetchAll({ type: "SERVICIO" })).map((l) => ({ slug: l.slug }));
+}
+
+// ---- Búsqueda del hero (/resultados) ----
+/** Tope del backend para `search` (`@MaxLength(200)` en `ListListingsQueryDto`). */
+export const SEARCH_TERM_MAX_LENGTH = 200;
+/** Tope de resultados que se piden (`@Max(200)` de `limit` en el backend). */
+const SEARCH_LIMIT = 200;
+
+/**
+ * Comercios y servicios publicados que coinciden con la búsqueda del hero. El backend busca en el
+ * título sin distinguir tildes ni mayúsculas (CLGDC-170) y filtra por categoría y ciudad (ids).
+ * Va sin data cache (`apiGetNoStore`): el término es texto libre y no debe crear una entrada por
+ * búsqueda.
+ */
+export async function searchListings(filters: {
+  term?: string;
+  categoryId?: string;
+  cityId?: string;
+}): Promise<IListingDetails> {
+  const raw = await apiGetNoStore<RawListing[]>(
+    `/listings${qs({
+      search: filters.term?.slice(0, SEARCH_TERM_MAX_LENGTH),
+      categoryId: filters.categoryId,
+      cityId: filters.cityId,
+      limit: SEARCH_LIMIT,
+    })}`,
+  );
+  return raw.map(mapListing);
 }
 
 // ---- Featured/recent (services/featured-listings.ts) ----

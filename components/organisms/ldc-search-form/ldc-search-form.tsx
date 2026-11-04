@@ -63,9 +63,12 @@ export function LDCSearchForm({ categories, cities }: LDCSearchFormProps) {
   const isFormEmpty = !searchTerm && !searchCategory && !searchCity;
 
   function onSubmit(values: z.infer<typeof searchFormSchema>) {
-    router.push(
-      `/resultados?term=${values.searchTerm}&category=${values.searchCategory}&city=${values.searchCity}`
-    );
+    // URLSearchParams codifica tildes, espacios, `&` y `?`; los campos vacíos no van en la URL.
+    const params = new URLSearchParams();
+    if (values.searchTerm) params.set("term", values.searchTerm);
+    if (values.searchCategory) params.set("category", values.searchCategory);
+    if (values.searchCity) params.set("city", values.searchCity);
+    router.push(`/resultados?${params.toString()}`);
   }
 
   return (
