@@ -1,7 +1,8 @@
 import "server-only";
 import type { IEvent, IEventWhen, IEvents } from "@/interfaces/event";
 import { isPastEvent } from "@/lib/format/events";
-import { apiGet, apiGetOrNull, qs } from "./server-fetch";
+import { apiGet, apiGetNoStore, apiGetOrNull, qs } from "./server-fetch";
+import { SEARCH_LIMIT, SEARCH_TERM_MAX_LENGTH } from "./listings";
 import { mapEvent, type RawEvent } from "./mappers";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -114,4 +115,26 @@ export async function getRelatedEvents(event: IEvent, limit = 4): Promise<IEvent
         ((event.category && e.category?.id === event.category.id) || e.city.id === event.city.id),
     )
     .slice(0, limit);
+}
+
+/**
+ * Eventos publicados que no terminaron y coinciden con la búsqueda de `/resultados` (CLGDC-189).
+ * El backend busca en el título y la descripción sin distinguir tildes ni mayúsculas, filtra por
+ * categoría y ciudad (ids) y, sin `includePast`, deja fuera los que ya terminaron. Del más próximo
+ * al más lejano. Sin data cache (`apiGetNoStore`): el término es texto libre.
+ */
+export async function searchEvents(filters: {
+  term?: string;
+  categoryId?: string;
+  cityId?: string;
+}): Promise<IEvents> {
+  const raw = await apiGetNoStore<RawEvent[]>(
+    `/events${qs({
+      search: filters.term?.slice(0, SEARCH_TERM_MAX_LENGTH),
+      categoryId: filters.categoryId,
+      cityId: filters.cityId,
+      limit: SEARCH_LIMIT,
+    })}`,
+  );
+  return raw.map(mapEvent);
 }

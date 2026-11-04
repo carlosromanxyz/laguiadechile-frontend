@@ -6,6 +6,7 @@ import { LDCSearchResults } from "@/components/organisms/ldc-search-results";
 import { LDCSearchSummary } from "@/components/molecules/ldc-search-summary";
 import { getCategoryFullBySlug, getCityFullBySlug } from "@/lib/api/catalog";
 import { searchClassifieds } from "@/lib/api/classifieds";
+import { searchEvents } from "@/lib/api/events";
 import { searchListings, SEARCH_TERM_MAX_LENGTH } from "@/lib/api/listings";
 import { searchProperties } from "@/lib/api/properties";
 import { Search } from "lucide-react";
@@ -56,7 +57,7 @@ export async function generateMetadata({
       ? `Resultados para «${term}» - La Guía de Chile`
       : "Resultados de búsqueda - La Guía de Chile",
     description:
-      "Comercios, servicios, avisos y propiedades de La Guía de Chile que coinciden con tu búsqueda.",
+      "Comercios, servicios, avisos, propiedades y eventos de La Guía de Chile que coinciden con tu búsqueda.",
     // Las páginas de resultados no se indexan; los enlaces a las fichas sí se siguen.
     robots: { index: false, follow: true },
   };
@@ -66,15 +67,13 @@ export async function generateMetadata({
  * Resultados Page - La Guía de Chile
  *
  * Destino del buscador del hero del inicio (`LDCSearchForm`). Busca en el título y la descripción
- * (sin distinguir tildes) de comercios y servicios, avisos y propiedades publicados, y muestra los
- * resultados agrupados por tipo (`LDCSearchResults`, CLGDC-189). Las consultas van en paralelo y
- * sin data cache. La ciudad filtra los tres tipos; la categoría, comercios, servicios y avisos: las
- * propiedades no tienen categoría, así que con una categoría elegida no se buscan.
+ * (sin distinguir tildes) de comercios y servicios, avisos, propiedades y eventos publicados (de los
+ * eventos, solo los que no terminaron), y muestra los resultados agrupados por tipo
+ * (`LDCSearchResults`, CLGDC-189). Las consultas van en paralelo y sin data cache. La ciudad filtra
+ * los cuatro tipos; la categoría, comercios, servicios, avisos y eventos: las propiedades no tienen
+ * categoría, así que con una categoría elegida no se buscan.
  * Una categoría o ciudad que no existe se ignora como filtro. Si la API falla, la página no
  * responde 500: muestra un estado vacío que pide volver a intentarlo.
- *
- * TODO(CLGDC-139): sumar `searchEvents` (`lib/api/event-search.ts`) al `Promise.all` y al total
- * cuando `LDCEventCard` esté en main; el backend ya busca eventos (solo publicados y no terminados).
  */
 export default async function ResultadosPage({ searchParams }: ResultadosPageProps) {
   const { term, categorySlug, citySlug } = await readSearch(searchParams);
@@ -84,6 +83,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   let listings: Awaited<ReturnType<typeof searchListings>> = [];
   let classifieds: Awaited<ReturnType<typeof searchClassifieds>> = [];
   let properties: Awaited<ReturnType<typeof searchProperties>> = [];
+  let events: Awaited<ReturnType<typeof searchEvents>> = [];
   let failed = false;
   try {
     [category, city] = await Promise.all([
@@ -92,10 +92,11 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
     ]);
     if (term || category || city) {
       const filters = { term, categoryId: category?.id, cityId: city?.id };
-      [listings, classifieds, properties] = await Promise.all([
+      [listings, classifieds, properties, events] = await Promise.all([
         searchListings(filters),
         searchClassifieds(filters),
         category ? [] : searchProperties({ term, cityId: city?.id }),
+        searchEvents(filters),
       ]);
     }
   } catch (error) {
@@ -104,7 +105,9 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   }
 
   const hasSearch = Boolean(term || category || city);
-  const total = listings.length + classifieds.length + properties.length;
+  // Instante de referencia para la grilla de eventos (todos vienen sin terminar desde el backend).
+  const now = Date.now();
+  const total = listings.length + classifieds.length + properties.length + events.length;
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },
@@ -121,7 +124,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   const emptyDescription = failed
     ? "Vuelve a intentarlo en unos minutos."
     : !hasSearch
-    ? "Busca comercios, servicios, avisos o propiedades por su nombre o su descripción, o elige una categoría o una ciudad en el buscador del inicio."
+    ? "Busca comercios, servicios, avisos, propiedades o eventos por su nombre o su descripción, o elige una categoría o una ciudad en el buscador del inicio."
     : !term
       ? "Quita la categoría o la ciudad para ver más resultados."
       : category || city
@@ -149,7 +152,13 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
         </LDCSection>
       )}
       {total > 0 ? (
-        <LDCSearchResults listings={listings} classifieds={classifieds} properties={properties} />
+        <LDCSearchResults
+          listings={listings}
+          classifieds={classifieds}
+          properties={properties}
+          events={events}
+          now={now}
+        />
       ) : (
         // Un único estado vacío para toda la búsqueda (la grilla vacía pinta solo su estado vacío).
         <LDCPaginatedListingsGrid

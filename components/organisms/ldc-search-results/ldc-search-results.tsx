@@ -1,10 +1,12 @@
-import { Home, Megaphone, Store } from "lucide-react";
+import { CalendarDays, Home, Megaphone, Store } from "lucide-react";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCPaginatedClassifiedsList } from "@/components/organisms/ldc-paginated-classifieds-list";
+import { LDCPaginatedEventsGrid } from "@/components/organisms/ldc-paginated-events-grid";
 import { LDCPaginatedListingsGrid } from "@/components/organisms/ldc-paginated-listings-grid";
 import { LDCPaginatedPropertiesGrid } from "@/components/organisms/ldc-paginated-properties-grid";
 import type { IClassifieds } from "@/interfaces/classified";
+import type { IEvents } from "@/interfaces/event";
 import type { IListingDetails } from "@/interfaces/listing";
 import type { IProperties } from "@/interfaces/property";
 
@@ -22,6 +24,10 @@ interface LDCSearchResultsProps {
   classifieds: IClassifieds;
   /** Propiedades que coinciden */
   properties: IProperties;
+  /** Eventos que coinciden (publicados y sin terminar) */
+  events: IEvents;
+  /** Instante de referencia (ms) de la grilla de eventos; lo fija la página al renderizar */
+  now: number;
 }
 
 function countLabel(count: number, singular: string, plural: string) {
@@ -30,18 +36,27 @@ function countLabel(count: number, singular: string, plural: string) {
 
 /**
  * LDCSearchResults - Resultados de `/resultados` agrupados por tipo (CLGDC-189): comercios y
- * servicios, avisos y propiedades, en ese orden. Cada grupo tiene su encabezado con la cantidad y
- * su grilla paginada de siempre (`LDCListingCard`, `LDCClassifiedCard`, `LDCPropertyCard`), con
- * los primeros 8 y «Cargar más». Un grupo sin resultados no se muestra; el estado vacío de la
- * búsqueda completa lo pone la página.
- *
- * TODO(CLGDC-139): agregar el grupo de eventos al final, con `LDCEventCard` y los datos de
- * `searchEvents` (`lib/api/event-search.ts`), cuando CLGDC-139 esté en main.
+ * servicios, avisos, propiedades y eventos, en ese orden. Cada grupo tiene su encabezado con la
+ * cantidad y su grilla paginada de siempre (`LDCListingCard`, `LDCClassifiedCard`,
+ * `LDCPropertyCard`, `LDCEventCard`), con los primeros 8 y «Cargar más». Un grupo sin resultados
+ * no se muestra; el estado vacío de la búsqueda completa lo pone la página.
  *
  * @example
- * <LDCSearchResults listings={listings} classifieds={classifieds} properties={properties} />
+ * <LDCSearchResults
+ *   listings={listings}
+ *   classifieds={classifieds}
+ *   properties={properties}
+ *   events={events}
+ *   now={now}
+ * />
  */
-export function LDCSearchResults({ listings, classifieds, properties }: LDCSearchResultsProps) {
+export function LDCSearchResults({
+  listings,
+  classifieds,
+  properties,
+  events,
+  now,
+}: LDCSearchResultsProps) {
   return (
     <>
       {listings.length > 0 && (
@@ -98,6 +113,26 @@ export function LDCSearchResults({ listings, classifieds, properties }: LDCSearc
             properties={properties}
             itemsPerPage={GROUP_PAGE_SIZE}
             loadMoreLabel="Cargar más propiedades"
+            className={GRID_SECTION}
+          />
+        </>
+      )}
+      {events.length > 0 && (
+        <>
+          <LDCSection paddingY="sm" className={HEADER_SECTION}>
+            <LDCSectionHeader
+              variant="compact"
+              title="Eventos"
+              icon={<CalendarDays className="w-5 h-5 text-pink" aria-hidden="true" />}
+              tone="pink"
+              subtitle={countLabel(events.length, "resultado", "resultados")}
+            />
+          </LDCSection>
+          <LDCPaginatedEventsGrid
+            events={events}
+            now={now}
+            itemsPerPage={GROUP_PAGE_SIZE}
+            loadMoreLabel="Cargar más eventos"
             className={GRID_SECTION}
           />
         </>
