@@ -24,7 +24,7 @@ export type LDCArchiveActionFn = (
 ) => Promise<IDashboardActionResult>;
 
 export interface LDCArchiveTarget {
-  /** Ficha (comercio o servicio), aviso o evento */
+  /** Ficha (comercio o servicio), aviso, evento o propiedad */
   kind: IDashboardModerationKind;
   id: string;
   /** Slug público (para refrescar su página) */
@@ -37,8 +37,9 @@ export interface LDCArchiveTarget {
   onUnarchive: LDCArchiveActionFn;
 }
 
-/** «Ficha» es femenino; «aviso» y «evento», masculinos. */
-const pronoun = (kind: IDashboardModerationKind) => (kind === "listing" ? "la" : "lo");
+/** «Ficha» y «propiedad» son femeninos; «aviso» y «evento», masculinos. */
+const pronoun = (kind: IDashboardModerationKind) =>
+  kind === "listing" || kind === "property" ? "la" : "lo";
 
 /** Destino estable del foco: el `<main id="contenido" tabIndex={-1}>` del layout del panel. */
 function focusStable() {

@@ -64,6 +64,19 @@ export interface IAdminClassifiedRow extends IAdminPublicationRow {
 }
 
 /**
+ * Fila de `GET /admin/properties` (CLGDC-164): como las demás, sin categoría (las propiedades no
+ * tienen), con tipo, operación y precio. Las propiedades no vencen: nunca llega `EXPIRED`.
+ */
+export interface IAdminPropertyRow extends IAdminPublicationRow {
+  type: "CASA" | "DEPARTAMENTO" | "TERRENO" | "OFICINA" | "LOCAL" | "BODEGA";
+  operation: "VENTA" | "ARRIENDO" | "ARRIENDO_TEMPORAL";
+  priceAmount: number;
+  priceCurrency: "UF" | "CLP";
+  pricePeriod: string | null;
+  category: null;
+}
+
+/**
  * Fila de `GET /admin/events` (CLGDC-138, CLGDC-140): como la de avisos, con las fechas y el lugar.
  * `status` llega **efectivo**: un evento publicado que ya terminó es `EXPIRED`. La categoría es
  * opcional.

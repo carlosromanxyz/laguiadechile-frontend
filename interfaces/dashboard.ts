@@ -31,7 +31,7 @@ export interface IDashboardTask {
 }
 
 /** Tipo de publicación que se modera (ruta `/admin/moderation/:kind/:id`). */
-export type IDashboardModerationKind = "listing" | "classified" | "event";
+export type IDashboardModerationKind = "listing" | "classified" | "event" | "property";
 
 /** Elemento de la cola de moderación del administrador (`GET /admin/moderation`). */
 export interface IDashboardModerationItem {

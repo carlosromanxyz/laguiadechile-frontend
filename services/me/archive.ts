@@ -7,10 +7,11 @@ const ME_PATHS: Readonly<Record<IDashboardModerationKind, string>> = {
   listing: "listings",
   classified: "classifieds",
   event: "events",
+  property: "properties",
 };
 
 /**
- * Archiva o desarchiva una publicación propia (`PATCH /me/{listings,classifieds,events}/:id/archive`
+ * Archiva o desarchiva una publicación propia (`PATCH /me/{listings,classifieds,events,properties}/:id/archive`
  * o `/unarchive`, CLGDC-157) y devuelve el estado con que quedó. Las dos son idempotentes:
  * archivar deja `ARCHIVED`; desarchivar deja `REVIEW` solo si estaba archivada (si no, no cambia).
  * Ajena o inexistente: 404 (`ApiError`).

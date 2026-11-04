@@ -5,6 +5,7 @@ import {
   Folder,
   Heart,
   Home,
+  House,
   Inbox,
   LayoutDashboard,
   Map,
@@ -51,7 +52,8 @@ function listingItems(tipo: "comercio" | "servicio"): IDashboardNavItem[] {
 
 /**
  * Menú del panel: un solo menú con grupos apilados según los roles de la cuenta (diseño A1 de
- * CLGDC-113), en este orden: General, Mis avisos, Mis comercios, Mis servicios, Mis eventos y Admin.
+ * CLGDC-113), en este orden: General, Mis avisos, Mis propiedades (CLGDC-164), Mis comercios,
+ * Mis servicios, Mis eventos y Admin.
  */
 export const dashboardNavigation: IDashboardNavGroup[] = [
   {
@@ -69,6 +71,15 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
       { href: "/dashboard/avisos", label: "Mis avisos", icon: Tags },
       // Formulario de aviso: CLGDC-125.
       { href: "/dashboard/avisos/nuevo", label: "Publicar aviso", icon: CirclePlus },
+    ],
+  },
+  // CLGDC-164: propiedades del dueño (rol propietario).
+  {
+    label: "Mis propiedades",
+    requires: "propietario",
+    items: [
+      { href: "/dashboard/propiedades", label: "Mis propiedades", icon: House },
+      { href: "/dashboard/propiedades/nueva", label: "Publicar propiedad", icon: CirclePlus },
     ],
   },
   { label: "Mis comercios", requires: "comercio", items: listingItems("comercio") },

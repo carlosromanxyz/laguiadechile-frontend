@@ -77,6 +77,11 @@ export interface LDCAdminPublicationListProps {
   noun?: LDCAdminPublicationListNoun;
   /** Tipo de publicación para `LDCModerationActions` (por defecto `listing`; avisos, `classified`) */
   kind?: IDashboardModerationKind;
+  /**
+   * Ruta del formulario de edición del admin; «Editar» lleva a `${editPathPrefix}/${id}` (p. ej.
+   * propiedades, CLGDC-164). Sin ella, «Editar» queda deshabilitado.
+   */
+  editPathPrefix?: string;
 }
 
 /** «Categoría · Ciudad»; un aviso sin categoría muestra solo la ciudad. */
@@ -136,6 +141,7 @@ export function LDCAdminPublicationList({
   label,
   noun = DEFAULT_NOUN,
   kind = "listing",
+  editPathPrefix,
 }: LDCAdminPublicationListProps) {
   const gender = noun.gender ?? "f";
   const router = useRouter();
@@ -148,8 +154,11 @@ export function LDCAdminPublicationList({
 
   const allCount = ADMIN_PUBLICATION_STATUSES.reduce((sum, s) => sum + (counts[s] ?? 0), 0);
   // «Archivadas» (CLGDC-157) aparece cuando la API trae su conteo.
+  // Las propiedades no vencen (CLGDC-164): sin pill «Vencidas».
   const statusFilters = ADMIN_PUBLICATION_STATUSES.filter(
-    (s) => s !== "ARCHIVED" || counts.ARCHIVED !== undefined || status === "ARCHIVED",
+    (s) =>
+      (s !== "ARCHIVED" || counts.ARCHIVED !== undefined || status === "ARCHIVED") &&
+      (s !== "EXPIRED" || kind !== "property"),
   );
   const filtered = Boolean(q || city || status);
   const cityName = cities.find((c) => c.slug === city)?.name;
@@ -162,6 +171,7 @@ export function LDCAdminPublicationList({
       title={row.title}
       status={row.status}
       publicHref={publicHref(row)}
+      editHref={editPathPrefix ? `${editPathPrefix}/${encodeURIComponent(row.id)}` : undefined}
       onSetStatus={onSetStatus}
       gender={gender}
       kind={kind}
