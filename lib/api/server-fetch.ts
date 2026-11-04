@@ -1,4 +1,6 @@
 import "server-only";
+import { headers } from "next/headers";
+import { getSocketIp } from "@/lib/auth/socket-ip";
 
 /**
  * Server-side fetch to the NestJS backend for PUBLIC reads.
@@ -30,10 +32,16 @@ export async function apiGet<T>(
 /**
  * Lectura pública sin data cache (`cache: "no-store"`), para consultas con texto libre del usuario
  * (la búsqueda de `/resultados`): con ISR, cada término distinto dejaría una entrada en la caché.
+ *
+ * Solo se llama durante una petición (usa `headers()`). `X-Forwarded-For` lleva la IP del socket
+ * del visitante marcada por el gancho de `instrumentation.ts` (`getSocketIp`), nunca la cabecera que
+ * mande el cliente: es la clave del throttle de búsqueda del backend (30 por minuto, CLGDC-190).
+ * Sin marca no se reenvía nada y el backend cuenta la IP del contenedor del front.
  */
 export async function apiGetNoStore<T>(path: string): Promise<T> {
+  const ip = getSocketIp(await headers());
   const res = await fetch(`${BASE}${path}`, {
-    headers: { Accept: "application/json" },
+    headers: { Accept: "application/json", ...(ip ? { "X-Forwarded-For": ip } : {}) },
     cache: "no-store",
   });
   if (!res.ok) {
