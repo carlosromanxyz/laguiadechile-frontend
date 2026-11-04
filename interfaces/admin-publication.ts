@@ -77,6 +77,17 @@ export interface IAdminPropertyRow extends IAdminPublicationRow {
 }
 
 /**
+ * Fila de `GET /admin/events` (CLGDC-138, CLGDC-140): como la de avisos, con las fechas y el lugar.
+ * `status` llega **efectivo**: un evento publicado que ya terminó es `EXPIRED`. La categoría es
+ * opcional.
+ */
+export interface IAdminEventRow extends IAdminPublicationRow {
+  startsAt: string;
+  endsAt: string | null;
+  venueName: string;
+}
+
+/**
  * Página de un listado admin con los conteos por estado (con los mismos filtros, sin el de estado).
  * `counts.ARCHIVED` llega solo cuando la API ya conoce ese estado (CLGDC-157).
  */

@@ -53,14 +53,18 @@ export async function getServicioSlugs(): Promise<{ slug: string }[]> {
 }
 
 // ---- Búsqueda del hero (/resultados) ----
-/** Tope del backend para `search` (`@MaxLength(200)` en `ListListingsQueryDto`). */
+/**
+ * Tope del backend para `search` (`@MaxLength(200)` en los DTO de listings, classifieds, properties
+ * y events).
+ */
 export const SEARCH_TERM_MAX_LENGTH = 200;
-/** Tope de resultados que se piden (`@Max(200)` de `limit` en el backend). */
-const SEARCH_LIMIT = 200;
+/** Tope de resultados que se piden por tipo (`@Max(200)` de `limit` en el backend). */
+export const SEARCH_LIMIT = 200;
 
 /**
  * Comercios y servicios publicados que coinciden con la búsqueda del hero. El backend busca en el
- * título sin distinguir tildes ni mayúsculas (CLGDC-170) y filtra por categoría y ciudad (ids).
+ * título y la descripción sin distinguir tildes ni mayúsculas (CLGDC-170, CLGDC-189) y filtra por
+ * categoría y ciudad (ids).
  * Va sin data cache (`apiGetNoStore`): el término es texto libre y no debe crear una entrada por
  * búsqueda.
  */

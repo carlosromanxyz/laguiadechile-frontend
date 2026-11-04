@@ -15,6 +15,7 @@ export const navigationItems: NavigationItem[] = [
   { label: "Servicios", href: "/servicios" },
   { label: "Avisos", href: "/avisos" },
   { label: "Propiedades", href: "/propiedades" },
+  { label: "Eventos", href: "/eventos" },
   { label: "Noticias", href: "/noticias" },
   { label: "Contacto", href: "/contacto" },
 ];

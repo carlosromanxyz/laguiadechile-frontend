@@ -71,6 +71,13 @@ interface LDCCTAButtonProps {
   iconOnlyBelow?: "md";
 
   /**
+   * Con `href`: enlace externo (`<a>`) que abre en pestaña nueva con `rel="noopener noreferrer"`,
+   * como `LDCShareOption` (p. ej. comprar entradas de un evento)
+   * @default false
+   */
+  external?: boolean;
+
+  /**
    * Additional CSS classes
    */
   className?: string;
@@ -97,6 +104,10 @@ interface LDCCTAButtonProps {
  * <LDCCTAButton text="Contactar" href="/contacto" showIcon={false} />
  *
  * @example
+ * // Enlace externo en pestaña nueva
+ * <LDCCTAButton text="Comprar entradas" href={ticketUrl} external />
+ *
+ * @example
  * // Envío de formulario con estado de carga y texto negro
  * <LDCCTAButton type="submit" variant="contrast" loading={sending} loadingText="Enviando…" text="Enviar" showIcon={false} />
  */
@@ -112,6 +123,7 @@ export function LDCCTAButton({
   loadingText,
   variant = "default",
   iconOnlyBelow,
+  external = false,
   className,
 }: LDCCTAButtonProps) {
   const disabled = disabledProp || loading;
@@ -143,6 +155,15 @@ export function LDCCTAButton({
       </span>
     </>
   );
+
+  // Enlace externo: pestaña nueva, sin `Link` de Next
+  if (href && !disabled && external) {
+    return (
+      <a href={href} target="_blank" rel="noopener noreferrer" className={baseClasses}>
+        {content}
+      </a>
+    );
+  }
 
   // Render as Link if href is provided
   if (href && !disabled) {

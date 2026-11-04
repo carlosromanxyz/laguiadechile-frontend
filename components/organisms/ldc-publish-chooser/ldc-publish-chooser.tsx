@@ -5,8 +5,8 @@ import { cn } from "@/lib/utils";
 
 /**
  * Lo que se puede publicar desde el panel. Cada tipo da un rol a la cuenta (el de `role`): por
- * eso el inicio oculta los tipos cuyo rol ya tiene. Para sumar un tipo (p. ej. «Un evento», con el
- * rol organizador de CLGDC-138/140) basta agregarlo aquí y a `LDC_PUBLISH_KINDS`.
+ * eso el inicio oculta los tipos cuyo rol ya tiene. Para sumar un tipo basta agregarlo aquí (y sale
+ * en `LDC_PUBLISH_KINDS`).
  */
 const KINDS = {
   aviso: {
@@ -35,6 +35,13 @@ const KINDS = {
     title: "Mi servicio",
     description: "Lo que haces a domicilio o por encargo, con zona de atención.",
   },
+  // Eventos (CLGDC-140)
+  evento: {
+    role: "organizador",
+    href: "/dashboard/eventos/nuevo",
+    title: "Un evento",
+    description: "Una feria, un concierto o un taller, con fecha y lugar.",
+  },
 } as const satisfies Record<string, { role: LDCRole; href: string; title: string; description: string }>;
 
 /** Tipo de publicación del selector. */
@@ -55,8 +62,8 @@ export interface LDCPublishChooserProps {
 /**
  * LDCPublishChooser - «¿Qué quieres publicar?» en el inicio del panel
  *
- * Un `LDCDashboardCard` con borde de marca y una opción por tipo (aviso, propiedad, comercio, servicio), con
- * la forma de `LDCRoleOption`: ícono y color del rol que da, título, una línea y chevron. Toda la
+ * Un `LDCDashboardCard` con borde de marca y una opción por tipo (aviso, propiedad, comercio, servicio,
+ * evento), con la forma de `LDCRoleOption`: ícono y color del rol que da, título, una línea y chevron. Toda la
  * opción es un enlace a su formulario. En móvil, una columna; desde `sm`, dos. Si queda una sola
  * opción, se muestra igual dentro del panel (diseño D2 de CLGDC-113).
  *

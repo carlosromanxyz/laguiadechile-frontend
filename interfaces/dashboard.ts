@@ -94,7 +94,7 @@ export interface IDashboardContactSummary {
 }
 
 /** Tipo de favorito del backend (`DELETE /me/favorites/:kind/:targetId`). */
-export type IDashboardFavoriteKind = "LISTING" | "CLASSIFIED" | "PROPERTY" | "NEWS";
+export type IDashboardFavoriteKind = "LISTING" | "CLASSIFIED" | "PROPERTY" | "NEWS" | "EVENT";
 
 /** Favorito guardado por el usuario. */
 export interface IDashboardFavorite {
@@ -102,7 +102,7 @@ export interface IDashboardFavorite {
   id: string;
   kindKey: IDashboardFavoriteKind;
   targetId: string;
-  /** Tipo visible: «Comercio», «Servicio», «Propiedad», «Noticia». */
+  /** Tipo visible: «Comercio», «Servicio», «Propiedad», «Noticia», «Evento». */
   kind: string;
   title: string;
   /** Ciudad bajo el título (vacío si no tiene, p. ej. una noticia). */

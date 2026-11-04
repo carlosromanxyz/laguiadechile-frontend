@@ -40,3 +40,4 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-skip-link** (`LDCSkipLink`): enlace «Saltar al contenido», visible al recibir el foco.
 - **ldc-social-network-icon** (`LDCSocialNetworkIcon`): ícono de red social en un círculo con hover.
 - **ldc-switch** (`LDCSwitch`): switch de Radix con los colores de la marca. Cliente.
+- **ldc-time-switch** (`LDCTimeSwitch`): isla sin DOM que muestra una cosa u otra según la hora del navegador respecto de un instante (p. ej. «Terminado» de un evento), sin depender de la caché ISR. Cliente.

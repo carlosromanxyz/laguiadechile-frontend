@@ -46,7 +46,7 @@ export interface LDCFormFieldProps<T extends FieldValues, TName extends FieldPat
    * Tipo del control; `password` usa `LDCPasswordInput` (mostrar u ocultar) y `textarea`, el
    * `Textarea` de shadcn. Se ignora si hay `render`.
    */
-  type?: "text" | "email" | "password" | "tel" | "url" | "date" | "textarea";
+  type?: "text" | "email" | "password" | "tel" | "url" | "date" | "time" | "textarea";
   /** `inputmode` del input de texto (p. ej. `decimal` para precios con teclado numérico) */
   inputMode?: "text" | "decimal" | "numeric";
   /** Placeholder del input */
