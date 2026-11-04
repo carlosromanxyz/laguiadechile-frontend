@@ -1,6 +1,7 @@
 import "server-only";
 import type { IClassified, IClassifieds } from "@/interfaces/classified";
-import { apiGet, apiGetOrNull, qs } from "./server-fetch";
+import { apiGet, apiGetNoStore, apiGetOrNull, qs } from "./server-fetch";
+import { SEARCH_LIMIT, SEARCH_TERM_MAX_LENGTH } from "./listings";
 import { mapClassified, type RawClassified } from "./mappers";
 
 async function fetchAll(params: Record<string, string | number | undefined> = {}): Promise<IClassifieds> {
@@ -43,4 +44,26 @@ export async function getRelatedClassifieds(
   return all
     .filter((c) => c.id !== currentId && (c.category.id === categoryId || c.city.id === cityId))
     .slice(0, limit);
+}
+
+/**
+ * Avisos publicados y vigentes que coinciden con la búsqueda de `/resultados` (CLGDC-189). El backend
+ * busca en el título y la descripción sin distinguir tildes ni mayúsculas, filtra por categoría y
+ * ciudad (ids) y, sin `includeExpired`, deja fuera los vencidos. Sin data cache (`apiGetNoStore`):
+ * el término es texto libre.
+ */
+export async function searchClassifieds(filters: {
+  term?: string;
+  categoryId?: string;
+  cityId?: string;
+}): Promise<IClassifieds> {
+  const raw = await apiGetNoStore<RawClassified[]>(
+    `/classifieds${qs({
+      search: filters.term?.slice(0, SEARCH_TERM_MAX_LENGTH),
+      categoryId: filters.categoryId,
+      cityId: filters.cityId,
+      limit: SEARCH_LIMIT,
+    })}`,
+  );
+  return raw.map(mapClassified);
 }
