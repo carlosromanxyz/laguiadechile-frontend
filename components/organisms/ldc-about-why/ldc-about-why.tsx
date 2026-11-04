@@ -24,10 +24,10 @@ import { LDCAboutWhyIllustration } from "@/components/molecules/ldc-about-why-il
  */
 export function LDCAboutWhy() {
   const features = [
-    "Promociona tu comercio y/o servicio.",
-    "Encuentra lo que necesitas.",
-    "Es fácil de usar.",
-    "Es gratis.",
+    "Creas tu cuenta y completas la ficha en el panel.",
+    "Revisamos cada ficha antes de publicarla.",
+    "Con la misma cuenta puedes publicar avisos clasificados.",
+    "Publicar no tiene costo.",
   ];
 
   return (
@@ -55,13 +55,13 @@ export function LDCAboutWhy() {
                 {/* Accent badge */}
                 <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-orange/10 to-yellow/10 px-4 py-2 text-sm font-medium text-orange-red dark:from-orange/20 dark:to-yellow/20">
                   <span className="flex h-2 w-2 rounded-full bg-orange" />
-                  Beneficios
+                  Para quien publica
                 </div>
 
                 <h2 className="text-4xl font-bold font-mulish lg:text-5xl">
-                  ¿Por qué estar en{" "}
-                  <span className="bg-gradient-to-r from-orange via-orange-red to-pink bg-clip-text text-transparent">
-                    La Guía de Chile?
+                  Si tienes un{" "}
+                  <span className="bg-gradient-to-r from-orange via-orange-red to-pink bg-clip-text text-transparent whitespace-nowrap">
+                    comercio o servicio
                   </span>
                 </h2>
               </div>

@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Nosotros - La Guía de Chile",
-  description: "Conoce más sobre La Guía de Chile, la plataforma que te permite promocionar tu comercio y servicio, o encontrar lo que necesitas.",
+  description: "Qué es La Guía de Chile: comercios, servicios, avisos, propiedades y noticias por ciudad y región. Si tienes un negocio, publica tu ficha en el sitio.",
 };
 
 export default function NosotrosPage() {

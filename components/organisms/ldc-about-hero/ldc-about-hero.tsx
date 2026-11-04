@@ -83,29 +83,29 @@ export function LDCAboutHero() {
                 {/* Contextual Badge */}
                 <div className="inline-flex items-center gap-2 rounded-full bg-white/20 backdrop-blur-sm px-4 py-2 text-sm font-medium text-white border border-white/30">
                   <span className="flex h-2 w-2 rounded-full bg-yellow animate-pulse in-data-[ldc-motion-paused=true]:[animation-play-state:paused]" />
-                  Conoce nuestra historia
+                  Quiénes somos
                 </div>
 
                 {/* Primary Heading */}
                 <h1 className="text-4xl font-bold font-mulish sm:text-5xl lg:text-6xl">
-                  Tu puerta de entrada a{" "}
-                  <span className="relative inline-block">
-                    <span className="relative z-10">Chile completo</span>
+                  Negocios y servicios de{" "}
+                  <span className="relative isolate inline-block">
+                    <span className="relative z-10">tu ciudad</span>
                     <span className="absolute bottom-2 left-0 -z-10 h-3 w-full bg-yellow/50 blur-sm" />
                   </span>
                 </h1>
 
                 {/* Subheading */}
                 <p className="text-xl text-white/90 lg:text-2xl">
-                  Para negocios que quieren crecer. Para personas que buscan descubrir.
+                  Busca por ciudad o región y contacta al negocio directamente.
                 </p>
               </div>
 
               {/* Body Paragraph */}
               <p className="text-lg text-white/80 leading-relaxed">
-                La Guía de Chile conecta emprendedores y comercios con clientes que necesitan
-                sus servicios. Una plataforma donde promocionar tu negocio es simple, y encontrar
-                lo que buscas es aún más fácil.
+                Cada ficha muestra dónde está el negocio, a qué hora atiende y cómo contactarlo
+                por teléfono o WhatsApp. Si tienes un comercio o das un servicio, también puedes
+                publicarlo.
               </p>
 
               {/* Decorative accents */}

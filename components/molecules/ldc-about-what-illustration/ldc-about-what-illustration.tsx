@@ -25,7 +25,7 @@ import { LDCAboutWhatIllustrationScene } from "./ldc-about-what-illustration-sce
 export function LDCAboutWhatIllustration({ className }: { className?: string }) {
   return (
     <LDCAboutWhatIllustrationScene
-      label="¿Qué es La Guía de Chile? - Busca y descubre negocios"
+      label="Ilustración de una persona junto a un celular con una lupa sobre la pantalla"
       className={className}
     >
       <g data-e="phone">
