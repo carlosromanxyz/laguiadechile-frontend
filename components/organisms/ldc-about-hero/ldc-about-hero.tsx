@@ -20,8 +20,8 @@ import { cn } from "@/lib/utils";
  * Design elements:
  * - Background with the isotype bands (`brand-stripes`): solid pink, orange,
  *   yellow and purple sliding in 10 s. `animate-color-slide-ink` runs that slide
- *   and, in sync, the `--ldc-hero-ink` color (black on pink, orange and yellow, white
- *   on purple: AA on every band) that the text, chip, accent bars and pause button
+ *   and, in sync, the `--ldc-hero-ink` color (black on pink and yellow, white on
+ *   purple and orange) that the text, chip, accent bars and pause button
  *   use. Still (pink band, black ink) with prefers-reduced-motion and paused with the
  *   pause button. Both overrides carry `!`: the animation class lives outside the
  *   Tailwind layers in globals.css, so a layered utility alone would not beat it
@@ -64,11 +64,7 @@ export function LDCAboutHero() {
 
                 {/* Primary Heading */}
                 <h1 className="text-4xl font-bold font-mulish sm:text-5xl lg:text-6xl">
-                  Negocios y servicios de{" "}
-                  <span className="relative isolate inline-block">
-                    <span className="relative z-10">tu ciudad</span>
-                    <span className="absolute -bottom-1 left-0 -z-10 h-1.5 w-full rounded-full bg-(--ldc-hero-ink)" />
-                  </span>
+                  Negocios y servicios de tu ciudad
                 </h1>
 
                 {/* Subheading */}

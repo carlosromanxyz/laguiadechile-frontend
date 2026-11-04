@@ -258,11 +258,13 @@
  * and its text follows the visible band, with the same 10 s, ease-in-out and
  * stops as `color-slide`. With 500% background-size, each position shows:
  * 100% pink, 75% orange, 50% yellow, 25% purple, 0% pink.
- * The ink is the one that gives AA on each band: black over pink (5.26:1),
- * orange (8.84:1) and yellow (11.88:1), white over purple (4.79:1; white on
- * pink is only 3.99:1). It swaps in 0.15 s, late in the slide into purple
- * (black keeps 4.39:1 on purple while yellow leaves) and early in the slide
- * back to pink (white keeps 3.99:1 on pink while purple leaves).
+ * Black over pink (5.26:1) and yellow (11.88:1); white over purple (4.79:1)
+ * and orange (2.37:1, a user decision: below AA, it is not fixed here).
+ * Each swap takes 0.15 s and happens while the ink still reads on both
+ * bands, so it never waits for the background: late in the slide into
+ * orange (black reads on pink and orange) and into purple (black keeps 4.39:1
+ * on purple while yellow leaves), early in the slide into yellow (black on
+ * the orange that leaves) and back to pink (white keeps 3.99:1 on pink).
  * Registered so it interpolates as a color and inherits to every child.
  * Without animation (prefers-reduced-motion) it stays at its initial black,
  * over the initial pink band.
@@ -274,7 +276,13 @@
 }
 
 @keyframes color-slide-ink {
-  0%, 73.5% {
+  0%, 23.5% {
+    --ldc-hero-ink: #000;
+  }
+  25%, 45% {
+    --ldc-hero-ink: #fff;
+  }
+  46.5%, 73.5% {
     --ldc-hero-ink: #000;
   }
   75%, 95% {
