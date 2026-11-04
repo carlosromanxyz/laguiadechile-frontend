@@ -37,7 +37,7 @@ export async function updateMyListing(id: string, data: IMyListingUpdate): Promi
  */
 export async function createMyListing(data: IMyListingCreate): Promise<IMyListing> {
   const { type, ...rest } = data;
-  const raw = await apiFetchServer<{ listing: RawMyListing; role: string }>("/me/listings", {
+  const raw = await apiFetchServer<{ listing: RawMyListing; roles: string[] }>("/me/listings", {
     method: "POST",
     body: JSON.stringify({ ...rest, type: type === "servicio" ? "SERVICIO" : "COMERCIO" }),
   });
