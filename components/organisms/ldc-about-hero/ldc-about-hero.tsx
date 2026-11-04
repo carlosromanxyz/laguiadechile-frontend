@@ -4,7 +4,11 @@ import {
   LDCDecorativeLayer,
   LDCDecorativeShape,
 } from "@/components/atoms/ldc-decorative-shapes";
-import { LDCChileSkyline } from "@/components/organisms/ldc-chile-skyline";
+import {
+  LDC_CHILE_SKYLINE_RESERVE,
+  LDCChileSkyline,
+} from "@/components/organisms/ldc-chile-skyline";
+import { cn } from "@/lib/utils";
 
 /**
  * LDCAboutHero - About Page Hero Section
@@ -20,6 +24,9 @@ import { LDCChileSkyline } from "@/components/organisms/ldc-chile-skyline";
  * - Image with glow effects and accent elements
  * - Skyline of Chilean monuments biting the bottom edge (LDCChileSkyline)
  *
+ * El padding inferior reserva el alto de la silueta, que escala con el ancho
+ * (LDC_CHILE_SKYLINE_RESERVE).
+ *
  * @example
  * ```tsx
  * <LDCAboutHero />
@@ -27,7 +34,12 @@ import { LDCChileSkyline } from "@/components/organisms/ldc-chile-skyline";
  */
 export function LDCAboutHero() {
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-br from-purple via-pink/90 to-orange-red py-24 md:py-32 lg:py-40">
+    <section
+      className={cn(
+        "relative w-full overflow-hidden bg-gradient-to-br from-purple via-pink/90 to-orange-red pt-24 md:pt-32 lg:pt-40",
+        LDC_CHILE_SKYLINE_RESERVE,
+      )}
+    >
       {/* Decorative background layer */}
       <LDCDecorativeLayer>
         {/* Large blur shape - top left */}
