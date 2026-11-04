@@ -7,6 +7,10 @@ export interface LDCVisitsChartProps {
   points: IDashboardVisitPoint[];
   /** Título de la tarjeta */
   title?: string;
+  /** Qué cuenta la serie, para el resumen accesible (por defecto «Visitas diarias») */
+  summaryLabel?: string;
+  /** Encabezado de la columna de valores en la tabla oculta (por defecto «Visitas») */
+  valueLabel?: string;
   /** Marca el dato como simulado */
   simulated?: boolean;
 }
@@ -22,10 +26,13 @@ const numberFormat = new Intl.NumberFormat("es-CL");
  *
  * @example
  * <LDCVisitsChart points={series} simulated />
+ * <LDCVisitsChart points={clicks} title="Clics por día · 14 días" summaryLabel="Clics diarios" valueLabel="Clics" />
  */
 export function LDCVisitsChart({
   points,
   title = `Visitas por día · ${points.length} días`,
+  summaryLabel = "Visitas diarias",
+  valueLabel = "Visitas",
   simulated,
 }: LDCVisitsChartProps) {
   if (points.length === 0) return null;
@@ -39,7 +46,7 @@ export function LDCVisitsChart({
     <LDCDashboardCard title={title} simulated={simulated}>
       <div
         role="img"
-        aria-label={`Visitas diarias de los últimos ${points.length} días, entre ${numberFormat.format(min)} y ${numberFormat.format(max)}`}
+        aria-label={`${summaryLabel} de los últimos ${points.length} días, entre ${numberFormat.format(min)} y ${numberFormat.format(max)}`}
         className="flex h-36 items-end gap-1.5 pt-2"
       >
         {points.map((p) => (
@@ -63,7 +70,7 @@ export function LDCVisitsChart({
         <thead>
           <tr>
             <th scope="col">Día</th>
-            <th scope="col">Visitas</th>
+            <th scope="col">{valueLabel}</th>
           </tr>
         </thead>
         <tbody>

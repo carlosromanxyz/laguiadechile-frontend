@@ -75,6 +75,29 @@ export interface IDashboardVisitPoint {
   value: number;
 }
 
+/** Ventana de `GET /me/metrics`: 14 o 30 días terminando hoy. */
+export type IDashboardMetricWindow = 14 | 30;
+
+/** Punto diario de las estadísticas del comercio: visitas y clics de contacto (WhatsApp, llamadas y web). */
+export interface IDashboardMetricPoint {
+  /** Fecha ISO (mediodía UTC del día de America/Santiago). */
+  date: string;
+  views: number;
+  clicks: number;
+}
+
+/** Estadísticas de una o varias fichas propias en una ventana (`GET /me/metrics`). */
+export interface IDashboardMetricsReport {
+  days: IDashboardMetricWindow;
+  series: IDashboardMetricPoint[];
+  totals: { views: number; whatsapp: number; calls: number; web: number };
+  /**
+   * Variación de visitas en % contra la ventana anterior; `null` si antes no hubo visitas;
+   * ausente si el reporte suma varias fichas por separado (el % no se puede recomponer).
+   */
+  deltaViews?: number | null;
+}
+
 /** Ítem de la lista de completitud de la ficha. */
 export interface IDashboardCompletionItem {
   label: string;
