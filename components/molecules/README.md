@@ -10,6 +10,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 
 ## Componentes
 
+- **ldc-about-hero-illustration** (`LDCAboutHeroIllustration`): ciudad del hero de «Nosotros» en SVG en línea (servidor), animada con framer-motion por `LDCAboutHeroIllustrationScene` (cliente): armado al entrar en vista y ciclo de día y noche de 23 s; se pausa fuera de la vista o con `LDCMotionPauseButton` y queda quieta con `prefers-reduced-motion`.
 - **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad opcional (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
 - **ldc-archive-button** (`LDCArchiveButton`): «Archivar» / «Desarchivar» de una publicación propia con una server action; archivar confirma con `LDCArchiveConfirmDialog` (también exporta `useLDCArchiveToggle`, que usa el menú de `LDCResourceRowActions`). Cliente.

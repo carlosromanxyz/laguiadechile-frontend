@@ -17,7 +17,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-category-icon** (`LDCCategoryIcon`): ícono de categoría (react-icons) sobre fondo de color. Cliente.
 - **ldc-container** (`LDCContainer`): contenedor centrado con ancho máximo y padding horizontal.
 - **ldc-cta-button** (`LDCCTAButton`): botón de llamada a la acción; enlace si recibe `href`, botón si no (`type="submit"`, `loading` y `variant="contrast"` con texto negro).
-- **ldc-decorative-shapes** (`LDCDecorativeShape`, `LDCDecorativeLayer`): manchas, acentos y resplandores de las secciones de «Nosotros».
+- **ldc-decorative-shapes** (`LDCDecorativeShape`, `LDCDecorativeLayer`): manchas, acentos y resplandores de las secciones de «Nosotros»; se congelan con `LDCMotionPauseProvider` (`@/components/shared`). Cliente.
 - **ldc-details-link** (`LDCDetailsLink`): enlace «Ver detalles» con flecha de las cards.
 - **ldc-featured-ribbon** (`LDCFeaturedRibbon`): trama diagonal de destacado sobre la imagen de una card.
 - **ldc-footer-link** (`LDCFooterLink`): enlace del pie de página.
@@ -27,6 +27,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-location-link** (`LDCLocationLink`): ícono y enlace a la ciudad (variantes `default`, `compact` y `split`).
 - **ldc-logo** (`LDCLogo`): logo de La Guía de Chile (isotipo y texto).
 - **ldc-metric-view** (`LDCMetricView`): isla sin DOM que manda el evento `view` de la ficha de un comercio o servicio al montar. Cliente.
+- **ldc-motion-pause-button** (`LDCMotionPauseButton`): botón redondo de 44 px que pausa y reanuda las animaciones del `LDCMotionPauseProvider` (WCAG 2.2.2); oculto con `prefers-reduced-motion`. Cliente.
 - **ldc-nav-link** (`LDCNavLink`): enlace de la navegación principal con estado activo. Cliente.
 - **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en degradado o contorno.
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.
