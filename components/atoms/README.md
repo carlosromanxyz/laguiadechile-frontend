@@ -28,9 +28,9 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-location-link** (`LDCLocationLink`): ícono y enlace a la ciudad (variantes `default`, `compact` y `split`).
 - **ldc-logo** (`LDCLogo`): logo de La Guía de Chile (isotipo y texto).
 - **ldc-metric-view** (`LDCMetricView`): isla sin DOM que manda el evento `view` de la ficha de un comercio o servicio al montar. Cliente.
-- **ldc-motion-pause-button** (`LDCMotionPauseButton`): botón redondo de 44 px que pausa y reanuda las animaciones del `LDCMotionPauseProvider` (WCAG 2.2.2), con tono `overlay` (sobre degradado) o `surface` (sobre el fondo del tema); oculto con `prefers-reduced-motion`. Cliente.
+- **ldc-motion-pause-button** (`LDCMotionPauseButton`): botón redondo de 44 px que pausa y reanuda las animaciones del `LDCMotionPauseProvider` (WCAG 2.2.2), con tono `overlay` (blanco translúcido sobre color), `ink` (del color de `--ldc-hero-ink`, la tinta del hero de Nosotros) o `surface` (sobre el fondo del tema); oculto con `prefers-reduced-motion`. Cliente.
 - **ldc-nav-link** (`LDCNavLink`): enlace de la navegación principal con estado activo. Cliente.
-- **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en degradado o contorno.
+- **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en color plano (`solid`, `bg-pink-strong`) o contorno.
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.
 - **ldc-password-input** (`LDCPasswordInput`): campo de contraseña con botón para mostrarla u ocultarla. Cliente.
 - **ldc-property-image-carousel** (`LDCPropertyImageCarousel`): carrusel de fotos de la card de propiedad. Cliente.

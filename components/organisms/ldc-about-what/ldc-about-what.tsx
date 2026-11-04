@@ -7,7 +7,7 @@ import { LDCAboutWhatIllustration } from "@/components/molecules/ldc-about-what-
  * LDCAboutWhat - "What is La Guía de Chile" Section
  *
  * Section explaining what La Guía de Chile is.
- * Features flowing narrative design with gradient backgrounds and decorative elements,
+ * Features flowing narrative design with flat brand colors and decorative elements,
  * and an animated illustration (LDCAboutWhatIllustration) with a pause button
  * (WCAG 2.2.2) that freezes it and the decorative shapes of the section through
  * LDCMotionPauseProvider; hidden with prefers-reduced-motion. The button is
@@ -21,13 +21,13 @@ import { LDCAboutWhatIllustration } from "@/components/molecules/ldc-about-what-
 export function LDCAboutWhat() {
   return (
     <LDCMotionPauseProvider>
-      <section className="relative w-full overflow-hidden bg-gradient-to-b from-pink/5 via-background to-background py-24 md:py-32">
-        {/* Decorative shape - top right (top-24: no tiñe el borde que muerde LDCChileSkyline) */}
+      <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
+        {/* Decorative shape - top right (top-24: no tiñe el borde que muerde LDCChileSkyline, del color de bg-background) */}
         <LDCDecorativeShape
           variant="blob"
           delay={0}
           layout="right-0 top-24 h-96 w-96 translate-x-1/2"
-          fill="bg-gradient-to-br from-yellow/20 to-orange/10"
+          fill="bg-yellow/20"
         />
 
         <div className="relative mx-auto max-w-7xl px-4">
@@ -39,7 +39,7 @@ export function LDCAboutWhat() {
                 variant="bar"
                 delay={1.5}
                 layout="-left-4 top-8 h-32"
-                fill="from-purple to-pink"
+                fill="bg-purple"
               />
 
               {/* Image with glow effect */}
@@ -50,7 +50,7 @@ export function LDCAboutWhat() {
                 <LDCDecorativeShape
                   variant="glow"
                   delay={3}
-                  fill="bg-gradient-to-tr from-purple/20 via-pink/20 to-orange/20"
+                  fill="bg-purple/20"
                 />
               </div>
 
@@ -61,14 +61,14 @@ export function LDCAboutWhat() {
             {/* Content Column - 7 columns */}
             <div className="space-y-6 lg:col-span-7">
               {/* Accent badge */}
-              <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple/10 to-pink/10 px-4 py-2 text-sm font-medium text-purple dark:from-purple/20 dark:to-pink/20">
-                <span className="flex h-2 w-2 rounded-full bg-purple" />
+              <div className="inline-flex items-center gap-2 rounded-full bg-pink-strong/5 px-4 py-2 text-sm font-medium text-pink-strong dark:bg-yellow/10 dark:text-yellow">
+                <span className="flex h-2 w-2 rounded-full bg-pink-strong dark:bg-yellow" />
                 Cómo funciona
               </div>
 
               <h2 className="text-4xl font-bold font-mulish lg:text-5xl">
                 ¿Qué es{" "}
-                <span className="bg-gradient-to-r from-purple via-pink to-orange bg-clip-text text-transparent">
+                <span className="text-pink-strong dark:text-yellow">
                   La Guía de Chile?
                 </span>
               </h2>
@@ -77,6 +77,12 @@ export function LDCAboutWhat() {
                 Es un directorio de Chile ordenado por ciudad y región, con comercios,
                 servicios, avisos clasificados, propiedades y noticias. En la página de
                 cada ciudad ves además el clima y la farmacia de turno.
+              </p>
+
+              <p className="text-lg leading-relaxed text-foreground/70 lg:text-xl">
+                Cada categoría tiene su página, así que puedes ver juntos los comercios y
+                servicios de un mismo rubro. Con una cuenta guardas en favoritos fichas, avisos,
+                propiedades y noticias, y los encuentras después en tu panel.
               </p>
 
               {/* Decorative accent */}
