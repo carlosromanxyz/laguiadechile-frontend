@@ -1,6 +1,5 @@
 import {
   LDCAccentBars,
-  LDCDecorativeLayer,
   LDCDecorativeShape,
 } from "@/components/atoms/ldc-decorative-shapes";
 import { LDCMotionPauseButton } from "@/components/atoms/ldc-motion-pause-button";
@@ -16,7 +15,7 @@ import { cn } from "@/lib/utils";
  * LDCAboutHero - About Page Hero Section
  *
  * Enhanced hero section with flowing narrative design featuring
- * the brand stripes background, decorative blur shapes, and asymmetric layout.
+ * the brand stripes background, a solid accent bar, and asymmetric layout.
  *
  * Design elements:
  * - Background with the isotype bands (`brand-stripes`): solid pink, orange,
@@ -26,12 +25,13 @@ import { cn } from "@/lib/utils";
  *   use. Still (pink band, black ink) with prefers-reduced-motion and paused with the
  *   pause button. Both overrides carry `!`: the animation class lives outside the
  *   Tailwind layers in globals.css, so a layered utility alone would not beat it
- * - Decorative blur shapes for depth
+ * - Solid vertical accent bar (LDCDecorativeShape `bar`); no blurred shapes:
+ *   the site uses flat colors
  * - Asymmetric 7/5 grid layout
  * - Enhanced typography with badge and improved messaging
- * - Animated city illustration (LDCAboutHeroIllustration) with glow effects and accent elements
+ * - Animated city illustration (LDCAboutHeroIllustration)
  * - Pause button (WCAG 2.2.2) that freezes the illustration and the decorative
- *   shapes and background of the hero through LDCMotionPauseProvider; hidden with prefers-reduced-motion
+ *   accent bar and background of the hero through LDCMotionPauseProvider; hidden with prefers-reduced-motion
  * - Skyline of Chilean monuments biting the bottom edge (LDCChileSkyline)
  *
  * El padding inferior reserva el alto de la silueta, que escala con el ancho
@@ -51,36 +51,6 @@ export function LDCAboutHero() {
           LDC_CHILE_SKYLINE_RESERVE,
         )}
       >
-        {/* Decorative background layer */}
-        <LDCDecorativeLayer>
-          {/* Large blur shape - top left */}
-          <LDCDecorativeShape
-            variant="blob"
-            delay={0}
-            ariaHidden={false}
-            layout="-left-40 -top-40 h-[600px] w-[600px]"
-            fill="bg-purple/30"
-          />
-
-          {/* Medium blur shape - bottom right */}
-          <LDCDecorativeShape
-            variant="blob"
-            delay={4}
-            ariaHidden={false}
-            layout="-bottom-20 -right-20 h-96 w-96"
-            fill="bg-orange/20"
-          />
-
-          {/* Small accent shape - floating */}
-          <LDCDecorativeShape
-            variant="spot"
-            delay={2}
-            ariaHidden={false}
-            layout="right-1/4 top-1/3 h-32 w-32 rotate-45 rounded-2xl"
-            fill="bg-yellow/20"
-          />
-        </LDCDecorativeLayer>
-
         <div className="relative mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Content Column - 7 columns */}
@@ -97,7 +67,7 @@ export function LDCAboutHero() {
                   Negocios y servicios de{" "}
                   <span className="relative isolate inline-block">
                     <span className="relative z-10">tu ciudad</span>
-                    <span className="absolute bottom-2 left-0 -z-10 h-3 w-full bg-yellow/50 blur-sm" />
+                    <span className="absolute -bottom-1 left-0 -z-10 h-1.5 w-full rounded-full bg-(--ldc-hero-ink)" />
                   </span>
                 </h1>
 
@@ -131,29 +101,14 @@ export function LDCAboutHero() {
                 variant="bar"
                 delay={1}
                 layout="-right-4 top-12 h-40"
-                fill="bg-yellow"
+                fill="bg-(--ldc-hero-ink)/60"
               />
 
               <div className="relative">
                 <LDCAboutHeroIllustration className="relative w-full h-auto drop-shadow-2xl" />
-
-                {/* Colored glow */}
-                <LDCDecorativeShape
-                  variant="glow"
-                  delay={3}
-                  fill="bg-yellow/30"
-                />
               </div>
 
-              {/* Corner accent shape */}
-              <LDCDecorativeShape
-                variant="corner"
-                delay={1.5}
-                layout="-bottom-6 -left-6 h-24 w-24 -rotate-12"
-                fill="bg-pink"
-              />
-
-              {/* Pausa de la ilustración y de las formas del hero (WCAG 2.2.2) */}
+              {/* Pausa de la ilustración, la barra y el fondo del hero (WCAG 2.2.2) */}
               <LDCMotionPauseButton tone="ink" className="relative mt-4 ml-auto flex" />
             </div>
           </div>

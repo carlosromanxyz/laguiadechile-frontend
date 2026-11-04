@@ -17,7 +17,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-category-icon** (`LDCCategoryIcon`): ícono de categoría (react-icons) sobre fondo de color. Cliente.
 - **ldc-container** (`LDCContainer`): contenedor centrado con ancho máximo y padding horizontal.
 - **ldc-cta-button** (`LDCCTAButton`): botón de llamada a la acción; enlace si recibe `href`, botón si no (`type="submit"`, `loading` y `variant="contrast"` con texto negro).
-- **ldc-decorative-shapes** (`LDCDecorativeShape`, `LDCDecorativeLayer`): manchas, acentos y resplandores de las secciones de «Nosotros»; se congelan con `LDCMotionPauseProvider` (`@/components/shared`). Cliente.
+- **ldc-decorative-shapes** (`LDCDecorativeShape`, `LDCAccentBars`): barra vertical de acento (`variant="bar"`) y fila de barras horizontales de las secciones de «Nosotros», de color plano y sin blur; la barra se congela con `LDCMotionPauseProvider` (`@/components/shared`). Cliente.
 - **ldc-details-link** (`LDCDetailsLink`): enlace «Ver detalles» con flecha de las cards.
 - **ldc-featured-ribbon** (`LDCFeaturedRibbon`): trama diagonal de destacado sobre la imagen de una card.
 - **ldc-footer-link** (`LDCFooterLink`): enlace del pie de página.

@@ -1,8 +1,5 @@
 import { LDCNumberBadge } from "@/components/atoms/ldc-number-badge";
-import {
-  LDCAccentBars,
-  LDCDecorativeShape,
-} from "@/components/atoms/ldc-decorative-shapes";
+import { LDCAccentBars } from "@/components/atoms/ldc-decorative-shapes";
 import { LDCMotionPauseButton } from "@/components/atoms/ldc-motion-pause-button";
 import { LDCMotionPauseProvider } from "@/components/shared/ldc-motion-pause-provider";
 import { LDCAboutWhyIllustration } from "@/components/molecules/ldc-about-why-illustration";
@@ -13,7 +10,7 @@ import { LDCAboutWhyIllustration } from "@/components/molecules/ldc-about-why-il
  * Section explaining why users should use La Guía de Chile.
  * Features flowing narrative design with flat number badges and decorative elements,
  * and an animated illustration (LDCAboutWhyIllustration) with a pause button
- * (WCAG 2.2.2) that freezes it and the decorative shapes of the section through
+ * (WCAG 2.2.2) that freezes it through
  * LDCMotionPauseProvider; hidden with prefers-reduced-motion. The button is
  * absolutely positioned under the illustration, so it does not change the layout.
  *
@@ -33,20 +30,6 @@ export function LDCAboutWhy() {
   return (
     <LDCMotionPauseProvider>
       <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
-        {/* Decorative shapes */}
-        <LDCDecorativeShape
-          variant="blob"
-          delay={0}
-          layout="bottom-0 left-0 h-[500px] w-[500px] -translate-x-1/2 translate-y-1/2"
-          fill="bg-orange/10"
-        />
-        <LDCDecorativeShape
-          variant="spot"
-          delay={2.5}
-          layout="right-20 top-20 h-20 w-20 rotate-12 rounded-lg"
-          fill="bg-pink/20"
-        />
-
         <div className="relative mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Content Column - 7 columns */}
@@ -99,26 +82,11 @@ export function LDCAboutWhy() {
 
             {/* Image Column - 5 columns */}
             <div className="relative lg:col-span-5">
-              {/* Colored accent shape - corner */}
-              <LDCDecorativeShape
-                variant="corner"
-                delay={1}
-                layout="-right-6 -top-6 h-24 w-24 rotate-12"
-                fill="bg-yellow"
-              />
-
               <div className="relative">
                 <LDCAboutWhyIllustration className="relative w-full h-auto drop-shadow-2xl" />
-
-                {/* Colored glow */}
-                <LDCDecorativeShape
-                  variant="glow"
-                  delay={3.5}
-                  fill="bg-orange/20"
-                />
               </div>
 
-              {/* Pausa de la ilustración y de las formas de la sección (WCAG 2.2.2) */}
+              {/* Pausa de la ilustración de la sección (WCAG 2.2.2) */}
               <LDCMotionPauseButton tone="surface" className="absolute right-0 top-full mt-1" />
             </div>
           </div>
