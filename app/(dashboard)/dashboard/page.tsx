@@ -7,7 +7,7 @@ import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import { LDCArchiveButton } from "@/components/molecules/ldc-archive-button";
 import { LDCDashboardListItem } from "@/components/molecules/ldc-dashboard-list-item";
 import { LDCStatCard } from "@/components/molecules/ldc-stat-card";
-import { LDC_PUBLISH_KINDS, LDCPublishChooser } from "@/components/organisms/ldc-publish-chooser";
+import { getPublishKinds, LDCPublishChooser } from "@/components/organisms/ldc-publish-chooser";
 import { LDCTaskList } from "@/components/organisms/ldc-task-list";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
 import type {
@@ -181,7 +181,7 @@ export default async function DashboardHomePage() {
     ...listingTasks,
   ];
 
-  const publishKinds = LDC_PUBLISH_KINDS.filter((k) => !roles.includes(k.role)).map((k) => k.kind);
+  const publishKinds = getPublishKinds(roles);
 
   return (
     <LDCDashboardPageTemplate

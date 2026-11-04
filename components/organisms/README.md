@@ -66,7 +66,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ### Panel (dashboard)
 - **ldc-dashboard-header** (`LDCDashboardHeader`): barra superior del panel con migas de pan desde `/dashboard`. Cliente.
 - **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con grupos según los roles de la cuenta, CTA «Publicar» y el usuario. Cliente.
-- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una opción por tipo (aviso, comercio, servicio, evento).
+- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una opción por tipo (comercio, servicio, aviso, propiedad, evento y, solo para el admin, noticia).
 - **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión (`/api/auth/login`) para los tres roles, con `LDCFormField`, error en línea y enlace al registro; entra al inicio del panel (`/dashboard`). Cliente.
 - **ldc-register-form** (`LDCRegisterForm`): formulario del registro público (`/registro`): nombre, email, contraseña, confirmación y términos; el 409 va en el campo email. Cliente.
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
