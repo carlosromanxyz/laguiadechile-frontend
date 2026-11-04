@@ -31,7 +31,7 @@ function revalidateAfterModeration(kind: IDashboardModerationKind, slug: unknown
     revalidatePath(`/comercio/${slug}`);
     revalidatePath(`/servicio/${slug}`);
   } else if (kind === "event") {
-    // TODO(CLGDC-139): confirmar la ruta pública del evento cuando existan las páginas de eventos.
+    revalidatePath("/eventos");
     revalidatePath(`/evento/${slug}`);
   } else {
     revalidatePath(`/aviso/${slug}`);

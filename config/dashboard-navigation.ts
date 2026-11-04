@@ -1,4 +1,5 @@
 import {
+  CalendarDays,
   ChartColumn,
   CirclePlus,
   Folder,
@@ -50,7 +51,7 @@ function listingItems(tipo: "comercio" | "servicio"): IDashboardNavItem[] {
 
 /**
  * Menú del panel: un solo menú con grupos apilados según los roles de la cuenta (diseño A1 de
- * CLGDC-113), en este orden: General, Mis avisos, Mis comercios, Mis servicios y Admin.
+ * CLGDC-113), en este orden: General, Mis avisos, Mis comercios, Mis servicios, Mis eventos y Admin.
  */
 export const dashboardNavigation: IDashboardNavGroup[] = [
   {
@@ -72,6 +73,15 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
   },
   { label: "Mis comercios", requires: "comercio", items: listingItems("comercio") },
   { label: "Mis servicios", requires: "servicio", items: listingItems("servicio") },
+  // Eventos (CLGDC-140)
+  {
+    label: "Mis eventos",
+    requires: "organizador",
+    items: [
+      { href: "/dashboard/eventos", label: "Mis eventos", icon: CalendarDays },
+      { href: "/dashboard/eventos/nuevo", label: "Publicar evento", icon: CirclePlus },
+    ],
+  },
   {
     label: "Admin",
     requires: "admin",
@@ -81,6 +91,7 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
       { href: "/dashboard/admin/servicios", label: "Servicios", icon: Wrench },
       { href: "/dashboard/admin/avisos", label: "Avisos", icon: Tags },
       { href: "/dashboard/admin/propiedades", label: "Propiedades", icon: Home },
+      { href: "/dashboard/admin/eventos", label: "Eventos", icon: CalendarDays }, // CLGDC-140
       { href: "/dashboard/admin/noticias", label: "Noticias", icon: Newspaper },
       { href: "/dashboard/admin/categorias", label: "Categorías", icon: Folder },
       { href: "/dashboard/admin/ciudades", label: "Ciudades", icon: MapPin },

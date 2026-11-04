@@ -1,6 +1,6 @@
 import type { IDashboardFavoriteKind } from "@/interfaces/dashboard";
 
-/** Tipo de favorito tal como lo nombra la API (`LISTING`, `CLASSIFIED`, `PROPERTY`, `NEWS`). */
+/** Tipo de favorito tal como lo nombra la API (`LISTING`, `CLASSIFIED`, `PROPERTY`, `NEWS`, `EVENT`). */
 export type IFavoriteKind = IDashboardFavoriteKind;
 
 /** Un favorito guardado, sin los datos del destino. */

@@ -20,6 +20,14 @@ import { LDCClassifiedDetailHero } from "@/components/organisms/ldc-classified-d
 import { LDCPropertyDetailHero } from "@/components/organisms/ldc-property-detail-hero";
 import { LDCNewsArticleHero } from "@/components/organisms/ldc-news-article-hero";
 import { LDCRelatedSection } from "@/components/organisms/ldc-related-section";
+// Eventos (CLGDC-139)
+import { LDCEventCard } from "@/components/molecules/ldc-event-card";
+import { LDCEventOrganizer } from "@/components/molecules/ldc-event-organizer";
+import { LDCEventDetailHero } from "@/components/organisms/ldc-event-detail-hero";
+import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
+import { LDCTimeSwitch } from "@/components/atoms/ldc-time-switch";
+import { formatEventLongDay, formatEventPrice } from "@/lib/format/events";
+import type { IEvent, IEvents } from "@/interfaces/event";
 import {
   typeLabels,
   formatClassifiedPrice,
@@ -32,7 +40,7 @@ import {
   getOperationLabel,
 } from "@/lib/format/properties";
 import { getReadingTime, isNewArticle } from "@/lib/format/news";
-import { FileText, Clock, CalendarDays } from "lucide-react";
+import { FileText, Clock, CalendarDays, Ticket } from "lucide-react";
 import type { ReactNode } from "react";
 import type { IListingDetail, IListingDetails } from "@/interfaces/listing";
 import type { IClassified, IClassifieds } from "@/interfaces/classified";
@@ -49,7 +57,14 @@ type LDCDetailTemplateProps =
     }
   | { kind: "aviso"; classified: IClassified; related: IClassifieds }
   | { kind: "propiedad"; property: IProperty; related: IProperties }
-  | { kind: "noticia"; news: INews; related: INewsList };
+  | { kind: "noticia"; news: INews; related: INewsList }
+  | {
+      kind: "evento";
+      event: IEvent;
+      related: IEvents;
+      /** Ya terminó al renderizar en el servidor; en el navegador lo recalcula `LDCTimeSwitch` */
+      past: boolean;
+    };
 
 /** Textos y rutas que distinguen la ficha de comercio de la de servicio. */
 const LISTING_COPY = {
@@ -88,6 +103,8 @@ export function LDCDetailTemplate(props: LDCDetailTemplateProps) {
       return <PropertyDetail {...props} />;
     case "noticia":
       return <NewsDetail {...props} />;
+    case "evento":
+      return <EventDetail {...props} />;
   }
 }
 
@@ -453,6 +470,94 @@ function NewsDetail({
                 featured={item.featured}
                 createdAt={item.createdAt}
                 updatedAt={item.updatedAt}
+              />
+            ))}
+          </LDCRelatedSection>
+        )
+      }
+    />
+  );
+}
+
+// ---- Evento (CLGDC-139) ----
+function EventDetail({ event, related, past }: Extract<LDCDetailTemplateProps, { kind: "evento" }>) {
+  const breadcrumbs: IBreadcrumbItem[] = [
+    { label: "Inicio", href: "/" },
+    { label: "Eventos", href: "/eventos" },
+    ...(event.category
+      ? [{ label: event.category.name, href: `/eventos?categoria=${event.category.slug}` }]
+      : []),
+    { label: event.title, href: "" },
+  ];
+
+  const mapAddress = [event.address ?? event.venueName, event.commune].filter(Boolean).join(", ");
+
+  return (
+    <DetailLayout
+      hero={<LDCEventDetailHero event={event} breadcrumbs={breadcrumbs} past={past} />}
+      main={
+        <>
+          <LDCListingGallery images={[event.image, ...event.gallery]} title={event.title} />
+
+          <DescriptionPanel>
+            <div
+              className="prose prose-sm max-w-none text-muted-foreground dark:prose-invert
+                prose-p:mb-4 prose-p:last:mb-0 text-justify"
+              dangerouslySetInnerHTML={{ __html: event.description }}
+            />
+          </DescriptionPanel>
+
+          <LDCListingMap address={mapAddress} city={event.city.name} />
+        </>
+      }
+      sidebar={
+        <>
+          <LDCPriceBox
+            label="Entrada"
+            price={formatEventPrice(event.priceType, event.priceAmount)}
+            note={
+              event.ticketUrl ? (
+                // Se quita cuando el evento termina, con la hora del navegador (no la de la caché ISR).
+                <LDCTimeSwitch
+                  at={event.endsAt ?? event.startsAt}
+                  serverPassed={past}
+                  before={
+                    <LDCCTAButton
+                      href={event.ticketUrl}
+                      external
+                      text={event.priceType === "PAID" ? "Comprar entradas" : "Inscribirme"}
+                      icon={<Ticket className="size-4" aria-hidden />}
+                      className="mt-3 w-full justify-center"
+                    />
+                  }
+                />
+              ) : undefined
+            }
+            metaIcon={<CalendarDays className="w-4 h-4" aria-hidden />}
+            meta={<span className="first-letter:uppercase">{formatEventLongDay(event.startsAt)}</span>}
+          />
+
+          <LDCEventOrganizer organizer={event.organizer} eventTitle={event.title} />
+        </>
+      }
+      related={
+        related.length > 0 && (
+          <LDCRelatedSection title="Otros eventos">
+            {related.map((item) => (
+              <LDCEventCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                slug={item.slug}
+                startsAt={item.startsAt}
+                endsAt={item.endsAt}
+                venueName={item.venueName}
+                city={item.city}
+                category={item.category}
+                image={item.image}
+                priceType={item.priceType}
+                priceAmount={item.priceAmount}
+                featured={item.featured}
               />
             ))}
           </LDCRelatedSection>

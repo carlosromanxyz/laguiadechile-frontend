@@ -30,6 +30,8 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-contact-info** (`LDCContactInfo`): redes sociales de La Guía en la página de contacto.
 - **ldc-contact-message-actions** (`LDCContactMessageActions`): Ver (diálogo con el mensaje como texto), Marcar leído y `⋯` (leído / no leído, Responder por correo) de una fila de la bandeja «Mensajes», con una server action. Cliente.
 - **ldc-empty-state** (`LDCEmptyState`): estado vacío con ícono, título y texto.
+- **ldc-event-card** (`LDCEventCard`): card de evento (imagen 16:9, bloque de fecha, cuándo, lugar y precio, favorito `EVENT`); con `preview`, sin enlaces ni corazón (vista previa del formulario). Cliente.
+- **ldc-event-organizer** (`LDCEventOrganizer`): caja «Organiza» con los contactos del organizador en el detalle del evento.
 - **ldc-favorite-remove-button** (`LDCFavoriteRemoveButton`): botón de ícono que quita un favorito con una server action y avisa con un toast. Cliente.
 - **ldc-footer-nav-list** (`LDCFooterNavList`): lista de enlaces del pie dentro de un `<nav>` etiquetado.
 - **ldc-footer-widget** (`LDCFooterWidget`): columna del pie de página con título opcional.
@@ -53,9 +55,9 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
 - **ldc-publication-status-actions** (`LDCPublicationStatusActions`): acción del estado a la vista (Aprobar/Rechazar, Editar o Republicar) y `⋯` con «Cambiar estado», Editar y Ver en el sitio. Cliente.
 - **ldc-publish-banner** (`LDCPublishBanner`): banner «Publica tu comercio o servicio» con CTA a la página de alta del panel.
+- **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-reject-dialog** (`LDCRejectDialog`): diálogo controlado para rechazar con motivo obligatorio (hasta 500 caracteres); lo usan `LDCModerationActions` y `LDCPublicationStatusActions`. Cliente.
 - **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano), con «Corregir y reenviar» si hay `fixHref` o en solo lectura sin él. Cliente.
-- **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
 - **ldc-search-summary** (`LDCSearchSummary`): resumen de una búsqueda en `/resultados`: cantidad de resultados, término, filtros de categoría y ciudad, y enlace «Nueva búsqueda».
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
@@ -63,7 +65,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-sidebar-item** (`LDCSidebarItem`): ítem del menú lateral del panel con estado activo. Cliente.
 - **ldc-social-network-list** (`LDCSocialNetworkList`): fila de íconos de redes sociales de La Guía.
 - **ldc-social-share-buttons** (`LDCSocialShareButtons`): botón de compartir (Web Share API o copia al portapapeles). Cliente.
-- **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`.
 - **ldc-stat-card** (`LDCStatCard`): tarjeta de métrica del panel.
+- **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`.
 - **ldc-theme-mode-toggler** (`LDCThemeModeToggler`): switch de tema claro/oscuro con íconos. Cliente.
 - **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel, con la línea de roles. Cliente.

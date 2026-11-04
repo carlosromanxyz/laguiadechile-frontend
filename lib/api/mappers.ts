@@ -9,6 +9,7 @@ import type { IProperty } from "@/interfaces/property";
 import type { INews } from "@/interfaces/news";
 import type { IFeaturedCategory } from "@/interfaces/featured-category";
 import type { IFeaturedCity } from "@/interfaces/featured-city";
+import type { IEvent } from "@/interfaces/event";
 
 // ---- Backend raw shapes (only the fields we read) ----
 interface RawCategory {
@@ -273,7 +274,69 @@ export function mapFeaturedCity(c: RawFeaturedCity): IFeaturedCity {
   };
 }
 
+// ---- Eventos (CLGDC-139) ----
+interface RawEvent {
+  id: string;
+  title: string;
+  slug: string;
+  description: string;
+  startsAt: string;
+  endsAt?: string | null;
+  venueName: string;
+  address?: string | null;
+  commune?: string | null;
+  image: string;
+  gallery?: string[];
+  priceType?: string | null;
+  priceAmount?: number | null;
+  ticketUrl?: string | null;
+  organizerName: string;
+  organizerPhone?: string | null;
+  organizerWhatsapp?: string | null;
+  organizerEmail?: string | null;
+  organizerWebsite?: string | null;
+  featured?: boolean;
+  category?: RawCategory | null;
+  city: RawCity;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/** `GET /events` y `/me/events` → `IEvent` (los `null` de la API quedan como `undefined`). */
+export function mapEvent(e: RawEvent): IEvent {
+  const opt = (v: string | null | undefined) => (v ? v : undefined);
+  return {
+    id: e.id,
+    title: e.title,
+    slug: e.slug,
+    description: e.description,
+    startsAt: e.startsAt,
+    endsAt: opt(e.endsAt),
+    venueName: e.venueName,
+    address: opt(e.address),
+    commune: opt(e.commune),
+    image: e.image,
+    gallery: e.gallery ?? [],
+    priceType: e.priceType === "PAID" ? "PAID" : "FREE",
+    priceAmount: e.priceType === "PAID" && e.priceAmount ? e.priceAmount : undefined,
+    ticketUrl: opt(e.ticketUrl),
+    organizer: {
+      name: e.organizerName,
+      phone: opt(e.organizerPhone),
+      whatsapp: opt(e.organizerWhatsapp),
+      email: opt(e.organizerEmail),
+      website: opt(e.organizerWebsite),
+    },
+    featured: !!e.featured,
+    category: e.category ? cat(e.category) : undefined,
+    city: city(e.city),
+    createdAt: e.createdAt,
+    updatedAt: e.updatedAt,
+  };
+}
+
 export type {
+  RawEvent,
   RawListing,
   RawClassified,
   RawProperty,

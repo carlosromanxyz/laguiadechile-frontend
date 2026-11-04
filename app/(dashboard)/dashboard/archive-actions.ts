@@ -41,9 +41,9 @@ function revalidateAfterArchive(kind: IDashboardModerationKind, slug: unknown) {
   } else if (kind === "classified") {
     revalidatePath("/avisos");
     if (okSlug) revalidatePath(`/aviso/${slug}`);
-  } else if (okSlug) {
-    // TODO(CLGDC-139): confirmar la ruta pública del evento cuando existan las páginas de eventos.
-    revalidatePath(`/evento/${slug}`);
+  } else {
+    revalidatePath("/eventos");
+    if (okSlug) revalidatePath(`/evento/${slug}`);
   }
 }
 
