@@ -23,10 +23,14 @@ export type LDCRole =
 /** Roles con login propio (`/dashboard/login` y `/ingresar/[rol]`). */
 export type LDCAccessRole = "admin" | "comercio" | "usuario";
 
-/** Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). */
+/**
+ * Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). `Newspaper` no es de un rol: es
+ * el de «Una noticia» en `LDCPublishChooser` (CLGDC-191).
+ */
 export type LDCRoleIconName =
   | "CalendarDays"
   | "House"
+  | "Newspaper"
   | "ShieldCheck"
   | "Store"
   | "Tag"

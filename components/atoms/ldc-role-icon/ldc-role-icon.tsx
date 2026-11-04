@@ -1,4 +1,4 @@
-import { CalendarDays, House, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, Newspaper, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
 import { LDC_ROLE_META, type LDCRole, type LDCRoleIconName } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 export const LDC_ROLE_ICONS: Record<LDCRoleIconName, LucideIcon> = {
   CalendarDays,
   House,
+  Newspaper,
   ShieldCheck,
   Store,
   Tag,
@@ -25,6 +26,11 @@ const sizes = {
 export interface LDCRoleIconProps {
   /** Rol cuyo ícono se muestra */
   role: LDCRole;
+  /**
+   * Ícono y color propios en vez de los del rol, para una opción que no es un rol (la noticia de
+   * `LDCPublishChooser`, CLGDC-191)
+   */
+  icon?: { name: LDCRoleIconName; tone: string };
   /** Tamaño del círculo: `xs` 24 px, `sm` 36 px, `md` 40 px */
   size?: keyof typeof sizes;
   /** Clases adicionales */
@@ -42,9 +48,9 @@ export interface LDCRoleIconProps {
  * @example
  * <LDCRoleIcon role="admin" />
  */
-export function LDCRoleIcon({ role, size = "md", className }: LDCRoleIconProps) {
+export function LDCRoleIcon({ role, icon, size = "md", className }: LDCRoleIconProps) {
   const meta = LDC_ROLE_META[role];
-  const Icon = LDC_ROLE_ICONS[meta.iconName];
+  const Icon = LDC_ROLE_ICONS[icon?.name ?? meta.iconName];
   const s = sizes[size];
 
   return (
@@ -53,7 +59,7 @@ export function LDCRoleIcon({ role, size = "md", className }: LDCRoleIconProps) 
       className={cn(
         "grid shrink-0 place-items-center rounded-full",
         s.box,
-        meta.tone,
+        icon?.tone ?? meta.tone,
         className
       )}
     >

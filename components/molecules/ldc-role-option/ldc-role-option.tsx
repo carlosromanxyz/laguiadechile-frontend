@@ -1,6 +1,6 @@
 import { ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { LDCRoleIcon } from "@/components/atoms/ldc-role-icon";
+import { LDCRoleIcon, type LDCRoleIconProps } from "@/components/atoms/ldc-role-icon";
 import { getRoleConfig, type LDCAccessRole, type LDCRole } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
@@ -14,6 +14,7 @@ export type LDCRoleOptionProps = {
       href?: undefined;
       title?: undefined;
       description?: undefined;
+      icon?: undefined;
     }
   | {
       /** Rol de la tarjeta: da el ícono y su color */
@@ -24,6 +25,8 @@ export type LDCRoleOptionProps = {
       title: string;
       /** Texto bajo el título */
       description: string;
+      /** Ícono y color propios en vez de los del rol (ver `LDCRoleIcon`) */
+      icon?: LDCRoleIconProps["icon"];
     }
 );
 
@@ -50,7 +53,7 @@ function resolveOption(props: LDCRoleOptionProps) {
 }
 
 export function LDCRoleOption(props: LDCRoleOptionProps) {
-  const { role, className } = props;
+  const { role, icon, className } = props;
   const option = resolveOption(props);
 
   return (
@@ -61,7 +64,7 @@ export function LDCRoleOption(props: LDCRoleOptionProps) {
         className
       )}
     >
-      <LDCRoleIcon role={role} />
+      <LDCRoleIcon role={role} icon={icon} />
       <span className="flex min-w-0 flex-1 flex-col">
         <span className="font-mulish text-sm font-extrabold">{option.title}</span>
         <span className="font-open-sans text-xs leading-snug text-muted-foreground">
