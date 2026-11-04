@@ -1,0 +1,63 @@
+import { LDCAboutWhatIllustrationScene } from "./ldc-about-what-illustration-scene";
+
+/**
+ * LDCAboutWhatIllustration - Ilustración de «¿Qué es La Guía de Chile?»
+ *
+ * El SVG en línea de la antigua `public/images/about-what-illustration.svg`
+ * (persona junto a un celular, con una lupa sobre la pantalla), sin tocar
+ * colores ni el orden de pintado, pasado por SVGO (`floatPrecision: 2`,
+ * transformaciones aplicadas a los trazos; sin `collapseGroups`, `cleanupIds`,
+ * `removeUnknownsAndDefaults`, `removeHiddenElems` ni `mergePaths`). Es de
+ * servidor: los trazos llegan como `children` a `LDCAboutWhatIllustrationScene`
+ * (cliente), que solo anima los grupos.
+ *
+ * - `data-e="<grupo>"`: grupo del armado (suelo, celular, persona y lupa).
+ * - `data-l="<grupo>"`: grupo anidado del ciclo (la lupa y la cabeza).
+ * - `data-lit="<k>"`: pulso y brillo de la lente del hallazgo, apagados
+ *   (`opacity` 0) en reposo.
+ *
+ * Sin JavaScript o con `prefers-reduced-motion` queda idéntica a la imagen
+ * estática.
+ *
+ * @example
+ * <LDCAboutWhatIllustration className="relative w-full h-auto drop-shadow-2xl" />
+ */
+export function LDCAboutWhatIllustration({ className }: { className?: string }) {
+  return (
+    <LDCAboutWhatIllustrationScene
+      label="¿Qué es La Guía de Chile? - Busca y descubre negocios"
+      className={className}
+    >
+      <g data-e="phone">
+        <path fill="#dedfe0" d="M360.3 608.19H167.18a52 52 0 0 1-51.94-51.94V51.94A52 52 0 0 1 167.18 0H360.3a52 52 0 0 1 51.94 51.94v504.31a52 52 0 0 1-51.94 51.94M167.18 2a50 50 0 0 0-49.94 49.94v504.31a50 50 0 0 0 49.94 49.94H360.3a50 50 0 0 0 49.94-49.94V51.94A50 50 0 0 0 360.3 2z" />
+        <path fill="#dadbdc" d="M291.09 47.36H236.4a13.1 13.1 0 0 1 0-26.18h54.69a13.1 13.1 0 0 1 0 26.18" />
+      </g>
+      <g data-e="floor">
+        <path fill="#3f3d58" d="M215.08 607.14c0 .54-.44.98-.98.98H.98a.98.98 0 0 1 0-1.96H214.1c.54 0 .98.44.98.98" />
+      </g>
+      <g data-e="person">
+        <polygon fill="#f6aaae" points="119.16 304.11 138.81 310.57 138.81 282.29 120.98 282.29 119.16 304.11" />
+        <g data-l="head">
+          <circle cx="136.37" cy="270.54" r="19.58" fill="#f6aaae" />
+          <path fill="#2f2e43" d="m131.39 272.07 2.7 3.28 4.88-8.54s6.23.32 6.23-4.3 5.72-4.75 5.72-4.75 8.09-14.13-8.67-10.41c0 0-11.63-7.97-17.41-1.16 0 0-17.73 8.93-12.66 24.48l8.43 16.02 1.91-3.63s-1.16-15.23 8.87-10.99" />
+        </g>
+        <rect width="15.82" height="22.44" x="113.75" y="572.09" fill="#f6aaae" />
+        <path fill="#2f2e43" d="M127.83 607.39c-2.71.25-16.24 1.31-16.92-1.79-.62-2.85.29-5.83.42-6.23 1.3-12.94 1.78-13.09 2.07-13.18q.7-.2 3.99 1.91l.14.09.03.16c.04.2 1.01 4.95 5.59 4.23 3.14-.5 4.16-1.19 4.49-1.53-.27-.12-.6-.33-.83-.7q-.51-.8-.18-2.02c.59-2.15 2.36-5.33 2.43-5.46l.2-.36 17.98 12.13 11.1 3.17a2.86 2.86 0 0 1 1.13 4.87c-2.02 1.81-6.02 4.92-10.23 5.3-1.12.1-2.6.14-4.26.14-6.95 0-17.08-.72-17.16-.73z" />
+        <rect width="22.44" height="15.82" x="67.95" y="544.17" fill="#f6aaae" transform="rotate(-50.4 79.17 552.08)" />
+        <path fill="#2f2e43" d="M68.59 574.58c-2.24-1.54-13.35-9.34-11.9-12.16a13 13 0 0 1 4.3-4.53c9.25-9.14 9.72-8.95 10-8.83q.67.3 1.86 4.01l.05.15-.08.14c-.1.18-2.38 4.46 1.61 6.82 2.74 1.62 3.97 1.73 4.43 1.68a2 2 0 0 1-.2-1.07q.1-.94 1.16-1.67c1.83-1.28 5.21-2.6 5.36-2.66l.38-.15 6.12 20.81 6.53 9.52a2.86 2.86 0 0 1-2.24 4.48c-2.71.11-7.77-.05-11.26-2.44a50 50 0 0 1-3.37-2.6 303 303 0 0 1-12.76-11.5z" />
+        <path fill="#2f2e43" d="M155.74 399.02h-54.26l12.06 179.36h18.09l24.12-179.36z" />
+        <polygon fill="#2f2e43" points="144.69 408.9 155.74 399.02 150.21 497.66 88.41 556.44 73.01 543.71 109.01 496.99 144.69 408.9" />
+        <path fill="#dadbdc" d="m144.69 293.51-26.8-4.35-8.32 14.55a98.8 98.8 0 0 0-12.3 61.07l4.21 34.25h54.26z" />
+        <path fill="#f6aaae" d="M122.93 431.31c1.11 5.53-.96 10.58-4.61 11.28s-7.52-3.23-8.63-8.77c-.47-2.21-.39-4.49.24-6.66l-4.4-23.51 11.5-1.79 3.11 23.37a14 14 0 0 1 2.79 6.09z" />
+        <path fill="#dadbdc" d="m108.94 424.94-16.89-52.18v-.08l6.38-53.73a16.36 16.36 0 1 1 32.11 5.9l-11.27 45.07 2.69 51.15-13.03 3.87z" />
+      </g>
+      <g data-e="lens">
+        <g data-l="lens">
+          <path fill="#6c63ff" d="M205.57 310.29a46.14 46.14 0 0 0 73.9 27.77l57 61.48a8.78 8.78 0 1 0 12.51-12.35l-60.9-58.04a46.14 46.14 0 0 0-45.65-72.72 46.14 46.14 0 0 0-36.86 53.86m9.84-1.84a36.13 36.13 0 1 1 71.03-13.3 36.13 36.13 0 0 1-71.03 13.3" />
+          <circle data-lit="glint" cx="250.93" cy="301.8" r="36" fill="#6c63ff" opacity={0} />
+          <circle data-lit="ring" cx="250.93" cy="301.8" r="38" fill="none" stroke="#6c63ff" strokeWidth={4} opacity={0} />
+        </g>
+      </g>
+    </LDCAboutWhatIllustrationScene>
+  );
+}

@@ -1,4 +1,12 @@
-import type { DOMKeyframesDefinition, Easing } from "framer-motion";
+import {
+  LDC_EASE_IN as EASE_IN,
+  LDC_EASE_OUT as EASE_OUT,
+  LDC_EASE_STD as EASE_STD,
+  ldcSceneCycle,
+  ldcSceneEntry,
+  type LDCCycleStop,
+  type LDCSceneAnimation,
+} from "@/components/atoms/ldc-illustration-scene";
 
 /**
  * Guion de la variante «C2 · Día y noche» de la ilustración del hero de «Nosotros»
@@ -14,14 +22,6 @@ import type { DOMKeyframesDefinition, Easing } from "framer-motion";
  * que empieza en ese punto, como el `animation-timing-function` de los keyframes CSS.
  */
 
-/** Salida suave: armado, encendido de ventanas y amanecer. */
-const EASE_OUT: Easing = [0.22, 1, 0.36, 1];
-/** Entrada acelerada: puesta del sol y apagado de ventanas. */
-const EASE_IN: Easing = [0.4, 0, 1, 1];
-/** Estándar: cielo, gente y celular. */
-const EASE_STD: Easing = [0.4, 0, 0.2, 1];
-const LINEAR: Easing = "linear";
-
 const CYCLE_MS = 23000;
 /** Duración del ciclo de día y noche, en segundos. */
 export const LDC_HERO_CYCLE_S = CYCLE_MS / 1000;
@@ -33,7 +33,7 @@ type EntryKind = "drawX" | "rise" | "grow" | "fade" | "fadeSlow" | "riseSun" | "
 /** Keyframes, duración (s) y origen (fracción de la caja del grupo) de cada tipo de entrada. */
 const ENTRY_KINDS: Record<
   EntryKind,
-  { keyframes: DOMKeyframesDefinition; duration: number; origin: [number, number] }
+  { keyframes: Record<string, number[]>; duration: number; origin: [number, number] }
 > = {
   // El suelo se dibuja de izquierda a derecha
   drawX: { keyframes: { scaleX: [0, 1], opacity: [0, 1] }, duration: 0.4, origin: [0, 0.5] },
@@ -82,54 +82,22 @@ const ENTRY_PLAN: Array<[string, EntryKind, number]> = [
   ["cones", "pop", 1050],
 ];
 
-export interface LDCHeroAnimation {
-  /** Selector dentro del `<svg>` de la escena. */
-  selector: string;
-  keyframes: DOMKeyframesDefinition;
-  options: {
-    duration: number;
-    delay: number;
-    ease: Easing | Easing[];
-    times?: number[];
-    repeat?: number;
-  };
-}
-
 /** Armado único. El origen va como keyframe constante para que framer-motion no lo pise. */
-export const LDC_HERO_ENTRIES: LDCHeroAnimation[] = ENTRY_PLAN.map(([id, kind, delayMs]) => {
+export const LDC_HERO_ENTRIES: LDCSceneAnimation[] = ENTRY_PLAN.map(([id, kind, delayMs]) => {
   const { keyframes, duration, origin } = ENTRY_KINDS[kind];
-  return {
-    selector: `[data-e="${id}"]`,
-    keyframes: { ...keyframes, originX: [origin[0], origin[0]], originY: [origin[1], origin[1]] },
-    options: { duration, delay: delayMs / 1000, ease: EASE_OUT },
-  };
+  return ldcSceneEntry(id, keyframes, { duration, delayMs, origin });
 });
 
-/** Tramo del ciclo: τ en ms, valores y `ease` del tramo que empieza ahí. */
-type CycleStop = [ms: number, values: Record<string, number>, ease?: Easing];
-
-function cycle(selector: string, stops: CycleStop[]): LDCHeroAnimation {
-  const keys = Object.keys(stops[0][1]);
-  const keyframes: Record<string, number[]> = {};
-  for (const key of keys) keyframes[key] = stops.map(([, values]) => values[key]);
-  return {
-    selector,
-    keyframes,
-    options: {
-      duration: LDC_HERO_CYCLE_S,
-      delay: LDC_HERO_CYCLE_DELAY_S,
-      times: stops.map(([ms]) => ms / CYCLE_MS),
-      ease: stops.slice(0, -1).map(([, , ease]) => ease ?? LINEAR),
-      repeat: Infinity,
-    },
-  };
+/** Tramo del ciclo de 23 s, desde los 1400 ms. */
+function cycle(selector: string, stops: LDCCycleStop[]): LDCSceneAnimation {
+  return ldcSceneCycle(selector, stops, { cycleMs: CYCLE_MS, delayS: LDC_HERO_CYCLE_DELAY_S });
 }
 
 const AT_REST = { y: 0, opacity: 1 };
 const CREW_OUT = { y: 4, opacity: 0 };
 
 /** Workers, conos y sombra: salen 9600–10200 y vuelven 21000–21600. */
-function crew(id: string): LDCHeroAnimation {
+function crew(id: string): LDCSceneAnimation {
   return cycle(`[data-l="${id}"]`, [
     [0, AT_REST],
     [9600, AT_REST, EASE_STD],
@@ -145,7 +113,7 @@ function crew(id: string): LDCHeroAnimation {
  * el amanecer, 19500 + k·60; las ventanas 3 y 8 se apagan antes (14000 y 16500).
  * Cada cambio dura 400 ms.
  */
-function lit(k: number): LDCHeroAnimation {
+function lit(k: number): LDCSceneAnimation {
   const on = 9000 + k * 80;
   const off = k === 3 ? 14000 : k === 8 ? 16500 : 19500 + k * 60;
   return cycle(`[data-lit="${k}"]`, [
@@ -159,7 +127,7 @@ function lit(k: number): LDCHeroAnimation {
 }
 
 /** Ciclo de día y noche (grupos `data-l` y copias `data-lit`). */
-export const LDC_HERO_LOOPS: LDCHeroAnimation[] = [
+export const LDC_HERO_LOOPS: LDCSceneAnimation[] = [
   // Atardecer 8000–9500: el sol baja 60 u y se apaga; sale en el amanecer, 19500–21000
   cycle('[data-l="sun"]', [
     [0, AT_REST],

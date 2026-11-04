@@ -13,5 +13,5 @@ Cada uno vive en `x/` con `x.tsx` e `index.ts`, y se importa por la carpeta:
 
 ## Componentes
 
-- **ldc-motion-pause-provider** (`LDCMotionPauseProvider`, `useLDCMotionPause`): pausa compartida de las animaciones de una sección (WCAG 2.2.2); la leen `LDCDecorativeShape`, `LDCMotionPauseButton` y la escena de `LDCAboutHeroIllustration`. Envuelve en un `div` con `display: contents` que lleva `data-ldc-motion-paused` para pausar también animaciones CSS. Cliente.
+- **ldc-motion-pause-provider** (`LDCMotionPauseProvider`, `useLDCMotionPause`): pausa compartida de las animaciones de una sección (WCAG 2.2.2); la leen `LDCDecorativeShape`, `LDCMotionPauseButton` y `LDCIllustrationScene` (las ilustraciones de «Nosotros»). Envuelve en un `div` con `display: contents` que lleva `data-ldc-motion-paused` para pausar también animaciones CSS. Cliente.
 - **theme-provider** (`ThemeProvider`): envoltorio cliente de `next-themes` que habilita el tema claro/oscuro en toda la app. Cliente.

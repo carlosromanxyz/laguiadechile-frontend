@@ -6,7 +6,7 @@ import { createContext, useCallback, useContext, useMemo, useState } from "react
  * LDCMotionPauseProvider - Pausa compartida de las animaciones de una sección
  *
  * Mecanismo de pausa (WCAG 2.2.2) para todo lo que se mueve dentro: lo leen
- * `LDCDecorativeShape`, la escena de `LDCAboutHeroIllustration` y
+ * `LDCDecorativeShape`, `LDCIllustrationScene` (ilustraciones de «Nosotros») y
  * `LDCMotionPauseButton`, que la alterna. Fuera de un provider nada está en pausa.
  *
  * Envuelve a sus hijos en un `div` con `display: contents` (no cambia el layout)

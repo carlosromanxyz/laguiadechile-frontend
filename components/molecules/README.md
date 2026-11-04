@@ -10,7 +10,9 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 
 ## Componentes
 
-- **ldc-about-hero-illustration** (`LDCAboutHeroIllustration`): ciudad del hero de «Nosotros» en SVG en línea (servidor), animada con framer-motion por `LDCAboutHeroIllustrationScene` (cliente): armado al entrar en vista y ciclo de día y noche de 23 s; se pausa fuera de la vista o con `LDCMotionPauseButton` y queda quieta con `prefers-reduced-motion`.
+- **ldc-about-hero-illustration** (`LDCAboutHeroIllustration`): ciudad del hero de «Nosotros» en SVG en línea (servidor), animada con framer-motion por `LDCAboutHeroIllustrationScene` (cliente, sobre `LDCIllustrationScene`): armado al entrar en vista y ciclo de día y noche de 23 s; se pausa fuera de la vista o con `LDCMotionPauseButton` y queda quieta con `prefers-reduced-motion`.
+- **ldc-about-what-illustration** (`LDCAboutWhatIllustration`): persona, celular y lupa de «¿Qué es La Guía de Chile?» en SVG en línea (servidor), animada por `LDCAboutWhatIllustrationScene` (cliente): armado al entrar en vista y ciclo de búsqueda de 17 s; se pausa fuera de la vista o con `LDCMotionPauseButton` y queda quieta con `prefers-reduced-motion`.
+- **ldc-about-why-illustration** (`LDCAboutWhyIllustration`): tablero con la lista de beneficios de «¿Por qué estar en La Guía de Chile?» en SVG en línea (servidor), animada por `LDCAboutWhyIllustrationScene` (cliente): armado al entrar en vista y ciclo de 19 s en que la lista se llena con checks; se pausa fuera de la vista o con `LDCMotionPauseButton` y queda quieta con `prefers-reduced-motion`.
 - **ldc-admin-list-toolbar** (`LDCAdminListToolbar`): búsqueda (`?q=`, 300 ms), ciudad opcional (`LDCCombobox`, `?ciudad=`) y `LDCStatusFilter` con conteos de un listado admin. Cliente.
 - **ldc-app-store-badges** (`LDCAppStoreBadges`): insignias de App Store y Google Play.
 - **ldc-archive-button** (`LDCArchiveButton`): «Archivar» / «Desarchivar» de una publicación propia con una server action; archivar confirma con `LDCArchiveConfirmDialog` (también exporta `useLDCArchiveToggle`, que usa el menú de `LDCResourceRowActions`). Cliente.
