@@ -9,7 +9,7 @@ import { LDCAboutWhatIllustration } from "@/components/molecules/ldc-about-what-
  * Section explaining what La Guía de Chile is.
  * Features flowing narrative design with flat brand colors and decorative elements,
  * and an animated illustration (LDCAboutWhatIllustration) with a pause button
- * (WCAG 2.2.2) that freezes it and the decorative shapes of the section through
+ * (WCAG 2.2.2) that freezes it and the accent bar of the section through
  * LDCMotionPauseProvider; hidden with prefers-reduced-motion. The button is
  * absolutely positioned under the illustration, so it does not change the layout.
  *
@@ -22,14 +22,6 @@ export function LDCAboutWhat() {
   return (
     <LDCMotionPauseProvider>
       <section className="relative w-full overflow-hidden bg-background py-24 md:py-32">
-        {/* Decorative shape - top right (top-24: no tiñe el borde que muerde LDCChileSkyline, del color de bg-background) */}
-        <LDCDecorativeShape
-          variant="blob"
-          delay={0}
-          layout="right-0 top-24 h-96 w-96 translate-x-1/2"
-          fill="bg-yellow/20"
-        />
-
         <div className="relative mx-auto max-w-7xl px-4">
           <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-12 lg:gap-16">
             {/* Image Column - 5 columns */}
@@ -42,19 +34,12 @@ export function LDCAboutWhat() {
                 fill="bg-purple"
               />
 
-              {/* Image with glow effect */}
+              {/* Image */}
               <div className="relative">
                 <LDCAboutWhatIllustration className="relative w-full h-auto drop-shadow-2xl" />
-
-                {/* Colored glow behind image */}
-                <LDCDecorativeShape
-                  variant="glow"
-                  delay={3}
-                  fill="bg-purple/20"
-                />
               </div>
 
-              {/* Pausa de la ilustración y de las formas de la sección (WCAG 2.2.2) */}
+              {/* Pausa de la ilustración y la barra de la sección (WCAG 2.2.2) */}
               <LDCMotionPauseButton tone="surface" className="absolute right-0 top-full mt-1" />
             </div>
 
