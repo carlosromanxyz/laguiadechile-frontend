@@ -75,6 +75,7 @@ const ROUTES: Record<Exclude<IDashboardFavoriteKind, "LISTING">, { label: string
   CLASSIFIED: { label: "Aviso", base: "/aviso" },
   PROPERTY: { label: "Propiedad", base: "/propiedad" },
   NEWS: { label: "Noticia", base: "/noticia" },
+  EVENT: { label: "Evento", base: "/evento" },
 };
 
 /** Favoritos del usuario, del más reciente al más antiguo, con su enlace público. */

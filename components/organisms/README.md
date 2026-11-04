@@ -41,6 +41,8 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-load-more-grid** (`LDCLoadMoreGrid`): grilla con animación de entrada y botón «Cargar más». Cliente.
 - **ldc-paginated-listings-grid** (`LDCPaginatedListingsGrid`): grilla paginada de comercios o servicios. Cliente.
 - **ldc-paginated-properties-grid** (`LDCPaginatedPropertiesGrid`): grilla paginada de propiedades. Cliente.
+- **ldc-paginated-events-grid** (`LDCPaginatedEventsGrid`): grilla de eventos con filtros arriba, «Cargar más» y estado vacío. Cliente.
+- **ldc-event-filters** (`LDCEventFilters`): filtros de `/eventos` (cuándo, ciudad y categoría) en la URL. Cliente.
 - **ldc-paginated-classifieds-list** (`LDCPaginatedClassifiedsList`): lista paginada de avisos. Cliente.
 - **ldc-paginated-news-grid** (`LDCPaginatedNewsGrid`): grilla paginada de noticias. Cliente.
 
@@ -50,6 +52,8 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-detail-hero** (`LDCPropertyDetailHero`): hero de la ficha de propiedad.
 - **ldc-classified-detail-hero** (`LDCClassifiedDetailHero`): hero de la ficha de aviso.
 - **ldc-classified-form** (`LDCClassifiedForm`): formulario del aviso clasificado del panel (crear y editar), con estado, envío a revisión y vista previa. Cliente.
+- **ldc-event-detail-hero** (`LDCEventDetailHero`): hero del detalle de evento (categoría, cuándo, lugar, compartir y favorito).
+- **ldc-event-form** (`LDCEventForm`): formulario del evento del panel (crear, duplicar y editar), con estado, envío a revisión y vista previa en `LDCEventCard`. Cliente.
 - **ldc-news-article-hero** (`LDCNewsArticleHero`): hero de la ficha de noticia con autor, fecha y lectura.
 - **ldc-related-section** (`LDCRelatedSection`): franja de contenido relacionado al pie de una ficha.
 
@@ -61,7 +65,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ### Panel (dashboard)
 - **ldc-dashboard-header** (`LDCDashboardHeader`): barra superior del panel con migas de pan desde `/dashboard`. Cliente.
 - **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con grupos según los roles de la cuenta, CTA «Publicar» y el usuario. Cliente.
-- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una opción por tipo (aviso, comercio, servicio).
+- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una opción por tipo (aviso, comercio, servicio, evento).
 - **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión (`/api/auth/login`) para los tres roles, con `LDCFormField`, error en línea y enlace al registro; entra al inicio del panel (`/dashboard`). Cliente.
 - **ldc-register-form** (`LDCRegisterForm`): formulario del registro público (`/registro`): nombre, email, contraseña, confirmación y términos; el 409 va en el campo email. Cliente.
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.
