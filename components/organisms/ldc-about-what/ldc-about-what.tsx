@@ -63,7 +63,7 @@ export function LDCAboutWhat() {
               {/* Accent badge */}
               <div className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-purple/10 to-pink/10 px-4 py-2 text-sm font-medium text-purple dark:from-purple/20 dark:to-pink/20">
                 <span className="flex h-2 w-2 rounded-full bg-purple" />
-                Sobre nosotros
+                Cómo funciona
               </div>
 
               <h2 className="text-4xl font-bold font-mulish lg:text-5xl">
@@ -74,15 +74,16 @@ export function LDCAboutWhat() {
               </h2>
 
               <p className="text-lg leading-relaxed text-foreground/70 lg:text-xl">
-                La Guía de Chile es una plataforma que te permite promocionar tu
-                comercio y/o servicio, también puedes encontrar lo que necesitas.
+                Es un directorio de Chile ordenado por ciudad y región, con comercios,
+                servicios, avisos clasificados, propiedades y noticias. En la página de
+                cada ciudad ves además el clima y la farmacia de turno.
               </p>
 
               {/* Decorative accent */}
               <div className="flex gap-3 pt-4">
                 <div className="flex items-center gap-2 text-sm text-muted-foreground">
                   <div className="h-8 w-1 rounded-full bg-yellow" />
-                  <span>Conectando Chile</span>
+                  <span>Por ciudad y región</span>
                 </div>
               </div>
             </div>

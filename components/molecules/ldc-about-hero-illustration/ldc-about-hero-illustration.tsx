@@ -27,7 +27,7 @@ import { LDCAboutHeroIllustrationScene } from "./ldc-about-hero-illustration-sce
 export function LDCAboutHeroIllustration({ className }: { className?: string }) {
   return (
     <LDCAboutHeroIllustrationScene
-      label="La Guía de Chile - Descubre negocios en tu ciudad"
+      label="Ilustración de una ciudad que pasa del día a la noche"
       className={className}
     >
       <g data-e="bushL1">

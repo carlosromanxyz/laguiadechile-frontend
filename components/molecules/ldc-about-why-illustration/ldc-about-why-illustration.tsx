@@ -44,7 +44,7 @@ const DOT_COPIES = ["#f2f2f2", "#f2f2f2", "#f2f2f2", "#ff6584", "#6c63ff"];
 export function LDCAboutWhyIllustration({ className }: { className?: string }) {
   return (
     <LDCAboutWhyIllustrationScene
-      label="¿Por qué estar en La Guía de Chile? - Crece tu negocio"
+      label="Ilustración de una persona que señala una lista con casillas marcadas"
       className={className}
     >
       <g data-e="board">
