@@ -23,11 +23,12 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-footer-link** (`LDCFooterLink`): enlace del pie de página.
 - **ldc-footer-title** (`LDCFooterTitle`): título de una columna del pie de página.
 - **ldc-hero-text** (`LDCHeroText`): titular del hero de la home con palabras resaltadas y animadas.
+- **ldc-illustration-scene** (`LDCIllustrationScene`, `ldcSceneEntry`, `ldcSceneCycle`): `<svg>` animado con framer-motion que recibe del servidor los grupos (`data-e`, `data-l`, `data-lit`) y un guion de armado y ciclo; arma al entrar en vista, se pausa fuera de la vista o con `LDCMotionPauseProvider` y queda en reposo con `prefers-reduced-motion`. Lo usan las escenas de las ilustraciones de «Nosotros». Cliente.
 - **ldc-load-more-button** (`LDCLoadMoreButton`): botón «Cargar más» con estado de carga. Cliente.
 - **ldc-location-link** (`LDCLocationLink`): ícono y enlace a la ciudad (variantes `default`, `compact` y `split`).
 - **ldc-logo** (`LDCLogo`): logo de La Guía de Chile (isotipo y texto).
 - **ldc-metric-view** (`LDCMetricView`): isla sin DOM que manda el evento `view` de la ficha de un comercio o servicio al montar. Cliente.
-- **ldc-motion-pause-button** (`LDCMotionPauseButton`): botón redondo de 44 px que pausa y reanuda las animaciones del `LDCMotionPauseProvider` (WCAG 2.2.2); oculto con `prefers-reduced-motion`. Cliente.
+- **ldc-motion-pause-button** (`LDCMotionPauseButton`): botón redondo de 44 px que pausa y reanuda las animaciones del `LDCMotionPauseProvider` (WCAG 2.2.2), con tono `overlay` (sobre degradado) o `surface` (sobre el fondo del tema); oculto con `prefers-reduced-motion`. Cliente.
 - **ldc-nav-link** (`LDCNavLink`): enlace de la navegación principal con estado activo. Cliente.
 - **ldc-number-badge** (`LDCNumberBadge`): círculo con un número, en degradado o contorno.
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.
