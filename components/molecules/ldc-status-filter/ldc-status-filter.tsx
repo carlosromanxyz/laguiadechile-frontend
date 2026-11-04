@@ -6,8 +6,8 @@ export interface LDCStatusFilterItem {
   key: string;
   /** Texto de la pill */
   label: string;
-  /** Cantidad de elementos con ese estado */
-  count: number;
+  /** Cantidad de elementos con ese estado; sin ella, la pill no lleva conteo (p. ej. un período) */
+  count?: number;
   /** Destino del enlace (la misma página con su `?estado=`) */
   href: string;
 }
@@ -55,7 +55,9 @@ export function LDCStatusFilter({
                 )}
               >
                 {item.label}
-                <span className="text-xs font-extrabold text-muted-foreground">{item.count}</span>
+                {item.count != null && (
+                  <span className="text-xs font-extrabold text-muted-foreground">{item.count}</span>
+                )}
               </Link>
             </li>
           );

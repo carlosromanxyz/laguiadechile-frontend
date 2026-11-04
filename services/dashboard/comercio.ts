@@ -12,6 +12,9 @@ import type {
   IDashboardComercioStats,
   IDashboardCompletionItem,
   IDashboardContactSummary,
+  IDashboardMetricPoint,
+  IDashboardMetricsReport,
+  IDashboardMetricWindow,
   IDashboardOwned,
   IDashboardTask,
   IDashboardVisitPoint,
@@ -22,7 +25,7 @@ import { mapListing, type RawListing } from "@/lib/api/mappers";
 import { getTodayInSantiago, santiagoDayToIso } from "@/lib/dashboard/dates";
 import { toPublicationStatus } from "@/lib/dashboard/status";
 
-type RawMyListing = RawListing & { status: string };
+type RawMyListing = RawListing & { status: string; rejectionReason?: string | null };
 
 interface RawMetricCounts {
   views: number;
@@ -41,7 +44,7 @@ interface RawMeMetrics {
   deltaViews: number | null;
 }
 
-type MetricWindow = 14 | 30;
+type MetricWindow = IDashboardMetricWindow;
 
 /** Fotos de la galería que pide la completitud. */
 const GALLERY_TARGET = 5;
@@ -74,17 +77,22 @@ async function getMainListing(): Promise<RawMyListing | null> {
   return raw.find((l) => l.status === "PUBLISHED") ?? raw[0] ?? null;
 }
 
-/** Fichas del comercio con su estado y sus visitas de 30 días. */
+/** Fichas del comercio con su estado, el motivo si fue rechazada y sus visitas de 30 días. */
 export async function getMyListings(): Promise<IDashboardOwned<IListingDetail>[]> {
   const raw = await fetchMyListings();
   const metrics = await Promise.all(raw.map((l) => fetchMyMetrics(30, l.id)));
-  return raw.map((l, i) => ({
-    item: mapListing(l),
-    ownership: {
-      status: toPublicationStatus(l.status),
-      visits30d: metrics[i]?.totals.views ?? null,
-    },
-  }));
+  return raw.map((l, i) => {
+    const status = toPublicationStatus(l.status);
+    const reason = status === "rejected" ? l.rejectionReason?.trim() : undefined;
+    return {
+      item: mapListing(l),
+      ownership: {
+        status,
+        visits30d: metrics[i]?.totals.views ?? null,
+        ...(reason ? { rejectionReason: reason } : {}),
+      },
+    };
+  });
 }
 
 /** Fichas de la cuenta con su estado, sin pedir métricas (tarjetas del inicio del panel). */
@@ -111,6 +119,46 @@ export async function getMyStats(): Promise<IDashboardComercioStats> {
 export async function getMyVisitsSeries(): Promise<IDashboardVisitPoint[]> {
   const m = await fetchMyMetrics(14);
   return (m?.series ?? []).map((p) => ({ date: santiagoDayToIso(p.date), value: p.views }));
+}
+
+/**
+ * Estadísticas de la página «Estadísticas»: visitas y clics por día de la ventana pedida.
+ * Sin `listingIds`, todas las fichas de la cuenta en una sola llamada (trae el % contra la
+ * ventana anterior). Con `listingIds`, una llamada por ficha y la suma por día: así «Mis servicios»
+ * no cuenta los comercios de una cuenta multirol (con una sola ficha, también trae el %).
+ * `null` si la API falla en alguna de las llamadas.
+ */
+export async function getMyMetricsReport(
+  days: MetricWindow,
+  listingIds?: readonly string[],
+): Promise<IDashboardMetricsReport | null> {
+  const parts = listingIds
+    ? await Promise.all(listingIds.map((id) => fetchMyMetrics(days, id)))
+    : [await fetchMyMetrics(days)];
+  if (parts.length === 0 || parts.some((p) => p === null)) return null;
+  const ok = parts as RawMeMetrics[];
+
+  const byDay = new Map<string, IDashboardMetricPoint>();
+  const totals = { views: 0, whatsapp: 0, calls: 0, web: 0 };
+  for (const m of ok) {
+    for (const p of m.series) {
+      const point = byDay.get(p.date) ?? { date: santiagoDayToIso(p.date), views: 0, clicks: 0 };
+      point.views += p.views;
+      point.clicks += p.whatsapp + p.calls + p.web;
+      byDay.set(p.date, point);
+    }
+    totals.views += m.totals.views;
+    totals.whatsapp += m.totals.whatsapp;
+    totals.calls += m.totals.calls;
+    totals.web += m.totals.web;
+  }
+
+  return {
+    days,
+    series: [...byDay.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([, p]) => p),
+    totals,
+    ...(ok.length === 1 ? { deltaViews: ok[0].deltaViews } : {}),
+  };
 }
 
 function hasText(v: string | null | undefined): boolean {
