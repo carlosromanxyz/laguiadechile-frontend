@@ -64,6 +64,19 @@ export interface IAdminClassifiedRow extends IAdminPublicationRow {
 }
 
 /**
+ * Fila de `GET /admin/properties` (CLGDC-164): como las demás, sin categoría (las propiedades no
+ * tienen), con tipo, operación y precio. Las propiedades no vencen: nunca llega `EXPIRED`.
+ */
+export interface IAdminPropertyRow extends IAdminPublicationRow {
+  type: "CASA" | "DEPARTAMENTO" | "TERRENO" | "OFICINA" | "LOCAL" | "BODEGA";
+  operation: "VENTA" | "ARRIENDO" | "ARRIENDO_TEMPORAL";
+  priceAmount: number;
+  priceCurrency: "UF" | "CLP";
+  pricePeriod: string | null;
+  category: null;
+}
+
+/**
  * Página de un listado admin con los conteos por estado (con los mismos filtros, sin el de estado).
  * `counts.ARCHIVED` llega solo cuando la API ya conoce ese estado (CLGDC-157).
  */

@@ -201,7 +201,8 @@ export function LDCPublicationStatusActions({
                 <span className="truncate text-xs font-normal text-muted-foreground">{title}</span>
               </DropdownMenuLabel>
               <DropdownMenuRadioGroup value={status} onValueChange={onMenuChange}>
-                {ADMIN_SETTABLE_STATUSES.map((s) => (
+                {/* Las propiedades no vencen (CLGDC-164): sin «Vencida». */}
+                {ADMIN_SETTABLE_STATUSES.filter((s) => s !== "EXPIRED" || kind !== "property").map((s) => (
                   <DropdownMenuRadioItem key={s} value={s}>
                     {s === "PUBLISHED" && status === "REVIEW"
                       ? `${adminStatusLabel("PUBLISHED", gender)} (aprobar)`

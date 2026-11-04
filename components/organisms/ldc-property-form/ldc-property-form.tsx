@@ -14,7 +14,12 @@ import { LDCFormField, type LDCFormFieldRenderProps } from "@/components/molecul
 import { LDCFormSaveBar } from "@/components/molecules/ldc-form-save-bar";
 import { LDCImageGallery } from "@/components/molecules/ldc-image-gallery";
 import { LDCImageUpload } from "@/components/molecules/ldc-image-upload";
-import { PROPERTY_CURRENCIES, PROPERTY_OPERATIONS, PROPERTY_TYPES } from "@/interfaces/admin-catalog";
+import {
+  PROPERTY_CURRENCIES,
+  PROPERTY_OPERATIONS,
+  PROPERTY_TYPES,
+  type IAdminProperty,
+} from "@/interfaces/admin-catalog";
 import type { IDashboardActionResult } from "@/interfaces/dashboard";
 import {
   PROPERTY_CURRENCY_LABELS,
@@ -26,8 +31,11 @@ import {
   propertyFormSchema,
   type LDCPropertyFormValues,
 } from "@/validations/admin-catalog-schema";
+import { LDCOwnerPropertyForm, type LDCOwnerPropertyFormProps } from "./ldc-owner-property-form";
 
-export interface LDCPropertyFormProps {
+/** Formulario del admin (`/dashboard/admin/propiedades`, CLGDC-126): se publica al guardar. */
+export interface LDCAdminPropertyFormProps {
+  variant?: "admin";
   mode: "create" | "edit";
   /** Server action que guarda (en edición, ya ligada al id con `.bind`) */
   action: (values: LDCPropertyFormValues) => Promise<IDashboardActionResult>;
@@ -36,7 +44,57 @@ export interface LDCPropertyFormProps {
   initial: LDCPropertyFormValues;
   /** Ciudades para el combobox */
   cities: { id: string; name: string; slug: string }[];
+  /**
+   * Estado de publicación de la propiedad que se edita (CLGDC-164): guardar no lo cambia, así que
+   * la nota del pie dice qué pasa con los cambios según el estado. Sin él (crear), se publica.
+   */
+  status?: IAdminProperty["status"];
 }
+
+/** Nota del pie del admin: guardar no cambia el estado (CLGDC-164); dice dónde se verán los cambios. */
+function adminSaveNote(isCreate: boolean, status: IAdminProperty["status"]): ReactNode {
+  if (isCreate) {
+    return (
+      <>
+        <b>Se publica al guardar.</b> La propiedad se ve en el sitio enseguida.
+      </>
+    );
+  }
+  switch (status) {
+    case "REVIEW":
+      return (
+        <>
+          <b>Sigue en revisión.</b> Guardar no la publica: apruébala en Moderación o en el listado.
+        </>
+      );
+    case "REJECTED":
+      return (
+        <>
+          <b>Sigue rechazada.</b> Guardar no la publica: cambia su estado desde el listado.
+        </>
+      );
+    case "ARCHIVED":
+      return (
+        <>
+          <b>Su dueño la archivó.</b> Guardar no la publica; solo el dueño puede desarchivarla.
+        </>
+      );
+    case "EXPIRED":
+      return (
+        <>
+          <b>No está publicada.</b> Guardar no la publica: cambia su estado desde el listado.
+        </>
+      );
+    default:
+      return (
+        <>
+          <b>Está publicada.</b> Los cambios se ven en el sitio enseguida.
+        </>
+      );
+  }
+}
+
+export type LDCPropertyFormProps = LDCAdminPropertyFormProps | LDCOwnerPropertyFormProps;
 
 /** Opciones de un enum para `LDCCombobox` (el `slug` es el valor de la API). */
 const options = <K extends string>(keys: readonly K[], labels: Record<K, string>) =>
@@ -64,13 +122,20 @@ function Section({ id, title, sub, children }: { id: string; title: string; sub?
 /**
  * LDCPropertyForm - Alta y edición de una propiedad en página propia (CLGDC-126)
  *
+ * Dos variantes: la del admin (por defecto, la que sigue) y la del dueño (`variant="owner"`,
+ * CLGDC-164, en `ldc-owner-property-form.tsx`), que pasa por moderación.
+ *
  * Secciones Datos (título, slug, tipo, operación, descripción y marcas), Precio y superficie,
  * Ubicación (ciudad con `LDCCombobox`, dirección, comuna y barrio), Imágenes (`LDCImageUpload` y
  * `LDCImageGallery`, suben a MinIO) y Contacto del corredor, con `LDCFormField` y el pie fijo
  * `LDCFormSaveBar`. Los números se escriben como texto («1500,5»); la server action devuelve
  * `{ ok, message }` y al guardar vuelve al listado.
  */
-export function LDCPropertyForm({ mode, action, returnHref, initial, cities }: LDCPropertyFormProps) {
+export function LDCPropertyForm(props: LDCPropertyFormProps) {
+  return props.variant === "owner" ? <LDCOwnerPropertyForm {...props} /> : <AdminPropertyForm {...props} />;
+}
+
+function AdminPropertyForm({ mode, action, returnHref, initial, cities, status }: LDCAdminPropertyFormProps) {
   const router = useRouter();
   const [saving, startSaving] = useTransition();
   const [imageBusy, setImageBusy] = useState(false);
@@ -352,9 +417,7 @@ export function LDCPropertyForm({ mode, action, returnHref, initial, cities }: L
           busy ? (
             <b>Espera a que terminen de subir las fotos para guardar.</b>
           ) : (
-            <>
-              <b>Se publica al guardar.</b> Los cambios se ven en el sitio enseguida.
-            </>
+            adminSaveNote(isCreate, status)
           )
         }
         submitText={isCreate ? "Crear propiedad" : "Guardar cambios"}

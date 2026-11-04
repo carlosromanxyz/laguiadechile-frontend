@@ -15,6 +15,7 @@ const KIND_LABEL: Record<IDashboardModerationKind, string> = {
   listing: "Ficha",
   classified: "Aviso",
   event: "Evento",
+  property: "Propiedad",
 };
 
 export interface LDCModerationQueueProps {
@@ -34,7 +35,7 @@ export interface LDCModerationQueueProps {
 /**
  * LDCModerationQueue - Cola de moderación del administrador
  *
- * Fichas, avisos y eventos en revisión, con quién los envió, cuándo y su descripción en texto plano.
+ * Fichas, avisos, eventos y propiedades en revisión, con quién los envió, cuándo y su descripción en texto plano.
  * Con `onApprove` y `onReject`, cada elemento lleva Aprobar y Rechazar; si no, «Revisar» lleva
  * a la página de moderación.
  *

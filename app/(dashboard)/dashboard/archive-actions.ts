@@ -15,6 +15,7 @@ const ROLES: Readonly<Record<IDashboardModerationKind, readonly LDCRole[]>> = {
   listing: ["comercio", "servicio"],
   classified: ["avisador"],
   event: ["organizador"],
+  property: ["propietario"],
 };
 
 /** Texto fijo para el usuario según el status de la API (nunca el mensaje crudo del backend). */
@@ -41,6 +42,9 @@ function revalidateAfterArchive(kind: IDashboardModerationKind, slug: unknown) {
   } else if (kind === "classified") {
     revalidatePath("/avisos");
     if (okSlug) revalidatePath(`/aviso/${slug}`);
+  } else if (kind === "property") {
+    revalidatePath("/propiedades");
+    if (okSlug) revalidatePath(`/propiedad/${slug}`);
   } else if (okSlug) {
     // TODO(CLGDC-139): confirmar la ruta pública del evento cuando existan las páginas de eventos.
     revalidatePath(`/evento/${slug}`);
@@ -71,7 +75,8 @@ async function toggle(
 
 /**
  * Archiva una publicación propia (el «borrar» del dueño, CLGDC-157): sale de La Guía y de los
- * favoritos, sin borrarse. Ficha (comercio o servicio), aviso (avisador) o evento (organizador).
+ * favoritos, sin borrarse. Ficha (comercio o servicio), aviso (avisador), evento (organizador) o
+ * propiedad (propietario).
  */
 export async function archiveMyPublicationAction(
   kind: IDashboardModerationKind,

@@ -15,7 +15,7 @@ import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 import { formatRelative } from "@/lib/dashboard/dates";
 
 interface RawModerationItem {
-  kind: "LISTING" | "CLASSIFIED" | "EVENT";
+  kind: "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY";
   id: string;
   title: string;
   slug: string;
@@ -106,7 +106,7 @@ export async function getAdminOverview(): Promise<{
 }
 
 /**
- * Cola de moderación: fichas, avisos y eventos enviados o editados, lo más antiguo primero.
+ * Cola de moderación: fichas, avisos, eventos y propiedades enviados o editados, lo más antiguo primero.
  * Ante un error, lista vacía (el layout también la pide para el contador del menú).
  */
 export const getModerationQueue = cache(async (): Promise<IDashboardModerationItem[]> => {
@@ -114,16 +114,29 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
   const now = new Date();
   return raw.map((m) => {
     const kind: IDashboardModerationKind =
-      m.kind === "CLASSIFIED" ? "classified" : m.kind === "EVENT" ? "event" : "listing";
+      m.kind === "CLASSIFIED"
+        ? "classified"
+        : m.kind === "EVENT"
+          ? "event"
+          : m.kind === "PROPERTY"
+            ? "property"
+            : "listing";
     const listingType =
       kind !== "listing" ? undefined
       : m.type === "SERVICIO" ? "servicio"
       : m.type === "COMERCIO" ? "comercio"
       : undefined;
     // Se muestra el rol que da la publicación (ficha → comercio o servicio según su tipo, aviso →
-    // avisador, evento → organizador), aunque el dueño no lo tenga en `owner.roles`.
+    // avisador, evento → organizador, propiedad → propietario), aunque el dueño no lo tenga en
+    // `owner.roles`.
     const role: LDCRole | undefined =
-      kind === "classified" ? "avisador" : kind === "event" ? "organizador" : listingType;
+      kind === "classified"
+        ? "avisador"
+        : kind === "event"
+          ? "organizador"
+          : kind === "property"
+            ? "propietario"
+            : listingType;
     return {
       id: m.id,
       kind,

@@ -1,4 +1,4 @@
-import { CalendarDays, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
 import { LDC_ROLE_META, type LDCRole, type LDCRoleIconName } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
  */
 export const LDC_ROLE_ICONS: Record<LDCRoleIconName, LucideIcon> = {
   CalendarDays,
+  House,
   ShieldCheck,
   Store,
   Tag,

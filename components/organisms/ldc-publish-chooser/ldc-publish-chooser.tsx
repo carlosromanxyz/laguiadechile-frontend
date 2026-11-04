@@ -16,6 +16,13 @@ const KINDS = {
     title: "Un aviso clasificado",
     description: "Vendo, compro, arriendo, busco u ofrezco. Dura 30 días.",
   },
+  // CLGDC-164: propiedad del dueño (rol propietario).
+  propiedad: {
+    role: "propietario",
+    href: "/dashboard/propiedades/nueva",
+    title: "Una propiedad",
+    description: "Casa, departamento, terreno u oficina, en venta o arriendo.",
+  },
   comercio: {
     role: "comercio",
     href: "/dashboard/publicar?tipo=comercio",
@@ -48,7 +55,7 @@ export interface LDCPublishChooserProps {
 /**
  * LDCPublishChooser - «¿Qué quieres publicar?» en el inicio del panel
  *
- * Un `LDCDashboardCard` con borde de marca y una opción por tipo (aviso, comercio, servicio), con
+ * Un `LDCDashboardCard` con borde de marca y una opción por tipo (aviso, propiedad, comercio, servicio), con
  * la forma de `LDCRoleOption`: ícono y color del rol que da, título, una línea y chevron. Toda la
  * opción es un enlace a su formulario. En móvil, una columna; desde `sm`, dos. Si queda una sola
  * opción, se muestra igual dentro del panel (diseño D2 de CLGDC-113).

@@ -43,6 +43,7 @@ const LISTING_STATUS_LABELS: Record<IDashboardPublicationStatus, string> = {
 function describe(roles: readonly LDCRole[]): string {
   const parts = [
     roles.includes("avisador") && "tus avisos",
+    roles.includes("propietario") && "tus propiedades",
     roles.includes("comercio") && "tu comercio",
     roles.includes("servicio") && "tu servicio",
     roles.includes("admin") && "la administración de La Guía",

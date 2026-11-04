@@ -115,6 +115,8 @@ export interface IAdminProperty {
   agentAgency: string | null;
   featured: boolean;
   isNew: boolean;
+  /** Estado de publicación (`PublicationStatus`, CLGDC-164); lo trae `GET /admin/properties/:id`. */
+  status?: "PUBLISHED" | "REVIEW" | "REJECTED" | "EXPIRED" | "ARCHIVED";
   cityId: string;
   city: { id: string; name: string; slug: string };
   createdAt: string;

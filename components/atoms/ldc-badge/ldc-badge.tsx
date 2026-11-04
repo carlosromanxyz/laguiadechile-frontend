@@ -15,17 +15,20 @@ const variants = {
   /** Rol de una cuenta: mismo color que `LDCRoleIcon` (criterio en `LDC_ROLE_META`). */
   "role-usuario": LDC_ROLE_META.usuario.tone,
   "role-avisador": LDC_ROLE_META.avisador.tone,
+  "role-propietario": LDC_ROLE_META.propietario.tone,
   "role-comercio": LDC_ROLE_META.comercio.tone,
   "role-servicio": LDC_ROLE_META.servicio.tone,
   "role-organizador": LDC_ROLE_META.organizador.tone,
   "role-admin": LDC_ROLE_META.admin.tone,
   /**
    * Tipo de publicación en la cola de moderación. Ficha y aviso conservan el aspecto de `new` y
-   * `updated`; evento, azul grisáceo con texto negro (4,7:1), el color del rol organizador.
+   * `updated`; evento, azul grisáceo con texto negro (4,7:1), el color del rol organizador;
+   * propiedad, el teal del rol propietario (CLGDC-164).
    */
   "kind-listing": "bg-pink-strong text-white",
   "kind-classified": "bg-purple text-white",
   "kind-event": "bg-blue-gray text-black",
+  "kind-property": LDC_ROLE_META.propietario.tone,
   /** Estado de una publicación propia en el panel. */
   "status-published": "gap-1 bg-success text-success-foreground",
   "status-review": "gap-1 border border-yellow bg-transparent text-foreground",

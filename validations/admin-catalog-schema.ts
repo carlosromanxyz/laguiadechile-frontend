@@ -9,10 +9,12 @@ import {
   type IAdminNewsUpsert,
   type IAdminProperty,
   type IAdminPropertyUpsert,
+  type IAdminPropertyType,
   type IAdminRegion,
   type IAdminRegionUpsert,
 } from "@/interfaces/admin-catalog";
 import { descriptionHtmlToText, descriptionTextToHtml } from "@/lib/format/description";
+import type { IMyPropertyInput } from "@/interfaces/my-property";
 
 /**
  * Formularios del catálogo admin (CLGDC-126): regiones, ciudades, noticias y propiedades.
@@ -234,6 +236,12 @@ export const PROPERTY_PRICE_PERIOD_LABELS: Record<(typeof PROPERTY_PRICE_PERIODS
 /** Límite de fotos de la galería de una propiedad (el backend acepta hasta 50). */
 export const PROPERTY_GALLERY_MAX = 12;
 
+/** Tope de dormitorios, baños y estacionamientos (`PROPERTY_ROOMS_MAX` del backend). */
+export const PROPERTY_ROOMS_MAX = 50;
+const rooms = optionalInt.refine((v) => v === "" || Number.parseInt(v, 10) <= PROPERTY_ROOMS_MAX, {
+  message: `Usa un número hasta ${PROPERTY_ROOMS_MAX}`,
+});
+
 export const propertyFormSchema = z.object({
   title: required(200, "Escribe el título"),
   slug,
@@ -246,9 +254,9 @@ export const propertyFormSchema = z.object({
   pricePeriod: z.enum(["", ...PROPERTY_PRICE_PERIODS], { message: "Elige el periodo" }),
   surface: decimal("Escribe la superficie útil"),
   totalSurface: optionalDecimal,
-  bedrooms: optionalInt,
-  bathrooms: optionalInt,
-  parking: optionalInt,
+  bedrooms: rooms,
+  bathrooms: rooms,
+  parking: rooms,
   cityId: z.string().refine((v) => UUID.test(v), { message: "Elige una ciudad" }),
   location: required(300, "Escribe la ubicación"),
   commune: optional(100),
@@ -271,7 +279,7 @@ export type LDCPropertyFormValues = z.input<typeof propertyFormSchema>;
 
 const numText = (n: number | null | undefined) => (n == null ? "" : String(n).replace(".", ","));
 
-export function propertyToValues(p?: IAdminProperty): LDCPropertyFormValues {
+export function propertyToValues(p?: Omit<IAdminProperty, "status">): LDCPropertyFormValues {
   return {
     title: p?.title ?? "",
     slug: p?.slug ?? "",
@@ -334,5 +342,62 @@ export function toPropertyPayload(v: LDCPropertyFormValues): IAdminPropertyUpser
     agentAgency: orNull(v.agentAgency),
     featured: v.featured,
     isNew: v.isNew,
+  };
+}
+
+// ---------- Propiedad propia (panel del propietario, CLGDC-164) ----------
+
+/** Tipos con dormitorios (como `getPropertyRooms`): casa y departamento. */
+export const PROPERTY_TYPES_WITH_BEDROOMS: readonly IAdminPropertyType[] = ["CASA", "DEPARTAMENTO"];
+/** Tipos con construcción (baños, estacionamientos y gastos comunes): todos menos terreno. */
+export const PROPERTY_TYPES_WITH_BUILDING: readonly IAdminPropertyType[] = [
+  "CASA",
+  "DEPARTAMENTO",
+  "OFICINA",
+  "LOCAL",
+  "BODEGA",
+];
+
+/** Operaciones de arriendo: solo ellas llevan periodo del precio. */
+export const isRentOperation = (op: string) => op === "ARRIENDO" || op === "ARRIENDO_TEMPORAL";
+
+/**
+ * Formulario del dueño: el mismo de `propertyFormSchema` sin validar `slug`, `featured` ni `isNew`
+ * (los pone el servidor o el equipo) y con al menos un medio de contacto, para que la ficha
+ * pública (`LDCPropertyAgent`) tenga a qué botón llevar.
+ */
+export const myPropertyFormSchema = propertyFormSchema
+  .extend({
+    slug: z.string(),
+    featured: z.boolean(),
+    isNew: z.boolean(),
+    // `IsSafeDescription` del backend: sin `<` ni `>` (la descripción es texto plano).
+    description: optional(5000).refine((v) => !/[<>]/.test(v), { message: "No uses los signos < ni >" }),
+  })
+  .refine((v) => [v.agentPhone, v.agentWhatsapp, v.agentEmail].some((c) => c.trim() !== ""), {
+    message: "Deja al menos un teléfono, WhatsApp o email",
+    path: ["agentPhone"],
+  });
+
+/**
+ * Cuerpo de `POST`/`PATCH /me/properties`: lo que no aplica al tipo o a la operación va en `null`
+ * (dormitorios fuera de casa y departamento; baños, estacionamientos y gastos comunes en un
+ * terreno; periodo fuera de un arriendo), para que no quede un dato oculto en la propiedad.
+ */
+export function toMyPropertyPayload(v: LDCPropertyFormValues): IMyPropertyInput {
+  const full = toPropertyPayload(v);
+  const rest: IMyPropertyInput = { ...full };
+  // `slug`, `featured` e `isNew` no van: con `forbidNonWhitelisted`, el backend respondería 400.
+  delete (rest as Partial<IAdminPropertyUpsert>).slug;
+  delete (rest as Partial<IAdminPropertyUpsert>).featured;
+  delete (rest as Partial<IAdminPropertyUpsert>).isNew;
+  const building = PROPERTY_TYPES_WITH_BUILDING.includes(v.type);
+  return {
+    ...rest,
+    bedrooms: PROPERTY_TYPES_WITH_BEDROOMS.includes(v.type) ? rest.bedrooms : null,
+    bathrooms: building ? rest.bathrooms : null,
+    parking: building ? rest.parking : null,
+    priceCommonExpenses: building ? rest.priceCommonExpenses : null,
+    pricePeriod: isRentOperation(v.operation) ? rest.pricePeriod : null,
   };
 }
