@@ -27,6 +27,21 @@ export async function apiGet<T>(
   return (await res.json()) as T;
 }
 
+/**
+ * Lectura pública sin data cache (`cache: "no-store"`), para consultas con texto libre del usuario
+ * (la búsqueda de `/resultados`): con ISR, cada término distinto dejaría una entrada en la caché.
+ */
+export async function apiGetNoStore<T>(path: string): Promise<T> {
+  const res = await fetch(`${BASE}${path}`, {
+    headers: { Accept: "application/json" },
+    cache: "no-store",
+  });
+  if (!res.ok) {
+    throw new Error(`Backend ${res.status} on ${path}`);
+  }
+  return (await res.json()) as T;
+}
+
 /** Returns null on 404 instead of throwing (for getBySlug). */
 export async function apiGetOrNull<T>(
   path: string,
