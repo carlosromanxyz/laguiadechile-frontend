@@ -4,15 +4,13 @@ import {
   fitsPasswordBytes,
   PASSWORD_MAX_BYTES_MESSAGE,
 } from "@/validations/password-bytes";
+import { personNameSchema } from "@/validations/person-name-schema";
 
 /**
- * «Tus datos» de `/dashboard/perfil`: nombre y apellido, como los validan `UpdateMeDto` y el
+ * «Tus datos» de `/dashboard/perfil`: nombre y apellido, con el mismo `personNameSchema` del
  * registro (2 a 80 cada uno, recortados; CLGDC-132, CLGDC-194).
  */
-export const profileDetailsSchema = z.object({
-  firstName: z.string().trim().min(2, "Escribe tu nombre").max(80, "Máximo 80 caracteres"),
-  lastName: z.string().trim().min(2, "Escribe tu apellido").max(80, "Máximo 80 caracteres"),
-});
+export const profileDetailsSchema = personNameSchema;
 
 export type LDCProfileDetailsValues = z.infer<typeof profileDetailsSchema>;
 

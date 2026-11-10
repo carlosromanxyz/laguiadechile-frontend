@@ -23,6 +23,22 @@ const FIELD_ERROR = {
 } as const;
 
 /**
+ * Campo que rechazó el 400 de `PATCH /me`. class-validator responde `message: string[]` y cada
+ * mensaje empieza con la propiedad («lastName must be longer than…»). Va a `lastName` solo si
+ * algún mensaje empieza con `lastName` y ninguno con `firstName`; en cualquier otro caso (ambos
+ * campos, mensaje sin prefijo o formato inesperado), al primero del formulario, `firstName`.
+ */
+function rejectedNameField(e: ApiError): "firstName" | "lastName" {
+  const raw = (e.payload as { message?: unknown } | undefined)?.message;
+  const messages = (Array.isArray(raw) ? raw : [raw ?? e.message]).filter(
+    (m): m is string => typeof m === "string",
+  );
+  const lastName = messages.some((m) => /^lastName\b/.test(m));
+  const firstName = messages.some((m) => /^firstName\b/.test(m));
+  return lastName && !firstName ? "lastName" : "firstName";
+}
+
+/**
  * Guarda el nombre y el apellido (`PATCH /me`). Revalida el layout del panel para que el pie del
  * menú muestre el nombre nuevo. Devuelve un resultado en vez de lanzar, así el mensaje llega al
  * formulario, en el campo que lo causó.
@@ -44,8 +60,7 @@ export async function updateMyProfileAction(input: IMyProfileUpdate): Promise<IU
   } catch (e) {
     if (e instanceof ApiError) {
       if (e.status === 400) {
-        // class-validator nombra la propiedad en el mensaje («lastName must be…»).
-        const field = /lastName/.test(e.message) && !/firstName/.test(e.message) ? "lastName" : "firstName";
+        const field = rejectedNameField(e);
         return { ok: false, field, message: FIELD_ERROR[field] };
       }
       if (e.status === 401 || e.status === 403) return { ok: false, message: SESSION_EXPIRED };

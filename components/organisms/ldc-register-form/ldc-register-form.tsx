@@ -14,11 +14,10 @@ import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { LDC_REGISTER, LDC_ROLES } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
 import { fitsPasswordBytes, PASSWORD_MAX_BYTES_MESSAGE } from "@/validations/password-bytes";
+import { personNameSchema } from "@/validations/person-name-schema";
 
-const schema = z
-  .object({
-    firstName: z.string().trim().min(2, "Escribe tu nombre").max(80, "Máximo 80 caracteres"),
-    lastName: z.string().trim().min(2, "Escribe tu apellido").max(80, "Máximo 80 caracteres"),
+const schema = personNameSchema
+  .extend({
     email: z.string().trim().email("Escribe un email completo, como nombre@dominio.cl"),
     password: z
       .string()
