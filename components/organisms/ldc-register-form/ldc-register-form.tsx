@@ -33,6 +33,9 @@ const schema = personNameSchema
 
 type FormValues = z.infer<typeof schema>;
 
+/** Ayuda del largo bajo Nombre y Apellido (se oculta mientras el campo tiene un error). */
+const NAME_HINT = "Entre 2 y 80 caracteres.";
+
 /** Login común: la cuenta entra a su panel sea cual sea el rol. */
 const LOGIN_PATH = "/ingresar";
 const NETWORK_ERROR = "No pudimos crear tu cuenta. Revisa tu conexión e inténtalo de nuevo.";
@@ -123,6 +126,7 @@ export function LDCRegisterForm() {
           placeholder="Ana"
           autoComplete="given-name"
           maxLength={80}
+          description={errors.firstName ? undefined : NAME_HINT}
           required
           disabled={submitting}
         />
@@ -133,6 +137,7 @@ export function LDCRegisterForm() {
           placeholder="Pérez"
           autoComplete="family-name"
           maxLength={80}
+          description={errors.lastName ? undefined : NAME_HINT}
           required
           disabled={submitting}
         />
@@ -182,17 +187,19 @@ export function LDCRegisterForm() {
         name="terms"
         required
         disabled={submitting}
+        // Los espacios van dentro de cada texto, no en `{" "}` sueltos: React los emite como nodos
+        // aparte y Chrome los descarta al calcular el nombre accesible («lostérminos»).
         label={
           <>
-            Acepto los{" "}
+            {"Acepto los "}
             <Link href="/terminos-y-condiciones" target="_blank" className={AUTH_INLINE_LINK_CLASS}>
               términos y condiciones
-            </Link>{" "}
-            y la{" "}
+            </Link>
+            {" y la "}
             <Link href="/politicas-de-privacidad" target="_blank" className={AUTH_INLINE_LINK_CLASS}>
               política de privacidad
             </Link>
-            .
+            {"."}
           </>
         }
       />
