@@ -5,7 +5,8 @@ import type { IPlace } from "@/interfaces/place";
 import { getListingsByCity } from "@/lib/api/listings";
 import { getPlaceBySlug, getPlaceSlugs } from "@/lib/api/places";
 import { descriptionHtmlToText } from "@/lib/format/description";
-import { PLACE_TYPE_META, chileWeekdayIndex } from "@/lib/format/places";
+import { PLACE_TYPE_META, chileWeekdayIndex, telHref } from "@/lib/format/places";
+import { truncateAtWord } from "@/lib/format/text";
 
 interface LugarPageProps {
   params: Promise<{ slug: string }>;
@@ -16,17 +17,30 @@ export async function generateStaticParams() {
   return getPlaceSlugs();
 }
 
-/** Título con tipo y ciudad; descripción en texto plano (160) y la imagen para Open Graph. */
+/** Descripción en texto plano de una línea, cortada en palabra; vacía, «{Tipo} en {ciudad}: {dirección}». */
+function placeDescription(place: IPlace, max: number): string {
+  const text = descriptionHtmlToText(place.description).replace(/\s+/g, " ").trim();
+  if (text) return truncateAtWord(text, max);
+  return truncateAtWord(`${PLACE_TYPE_META[place.type].label} en ${place.city.name}: ${place.address}`, max);
+}
+
+/** Título con tipo y ciudad; descripción en texto plano (160) y Open Graph completo con la imagen. */
 export async function generateMetadata({ params }: LugarPageProps): Promise<Metadata> {
   const { slug } = await params;
   const place = await getPlaceBySlug(slug);
   if (!place) return { title: "Lugar no encontrado - La Guía de Chile" };
 
-  const description = descriptionHtmlToText(place.description).replace(/\s+/g, " ").trim().slice(0, 160);
+  const description = placeDescription(place, 160);
   return {
     title: `${place.title} - ${PLACE_TYPE_META[place.type].label} en ${place.city.name} | La Guía de Chile`,
     description,
-    openGraph: { title: place.title, description, images: [place.image] },
+    openGraph: {
+      type: "website",
+      siteName: "La Guía de Chile",
+      title: place.title,
+      description,
+      images: [{ url: place.image, alt: place.title }],
+    },
   };
 }
 
@@ -41,20 +55,21 @@ const SCHEMA_TYPE: Record<IPlace["type"], string> = {
  * cerrar la etiqueta (lgdc-security).
  */
 function placeJsonLd(place: IPlace): string {
+  // Sin `addressRegion`: la API no trae la región y la ciudad no lo es.
+  const telephone = telHref(place.phone) ? place.phone : undefined;
   const data = {
     "@context": "https://schema.org",
     "@type": SCHEMA_TYPE[place.type],
     name: place.title,
-    description: descriptionHtmlToText(place.description).replace(/\s+/g, " ").trim().slice(0, 300),
+    description: placeDescription(place, 300),
     image: [place.image, ...place.gallery].filter((src) => /^https?:\/\//.test(src)),
     address: {
       "@type": "PostalAddress",
       streetAddress: place.address,
       addressLocality: place.commune ?? place.city.name,
-      addressRegion: place.city.name,
       addressCountry: "CL",
     },
-    ...(place.phone ? { telephone: place.phone } : {}),
+    ...(telephone ? { telephone } : {}),
     ...(place.website ? { url: place.website } : {}),
   };
   return JSON.stringify(data).replace(/</g, "\\u003c");

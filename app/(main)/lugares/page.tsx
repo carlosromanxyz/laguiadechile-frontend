@@ -8,12 +8,6 @@ import { getCityFullBySlug } from "@/lib/api/catalog";
 import { getPlacesPage } from "@/lib/api/places";
 import { chileWeekdayIndex, placeTypeFromQuery } from "@/lib/format/places";
 
-export const metadata: Metadata = {
-  title: "Lugares - La Guía de Chile",
-  description:
-    "Atractivos, servicios públicos y ferias de cada ciudad de Chile: qué visitar, dónde hacer trámites, números de emergencia y qué días hay feria.",
-};
-
 const SLUG = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 interface LugaresPageProps {
@@ -21,6 +15,18 @@ interface LugaresPageProps {
 }
 
 const first = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v) ?? "";
+
+/** Con `?tipo=` o `?ciudad=`, noindex (follow): solo se indexa el listado completo. */
+export async function generateMetadata({ searchParams }: LugaresPageProps): Promise<Metadata> {
+  const params = await searchParams;
+  const filtered = Boolean(first(params.tipo) || first(params.ciudad));
+  return {
+    title: "Lugares - La Guía de Chile",
+    description:
+      "Atractivos, servicios públicos y ferias de cada ciudad de Chile: qué visitar, dónde hacer trámites, números de emergencia y qué días hay feria.",
+    ...(filtered ? { robots: { index: false, follow: true } } : {}),
+  };
+}
 
 /**
  * Lugares - La Guía de Chile (CLGDC-207)
