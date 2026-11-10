@@ -1,7 +1,7 @@
 import type { IFavoriteKind } from "@/interfaces/favorite";
 
 /** Tipos que acepta `POST /me/favorites` y `DELETE /me/favorites/:kind/:id`. */
-export const FAVORITE_KINDS: readonly IFavoriteKind[] = ["LISTING", "CLASSIFIED", "PROPERTY", "NEWS", "EVENT"];
+export const FAVORITE_KINDS: readonly IFavoriteKind[] = ["LISTING", "CLASSIFIED", "PROPERTY", "NEWS", "EVENT", "PLACE"];
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 

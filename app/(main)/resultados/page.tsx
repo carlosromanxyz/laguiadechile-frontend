@@ -9,6 +9,8 @@ import { searchClassifieds } from "@/lib/api/classifieds";
 import { searchEvents } from "@/lib/api/events";
 import { searchListings, SEARCH_TERM_MAX_LENGTH } from "@/lib/api/listings";
 import { searchProperties } from "@/lib/api/properties";
+import { searchPlaces } from "@/lib/api/places";
+import { chileWeekdayIndex } from "@/lib/format/places";
 import { Search } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -57,7 +59,7 @@ export async function generateMetadata({
       ? `Resultados para «${term}» - La Guía de Chile`
       : "Resultados de búsqueda - La Guía de Chile",
     description:
-      "Comercios, servicios, avisos, propiedades y eventos de La Guía de Chile que coinciden con tu búsqueda.",
+      "Comercios, servicios, avisos, propiedades, eventos y lugares de La Guía de Chile que coinciden con tu búsqueda.",
     // Las páginas de resultados no se indexan; los enlaces a las fichas sí se siguen.
     robots: { index: false, follow: true },
   };
@@ -84,6 +86,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   let classifieds: Awaited<ReturnType<typeof searchClassifieds>> = [];
   let properties: Awaited<ReturnType<typeof searchProperties>> = [];
   let events: Awaited<ReturnType<typeof searchEvents>> = [];
+  let places: Awaited<ReturnType<typeof searchPlaces>> = [];
   let failed = false;
   try {
     [category, city] = await Promise.all([
@@ -92,11 +95,13 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
     ]);
     if (term || category || city) {
       const filters = { term, categoryId: category?.id, cityId: city?.id };
-      [listings, classifieds, properties, events] = await Promise.all([
+      [listings, classifieds, properties, events, places] = await Promise.all([
         searchListings(filters),
         searchClassifieds(filters),
         category ? [] : searchProperties({ term, cityId: city?.id }),
         searchEvents(filters),
+        // Los lugares no tienen categoría: con una elegida no se buscan (como las propiedades).
+        category ? [] : searchPlaces({ term, cityId: city?.id }),
       ]);
     }
   } catch (error) {
@@ -107,7 +112,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   const hasSearch = Boolean(term || category || city);
   // Instante de referencia para la grilla de eventos (todos vienen sin terminar desde el backend).
   const now = Date.now();
-  const total = listings.length + classifieds.length + properties.length + events.length;
+  const total = listings.length + classifieds.length + properties.length + events.length + places.length;
 
   const breadcrumbs = [
     { label: "Inicio", href: "/" },
@@ -124,7 +129,7 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
   const emptyDescription = failed
     ? "Vuelve a intentarlo en unos minutos."
     : !hasSearch
-    ? "Busca comercios, servicios, avisos, propiedades o eventos por su nombre o su descripción, o elige una categoría o una ciudad en el buscador del inicio."
+    ? "Busca comercios, servicios, avisos, propiedades, eventos o lugares por su nombre o su descripción, o elige una categoría o una ciudad en el buscador del inicio."
     : !term
       ? "Quita la categoría o la ciudad para ver más resultados."
       : category || city
@@ -158,6 +163,8 @@ export default async function ResultadosPage({ searchParams }: ResultadosPagePro
           properties={properties}
           events={events}
           now={now}
+          places={places}
+          today={chileWeekdayIndex()}
         />
       ) : (
         // Un único estado vacío para toda la búsqueda (la grilla vacía pinta solo su estado vacío).

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 export interface LDCStatusFilterItem {
@@ -10,6 +11,8 @@ export interface LDCStatusFilterItem {
   count?: number;
   /** Destino del enlace (la misma página con su `?estado=`) */
   href: string;
+  /** Ícono ya renderizado (JSX) antes del texto; opcional */
+  icon?: ReactNode;
 }
 
 export interface LDCStatusFilterProps {
@@ -19,6 +22,10 @@ export interface LDCStatusFilterProps {
   current: string;
   /** Nombre accesible de la navegación */
   label?: string;
+  /** `sm` (32 px, por defecto) o `lg` (44 px en todos los anchos, CLGDC-207) */
+  size?: "sm" | "lg";
+  /** En móvil, las pills se desplazan en horizontal en vez de bajar de línea (desde `md`, bajan) */
+  scroll?: boolean;
   className?: string;
 }
 
@@ -37,11 +44,19 @@ export function LDCStatusFilter({
   items,
   current,
   label = "Filtrar por estado",
+  size = "sm",
+  scroll = false,
   className,
 }: LDCStatusFilterProps) {
   return (
     <nav aria-label={label} className={className}>
-      <ul className="flex flex-wrap gap-2">
+      <ul
+        className={cn(
+          "flex flex-wrap gap-2",
+          scroll &&
+            "-mx-4 flex-nowrap overflow-x-auto px-4 py-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0",
+        )}
+      >
         {items.map((item) => {
           const active = item.key === current;
           return (
@@ -50,10 +65,13 @@ export function LDCStatusFilter({
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "inline-flex h-8 items-center gap-1.5 rounded-full border bg-card px-3 text-sm font-semibold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
+                  "inline-flex items-center gap-1.5 rounded-full border bg-card text-sm font-semibold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
+                  size === "lg" ? "h-11 whitespace-nowrap px-4 [&_svg]:size-4 [&_svg]:shrink-0" : "h-8 px-3",
                   active ? "border-pink dark:border-yellow" : "border-border",
+                  active && size === "lg" && "shadow-[inset_0_0_0_1px_var(--pink)] dark:shadow-[inset_0_0_0_1px_var(--yellow)]",
                 )}
               >
+                {item.icon}
                 {item.label}
                 {item.count != null && (
                   <span className="text-xs font-extrabold text-muted-foreground">{item.count}</span>

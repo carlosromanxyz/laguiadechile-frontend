@@ -8,6 +8,9 @@ import { LDCPropertyCard } from "@/components/molecules/ldc-property-card";
 import { LDCClassifiedCard } from "@/components/molecules/ldc-classified-card";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
+import { LDCCityPlaces } from "@/components/organisms/ldc-city-places";
+import type { IPlaces } from "@/interfaces/place";
+import { chileWeekdayIndex } from "@/lib/format/places";
 import type { IRegion, IRegionCity } from "@/interfaces/region";
 import type { IListingDetails } from "@/interfaces/listing";
 import type { IProperties } from "@/interfaces/property";
@@ -24,6 +27,8 @@ interface LDCCityTemplateProps {
   properties: IProperties;
   /** Avisos clasificados de la ciudad */
   classifieds: IClassifieds;
+  /** Lugares de la ciudad (CLGDC-207): bloque con pestañas tras el clima y la farmacia */
+  places?: IPlaces;
   /** Resumen de Wikipedia: contenedor cliente que va en su sección, entre propiedades y avisos */
   wikipedia: ReactNode;
   /** Clima y farmacia de turno: contenedor cliente que va en la grilla bajo el hero */
@@ -33,7 +38,8 @@ interface LDCCityTemplateProps {
 /**
  * LDCCityTemplate - Ficha de ciudad
  *
- * Hero con migas de pan, clima y farmacia de turno (`liveInfo`), y las secciones de comercios
+ * Hero con migas de pan, clima y farmacia de turno (`liveInfo`), los lugares de la ciudad (pestañas
+ * por tipo, `LDCCityPlaces`), y las secciones de comercios
  * y servicios, propiedades, Wikipedia (`wikipedia`) y avisos de la ciudad, o un estado vacío si no hay
  * publicaciones. Sin datos propios: todo llega por props.
  *
@@ -56,6 +62,7 @@ export function LDCCityTemplate({
   listings,
   properties,
   classifieds,
+  places = [],
   wikipedia,
   liveInfo,
 }: LDCCityTemplateProps) {
@@ -87,6 +94,9 @@ export function LDCCityTemplate({
             {liveInfo}
           </div>
         </LDCSection>
+
+        {/* Lugares de la ciudad (CLGDC-207): sin lugares no se dibuja */}
+        {places.length > 0 && <LDCCityPlaces places={places} city={city} today={chileWeekdayIndex()} />}
 
         {/* Comercios & Servicios Section */}
         {listings.length > 0 && (

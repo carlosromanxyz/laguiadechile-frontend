@@ -17,6 +17,10 @@ interface LDCRelatedSectionProps {
   title: string;
   /** Tarjetas ya renderizadas, cada una con su `key` */
   children: ReactNode;
+  /** Bajada bajo el título (opcional) */
+  description?: ReactNode;
+  /** Enlace a la derecha del título (opcional, p. ej. «Ver los 17 de Valparaíso →») */
+  action?: ReactNode;
   /** Disposición de las tarjetas. Por defecto, grilla de 4 columnas */
   layout?: keyof typeof LAYOUT_CLASSES;
   /** Clases adicionales de la sección */
@@ -38,15 +42,27 @@ interface LDCRelatedSectionProps {
  */
 export function LDCRelatedSection({
   title,
+  description,
+  action,
   children,
   layout = "grid-4",
   className,
 }: LDCRelatedSectionProps) {
   return (
     <LDCSection paddingY="md" className={cn("bg-muted/30", className)}>
-      <h2 className="text-2xl font-bold font-mulish text-foreground mb-6">
-        {title}
-      </h2>
+      {description || action ? (
+        <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold font-mulish text-foreground">{title}</h2>
+            {description && <p className="text-sm text-muted-foreground">{description}</p>}
+          </div>
+          {action}
+        </div>
+      ) : (
+        <h2 className="text-2xl font-bold font-mulish text-foreground mb-6">
+          {title}
+        </h2>
+      )}
       <div className={LAYOUT_CLASSES[layout]}>{children}</div>
     </LDCSection>
   );

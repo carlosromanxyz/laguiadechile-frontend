@@ -13,12 +13,17 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ## Componentes
 
 ### Sitio público
+- **ldc-city-places** (`LDCCityPlaces`): bloque «Lugares de {ciudad}» de la ficha de ciudad con pestañas por tipo (patrón ARIA `tablist`, flechas, Inicio y Fin) y hasta 4 lugares por pestaña; filtra lo que ya llegó del servidor (CLGDC-207). Cliente.
 - **ldc-header** (`LDCHeader`): header fijo con logo, navegación, cambio de tema, botón de publicar y menú móvil.
 - **ldc-mobile-menu** (`LDCMobileMenu`): botón hamburguesa y panel lateral de navegación en móvil. Cliente.
 - **ldc-footer** (`LDCFooter`): pie de página con logo, enlaces, redes y apps.
 - **ldc-hero** (`LDCHero`): hero de la home con carrusel de fondo, titular y buscador. Cliente.
+- **ldc-place-detail-hero** (`LDCPlaceDetailHero`): hero de la ficha de un lugar con chip de tipo, dirección, compartir, favorito y `LDCPlaceFacts` (CLGDC-207).
+- **ldc-place-filters** (`LDCPlaceFilters`): filtros de `/lugares` (ciudad y tipo con ícono y conteo, pills de 44 px) en la URL (CLGDC-207). Cliente.
+- **ldc-place-form** (`LDCPlaceForm`): alta y edición de un lugar del admin (tipo, ciudad, nombre, slug opcional, descripción, imágenes, horario y contacto con número de emergencia en servicios públicos), con `LDCFormSaveBar` (CLGDC-207). Cliente.
+- **ldc-places-directory** (`LDCPlacesDirectory`): cuerpo de `/lugares`: agrupado por tipo en «Todos», grilla o filas con un tipo elegido y estado vacío; las tarjetas entran al filtrar solo con `motion-safe` (CLGDC-207).
 - **ldc-search-form** (`LDCSearchForm`): buscador con texto, categoría y ciudad (React Hook Form + Zod). Cliente.
-- **ldc-search-results** (`LDCSearchResults`): resultados de `/resultados` agrupados por tipo (comercios y servicios, avisos, propiedades, eventos), cada grupo con su grilla paginada.
+- **ldc-search-results** (`LDCSearchResults`): resultados de `/resultados` agrupados por tipo (comercios y servicios, avisos, propiedades, eventos y lugares), cada grupo con su grilla paginada.
 - **ldc-page-hero** (`LDCPageHero`): carcasa común de los heroes de listado y de detalle.
 - **ldc-listings-page-hero** (`LDCListingsPageHero`): hero de las páginas de listado con migas, título e ícono.
 - **ldc-under-construction** (`LDCUnderConstruction`): bloque central de «En construcción» con logo, título y redes. Cliente.
@@ -56,7 +61,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-event-detail-hero** (`LDCEventDetailHero`): hero del detalle de evento (categoría, cuándo, lugar, compartir y favorito).
 - **ldc-event-form** (`LDCEventForm`): formulario del evento del panel (crear, duplicar y editar), con estado, envío a revisión y vista previa en `LDCEventCard`. Cliente.
 - **ldc-news-article-hero** (`LDCNewsArticleHero`): hero de la ficha de noticia con autor, fecha y lectura.
-- **ldc-related-section** (`LDCRelatedSection`): franja de contenido relacionado al pie de una ficha.
+- **ldc-related-section** (`LDCRelatedSection`): franja de contenido relacionado al pie de una ficha; `description` y `action` opcionales.
 
 ### Ciudad
 - **ldc-weather-widget** (`LDCWeatherWidget`): clima de la ciudad o su esqueleto (datos de `useCityWeather`).

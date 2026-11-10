@@ -29,6 +29,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-contact-actions** (`LDCContactActions`): botones de contacto directo (WhatsApp, llamar, correo) que tengan datos.
 - **ldc-contact-info** (`LDCContactInfo`): redes sociales de La Guía en la página de contacto.
 - **ldc-contact-message-actions** (`LDCContactMessageActions`): Ver (diálogo con el mensaje como texto), Marcar leído y `⋯` (leído / no leído, Responder por correo) de una fila de la bandeja «Mensajes», con una server action. Cliente.
+- **ldc-emergency-numbers** (`LDCEmergencyNumbers`): panel sobrio «Números de emergencia» del lateral de un servicio público: filas `tel:` de 44 px con borde neutro (131 SAMU, 132 Bomberos, 133 Carabineros), el número propio del lugar primero y destacado solo con el peso (CLGDC-207).
 - **ldc-empty-state** (`LDCEmptyState`): estado vacío con ícono, título y texto.
 - **ldc-event-card** (`LDCEventCard`): card de evento (imagen 16:9, bloque de fecha, cuándo, lugar y precio, favorito `EVENT`); con `preview`, sin enlaces ni corazón (vista previa del formulario). Cliente.
 - **ldc-event-organizer** (`LDCEventOrganizer`): caja «Organiza» con los contactos del organizador en el detalle del evento.
@@ -40,7 +41,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-hero-slider** (`LDCHeroSlider`): carrusel automático de imágenes de fondo del hero. Cliente.
 - **ldc-listing-card** (`LDCListingCard`): card de comercio o servicio. Cliente.
 - **ldc-listing-gallery** (`LDCListingGallery`): galería de fotos en carrusel de las fichas. Cliente.
-- **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección.
+- **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección; `title` y `action` opcionales (el «Cómo llegar» de los lugares).
 - **ldc-listing-social-media** (`LDCListingSocialMedia`): redes sociales de un comercio o servicio.
 - **ldc-listing-type-selector** (`LDCListingTypeSelector`): radios en tarjeta para elegir Comercio o Servicio al crear una ficha. Cliente.
 - **ldc-moderation-actions** (`LDCModerationActions`): Aprobar y Rechazar (con confirmación y motivo obligatorio en `LDCRejectDialog`) de la cola de moderación, con server actions. Cliente.
@@ -49,6 +50,10 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-news-card** (`LDCNewsCard`): card de noticia. Cliente.
 - **ldc-page-header** (`LDCPageHeader`): título, descripción y acciones de una página del panel.
 - **ldc-pagination** (`LDCPagination`): paginación por URL (`?page=`) sobre `ui/pagination`; en móvil, «Página N de M» con Anterior y Siguiente de 44 px. Cliente.
+- **ldc-place-card** (`LDCPlaceCard`, `placeWhere`): tarjeta 16:9 de un lugar con chip de tipo, corazón `overlay-solid`, comuna · ciudad y lo de hoy (días de feria con `LDCWeekDays`); un servicio con número de emergencia suma «Llamar 131» outline (CLGDC-207).
+- **ldc-place-contact** (`LDCPlaceContact`): panel «Contacto» de un lugar con teléfono (`tel:` solo dígitos y `+`), sitio web y email como acciones outline de 44 px (CLGDC-207).
+- **ldc-place-facts** (`LDCPlaceFacts`): datos rápidos bajo el título de un lugar (hoy, cómo llegar y emergencia o teléfono), cada uno con su acción (CLGDC-207).
+- **ldc-place-row** (`LDCPlaceRow`): fila compacta de un servicio público sin foto, con dirección, lo de hoy, «Llamar 131» y el botón para llamar a la oficina; bajo 480 px las acciones bajan (CLGDC-207).
 - **ldc-price-box** (`LDCPriceBox`): caja de precio con la línea de publicación.
 - **ldc-property-agent** (`LDCPropertyAgent`): caja del corredor o la agencia con botones de contacto en la ficha de propiedad. Cliente.
 - **ldc-property-card** (`LDCPropertyCard`): card de propiedad con precio, características y ubicación. Cliente.
@@ -60,6 +65,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-reject-dialog** (`LDCRejectDialog`): diálogo controlado para rechazar con motivo obligatorio (hasta 500 caracteres); lo usan `LDCModerationActions` y `LDCPublicationStatusActions`. Cliente.
 - **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano), con «Corregir y reenviar» si hay `fixHref` o en solo lectura sin él. Cliente.
 - **ldc-role-option** (`LDCRoleOption`): tarjeta-enlace de un rol con `LDCRoleIcon`, título, texto y chevron (login del rol o destino propio).
+- **ldc-schedule-list** (`LDCScheduleList`): horario semanal de solo lectura (sale de `LDCListingInfo`); con `serverToday` muestra los siete días y marca el de hoy en hora de Chile (lugares, CLGDC-207). Cliente.
 - **ldc-search-summary** (`LDCSearchSummary`): resumen de una búsqueda en `/resultados`: cantidad de resultados, término, filtros de categoría y ciudad, y enlace «Nueva búsqueda».
 - **ldc-section-header** (`LDCSectionHeader`): encabezado de sección (variantes `section` y `compact`).
 - **ldc-segmented-field** (`LDCSegmentedField`): control segmentado de radios nativos (una opción entre pocas) sobre pista `bg-muted`, con la elegida neutra; p. ej. la forma del precio del aviso. Cliente.
@@ -67,6 +73,6 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-social-network-list** (`LDCSocialNetworkList`): fila de íconos de redes sociales de La Guía.
 - **ldc-social-share-buttons** (`LDCSocialShareButtons`): botón de compartir (Web Share API o copia al portapapeles). Cliente.
 - **ldc-stat-card** (`LDCStatCard`): tarjeta de métrica del panel.
-- **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`.
+- **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`; opcionales `size="lg"` (44 px), `scroll` (desplazamiento horizontal en móvil) e `icon` por ítem.
 - **ldc-theme-mode-toggler** (`LDCThemeModeToggler`): switch de tema claro/oscuro con íconos. Cliente.
 - **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel, con la línea de roles; recibe `user` (`firstName`, `lastName`, `email`) y muestra `formatPersonName` y `getPersonInitials`. Cliente.

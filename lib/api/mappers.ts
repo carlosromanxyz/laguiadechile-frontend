@@ -10,6 +10,7 @@ import type { INews } from "@/interfaces/news";
 import type { IFeaturedCategory } from "@/interfaces/featured-category";
 import type { IFeaturedCity } from "@/interfaces/featured-city";
 import type { IEvent } from "@/interfaces/event";
+import type { IPlace, IPlaceType } from "@/interfaces/place";
 
 // ---- Backend raw shapes (only the fields we read) ----
 interface RawCategory {
@@ -335,7 +336,61 @@ export function mapEvent(e: RawEvent): IEvent {
   };
 }
 
+// ---- Lugares (CLGDC-207) ----
+interface RawPlace {
+  id: string;
+  slug: string;
+  title: string;
+  type: string;
+  description: string;
+  image: string;
+  gallery?: string[];
+  address: string;
+  commune?: string | null;
+  schedule?: unknown;
+  phone?: string | null;
+  emergencyNumber?: string | null;
+  website?: string | null;
+  email?: string | null;
+  featured?: boolean;
+  city: RawCity;
+  createdAt: string;
+  updatedAt: string;
+}
+
+const PLACE_TYPES: readonly IPlaceType[] = ["ATTRACTION", "PUBLIC_SERVICE", "MARKET"];
+
+/** `GET /places` → `IPlace` (los `null` quedan como `undefined`; un tipo desconocido, atractivo). */
+export function mapPlace(p: RawPlace): IPlace {
+  const opt = (v: string | null | undefined) => (v ? v : undefined);
+  const schedule =
+    p.schedule && typeof p.schedule === "object" && !Array.isArray(p.schedule)
+      ? (p.schedule as IPlace["schedule"])
+      : undefined;
+  return {
+    id: p.id,
+    slug: p.slug,
+    title: p.title,
+    type: (PLACE_TYPES as readonly string[]).includes(p.type) ? (p.type as IPlaceType) : "ATTRACTION",
+    description: p.description,
+    image: p.image,
+    gallery: p.gallery ?? [],
+    address: p.address,
+    commune: opt(p.commune),
+    schedule,
+    phone: opt(p.phone),
+    emergencyNumber: opt(p.emergencyNumber),
+    website: opt(p.website),
+    email: opt(p.email),
+    featured: !!p.featured,
+    city: city(p.city),
+    createdAt: p.createdAt,
+    updatedAt: p.updatedAt,
+  };
+}
+
 export type {
+  RawPlace,
   RawEvent,
   RawListing,
   RawClassified,

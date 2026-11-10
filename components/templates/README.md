@@ -14,8 +14,8 @@ Cada template vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la
 
 - **ldc-home-template** (`LDCHomeTemplate`): home con hero, destacados y recientes; recibe los datos desde `app/(main)/page.tsx`.
 - **ldc-listing-page-template** (`LDCListingPageTemplate`): páginas de listado con el hero arriba y el contenido en `<main>`.
-- **ldc-detail-template** (`LDCDetailTemplate`): fichas de detalle con hero, columna principal, sidebar y relacionados según `kind`.
-- **ldc-city-template** (`LDCCityTemplate`): ficha de ciudad con clima y farmacia, comercios, propiedades, Wikipedia y avisos.
+- **ldc-detail-template** (`LDCDetailTemplate`): fichas de detalle con hero, columna principal, sidebar y relacionados según `kind` (también `lugar`, CLGDC-207).
+- **ldc-city-template** (`LDCCityTemplate`): ficha de ciudad con clima y farmacia, lugares (pestañas), comercios, propiedades, Wikipedia y avisos.
 - **ldc-about-template** (`LDCAboutTemplate`): página «Nosotros».
 - **ldc-contact-template** (`LDCContactTemplate`): página «Contacto» con formulario y redes; `defaultSubject` (de `?asunto=<clave>`, solo claves de `CONTACT_SUBJECT_PRESETS`) es el asunto inicial del formulario.
 - **ldc-coming-soon-template** (`LDCComingSoonTemplate`): mensaje «Próximamente» de las páginas sin contenido.
