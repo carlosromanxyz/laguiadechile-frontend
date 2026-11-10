@@ -41,7 +41,8 @@ test.describe("formulario de contacto", () => {
     // Parte HTML de React Email: el texto del usuario va escapado y el salto de línea, como <br>.
     expect(message.HTML).toContain("&lt;b&gt;negrita&lt;/b&gt;");
     expect(message.HTML).not.toContain("<b>negrita</b>");
-    expect(message.HTML).toContain("<br");
+    // El fragmento exacto de MessageLines: el layout ya trae <br/> fijos, así que «<br» solo no prueba nada.
+    expect(message.HTML).toContain("Línea 1<br/>&lt;b&gt;negrita&lt;/b&gt;");
     expect(await htmlCheck(message.ID)).toBe(200);
   });
 });
