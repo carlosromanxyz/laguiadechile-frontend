@@ -21,6 +21,7 @@ const sizes = {
   xs: { box: "size-6", icon: "size-3.5" },
   sm: { box: "size-9", icon: "size-[18px]" },
   md: { box: "size-10", icon: "size-5" },
+  lg: { box: "size-12", icon: "size-6" },
 } as const;
 
 export interface LDCRoleIconProps {
@@ -31,7 +32,7 @@ export interface LDCRoleIconProps {
    * `LDCPublishChooser`, CLGDC-191)
    */
   icon?: { name: LDCRoleIconName; tone: string };
-  /** Tamaño del círculo: `xs` 24 px, `sm` 36 px, `md` 40 px */
+  /** Tamaño del círculo: `xs` 24 px, `sm` 36 px, `md` 40 px, `lg` 48 px (`LDCPublishTile`) */
   size?: keyof typeof sizes;
   /** Clases adicionales */
   className?: string;
