@@ -48,23 +48,33 @@ test.describe("formulario de contacto", () => {
 
   test("el asunto llega prellenado desde ?asunto=", async ({ page }) => {
     // El enlace de la tile «Sugerir» del panel (CLGDC-206). No envía: no gasta el throttle de /contact.
-    await page.goto("/contacto?asunto=Sugerir%20un%20lugar");
+    const empty = async () => {
+      await expect(field(page, "Nombre completo")).toHaveValue("");
+      await expect(field(page, "Correo electrónico")).toHaveValue("");
+      await expect(field(page, "Mensaje")).toHaveValue("");
+    };
+
+    // Una clave de CONTACT_SUBJECT_PRESETS pone su asunto; solo el asunto se prellena.
+    await page.goto("/contacto?asunto=sugerir");
     await expect(field(page, "Asunto")).toHaveValue("Sugerir un lugar");
-    // Solo el asunto se prellena por URL.
-    await expect(field(page, "Nombre completo")).toHaveValue("");
-    await expect(field(page, "Correo electrónico")).toHaveValue("");
-    await expect(field(page, "Mensaje")).toHaveValue("");
+    await empty();
 
-    // Saltos de línea codificados y espacios en los bordes: queda en una línea, sin bordes.
-    await page.goto("/contacto?asunto=%20%20Hola%0D%0Amundo%0Aotra%20%20");
-    await expect(field(page, "Asunto")).toHaveValue("Hola mundo otra");
+    // Lista cerrada: texto libre, una clave desconocida o un parámetro repetido dejan el asunto vacío.
+    for (const query of [
+      "asunto=Sugerir%20un%20lugar",
+      "asunto=Hola%0D%0Amundo%0Aotra",
+      `asunto=${"a".repeat(300)}`,
+      "asunto=constructor",
+      "asunto=sugerir&asunto=sugerir",
+    ]) {
+      await page.goto(`/contacto?${query}`);
+      await expect(field(page, "Asunto"), query).toHaveValue("");
+      await empty();
+    }
 
-    // 300 caracteres: se recorta al tope del asunto (150, `CONTACT_LIMITS.subject`).
-    await page.goto(`/contacto?asunto=${"a".repeat(300)}`);
-    await expect(field(page, "Asunto")).toHaveValue("a".repeat(150));
-
-    // Un parámetro repetido no es un asunto: el campo queda vacío.
-    await page.goto("/contacto?asunto=uno&asunto=dos");
-    await expect(field(page, "Asunto")).toHaveValue("");
+    // Los demás campos nunca se llenan por URL, aunque la clave sea válida.
+    await page.goto("/contacto?asunto=sugerir&name=Spam&email=spam%40e2e.lgdc.test&message=Hola");
+    await expect(field(page, "Asunto")).toHaveValue("Sugerir un lugar");
+    await empty();
   });
 });

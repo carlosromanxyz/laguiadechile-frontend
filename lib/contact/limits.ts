@@ -21,20 +21,21 @@ export function isValidContactEmail(email: string): boolean {
 }
 
 /**
- * Asunto inicial del formulario a partir de `?asunto=` de `/contacto` (CLGDC-206): solo un string
- * (un parámetro repetido no cuenta), en una línea (los saltos y demás caracteres de control pasan a
- * un espacio), sin espacios en los bordes y recortado a `CONTACT_LIMITS.subject`. Cualquier otro
- * valor da `""`. Es el único campo que se prellena por URL, así nadie arma un enlace con el
- * mensaje o el remitente ya puestos.
+ * Asuntos que `/contacto` acepta por `?asunto=<clave>` (CLGDC-206). Lista cerrada: la URL nunca
+ * pone texto libre en el formulario, así nadie arma un enlace con un asunto engañoso. Para sumar
+ * uno, agrega su clave aquí (cada asunto cabe en `CONTACT_LIMITS.subject`).
  */
-export function toContactSubject(value: unknown): string {
-  if (typeof value !== "string") return "";
-  let subject = value.replace(/[\u0000-\u001f\u007f\u2028\u2029]+/g, " ").trim();
-  if (subject.length > CONTACT_LIMITS.subject) {
-    subject = subject.slice(0, CONTACT_LIMITS.subject);
-    // Sin media pareja suelta si el corte cayó dentro de un emoji.
-    if (/[\ud800-\udbff]$/.test(subject)) subject = subject.slice(0, -1);
-    subject = subject.trimEnd();
-  }
-  return subject;
+export const CONTACT_SUBJECT_PRESETS = {
+  /** Tile «Sugerir» de `LDCPublishChooser` */
+  sugerir: "Sugerir un lugar",
+} as const satisfies Record<string, string>;
+
+/**
+ * Asunto inicial del formulario a partir de `?asunto=`: el de `CONTACT_SUBJECT_PRESETS` si el valor
+ * es una de sus claves; cualquier otra cosa (texto libre, clave desconocida, parámetro repetido)
+ * da `""`. Es el único campo que se prellena por URL.
+ */
+export function contactSubjectFromPreset(value: unknown): string {
+  if (typeof value !== "string" || !Object.hasOwn(CONTACT_SUBJECT_PRESETS, value)) return "";
+  return CONTACT_SUBJECT_PRESETS[value as keyof typeof CONTACT_SUBJECT_PRESETS];
 }

@@ -6,7 +6,7 @@ import { LDCContactInfo } from "@/components/molecules/ldc-contact-info";
 export interface LDCContactTemplateProps {
   /** Hero de la página, normalmente `LDCListingsPageHero` ya renderizado */
   hero: ReactNode;
-  /** Asunto con el que arranca el formulario (de `?asunto=`, ya saneado; CLGDC-206) */
+  /** Asunto con el que arranca el formulario (de `?asunto=<clave>`, por `CONTACT_SUBJECT_PRESETS`; CLGDC-206) */
   defaultSubject?: string;
 }
 

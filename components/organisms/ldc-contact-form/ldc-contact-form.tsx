@@ -16,7 +16,8 @@ interface LDCContactFormProps {
   /** Optional className for custom styling */
   className?: string;
   /**
-   * Asunto inicial, ya saneado (`toContactSubject`, de `?asunto=` en `/contacto`; CLGDC-206). El
+   * Asunto inicial, de la lista cerrada `CONTACT_SUBJECT_PRESETS` (`?asunto=<clave>` en
+   * `/contacto`; CLGDC-206). El
    * formulario vuelve a él después de enviar. Ningún otro campo se prellena.
    */
   defaultSubject?: string;

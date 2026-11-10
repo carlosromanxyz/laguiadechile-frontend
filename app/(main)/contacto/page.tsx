@@ -1,6 +1,6 @@
 import { LDCListingsPageHero } from "@/components/organisms/ldc-listings-page-hero";
 import { LDCContactTemplate } from "@/components/templates/ldc-contact-template";
-import { toContactSubject } from "@/lib/contact/limits";
+import { contactSubjectFromPreset } from "@/lib/contact/limits";
 import { Mail } from "lucide-react";
 import type { Metadata } from "next";
 
@@ -11,13 +11,16 @@ export const metadata: Metadata = {
 };
 
 interface ContactoPageProps {
-  /** `?asunto=` prellena solo el asunto, saneado con `toContactSubject` (CLGDC-206) */
+  /**
+   * `?asunto=<clave>` prellena solo el asunto, desde la lista cerrada `CONTACT_SUBJECT_PRESETS`
+   * (CLGDC-206). Leer `searchParams` deja la página dinámica: se acepta, es un formulario liviano.
+   */
   searchParams: Promise<{ asunto?: string | string[] }>;
 }
 
 export default async function ContactoPage({ searchParams }: ContactoPageProps) {
   const { asunto } = await searchParams;
-  const defaultSubject = toContactSubject(asunto);
+  const defaultSubject = contactSubjectFromPreset(asunto);
   const breadcrumbs = [
     { label: "Inicio", href: "/" },
     { label: "Contacto", href: "" },

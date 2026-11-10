@@ -1,8 +1,8 @@
-import type { CSSProperties } from "react";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import type { LDCRoleIconGlyph, LDCRoleIconSource } from "@/components/atoms/ldc-role-icon";
 import { LDCPublishTile } from "@/components/molecules/ldc-publish-tile";
 import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
+import { cn } from "@/lib/utils";
 
 /**
  * Lo que se puede publicar desde el panel, en orden de presentación (CLGDC-191): primero los
@@ -70,6 +70,21 @@ const KINDS: Record<
   },
 };
 
+/**
+ * Base de cada `li` desde `sm`: N columnas iguales, restando los N-1 huecos de `gap-3` (0,75rem).
+ * Clases literales para que Tailwind las genere; con más de 7 tiles se usa la de 7 y `sm:min-w-36`
+ * las baja a otra fila (CLGDC-206).
+ */
+const SM_BASIS = [
+  "sm:basis-full",
+  "sm:basis-[calc((100%-0.75rem)/2)]",
+  "sm:basis-[calc((100%-1.5rem)/3)]",
+  "sm:basis-[calc((100%-2.25rem)/4)]",
+  "sm:basis-[calc((100%-3rem)/5)]",
+  "sm:basis-[calc((100%-3.75rem)/6)]",
+  "sm:basis-[calc((100%-4.5rem)/7)]",
+] as const;
+
 /** Tipo de publicación del selector. */
 export type LDCPublishKind = keyof typeof KINDS;
 
@@ -80,7 +95,8 @@ export type LDCPublishKind = keyof typeof KINDS;
  */
 const SUGGEST = {
   icon: { name: "MapPinPlus", tone: LDC_ROLE_META.usuario.tone },
-  href: "/contacto?asunto=Sugerir%20un%20lugar",
+  // Clave de `CONTACT_SUBJECT_PRESETS` (`lib/contact/limits.ts`): pone «Sugerir un lugar».
+  href: "/contacto?asunto=sugerir",
   shortLabel: "Sugerir",
   description: "Recomienda un comercio o servicio que aún no está en La Guía.",
 } as const satisfies {
@@ -115,7 +131,7 @@ export interface LDCPublishChooserProps {
  * así el selector nunca queda vacío: ícono de 48 px y una palabra (diseño A + K3 de CLGDC-203).
  * Las tiles van en `flex-wrap` centrado y no crecen, así una sobrante nunca se estira (CLGDC-206):
  * en móvil, 2 por fila y, si sobra una, queda centrada, vertical y del ancho de una columna; desde
- * `sm`, todas en una fila de columnas iguales (`--publicar-cols`) si cada una mide al menos 9rem y,
+ * `sm`, todas en una fila de columnas iguales (`SM_BASIS`) si cada una mide al menos 9rem y,
  * si no caben, siguen en filas centradas de 9rem. Cada `li` es un `@container`: desde `sm`, con 1 a
  * 3 opciones la tile queda ancha y pasa a horizontal; con más, siempre es vertical.
  *
@@ -144,14 +160,14 @@ export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) 
   ];
   return (
     <LDCDashboardCard id="publicar" title="¿Qué quieres publicar?" className={className}>
-      <ul
-        className="flex flex-wrap justify-center gap-3"
-        style={{ "--publicar-cols": tiles.length } as CSSProperties}
-      >
+      <ul className="flex flex-wrap justify-center gap-3">
         {tiles.map((tile) => (
           <li
             key={tile.id}
-            className="@container flex shrink-0 grow-0 basis-[calc(50%-0.375rem)] sm:min-w-36 sm:basis-[calc((100%_-_(var(--publicar-cols)_-_1)_*_0.75rem)_/_var(--publicar-cols))]"
+            className={cn(
+              "@container flex shrink-0 grow-0 basis-[calc(50%-0.375rem)] sm:min-w-36",
+              SM_BASIS[Math.min(tiles.length, SM_BASIS.length) - 1]
+            )}
           >
             <LDCPublishTile
               {...tile.source}
