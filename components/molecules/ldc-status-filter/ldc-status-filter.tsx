@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { PLACE_FOCUS_CLASS } from "@/lib/ui/places";
 import { cn } from "@/lib/utils";
 
 export interface LDCStatusFilterItem {
@@ -65,8 +66,10 @@ export function LDCStatusFilter({
                 href={item.href}
                 aria-current={active ? "page" : undefined}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border bg-card text-sm font-semibold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
-                  size === "lg" ? "h-11 whitespace-nowrap px-4 [&_svg]:size-4 [&_svg]:shrink-0" : "h-8 px-3",
+                  "inline-flex items-center gap-1.5 rounded-full border bg-card text-sm font-semibold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60",
+                  size === "lg"
+                    ? cn("h-11 whitespace-nowrap px-4 [&_svg]:size-4 [&_svg]:shrink-0", PLACE_FOCUS_CLASS)
+                    : "h-8 px-3 outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
                   active ? "border-pink dark:border-yellow" : "border-border",
                   active && size === "lg" && "shadow-[inset_0_0_0_1px_var(--pink)] dark:shadow-[inset_0_0_0_1px_var(--yellow)]",
                 )}

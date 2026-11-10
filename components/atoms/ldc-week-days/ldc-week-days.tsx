@@ -11,6 +11,11 @@ interface LDCWeekDaysProps {
   size?: "sm" | "lg";
   /** Día de hoy (0 = lunes) que calculó el servidor; en el navegador se recalcula */
   serverToday: number;
+  /**
+   * Solo decorativo (`aria-hidden`, sin `role="img"`): cuando al lado ya va el horario en texto,
+   * como en la ficha de feria, para que el lector no lo oiga dos veces
+   */
+  decorative?: boolean;
   className?: string;
 }
 
@@ -26,13 +31,14 @@ interface LDCWeekDaysProps {
  * @example
  * <LDCWeekDays schedule={place.schedule} serverToday={today} size="lg" />
  */
-export function LDCWeekDays({ schedule, size = "sm", serverToday, className }: LDCWeekDaysProps) {
+export function LDCWeekDays({ schedule, size = "sm", serverToday, decorative = false, className }: LDCWeekDaysProps) {
   const today = useChileWeekday(serverToday);
   const lg = size === "lg";
   return (
     <span
-      role="img"
-      aria-label={formatScheduleSummary(schedule)}
+      role={decorative ? undefined : "img"}
+      aria-label={decorative ? undefined : formatScheduleSummary(schedule)}
+      aria-hidden={decorative || undefined}
       className={cn("flex", lg ? "gap-1.5" : "gap-1", className)}
     >
       {PLACE_DAYS.map((day, i) => {

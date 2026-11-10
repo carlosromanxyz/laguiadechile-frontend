@@ -654,7 +654,7 @@ function PlaceDetail({ place, related, relatedTotal, today }: Extract<LDCDetailT
               </h3>
               {isMarket && (
                 <>
-                  <LDCWeekDays schedule={place.schedule} serverToday={today} size="lg" className="mb-4" />
+                  <LDCWeekDays schedule={place.schedule} serverToday={today} size="lg" decorative className="mb-4" />
                   <p className="mb-3 flex items-start gap-2 font-extrabold text-foreground">
                     <CalendarDays className="mt-1 size-4 shrink-0 text-place-market" aria-hidden />
                     <span>{formatScheduleSummary(place.schedule)}</span>

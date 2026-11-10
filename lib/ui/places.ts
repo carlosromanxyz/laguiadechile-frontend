@@ -23,11 +23,19 @@ export const PLACE_TONE: Record<IPlaceType, { text: string; tint: string; solid:
 };
 
 /**
+ * Foco de los controles de Lugares (CLGDC-207, como `LDCPublishTile` en CLGDC-203): anillo opaco de
+ * 3 px en `pink-strong` (amarillo en oscuro) separado 2 px del fondo, para llegar a 3:1 en los dos
+ * temas. `outline-hidden` deja un contorno transparente que en colores forzados sí se ve (el
+ * `box-shadow` del anillo desaparece ahí).
+ */
+export const PLACE_FOCUS_CLASS =
+  "focus-visible:outline-hidden focus-visible:ring-[3px] focus-visible:ring-pink-strong focus-visible:ring-offset-2 focus-visible:ring-offset-card dark:focus-visible:ring-yellow";
+
+/**
  * Acción con borde neutro de los lugares (llamar, ruta, sitio web): pill `rounded-full` de 44 px,
  * fondo de card, borde de marca al pasar el mouse. Va en `<a>` (tel:, mailto: y enlaces externos).
  */
-export const PLACE_ACTION_CLASS =
-  "inline-flex min-h-11 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border bg-card px-4 text-sm font-bold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60 [&_svg]:size-4 [&_svg]:shrink-0";
+export const PLACE_ACTION_CLASS = `inline-flex min-h-11 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border bg-card px-4 text-sm font-bold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60 [&_svg]:size-4 [&_svg]:shrink-0 ${PLACE_FOCUS_CLASS}`;
 
 /**
  * Entrada al filtrar: cada hijo entra con `animate-ldc-enter` (300 ms, opacity y transform) y un

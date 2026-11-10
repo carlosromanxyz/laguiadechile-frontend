@@ -236,7 +236,7 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
                 name="emergencyNumber"
                 label="Número de emergencia"
                 inputMode="numeric"
-                placeholder="131"
+                placeholder="Ej.: 131"
                 description="Número corto, aparte del teléfono de la oficina: 131 SAMU, 132 Bomberos, 133 Carabineros."
                 optional
                 maxLength={4}

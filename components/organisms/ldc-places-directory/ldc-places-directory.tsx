@@ -30,18 +30,14 @@ export interface LDCPlacesDirectoryProps {
 }
 
 function PlacesGrid({ places, type, today, className }: { places: IPlaces; type: IPlaceType; today: number; className?: string }) {
-  return type === "PUBLIC_SERVICE" ? (
-    <div className={cn(PLACES_ROWS_CLASS, PLACES_ENTER_CLASS, className)}>
+  const rows = type === "PUBLIC_SERVICE";
+  return (
+    // `role="list"`: Safari quita la semántica de las listas sin viñetas
+    <ul role="list" className={cn(rows ? PLACES_ROWS_CLASS : PLACES_GRID_CLASS, PLACES_ENTER_CLASS, className)}>
       {places.map((p) => (
-        <LDCPlaceRow key={p.id} place={p} today={today} />
+        <li key={p.id}>{rows ? <LDCPlaceRow place={p} today={today} /> : <LDCPlaceCard place={p} today={today} />}</li>
       ))}
-    </div>
-  ) : (
-    <div className={cn(PLACES_GRID_CLASS, PLACES_ENTER_CLASS, className)}>
-      {places.map((p) => (
-        <LDCPlaceCard key={p.id} place={p} today={today} />
-      ))}
-    </div>
+    </ul>
   );
 }
 
@@ -54,20 +50,25 @@ function PlacesGrid({ places, type, today, className }: { places: IPlaces; type:
  * Sin resultados, `LDCEmptyState` sin CTA de publicar (lo carga el admin): la misma ciudad sin el
  * tipo, o limpiar los filtros. Las tarjetas entran al filtrar solo con `motion-safe`.
  *
+ * Un único `role="status"` siempre montado (fuera de las ramas y de los `key`) anuncia el resultado
+ * al filtrar: «N lugares en X» o el título del estado vacío.
+ *
  * @example
  * <LDCPlacesDirectory places={places} type="MARKET" today={today} filters={<LDCPlaceFilters … />} />
  */
 export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPlacesDirectoryProps) {
   const where = city ? `en ${city.name}` : "en todo Chile";
   const filterKey = `${type ?? "ALL"}|${city?.slug ?? ""}`;
+  const count = `${places.length} ${places.length === 1 ? "lugar" : "lugares"} ${where}`;
+  const what = type ? PLACE_TYPE_META[type].plural.toLowerCase() : "lugares";
+  const emptyTitle = city ? `No encontramos ${what} en ${city.name}` : `Aún no hay ${what}`;
 
   let body: ReactNode;
   if (places.length === 0) {
-    const what = type ? PLACE_TYPE_META[type].plural.toLowerCase() : "lugares";
     body = (
       <LDCEmptyState
         icon={<MapPinOff className="size-12 text-muted-foreground" aria-hidden />}
-        title={city ? `No encontramos ${what} en ${city.name}` : `Aún no hay ${what}`}
+        title={emptyTitle}
         description={
           <>
             {type || city ? "Prueba con otro tipo o con todas las ciudades. " : ""}Si conoces uno, cuéntanos y lo
@@ -96,18 +97,14 @@ export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPl
   } else if (type) {
     body = (
       <>
-        <p className="mb-6 text-sm text-muted-foreground" aria-live="polite">
-          {places.length} {places.length === 1 ? "lugar" : "lugares"} {where}
-        </p>
+        {/* h2 entre el h1 de la página y los h3 de las tarjetas */}
+        <h2 className="mb-6 text-sm font-normal text-muted-foreground">{count}</h2>
         <PlacesGrid key={filterKey} places={places} type={type} today={today} />
       </>
     );
   } else {
     body = (
       <div key={filterKey}>
-        <p className="sr-only" aria-live="polite">
-          {places.length} {places.length === 1 ? "lugar" : "lugares"} {where}
-        </p>
         {PLACE_TYPES.map((t) => {
           const group = places.filter((p) => p.type === t);
           if (group.length === 0) return null;
@@ -152,6 +149,9 @@ export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPl
   return (
     <LDCSection paddingY="lg">
       <div className="mb-6">{filters}</div>
+      <p role="status" aria-live="polite" className="sr-only">
+        {places.length === 0 ? emptyTitle : count}
+      </p>
       {body}
     </LDCSection>
   );

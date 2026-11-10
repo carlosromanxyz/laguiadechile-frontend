@@ -1,6 +1,7 @@
 import { Phone, Siren } from "lucide-react";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { EMERGENCY_NUMBERS, emergencyLabel, telHref } from "@/lib/format/places";
+import { PLACE_FOCUS_CLASS } from "@/lib/ui/places";
 import { cn } from "@/lib/utils";
 
 interface LDCEmergencyNumbersProps {
@@ -50,8 +51,9 @@ export function LDCEmergencyNumbers({ own, className }: LDCEmergencyNumbersProps
               href={telHref(row.number)}
               aria-label={`Llamar a ${row.label}, ${row.number}${row.own ? ", el número de este lugar" : ""}`}
               className={cn(
-                "flex min-h-11 items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors outline-none",
-                "hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
+                "flex min-h-11 items-center gap-3 rounded-lg border border-border bg-card px-3 py-2 text-sm text-foreground transition-colors",
+                "hover:border-pink/60 dark:hover:border-yellow/60",
+                PLACE_FOCUS_CLASS,
               )}
             >
               <Phone className="size-4 shrink-0 text-emergency" aria-hidden />

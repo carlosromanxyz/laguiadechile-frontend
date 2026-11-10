@@ -92,7 +92,7 @@ export function LDCPlaceFacts({ place, today, className }: LDCPlaceFactsProps) {
           action={
             <a
               href={emergency}
-              aria-label={`Llamar a ${emergencyLabel(place.emergencyNumber)}, ${place.emergencyNumber}`}
+              aria-label={`Llamar ${place.emergencyNumber}, ${emergencyLabel(place.emergencyNumber)}`}
               className={PLACE_ACTION_CLASS}
             >
               <Phone className="text-emergency" aria-hidden />

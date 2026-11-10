@@ -19,7 +19,7 @@ interface LDCScheduleListProps {
   schedule: IListingSchedule;
   /**
    * Día de hoy (0 = lunes) que calculó el servidor. Si viene, la lista muestra los siete días en
-   * orden (los que faltan, «Cerrado») y marca el de hoy con fondo atenuado, «(hoy)» y
+   * orden (los que faltan, «Cerrado») y marca el de hoy con una barra lateral de marca, «(hoy)» y
    * `aria-current="date"`; en el navegador se recalcula. Sin él, el horario tal como está guardado
    * (la ficha de comercio y servicio).
    */
@@ -82,7 +82,11 @@ function PlaceScheduleList({
           <li
             key={day}
             aria-current={isToday ? "date" : undefined}
-            className={cn("flex justify-between gap-4 rounded-md px-2 py-1.5", isToday && "bg-muted")}
+            className={cn(
+              // Barra lateral en vez de `bg-muted`: «Cerrado» de hoy queda sobre la card (≥ 4,5:1).
+              "flex justify-between gap-4 border-l-2 px-2 py-1.5",
+              isToday ? "border-pink dark:border-yellow" : "border-transparent",
+            )}
           >
             <span className={isToday ? "font-extrabold text-foreground" : "text-muted-foreground"}>
               {dayName(i)}

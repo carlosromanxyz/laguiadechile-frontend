@@ -9,7 +9,7 @@ import { LDCPlaceCard } from "@/components/molecules/ldc-place-card";
 import { LDCPlaceRow } from "@/components/molecules/ldc-place-row";
 import type { IPlaces, IPlaceType } from "@/interfaces/place";
 import { PLACE_TYPES, PLACE_TYPE_META } from "@/lib/format/places";
-import { PLACE_TONE, PLACES_ENTER_CLASS, PLACES_GRID_CLASS, PLACES_ROWS_CLASS } from "@/lib/ui/places";
+import { PLACE_FOCUS_CLASS, PLACE_TONE, PLACES_ENTER_CLASS, PLACES_GRID_CLASS, PLACES_ROWS_CLASS } from "@/lib/ui/places";
 import { cn } from "@/lib/utils";
 
 /** Lugares que se ven por pestaña. */
@@ -107,7 +107,8 @@ export function LDCCityPlaces({ places, city, today }: LDCCityPlacesProps) {
               tabIndex={selected ? 0 : -1}
               onClick={() => setCurrent(t)}
               className={cn(
-                "inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border bg-card px-4 text-sm font-semibold text-foreground transition-colors outline-none hover:border-pink/60 focus-visible:ring-[3px] focus-visible:ring-ring/50 dark:hover:border-yellow/60",
+                "inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60",
+                PLACE_FOCUS_CLASS,
                 selected
                   ? "border-pink shadow-[inset_0_0_0_1px_var(--pink)] dark:border-yellow dark:shadow-[inset_0_0_0_1px_var(--yellow)]"
                   : "border-border",
@@ -129,19 +130,23 @@ export function LDCCityPlaces({ places, city, today }: LDCCityPlacesProps) {
         role="tabpanel"
         aria-labelledby={tabId(active)}
         tabIndex={0}
-        className={cn(
-          active === "PUBLIC_SERVICE" ? PLACES_ROWS_CLASS : PLACES_GRID_CLASS,
-          PLACES_ENTER_CLASS,
-          "rounded-xl outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50",
-        )}
+        className={cn("rounded-xl", PLACE_FOCUS_CLASS)}
       >
-        {shown.map((p) =>
-          active === "PUBLIC_SERVICE" ? (
-            <LDCPlaceRow key={p.id} place={p} today={today} />
-          ) : (
-            <LDCPlaceCard key={p.id} place={p} today={today} />
-          ),
-        )}
+        {/* `role="list"`: Safari quita la semántica de las listas sin viñetas */}
+        <ul
+          role="list"
+          className={cn(active === "PUBLIC_SERVICE" ? PLACES_ROWS_CLASS : PLACES_GRID_CLASS, PLACES_ENTER_CLASS)}
+        >
+          {shown.map((p) => (
+            <li key={p.id}>
+              {active === "PUBLIC_SERVICE" ? (
+                <LDCPlaceRow place={p} today={today} />
+              ) : (
+                <LDCPlaceCard place={p} today={today} />
+              )}
+            </li>
+          ))}
+        </ul>
       </div>
 
       <div className="mt-6 text-center sm:hidden">

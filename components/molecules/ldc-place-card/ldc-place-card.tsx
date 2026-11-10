@@ -109,7 +109,7 @@ export function LDCPlaceCard({ place, today, className }: LDCPlaceCardProps) {
         {emergency && place.emergencyNumber && (
           <a
             href={emergency}
-            aria-label={`Llamar a ${emergencyLabel(place.emergencyNumber)}, ${place.emergencyNumber}`}
+            aria-label={`Llamar ${place.emergencyNumber}, ${emergencyLabel(place.emergencyNumber)}`}
             className={cn(PLACE_ACTION_CLASS, "mt-1 self-start px-3.5")}
           >
             <Phone className="text-emergency" aria-hidden />
