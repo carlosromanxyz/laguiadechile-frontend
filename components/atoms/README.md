@@ -34,7 +34,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-panel** (`LDCPanel`): carcasa de panel (`bg-card rounded-xl border p-5`) de sidebars y fichas.
 - **ldc-password-input** (`LDCPasswordInput`): campo de contraseña con botón para mostrarla u ocultarla. Cliente.
 - **ldc-property-image-carousel** (`LDCPropertyImageCarousel`): carrusel de fotos de la card de propiedad. Cliente.
-- **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`; tamaños `xs` 24, `sm` 36, `md` 40 y `lg` 48 px.
+- **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`; tamaños `xs` 24, `sm` 36, `md` 40 y `lg` 48 px. Sin rol, basta `icon` (nombre de `LDC_ROLE_ICONS` y tono del DS), como la tile «Sugerir».
 - **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero. Cliente.
 - **ldc-section** (`LDCSection`): sección de página con contenedor, padding y espaciado comunes.
 - **ldc-skip-link** (`LDCSkipLink`): enlace «Saltar al contenido», visible al recibir el foco.

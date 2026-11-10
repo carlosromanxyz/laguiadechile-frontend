@@ -24,12 +24,13 @@ export type LDCRole =
 export type LDCAccessRole = "admin" | "comercio" | "usuario";
 
 /**
- * Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). `Newspaper` no es de un rol: es
- * el de «Una noticia» en `LDCPublishChooser` (CLGDC-191).
+ * Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). `Newspaper` y `MapPinPlus` no son
+ * de un rol: son los de «Noticia» (CLGDC-191) y «Sugerir» (CLGDC-206) en `LDCPublishChooser`.
  */
 export type LDCRoleIconName =
   | "CalendarDays"
   | "House"
+  | "MapPinPlus"
   | "Newspaper"
   | "ShieldCheck"
   | "Store"

@@ -45,4 +45,26 @@ test.describe("formulario de contacto", () => {
     expect(message.HTML).toContain("Línea 1<br/>&lt;b&gt;negrita&lt;/b&gt;");
     expect(await htmlCheck(message.ID)).toBe(200);
   });
+
+  test("el asunto llega prellenado desde ?asunto=", async ({ page }) => {
+    // El enlace de la tile «Sugerir» del panel (CLGDC-206). No envía: no gasta el throttle de /contact.
+    await page.goto("/contacto?asunto=Sugerir%20un%20lugar");
+    await expect(field(page, "Asunto")).toHaveValue("Sugerir un lugar");
+    // Solo el asunto se prellena por URL.
+    await expect(field(page, "Nombre completo")).toHaveValue("");
+    await expect(field(page, "Correo electrónico")).toHaveValue("");
+    await expect(field(page, "Mensaje")).toHaveValue("");
+
+    // Saltos de línea codificados y espacios en los bordes: queda en una línea, sin bordes.
+    await page.goto("/contacto?asunto=%20%20Hola%0D%0Amundo%0Aotra%20%20");
+    await expect(field(page, "Asunto")).toHaveValue("Hola mundo otra");
+
+    // 300 caracteres: se recorta al tope del asunto (150, `CONTACT_LIMITS.subject`).
+    await page.goto(`/contacto?asunto=${"a".repeat(300)}`);
+    await expect(field(page, "Asunto")).toHaveValue("a".repeat(150));
+
+    // Un parámetro repetido no es un asunto: el campo queda vacío.
+    await page.goto("/contacto?asunto=uno&asunto=dos");
+    await expect(field(page, "Asunto")).toHaveValue("");
+  });
 });
