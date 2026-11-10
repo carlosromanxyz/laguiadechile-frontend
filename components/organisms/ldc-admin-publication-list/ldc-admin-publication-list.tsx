@@ -29,6 +29,7 @@ import {
   type IAdminNounGender,
 } from "@/lib/dashboard/admin-publication-status";
 import { formatShortDate } from "@/lib/dashboard/dates";
+import { formatPersonName } from "@/lib/people";
 
 /** Cómo se nombra cada fila: encabezado de la columna y conteo para lectores de pantalla. */
 export interface LDCAdminPublicationListNoun {
@@ -292,7 +293,11 @@ export function LDCAdminPublicationList({
             headClassName: "hidden xl:table-cell",
             cellClassName: "hidden max-w-40 truncate xl:table-cell",
             cell: (row) =>
-              row.owner ? row.owner.name : <span className="text-muted-foreground">Sin dueño</span>,
+              row.owner ? (
+                formatPersonName(row.owner)
+              ) : (
+                <span className="text-muted-foreground">Sin dueño</span>
+              ),
           },
           {
             key: "updatedAt",
@@ -316,7 +321,7 @@ export function LDCAdminPublicationList({
             subtitle={[
               placeLine(row),
               formatShortDate(row.updatedAt),
-              row.owner ? row.owner.name : "Sin dueño",
+              row.owner ? formatPersonName(row.owner) : "Sin dueño",
             ].join(" · ")}
             actions={actions(row)}
           />

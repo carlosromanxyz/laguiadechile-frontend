@@ -44,7 +44,7 @@ export default async function AdminHomePage() {
 
   return (
     <LDCDashboardPageTemplate
-      title={`Hola, ${session.user.greetingName}`}
+      title={`Hola, ${session.user.firstName}`}
       description="Vista general del contenido publicado y lo que espera revisión."
       actions={
         <LDCButton href="/" variant="outline">

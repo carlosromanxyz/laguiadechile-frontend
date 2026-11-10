@@ -14,10 +14,11 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/components/ui/sidebar";
 import { markFavoritesSignedOut } from "@/hooks/use-favorite-ids";
+import { formatPersonName, getPersonInitials, type PersonName } from "@/lib/people";
 
 export interface LDCUserMenuProps {
-  name: string;
-  email: string;
+  /** La cuenta: el nombre visible sale de `formatPersonName` y el avatar de `getPersonInitials` */
+  user: PersonName & { email: string };
   /**
    * Roles de la cuenta en una línea («Avisador · Comercio · Administrador»). Si viene, va bajo el
    * nombre y el email pasa al desplegable; si no, bajo el nombre va el email.
@@ -33,8 +34,10 @@ export interface LDCUserMenuProps {
  * Avatar, nombre y la línea de roles (o el email) en el botón; el desplegable lleva el email si
  * no se vio, «Perfil» y «Cerrar sesión».
  */
-export function LDCUserMenu({ name, email, roleLine, profileHref }: LDCUserMenuProps) {
+export function LDCUserMenu({ user, roleLine, profileHref }: LDCUserMenuProps) {
   const router = useRouter();
+  const name = formatPersonName(user);
+  const { email } = user;
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
@@ -49,7 +52,7 @@ export function LDCUserMenu({ name, email, roleLine, profileHref }: LDCUserMenuP
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent">
-              <LDCAvatar name={name} decorative />
+              <LDCAvatar name={name} initials={getPersonInitials(user)} decorative />
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{name}</span>
                 <span className="truncate text-xs text-muted-foreground">{roleLine ?? email}</span>

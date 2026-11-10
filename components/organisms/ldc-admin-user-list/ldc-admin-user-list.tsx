@@ -16,6 +16,7 @@ import type { IAdminUserRow } from "@/interfaces/admin-user";
 import type { IDashboardActionResult } from "@/interfaces/dashboard";
 import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 import { formatShortDate } from "@/lib/dashboard/dates";
+import { formatPersonName } from "@/lib/people";
 
 export interface LDCAdminUserListProps {
   /** Filas de la página actual */
@@ -85,7 +86,7 @@ export function LDCAdminUserList({
 
   const actions = (row: IAdminUserRow) => (
     <LDCUserRolesDialog
-      name={row.name}
+      name={formatPersonName(row)}
       email={row.email}
       roles={row.roles}
       isSelf={isSelf(row)}
@@ -96,7 +97,7 @@ export function LDCAdminUserList({
 
   const nameCell = (row: IAdminUserRow) => (
     <>
-      {row.name}
+      {formatPersonName(row)}
       {isSelf(row) && <span className="ml-1.5 font-normal text-muted-foreground">(tú)</span>}
     </>
   );
@@ -106,7 +107,7 @@ export function LDCAdminUserList({
       className="py-12"
       icon={<SearchX className="size-8 text-muted-foreground" aria-hidden />}
       title={`Sin resultados «${q}»`}
-      description="Prueba con otro nombre o correo."
+      description="Prueba con otro nombre, apellido o correo."
       action={
         <Button variant="outline" className="mt-6 h-11 md:h-9" onClick={() => filterNavigate(pathname)}>
           Limpiar búsqueda
@@ -124,7 +125,7 @@ export function LDCAdminUserList({
 
   return (
     <section aria-label="Listado de usuarios" className="flex flex-col gap-4">
-      <LDCAdminListToolbar q={q} searchLabel="Buscar por nombre o correo" onNavigate={filterNavigate} />
+      <LDCAdminListToolbar q={q} searchLabel="Buscar por nombre, apellido o correo" onNavigate={filterNavigate} />
 
       <p className="sr-only" aria-live="polite">
         {pending ? "Cargando usuarios" : `${total} ${total === 1 ? "usuario" : "usuarios"}`}
@@ -144,7 +145,7 @@ export function LDCAdminUserList({
             cellClassName: "w-full max-w-0",
             cell: (row) => (
               <div className="min-w-0">
-                <p title={row.name} className="truncate font-bold">
+                <p title={formatPersonName(row)} className="truncate font-bold">
                   {nameCell(row)}
                 </p>
                 <p className="truncate font-open-sans text-xs text-muted-foreground lg:hidden">

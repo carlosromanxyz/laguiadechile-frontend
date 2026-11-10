@@ -21,7 +21,10 @@ import type { IDashboardActionResult } from "@/interfaces/dashboard";
 import { LDC_ROLE_KEYS, LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 
 export interface LDCUserRolesDialogProps {
-  /** Nombre de la cuenta (título del diálogo y nombre accesible del botón) */
+  /**
+   * Nombre visible de la cuenta, ya armado con `formatPersonName` (título del diálogo, toast y
+   * nombre accesible del botón)
+   */
   name: string;
   email: string;
   /** Roles actuales */
