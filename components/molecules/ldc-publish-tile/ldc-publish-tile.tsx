@@ -12,7 +12,7 @@ export interface LDCPublishTileProps {
   href: string;
   /** Etiqueta visible, de una palabra («Comercio», «Aviso»…) */
   label: string;
-  /** Descripción del tipo: no se ve, completa el nombre accesible («Comercio: Un local…») */
+  /** Descripción del tipo: no se ve; el nombre accesible es «{label}: {description}» */
   description: string;
   /** Clases adicionales (van al enlace) */
   className?: string;
@@ -52,10 +52,13 @@ export function LDCPublishTile({ role, icon, href, label, description, className
         size="lg"
         className="transition-transform duration-150 ease-out group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
       />
-      <span className="font-mulish text-sm leading-5 font-extrabold">
+      {/* El nombre accesible va entero en `sr-only` («Comercio: Un local…»): si la palabra visible y
+          la descripción fueran dos nodos, el árbol de accesibilidad mete un espacio antes de los
+          dos puntos, porque `sr-only` es `position: absolute`. */}
+      <span aria-hidden="true" className="font-mulish text-sm leading-5 font-extrabold">
         {label}
-        <span className="sr-only">: {description}</span>
       </span>
+      <span className="sr-only">{`${label}: ${description}`}</span>
     </Link>
   );
 }
