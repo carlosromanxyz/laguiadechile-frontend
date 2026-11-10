@@ -17,8 +17,11 @@ export interface MailpitMessage {
   ID: string;
   From: MailpitAddress;
   To: MailpitAddress[];
+  ReplyTo: MailpitAddress[];
   Subject: string;
   Text: string;
+  /** Parte HTML (vacía si el correo es solo texto). */
+  HTML: string;
 }
 
 interface MailpitSearch {
@@ -26,7 +29,7 @@ interface MailpitSearch {
   messages: { ID: string }[];
 }
 
-const searchQuery = (email: string) => encodeURIComponent(`to:"${email}"`);
+const toQuery = (email: string) => `to:"${email}"`;
 
 async function mailpit(path: string): Promise<Response> {
   const res = await fetch(`${MAILPIT_URL}${path}`);
@@ -36,22 +39,23 @@ async function mailpit(path: string): Promise<Response> {
 
 /** Cuántos mensajes hay para ese destinatario (sin esperar). */
 export async function countMessagesTo(email: string): Promise<number> {
-  const res = await mailpit(`/api/v1/search?query=${searchQuery(email)}`);
+  const res = await mailpit(`/api/v1/search?query=${encodeURIComponent(toQuery(email))}`);
   const data = (await res.json()) as MailpitSearch;
   return data.messages_count;
 }
 
 /**
- * Espera el primer mensaje para `email` (consulta cada 500 ms) y devuelve el mensaje completo.
- * Falla con un error claro si no llega dentro de `timeout` ms.
+ * Espera el primer mensaje que cumpla la búsqueda de Mailpit `query` (consulta cada 500 ms) y
+ * devuelve el mensaje completo. Falla con un error claro si no llega dentro de `timeout` ms.
+ * Sintaxis: https://mailpit.axllent.org/docs/usage/search-filters/
  */
-export async function waitForMessageTo(
-  email: string,
+export async function waitForMessage(
+  query: string,
   { timeout = 15_000 }: { timeout?: number } = {},
 ): Promise<MailpitMessage> {
   const limit = Date.now() + timeout;
   while (Date.now() < limit) {
-    const res = await mailpit(`/api/v1/search?query=${searchQuery(email)}`);
+    const res = await mailpit(`/api/v1/search?query=${encodeURIComponent(query)}`);
     const data = (await res.json()) as MailpitSearch;
     const first = data.messages[0];
     if (first) {
@@ -60,5 +64,24 @@ export async function waitForMessageTo(
     }
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
-  throw new Error(`Mailpit: no llegó ningún mensaje para ${email} en ${timeout} ms`);
+  throw new Error(`Mailpit: no llegó ningún mensaje para «${query}» en ${timeout} ms`);
+}
+
+/** Espera el primer mensaje para `email` (ver `waitForMessage`). */
+export function waitForMessageTo(
+  email: string,
+  options: { timeout?: number } = {},
+): Promise<MailpitMessage> {
+  return waitForMessage(toQuery(email), options);
+}
+
+/**
+ * Código HTTP de `GET /api/v1/message/{ID}/html-check` (CLGDC-202): 200 si Mailpit pudo analizar
+ * la parte HTML del mensaje; con un correo solo texto responde un error. No lanza: la prueba
+ * compara el código.
+ */
+export async function htmlCheck(id: string): Promise<number> {
+  const res = await fetch(`${MAILPIT_URL}/api/v1/message/${encodeURIComponent(id)}/html-check`);
+  await res.body?.cancel();
+  return res.status;
 }
