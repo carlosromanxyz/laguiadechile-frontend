@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
 import type { LDCRoleIconGlyph, LDCRoleIconSource } from "@/components/atoms/ldc-role-icon";
 import { LDCPublishTile } from "@/components/molecules/ldc-publish-tile";
@@ -112,10 +113,11 @@ export interface LDCPublishChooserProps {
  * Un `LDCDashboardCard` neutro, sin bajada, con una `LDCPublishTile` por tipo (comercio, servicio,
  * aviso, propiedad, evento y, para el admin, noticia) y, siempre al final, «Sugerir» (CLGDC-206),
  * así el selector nunca queda vacío: ícono de 48 px y una palabra (diseño A + K3 de CLGDC-203).
- * Las tiles van en `flex-wrap`: en móvil, 2 por fila de ancho fijo y, si sobra una, queda centrada
- * y vertical, del ancho de una columna (CLGDC-206); desde `sm` crecen sobre una base de 9rem, sin
- * huecos. Cada `li` es un `@container`: desde `sm`, con 1 a 3 opciones la tile queda ancha y pasa
- * a horizontal.
+ * Las tiles van en `flex-wrap` centrado y no crecen, así una sobrante nunca se estira (CLGDC-206):
+ * en móvil, 2 por fila y, si sobra una, queda centrada, vertical y del ancho de una columna; desde
+ * `sm`, todas en una fila de columnas iguales (`--publicar-cols`) si cada una mide al menos 9rem y,
+ * si no caben, siguen en filas centradas de 9rem. Cada `li` es un `@container`: desde `sm`, con 1 a
+ * 3 opciones la tile queda ancha y pasa a horizontal; con más, siempre es vertical.
  *
  * @example
  * <LDCPublishChooser kinds={["aviso", "servicio"]} />
@@ -142,11 +144,14 @@ export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) 
   ];
   return (
     <LDCDashboardCard id="publicar" title="¿Qué quieres publicar?" className={className}>
-      <ul className="flex flex-wrap justify-center gap-3">
+      <ul
+        className="flex flex-wrap justify-center gap-3"
+        style={{ "--publicar-cols": tiles.length } as CSSProperties}
+      >
         {tiles.map((tile) => (
           <li
             key={tile.id}
-            className="@container flex shrink-0 grow-0 basis-[calc(50%-0.375rem)] sm:flex-[1_1_9rem]"
+            className="@container flex shrink-0 grow-0 basis-[calc(50%-0.375rem)] sm:min-w-36 sm:basis-[calc((100%_-_(var(--publicar-cols)_-_1)_*_0.75rem)_/_var(--publicar-cols))]"
           >
             <LDCPublishTile
               {...tile.source}
@@ -154,6 +159,7 @@ export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) 
               label={tile.shortLabel}
               description={tile.description}
               descriptionId={`publicar-${tile.id}-desc`}
+              horizontal={tiles.length <= 3}
             />
           </li>
         ))}

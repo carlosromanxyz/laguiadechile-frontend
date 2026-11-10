@@ -18,6 +18,11 @@ export type LDCPublishTileProps = LDCRoleIconSource & {
    * es un Server Component y `useId` no sirve aquí.
    */
   descriptionId: string;
+  /**
+   * Si puede pasar a horizontal (desde `sm`, con su `@container` de 17rem o más). `LDCPublishChooser`
+   * lo da solo con 1 a 3 opciones (CLGDC-206); por defecto, sí
+   */
+  horizontal?: boolean;
   /** Clases adicionales (van al enlace) */
   className?: string;
 };
@@ -27,8 +32,8 @@ export type LDCPublishTileProps = LDCRoleIconSource & {
  *
  * Ícono del rol en `lg` (48 px) y una palabra, que es el nombre accesible; la descripción no se ve
  * y queda como descripción accesible (`aria-describedby`). Toda la tile es el enlace. Vertical y
- * centrada; desde `sm`, si su contenedor (el `li` con `@container`) mide 17rem o más, como pasa con
- * 1 a 3 opciones, se vuelve horizontal. En móvil siempre es vertical (CLGDC-206). Al pasar el
+ * centrada; con `horizontal`, desde `sm` y si su contenedor (el `li` con `@container`) mide 17rem o
+ * más, se vuelve horizontal. En móvil siempre es vertical (CLGDC-206). Al pasar el
  * cursor cambian el borde (rosado en claro, amarillo en oscuro) y la sombra, y el ícono crece a 1,06 (150 ms, `ease-out`; sin
  * escala con `prefers-reduced-motion`). El foco es un anillo de 3 px `pink-strong` en claro y
  * `yellow` en oscuro, separado 2 px. Server Component: el ícono se resuelve por nombre en
@@ -44,6 +49,7 @@ export function LDCPublishTile({
   label,
   description,
   descriptionId,
+  horizontal = true,
   className,
   ...iconSource
 }: LDCPublishTileProps) {
@@ -55,7 +61,8 @@ export function LDCPublishTile({
         "group flex min-h-26 w-full flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 text-center text-card-foreground",
         "transition-[border-color,box-shadow] duration-150 ease-out hover:border-pink/60 hover:shadow-lg dark:hover:border-yellow/60 motion-reduce:transition-none",
         "focus-visible:ring-[3px] focus-visible:ring-pink-strong focus-visible:ring-offset-2 focus-visible:ring-offset-card focus-visible:outline-hidden dark:focus-visible:ring-yellow",
-        "sm:@[17rem]:min-h-20 sm:@[17rem]:flex-row sm:@[17rem]:justify-start sm:@[17rem]:gap-3.5 sm:@[17rem]:text-left",
+        horizontal &&
+          "sm:@[17rem]:min-h-20 sm:@[17rem]:flex-row sm:@[17rem]:justify-start sm:@[17rem]:gap-3.5 sm:@[17rem]:text-left",
         className
       )}
     >
