@@ -56,7 +56,8 @@ E2E_NODE_MODULES=<volumen> scripts/e2e.sh   # otro volumen de node_modules con @
   es el preview `lgdc-preview-CLGDC-N` si está corriendo y, si no, el dev server del stack.
 - `registro.spec.ts` crea cuentas `e2e-registro-<timestamp>@e2e.lgdc.test` con una contraseña al
   azar y espera el correo de bienvenida en Mailpit. Al terminar, pase o no la suite, el script borra
-  esas cuentas de la base y sus mensajes de Mailpit.
+  esas cuentas de la base. Los correos no se borran: quedan en Mailpit (http://localhost:3019) para
+  revisarlos, y cada prueba busca solo por su dirección única.
 - Sale con el código de Playwright (o 1 si la suite pasó pero la limpieza falló). Los artefactos
   de un fallo (trace, contexto) quedan en `test-results/ultima/`, fuera de git.
 

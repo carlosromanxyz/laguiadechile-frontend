@@ -1,13 +1,15 @@
 import { randomBytes } from "node:crypto";
 import { expect, test, type Page } from "@playwright/test";
-import { countMessagesTo, deleteMessagesTo, waitForMessageTo } from "./support/mailpit";
+import { countMessagesTo, waitForMessageTo } from "./support/mailpit";
 
 /**
  * Registro por formulario con Mailpit (CLGDC-196).
  *
  * Las cuentas se crean con `e2e-registro-<timestamp>@e2e.lgdc.test` (nunca `@demo.lgdc.cl`, que
- * está reservado); `scripts/e2e.sh` las borra de la base al terminar, pase o no la suite. La
- * contraseña se genera al azar en cada corrida y no se imprime.
+ * está reservado); `scripts/e2e.sh` las borra de la base al terminar, pase o no la suite. Los
+ * correos no se borran: quedan en Mailpit (http://localhost:3019) para revisarlos, así que cada
+ * aserción busca solo por la dirección única de su prueba. La contraseña se genera al azar en cada
+ * corrida y no se imprime.
  */
 
 const WELCOME_SUBJECT = "Te damos la bienvenida a La Guía de Chile";
@@ -23,16 +25,9 @@ const randomPassword = () => `E2e-${randomBytes(12).toString("base64url")}`;
 const field = (page: Page, label: string) => page.getByLabel(label, { exact: true });
 
 test.describe("registro por formulario", () => {
-  const emails: string[] = [];
-
-  test.afterAll(async () => {
-    for (const email of emails) await deleteMessagesTo(email);
-  });
-
   test("registro por formulario envía bienvenida", async ({ page }) => {
     const email = uniqueEmail();
     const password = randomPassword();
-    emails.push(email);
 
     await page.goto("/registro");
     await field(page, "Nombre").fill(FIRST_NAME);
@@ -57,7 +52,6 @@ test.describe("registro por formulario", () => {
   test("sin nombre ni apellido no crea la cuenta ni manda correo", async ({ page }) => {
     const email = uniqueEmail();
     const password = randomPassword();
-    emails.push(email);
 
     await page.goto("/registro");
     // Todo lleno salvo nombre y apellido: si algo se enviara, habría un correo para este email.
@@ -83,7 +77,6 @@ test.describe("registro por formulario", () => {
   test("un nombre con texto que no es un nombre no se envía", async ({ page }) => {
     const email = uniqueEmail();
     const password = randomPassword();
-    emails.push(email);
 
     await page.goto("/registro");
     await field(page, "Nombre").fill("visita evil.cl");

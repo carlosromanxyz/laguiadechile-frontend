@@ -28,9 +28,9 @@ interface MailpitSearch {
 
 const searchQuery = (email: string) => encodeURIComponent(`to:"${email}"`);
 
-async function mailpit(path: string, init?: RequestInit): Promise<Response> {
-  const res = await fetch(`${MAILPIT_URL}${path}`, init);
-  if (!res.ok) throw new Error(`Mailpit ${init?.method ?? "GET"} ${path}: HTTP ${res.status}`);
+async function mailpit(path: string): Promise<Response> {
+  const res = await fetch(`${MAILPIT_URL}${path}`);
+  if (!res.ok) throw new Error(`Mailpit GET ${path}: HTTP ${res.status}`);
   return res;
 }
 
@@ -61,9 +61,4 @@ export async function waitForMessageTo(
     await new Promise((resolve) => setTimeout(resolve, 500));
   }
   throw new Error(`Mailpit: no llegó ningún mensaje para ${email} en ${timeout} ms`);
-}
-
-/** Borra todos los mensajes para ese destinatario. */
-export async function deleteMessagesTo(email: string): Promise<void> {
-  await mailpit(`/api/v1/search?query=${searchQuery(email)}`, { method: "DELETE" });
 }
