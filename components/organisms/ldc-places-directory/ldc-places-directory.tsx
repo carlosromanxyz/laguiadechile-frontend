@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { MapPinOff } from "lucide-react";
 import type { ReactNode } from "react";
 import { LDCButton } from "@/components/atoms/ldc-button";
@@ -7,6 +6,7 @@ import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCEmptyState } from "@/components/molecules/ldc-empty-state";
 import { LDCPlaceCard } from "@/components/molecules/ldc-place-card";
 import { LDCPlaceRow } from "@/components/molecules/ldc-place-row";
+import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import type { IPlaces, IPlaceType } from "@/interfaces/place";
 import { PLACE_TYPES, PLACE_TYPE_META } from "@/lib/format/places";
 import { PLACE_TONE, PLACES_ENTER_CLASS, PLACES_GRID_CLASS, PLACES_ROWS_CLASS } from "@/lib/ui/places";
@@ -115,29 +115,19 @@ export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPl
           const more = `/lugares?tipo=${meta.query}${city ? `&ciudad=${city.slug}` : ""}`;
           return (
             <section key={t} aria-labelledby={headingId} className="mb-10 last:mb-0">
-              <div className="mb-4 flex items-center justify-between gap-4">
-                <div className="flex min-w-0 items-center gap-3">
-                  <span className={cn("grid size-10 shrink-0 place-items-center rounded-lg", tone.tint)} aria-hidden>
-                    <LDCPlaceTypeIcon type={t} className={cn("size-5", tone.text)} />
-                  </span>
-                  <div className="min-w-0">
-                    <h2 id={headingId} className="font-mulish text-xl font-bold text-foreground">
-                      {meta.plural}
-                    </h2>
-                    <p className="text-sm text-muted-foreground">
-                      {group.length} {where}
-                    </p>
-                  </div>
-                </div>
-                {group.length > shown.length && (
-                  <Link
-                    href={more}
-                    className="inline-flex min-h-11 shrink-0 items-center text-sm text-pink-strong hover:underline dark:text-yellow"
-                  >
-                    Ver los {group.length} →
-                  </Link>
-                )}
-              </div>
+              <LDCSectionHeader
+                variant="compact"
+                size="sm"
+                title={meta.plural}
+                titleId={headingId}
+                icon={<LDCPlaceTypeIcon type={t} className={cn("size-5", tone.text)} />}
+                tileClassName={tone.tint}
+                subtitle={`${group.length} ${where}`}
+                viewAllHref={group.length > shown.length ? more : undefined}
+                viewAllLabel={`Ver los ${group.length}`}
+                viewAllOnMobile
+                className="mb-4"
+              />
               <PlacesGrid places={shown} type={t} today={today} />
             </section>
           );

@@ -11,7 +11,8 @@ import type { IListingDetails } from "@/interfaces/listing";
 import type { IProperties } from "@/interfaces/property";
 import type { IPlaces } from "@/interfaces/place";
 import { LDCPlaceCard } from "@/components/molecules/ldc-place-card";
-import { PLACES_GRID_CLASS } from "@/lib/ui/places";
+import { PLACE_TONE, PLACES_GRID_CLASS } from "@/lib/ui/places";
+import { cn } from "@/lib/utils";
 
 /** Resultados que se muestran de entrada en cada grupo; el resto, con «Cargar más». */
 const GROUP_PAGE_SIZE = 8;
@@ -152,8 +153,8 @@ export function LDCSearchResults({
             <LDCSectionHeader
               variant="compact"
               title="Lugares"
-              icon={<MapPinned className="w-5 h-5 text-purple" aria-hidden="true" />}
-              tone="purple"
+              icon={<MapPinned className={cn("w-5 h-5", PLACE_TONE.ATTRACTION.text)} aria-hidden="true" />}
+              tileClassName={PLACE_TONE.ATTRACTION.tint}
               subtitle={countLabel(places.length, "resultado", "resultados")}
             />
           </LDCSection>

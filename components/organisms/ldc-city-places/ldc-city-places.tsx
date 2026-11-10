@@ -7,9 +7,10 @@ import { LDCPlaceTypeIcon } from "@/components/atoms/ldc-place-type-icon";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCPlaceCard } from "@/components/molecules/ldc-place-card";
 import { LDCPlaceRow } from "@/components/molecules/ldc-place-row";
+import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import type { IPlaces, IPlaceType } from "@/interfaces/place";
 import { PLACE_TYPES, PLACE_TYPE_META } from "@/lib/format/places";
-import { PLACE_FOCUS_CLASS, PLACE_TONE, PLACES_ENTER_CLASS, PLACES_GRID_CLASS, PLACES_ROWS_CLASS } from "@/lib/ui/places";
+import { PLACE_FOCUS_CLASS, PLACE_PILL_CLASS, PLACE_PILL_STATE_CLASS, PLACE_TONE, PLACES_ENTER_CLASS, PLACES_GRID_CLASS, PLACES_ROWS_CLASS } from "@/lib/ui/places";
 import { cn } from "@/lib/utils";
 
 /** Lugares que se ven por pestaña. */
@@ -66,24 +67,15 @@ export function LDCCityPlaces({ places, city, today }: LDCCityPlacesProps) {
 
   return (
     <LDCSection paddingY="md">
-      <div className="mb-6 flex items-center justify-between gap-4">
-        <div className="flex min-w-0 items-center gap-3">
-          <span className={cn("grid size-10 shrink-0 place-items-center rounded-lg", PLACE_TONE.ATTRACTION.tint)} aria-hidden>
-            <MapPinned className={cn("size-5", PLACE_TONE.ATTRACTION.text)} />
-          </span>
-          <div className="min-w-0">
-            <h2 id={headingId} className="font-mulish text-2xl font-bold text-foreground">
-              Lugares de {city.name}
-            </h2>
-            <p className="text-sm text-muted-foreground">
-              {places.length} {places.length === 1 ? "lugar" : "lugares"} para visitar, hacer trámites o ir a la feria
-            </p>
-          </div>
-        </div>
-        <Link href={all} className="hidden min-h-11 shrink-0 items-center text-sm text-pink-strong hover:underline sm:inline-flex dark:text-yellow">
-          Ver todos →
-        </Link>
-      </div>
+      <LDCSectionHeader
+        variant="compact"
+        title={`Lugares de ${city.name}`}
+        titleId={headingId}
+        icon={<MapPinned className={cn("size-5", PLACE_TONE.ATTRACTION.text)} />}
+        tileClassName={PLACE_TONE.ATTRACTION.tint}
+        subtitle={`${places.length} ${places.length === 1 ? "lugar" : "lugares"} para visitar, hacer trámites o ir a la feria`}
+        viewAllHref={all}
+      />
 
       <div
         role="tablist"
@@ -106,13 +98,7 @@ export function LDCCityPlaces({ places, city, today }: LDCCityPlacesProps) {
               aria-controls={panelId}
               tabIndex={selected ? 0 : -1}
               onClick={() => setCurrent(t)}
-              className={cn(
-                "inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60",
-                PLACE_FOCUS_CLASS,
-                selected
-                  ? "border-pink shadow-[inset_0_0_0_1px_var(--pink)] dark:border-yellow dark:shadow-[inset_0_0_0_1px_var(--yellow)]"
-                  : "border-border",
-              )}
+              className={cn(PLACE_PILL_CLASS, selected ? PLACE_PILL_STATE_CLASS.active : PLACE_PILL_STATE_CLASS.idle)}
             >
               <LDCPlaceTypeIcon type={t} className={cn("size-4 shrink-0", PLACE_TONE[t].text)} />
               {PLACE_TYPE_META[t].plural}

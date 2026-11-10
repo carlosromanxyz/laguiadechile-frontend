@@ -38,6 +38,17 @@ export const PLACE_FOCUS_CLASS =
 export const PLACE_ACTION_CLASS = `inline-flex min-h-11 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-full border border-border bg-card px-4 text-sm font-bold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60 [&_svg]:size-4 [&_svg]:shrink-0 ${PLACE_FOCUS_CLASS}`;
 
 /**
+ * Pill de 44 px de los filtros y pestañas de Lugares (`LDCStatusFilter size="lg"` y las pestañas
+ * de `LDCCityPlaces`): card con borde neutro, borde de marca al pasar el mouse y foco opaco.
+ */
+export const PLACE_PILL_CLASS = `inline-flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border bg-card px-4 text-sm font-semibold text-foreground transition-colors hover:border-pink/60 dark:hover:border-yellow/60 [&_svg]:size-4 [&_svg]:shrink-0 ${PLACE_FOCUS_CLASS}`;
+/** Pill activa (borde de marca de 2 px: 1 de borde y 1 de sombra interior) y la inactiva. */
+export const PLACE_PILL_STATE_CLASS = {
+  active: "border-pink shadow-[inset_0_0_0_1px_var(--pink)] dark:border-yellow dark:shadow-[inset_0_0_0_1px_var(--yellow)]",
+  idle: "border-border",
+} as const;
+
+/**
  * Entrada al filtrar: cada hijo entra con `animate-ldc-enter` (300 ms, opacity y transform) y un
  * desfase de 40 ms hasta el cuarto; con `prefers-reduced-motion`, sin animación (`motion-safe:`).
  */

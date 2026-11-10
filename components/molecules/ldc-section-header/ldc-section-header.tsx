@@ -31,6 +31,17 @@ interface LDCSectionHeaderProps {
   icon?: ReactNode;
   /** `compact` only. Color of the icon tile background. Defaults to `pink`. */
   tone?: LDCSectionHeaderTone;
+  /**
+   * `compact` only. Tile background class that replaces `tone`, for colors outside the three
+   * tones (e.g. `PLACE_TONE.MARKET.tint`, CLGDC-207).
+   */
+  tileClassName?: string;
+  /** `compact` only. Title size: `md` (`text-2xl`, default) or `sm` (`text-xl`, a group inside a page). */
+  size?: "md" | "sm";
+  /** `compact` only. `id` of the `h2`, for an `aria-labelledby` outside. */
+  titleId?: string;
+  /** `compact` only. Also show the "view all" link on mobile (hidden below `sm` by default). */
+  viewAllOnMobile?: boolean;
   /** `compact` only. Optional "view all" link target */
   viewAllHref?: string;
   /** `compact` only. Label for the "view all" link. Defaults to "Ver todos". */
@@ -81,6 +92,10 @@ export function LDCSectionHeader({
   className,
   icon,
   tone = "pink",
+  tileClassName,
+  size = "md",
+  titleId,
+  viewAllOnMobile = false,
   viewAllHref,
   viewAllLabel = "Ver todos",
 }: LDCSectionHeaderProps) {
@@ -92,17 +107,24 @@ export function LDCSectionHeader({
 
   if (variant === "compact") {
     return (
-      <div className={cn("flex items-center justify-between mb-6", className)}>
-        <div className="flex items-center gap-3">
+      <div className={cn("flex items-center justify-between gap-4 mb-6", className)}>
+        <div className="flex min-w-0 items-center gap-3">
           {icon != null && (
             <div
-              className={`w-10 h-10 rounded-lg ${toneTileClasses[tone]} flex items-center justify-center`}
+              className={cn(
+                "w-10 h-10 shrink-0 rounded-lg flex items-center justify-center",
+                tileClassName ?? toneTileClasses[tone],
+              )}
+              aria-hidden
             >
               {icon}
             </div>
           )}
-          <div>
-            <h2 className="text-2xl font-bold font-mulish text-foreground">
+          <div className="min-w-0">
+            <h2
+              id={titleId}
+              className={cn("font-bold font-mulish text-foreground", size === "sm" ? "text-xl" : "text-2xl")}
+            >
               {title}
             </h2>
             {subtitle != null && (
@@ -113,7 +135,11 @@ export function LDCSectionHeader({
         {viewAllHref && (
           <Link
             href={viewAllHref}
-            className="text-sm text-pink dark:text-yellow hover:underline hidden sm:block"
+            className={cn(
+              // `pink-strong` (5:1 sobre el fondo) y 44 px de alto (CLGDC-207)
+              "min-h-11 shrink-0 items-center text-sm text-pink-strong hover:underline dark:text-yellow",
+              viewAllOnMobile ? "inline-flex" : "hidden sm:inline-flex",
+            )}
           >
             {`${viewAllLabel} →`}
           </Link>
