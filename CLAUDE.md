@@ -30,7 +30,7 @@ docker compose down -v               # Full reset (also clears volumes)
 
 Default host port is **3013** (http://localhost:3013) to avoid conflict with other local projects on 3000. Override via env vars: `FRONTEND_PORT=4000 UNDER_CONSTRUCTION=false docker compose up -d`.
 
-No test framework is currently configured.
+No unit tests. E2E: Playwright suite in `tests/e2e/`, run by hand with `scripts/e2e.sh` (see README).
 
 ## Tech Stack
 
