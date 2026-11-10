@@ -1,11 +1,13 @@
 import type { LDCRole } from "@/lib/auth/roles";
 
-/** Usuario que se muestra en el panel (sidebar, menú de usuario y saludo). */
+/**
+ * Usuario que se muestra en el panel (sidebar, menú de usuario y saludo «Hola, {firstName}»). El
+ * nombre completo se arma con `formatPersonName` de `lib/people`.
+ */
 export interface IDashboardUser {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
-  /** Nombre corto para el saludo («Hola, María»). */
-  greetingName: string;
 }
 
 /** Sesión del panel: la cuenta de `/auth/me` y sus roles (al menos uno, en el orden de `LDC_ROLE_KEYS`). */

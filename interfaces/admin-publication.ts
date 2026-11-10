@@ -42,7 +42,7 @@ export interface IAdminPublicationRow {
   updatedAt: string;
   category: { id: string; name: string; slug: string } | null;
   city: { id: string; name: string; slug: string };
-  owner: { id: string; name: string } | null;
+  owner: { id: string; firstName: string; lastName: string; email: string } | null;
 }
 
 /** Fila de `GET /admin/listings`: sin descripción, con dueño y motivo del rechazo. */

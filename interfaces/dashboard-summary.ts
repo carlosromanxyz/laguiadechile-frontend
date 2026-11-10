@@ -3,6 +3,7 @@
  * cada cuenta.
  */
 import type { IAdminPublicationStatus } from "@/interfaces/admin-publication";
+import type { PersonName } from "@/lib/people";
 
 /** Publicaciones por estado efectivo (un aviso o evento publicado que ya pasó cuenta como `EXPIRED`). */
 export type IStatusCounts = Record<IAdminPublicationStatus, number>;
@@ -26,8 +27,8 @@ export interface IAdminRecentItem {
   status: IAdminPublicationStatus;
   /** ISO */
   updatedAt: string;
-  /** `null` si el dueño se borró. */
-  ownerName: string | null;
+  /** `null` si el dueño se borró. El nombre visible se arma con `formatPersonName`. */
+  owner: PersonName | null;
 }
 
 /** `GET /admin/stats`. */
