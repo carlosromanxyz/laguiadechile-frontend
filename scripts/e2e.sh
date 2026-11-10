@@ -11,7 +11,8 @@
 # E2E_NODE_MODULES: volumen de node_modules con @playwright/test (por defecto el del front del
 #   stack, laguiadechile_frontend_node_modules). Sirve para correr la suite antes de instalar la
 #   dependencia en el stack.
-# Al salir, pase, falle o se interrumpa la suite, borra las cuentas e2e-registro-%@e2e.lgdc.test.
+# Al salir, pase, falle o se interrumpa la suite, borra las cuentas e2e-registro-%@e2e.lgdc.test
+# y los mensajes de contacto (ContactMessage) de e2e-contacto-%@e2e.lgdc.test.
 # Los correos quedan en Mailpit (http://localhost:3019) para revisarlos: no se borra ninguno.
 # Sale con el código de Playwright (o 1 si pasó pero la limpieza falló).
 
@@ -28,9 +29,10 @@ PW_IMAGE="mcr.microsoft.com/playwright:v${PW_VERSION}-noble"
 VOL_NM="${E2E_NODE_MODULES:-laguiadechile_frontend_node_modules}"
 DB="laguiadechile-db"
 PATRON_EMAIL="e2e-registro-%@e2e.lgdc.test"
+PATRON_CONTACTO="e2e-contacto-%@e2e.lgdc.test"
 NOMBRE_PW="lgdc-e2e-$$"
 
-uso() { sed -n '4,16p' "$0" | sed 's/^# \{0,1\}//'; }
+uso() { sed -n '4,17p' "$0" | sed 's/^# \{0,1\}//'; }
 die() { echo "✗ $*" >&2; exit 1; }
 arriba() { [ "$(docker inspect -f '{{.State.Running}}' "$1" 2>/dev/null)" = "true" ]; }
 
@@ -87,6 +89,15 @@ limpiar() {
     else echo "✗ limpieza: quedan $n cuentas $PATRON_EMAIL" >&2; ok=1; fi
   else
     echo "✗ limpieza: no se pudieron borrar las cuentas $PATRON_EMAIL" >&2; ok=1
+  fi
+  if docker exec "$DB" psql -U postgres -d laguiadechile -v ON_ERROR_STOP=1 -qtAc \
+      "DELETE FROM \"ContactMessage\" WHERE email LIKE '$PATRON_CONTACTO'" >/dev/null; then
+    n=$(docker exec "$DB" psql -U postgres -d laguiadechile -qtAc \
+      "SELECT count(*) FROM \"ContactMessage\" WHERE email LIKE '$PATRON_CONTACTO'") || n="?"
+    if [ "$n" = "0" ]; then echo "· limpieza: mensajes de contacto $PATRON_CONTACTO borrados (quedan 0)"
+    else echo "✗ limpieza: quedan $n mensajes de contacto $PATRON_CONTACTO" >&2; ok=1; fi
+  else
+    echo "✗ limpieza: no se pudieron borrar los mensajes de contacto $PATRON_CONTACTO" >&2; ok=1
   fi
   return "$ok"
 }

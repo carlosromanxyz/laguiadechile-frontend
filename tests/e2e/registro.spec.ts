@@ -1,6 +1,6 @@
 import { randomBytes } from "node:crypto";
 import { expect, test, type Page } from "@playwright/test";
-import { countMessagesTo, waitForMessageTo } from "./support/mailpit";
+import { countMessagesTo, htmlCheck, waitForMessageTo } from "./support/mailpit";
 
 /**
  * Registro por formulario con Mailpit (CLGDC-196).
@@ -47,6 +47,11 @@ test.describe("registro por formulario", () => {
     expect(message.From.Address).toBe(WELCOME_FROM);
     expect(message.Text).toContain(`Hola, ${FIRST_NAME}`);
     expect(message.Text).toContain("/dashboard");
+    // Parte HTML de React Email (CLGDC-202), con la banda que sirve el front desde public/email.
+    expect(message.HTML).toContain(`Hola, ${FIRST_NAME}:`);
+    expect(message.HTML).toContain("/email/banda@2x.gif");
+    expect(message.HTML).toContain("/dashboard");
+    expect(await htmlCheck(message.ID)).toBe(200);
   });
 
   test("sin nombre ni apellido no crea la cuenta ni manda correo", async ({ page }) => {
