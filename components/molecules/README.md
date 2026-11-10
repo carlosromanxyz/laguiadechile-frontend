@@ -55,7 +55,7 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-property-features** (`LDCPropertyFeatures`): grilla de superficie, dormitorios, baños y estacionamientos.
 - **ldc-publication-status-actions** (`LDCPublicationStatusActions`): acción del estado a la vista (Aprobar/Rechazar, Editar o Republicar) y `⋯` con «Cambiar estado», Editar y Ver en el sitio. Cliente.
 - **ldc-publish-banner** (`LDCPublishBanner`): banner «Publica tu comercio o servicio» con CTA a la página de alta del panel.
-- **ldc-publish-tile** (`LDCPublishTile`): tile-enlace de un tipo de publicación con `LDCRoleIcon` `lg` y una palabra (descripción en `sr-only`); vertical, y horizontal si su `@container` mide 17rem o más. La usa `LDCPublishChooser`.
+- **ldc-publish-tile** (`LDCPublishTile`): tile-enlace de un tipo de publicación con `LDCRoleIcon` `lg` y una palabra como nombre accesible (la descripción, oculta, va por `aria-describedby`); vertical, y horizontal si su `@container` mide 17rem o más. La usa `LDCPublishChooser`.
 - **ldc-region-card** (`LDCRegionCard`): card de región con numeral romano y conteo de ciudades.
 - **ldc-reject-dialog** (`LDCRejectDialog`): diálogo controlado para rechazar con motivo obligatorio (hasta 500 caracteres); lo usan `LDCModerationActions` y `LDCPublicationStatusActions`. Cliente.
 - **ldc-rejection-reason-dialog** (`LDCRejectionReasonDialog`): badge «Rechazado» que abre en un modal el motivo del rechazo (texto plano), con «Corregir y reenviar» si hay `fixHref` o en solo lectura sin él. Cliente.

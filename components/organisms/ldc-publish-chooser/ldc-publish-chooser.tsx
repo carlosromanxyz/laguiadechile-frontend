@@ -9,8 +9,8 @@ import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
  * evento) y al final la noticia del admin. Cada tipo da un rol a la cuenta (el de `role`): por eso
  * el inicio oculta los tipos cuyo rol ya tiene. La excepción es `onlyFor`: el tipo no da rol, solo
  * se ofrece a quien tiene ese rol. Para sumar un tipo basta agregarlo aquí (y sale en
- * `getPublishKinds`). `shortLabel` es la palabra visible de la tile (CLGDC-203); `title` y
- * `description` siguen siendo el texto largo, y la descripción completa el nombre accesible.
+ * `getPublishKinds`). `shortLabel` es la palabra visible de la tile y su nombre accesible
+ * (CLGDC-203); `description` no se ve y es la descripción accesible del enlace.
  */
 const KINDS: Record<
   "comercio" | "servicio" | "aviso" | "propiedad" | "evento" | "noticia",
@@ -19,7 +19,6 @@ const KINDS: Record<
     onlyFor?: LDCRole;
     icon?: LDCRoleIconProps["icon"];
     href: string;
-    title: string;
     shortLabel: string;
     description: string;
   }
@@ -27,14 +26,12 @@ const KINDS: Record<
   comercio: {
     role: "comercio",
     href: "/dashboard/publicar?tipo=comercio",
-    title: "Mi comercio",
     shortLabel: "Comercio",
     description: "Un local o negocio: dirección, fotos, contacto y horario.",
   },
   servicio: {
     role: "servicio",
     href: "/dashboard/publicar?tipo=servicio",
-    title: "Mi servicio",
     shortLabel: "Servicio",
     description: "Lo que haces a domicilio o por encargo, con zona de atención.",
   },
@@ -42,7 +39,6 @@ const KINDS: Record<
     role: "avisador",
     // Formulario de aviso: CLGDC-125.
     href: "/dashboard/avisos/nuevo",
-    title: "Un aviso clasificado",
     shortLabel: "Aviso",
     description: "Vendo, compro, arriendo, busco u ofrezco. Dura 30 días.",
   },
@@ -50,7 +46,6 @@ const KINDS: Record<
   propiedad: {
     role: "propietario",
     href: "/dashboard/propiedades/nueva",
-    title: "Una propiedad",
     shortLabel: "Propiedad",
     description: "Casa, departamento, terreno u oficina, en venta o arriendo.",
   },
@@ -58,7 +53,6 @@ const KINDS: Record<
   evento: {
     role: "organizador",
     href: "/dashboard/eventos/nuevo",
-    title: "Un evento",
     shortLabel: "Evento",
     description: "Una feria, un concierto o un taller, con fecha y lugar.",
   },
@@ -70,7 +64,6 @@ const KINDS: Record<
     onlyFor: "admin",
     icon: { name: "Newspaper", tone: LDC_ROLE_META.admin.tone },
     href: "/dashboard/admin/noticias/nueva",
-    title: "Una noticia",
     shortLabel: "Noticia",
     description: "Una novedad de la ciudad o del sitio, con foto y fecha.",
   },
@@ -123,6 +116,7 @@ export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) 
                 href={k.href}
                 label={k.shortLabel}
                 description={k.description}
+                descriptionId={`publicar-${kind}-desc`}
               />
             </li>
           );

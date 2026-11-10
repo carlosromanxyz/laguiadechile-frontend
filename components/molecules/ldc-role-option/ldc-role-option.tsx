@@ -36,12 +36,13 @@ export type LDCRoleOptionProps = {
  * Toda la tarjeta es un enlace al login del rol: `LDCRoleIcon`, título y texto
  * del rol (`lib/auth/roles.ts`) y un chevron. Al pasar el cursor, el borde y el
  * chevron toman el color de marca (rosado en claro, amarillo en oscuro) y sube la
- * sombra. La usan `LDCRoleGateway` en `/ingresar` (con los textos del login del rol) y
- * `LDCPublishChooser` en el panel (con `href`, `title` y `description` propios).
+ * sombra. La usa `LDCRoleGateway` en `/ingresar`, con los textos del login del rol; también
+ * acepta `href`, `title` y `description` propios. (El selector del panel, `LDCPublishChooser`, usa
+ * `LDCPublishTile` desde CLGDC-203.)
  *
  * @example
  * <LDCRoleOption role="comercio" />
- * <LDCRoleOption role="servicio" href="/dashboard/publicar?tipo=servicio" title="Mi servicio" description="…" />
+ * <LDCRoleOption role="comercio" href="/ingresar/comercio" title="Tengo un comercio" description="…" />
  */
 /** Destino y textos: los propios si vienen; si no, los del login del rol. */
 function resolveOption(props: LDCRoleOptionProps) {
