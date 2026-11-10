@@ -1,7 +1,8 @@
 import { LDCDashboardCard } from "@/components/molecules/ldc-dashboard-card";
-import type { LDCRoleIconProps } from "@/components/atoms/ldc-role-icon";
+import type { LDCRoleIconGlyph, LDCRoleIconSource } from "@/components/atoms/ldc-role-icon";
 import { LDCPublishTile } from "@/components/molecules/ldc-publish-tile";
 import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
+import { cn } from "@/lib/utils";
 
 /**
  * Lo que se puede publicar desde el panel, en orden de presentación (CLGDC-191): primero los
@@ -17,7 +18,7 @@ const KINDS: Record<
   {
     role: LDCRole;
     onlyFor?: LDCRole;
-    icon?: LDCRoleIconProps["icon"];
+    icon?: LDCRoleIconGlyph;
     href: string;
     shortLabel: string;
     description: string;
@@ -69,8 +70,41 @@ const KINDS: Record<
   },
 };
 
+/**
+ * Base de cada `li` desde `sm`: N columnas iguales, restando los N-1 huecos de `gap-3` (0,75rem).
+ * Clases literales para que Tailwind las genere; con más de 7 tiles se usa la de 7 y `sm:min-w-36`
+ * las baja a otra fila (CLGDC-206).
+ */
+const SM_BASIS = [
+  "sm:basis-full",
+  "sm:basis-[calc((100%-0.75rem)/2)]",
+  "sm:basis-[calc((100%-1.5rem)/3)]",
+  "sm:basis-[calc((100%-2.25rem)/4)]",
+  "sm:basis-[calc((100%-3rem)/5)]",
+  "sm:basis-[calc((100%-3.75rem)/6)]",
+  "sm:basis-[calc((100%-4.5rem)/7)]",
+] as const;
+
 /** Tipo de publicación del selector. */
 export type LDCPublishKind = keyof typeof KINDS;
+
+/**
+ * Tile fija del final (CLGDC-206): no es un tipo de publicación ni da rol, así que no pasa por
+ * `getPublishKinds` y la ve toda cuenta. Abre el contacto con el asunto puesto para recomendar un
+ * lugar que falta en La Guía. Tono rosado del usuario (`LDC_ROLE_META.usuario.tone`).
+ */
+const SUGGEST = {
+  icon: { name: "MapPinPlus", tone: LDC_ROLE_META.usuario.tone },
+  // Clave de `CONTACT_SUBJECT_PRESETS` (`lib/contact/limits.ts`): pone «Sugerir un lugar».
+  href: "/contacto?asunto=sugerir",
+  shortLabel: "Sugerir",
+  description: "Recomienda un comercio o servicio que aún no está en La Guía.",
+} as const satisfies {
+  icon: LDCRoleIconGlyph;
+  href: string;
+  shortLabel: string;
+  description: string;
+};
 
 /**
  * Tipos que se le ofrecen a una cuenta según sus roles, en orden: los que dan un rol que aún no
@@ -84,7 +118,7 @@ export function getPublishKinds(roles: readonly LDCRole[]): LDCPublishKind[] {
 }
 
 export interface LDCPublishChooserProps {
-  /** Tipos que se ofrecen, en orden; sin ninguno no se pinta nada */
+  /** Tipos que se ofrecen, en orden; «Sugerir» va siempre al final, aunque no haya ninguno */
   kinds: readonly LDCPublishKind[];
   className?: string;
 }
@@ -93,34 +127,58 @@ export interface LDCPublishChooserProps {
  * LDCPublishChooser - «¿Qué quieres publicar?» en el inicio del panel
  *
  * Un `LDCDashboardCard` neutro, sin bajada, con una `LDCPublishTile` por tipo (comercio, servicio,
- * aviso, propiedad, evento y, para el admin, noticia): ícono de 48 px y una palabra (diseño A + K3
- * de CLGDC-203). Las tiles van en `flex-wrap` y crecen, así no quedan huecos: en móvil, 2 por fila
- * (la sobrante ocupa el ancho); desde `sm`, base de 9rem (hasta 6 en una fila). Cada `li` es un
- * `@container`: con 1 a 3 opciones la tile queda ancha y pasa a horizontal.
+ * aviso, propiedad, evento y, para el admin, noticia) y, siempre al final, «Sugerir» (CLGDC-206),
+ * así el selector nunca queda vacío: ícono de 48 px y una palabra (diseño A + K3 de CLGDC-203).
+ * Las tiles van en `flex-wrap` centrado y no crecen, así una sobrante nunca se estira (CLGDC-206):
+ * en móvil, 2 por fila y, si sobra una, queda centrada, vertical y del ancho de una columna; desde
+ * `sm`, todas en una fila de columnas iguales (`SM_BASIS`) si cada una mide al menos 9rem y,
+ * si no caben, siguen en filas centradas de 9rem. Cada `li` es un `@container`: desde `sm`, con 1 a
+ * 3 opciones la tile queda ancha y pasa a horizontal; con más, siempre es vertical.
  *
  * @example
  * <LDCPublishChooser kinds={["aviso", "servicio"]} />
  */
 export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) {
-  if (kinds.length === 0) return null;
+  const tiles: {
+    id: string;
+    source: LDCRoleIconSource;
+    href: string;
+    shortLabel: string;
+    description: string;
+  }[] = [
+    ...kinds.map((kind) => {
+      const { role, icon, href, shortLabel, description } = KINDS[kind];
+      return { id: kind, source: { role, icon }, href, shortLabel, description };
+    }),
+    {
+      id: "sugerir",
+      source: { icon: SUGGEST.icon },
+      href: SUGGEST.href,
+      shortLabel: SUGGEST.shortLabel,
+      description: SUGGEST.description,
+    },
+  ];
   return (
     <LDCDashboardCard id="publicar" title="¿Qué quieres publicar?" className={className}>
-      <ul className="flex flex-wrap gap-3">
-        {kinds.map((kind) => {
-          const k = KINDS[kind];
-          return (
-            <li key={kind} className="@container flex flex-[1_1_calc(50%-0.375rem)] sm:flex-[1_1_9rem]">
-              <LDCPublishTile
-                role={k.role}
-                icon={k.icon}
-                href={k.href}
-                label={k.shortLabel}
-                description={k.description}
-                descriptionId={`publicar-${kind}-desc`}
-              />
-            </li>
-          );
-        })}
+      <ul className="flex flex-wrap justify-center gap-3">
+        {tiles.map((tile) => (
+          <li
+            key={tile.id}
+            className={cn(
+              "@container flex shrink-0 grow-0 basis-[calc(50%-0.375rem)] sm:min-w-36",
+              SM_BASIS[Math.min(tiles.length, SM_BASIS.length) - 1]
+            )}
+          >
+            <LDCPublishTile
+              {...tile.source}
+              href={tile.href}
+              label={tile.shortLabel}
+              description={tile.description}
+              descriptionId={`publicar-${tile.id}-desc`}
+              horizontal={tiles.length <= 3}
+            />
+          </li>
+        ))}
       </ul>
     </LDCDashboardCard>
   );

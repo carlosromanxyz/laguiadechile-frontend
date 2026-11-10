@@ -1,4 +1,4 @@
-import { CalendarDays, House, Newspaper, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, MapPinPlus, Newspaper, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
 import { LDC_ROLE_META, type LDCRole, type LDCRoleIconName } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 export const LDC_ROLE_ICONS: Record<LDCRoleIconName, LucideIcon> = {
   CalendarDays,
   House,
+  MapPinPlus,
   Newspaper,
   ShieldCheck,
   Store,
@@ -24,19 +25,36 @@ const sizes = {
   lg: { box: "size-12", icon: "size-6" },
 } as const;
 
-export interface LDCRoleIconProps {
-  /** Rol cuyo ícono se muestra */
-  role: LDCRole;
-  /**
-   * Ícono y color propios en vez de los del rol, para una opción que no es un rol (la noticia de
-   * `LDCPublishChooser`, CLGDC-191)
-   */
-  icon?: { name: LDCRoleIconName; tone: string };
+/** Ícono y color propios de una opción, con un nombre de `LDC_ROLE_ICONS` y un `tone` del DS. */
+export interface LDCRoleIconGlyph {
+  name: LDCRoleIconName;
+  tone: string;
+}
+
+/**
+ * De dónde sale el ícono: de un rol (`role`, con `icon` opcional para cambiarlo, como la noticia de
+ * `LDCPublishChooser`, CLGDC-191) o, para una opción que no es un rol, solo de `icon` (la tile
+ * «Sugerir», CLGDC-206).
+ */
+export type LDCRoleIconSource =
+  | {
+      /** Rol cuyo ícono se muestra */
+      role: LDCRole;
+      /** Ícono y color propios en vez de los del rol */
+      icon?: LDCRoleIconGlyph;
+    }
+  | {
+      role?: undefined;
+      /** Ícono y color de una opción sin rol */
+      icon: LDCRoleIconGlyph;
+    };
+
+export type LDCRoleIconProps = LDCRoleIconSource & {
   /** Tamaño del círculo: `xs` 24 px, `sm` 36 px, `md` 40 px, `lg` 48 px (`LDCPublishTile`) */
   size?: keyof typeof sizes;
   /** Clases adicionales */
   className?: string;
-}
+};
 
 /**
  * LDCRoleIcon - Ícono de un rol en un círculo con su color de marca
@@ -49,9 +67,9 @@ export interface LDCRoleIconProps {
  * @example
  * <LDCRoleIcon role="admin" />
  */
-export function LDCRoleIcon({ role, icon, size = "md", className }: LDCRoleIconProps) {
-  const meta = LDC_ROLE_META[role];
-  const Icon = LDC_ROLE_ICONS[icon?.name ?? meta.iconName];
+export function LDCRoleIcon({ size = "md", className, ...source }: LDCRoleIconProps) {
+  const glyph = resolveGlyph(source);
+  const Icon = LDC_ROLE_ICONS[glyph.name];
   const s = sizes[size];
 
   return (
@@ -60,11 +78,18 @@ export function LDCRoleIcon({ role, icon, size = "md", className }: LDCRoleIconP
       className={cn(
         "grid shrink-0 place-items-center rounded-full",
         s.box,
-        icon?.tone ?? meta.tone,
+        glyph.tone,
         className
       )}
     >
       <Icon className={s.icon} />
     </span>
   );
+}
+
+/** `icon` si viene; si no, el ícono y el color del rol. */
+function resolveGlyph(source: LDCRoleIconSource): LDCRoleIconGlyph {
+  if (source.role === undefined) return source.icon;
+  const meta = LDC_ROLE_META[source.role];
+  return source.icon ?? { name: meta.iconName, tone: meta.tone };
 }

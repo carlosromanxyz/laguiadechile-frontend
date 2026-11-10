@@ -36,7 +36,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-about-hero** (`LDCAboutHero`): hero de «Nosotros».
 - **ldc-about-what** (`LDCAboutWhat`): sección «Qué es La Guía de Chile».
 - **ldc-about-why** (`LDCAboutWhy`): sección «Por qué La Guía de Chile».
-- **ldc-contact-form** (`LDCContactForm`): formulario de contacto que envía a `POST /contact` por server action, con estados (enviando, éxito, error, throttle) y honeypot oculto. Cliente.
+- **ldc-contact-form** (`LDCContactForm`): formulario de contacto que envía a `POST /contact` por server action, con estados (enviando, éxito, error, throttle) y honeypot oculto; `defaultSubject` es el asunto con el que arranca y al que vuelve tras enviar (el único campo que se prellena por URL, y solo desde la lista cerrada `CONTACT_SUBJECT_PRESETS`). Cliente.
 
 ### Listados paginados
 - **ldc-load-more-grid** (`LDCLoadMoreGrid`): grilla con animación de entrada y botón «Cargar más». Cliente.
@@ -66,7 +66,7 @@ Cada organismo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 ### Panel (dashboard)
 - **ldc-dashboard-header** (`LDCDashboardHeader`): barra superior del panel con migas de pan desde `/dashboard`. Cliente.
 - **ldc-dashboard-sidebar** (`LDCDashboardSidebar`): menú lateral del panel con grupos según los roles de la cuenta, CTA «Publicar» y el usuario (`user`: `firstName`, `lastName`, `email`). Cliente.
-- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una `LDCPublishTile` por tipo (comercio, servicio, aviso, propiedad, evento y, solo para el admin, noticia) en `flex-wrap` sin huecos, dentro de un `LDCDashboardCard` neutro.
+- **ldc-publish-chooser** (`LDCPublishChooser`): «¿Qué quieres publicar?» del inicio del panel, una `LDCPublishTile` por tipo (comercio, servicio, aviso, propiedad, evento y, solo para el admin, noticia) más «Sugerir» fijo al final (abre `/contacto?asunto=sugerir`, asunto «Sugerir un lugar»), así nunca queda vacío; en `flex-wrap` centrado sin crecer (2 por fila en móvil; desde `sm`, columnas iguales de 9rem o más) con la sobrante centrada, vertical y del ancho de una columna; horizontal solo con 1 a 3 opciones. Dentro de un `LDCDashboardCard` neutro.
 - **ldc-login-form** (`LDCLoginForm`): formulario de inicio de sesión (`/api/auth/login`) para los tres roles, con `LDCFormField`, error en línea y enlace al registro; entra al inicio del panel (`/dashboard`). Cliente.
 - **ldc-register-form** (`LDCRegisterForm`): formulario del registro público (`/registro`), en dos columnas desde `sm` (Nombre | Apellido, Email a todo el ancho, Contraseña | Repite la contraseña) y términos; el 409 va en el campo email. Va con `LDCAuthTemplate wide`. Cliente.
 - **ldc-auth-cover** (`LDCAuthCover`): portada del acceso desde `lg`: comercio destacado y conteos de la guía.

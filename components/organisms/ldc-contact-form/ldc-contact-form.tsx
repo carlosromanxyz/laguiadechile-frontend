@@ -15,6 +15,12 @@ import { Send, Loader2, CheckCircle } from "lucide-react";
 interface LDCContactFormProps {
   /** Optional className for custom styling */
   className?: string;
+  /**
+   * Asunto inicial, de la lista cerrada `CONTACT_SUBJECT_PRESETS` (`?asunto=<clave>` en
+   * `/contacto`; CLGDC-206). El
+   * formulario vuelve a él después de enviar. Ningún otro campo se prellena.
+   */
+  defaultSubject?: string;
 }
 
 /**
@@ -25,14 +31,14 @@ interface LDCContactFormProps {
  * éxito y error (incluido el throttle 429), con el error en `LDCFormAlert`. Lleva el honeypot
  * `website` oculto (fuera de la vista, `aria-hidden`, `tabIndex=-1` y `autocomplete=off`).
  */
-export function LDCContactForm({ className }: LDCContactFormProps) {
+export function LDCContactForm({ className, defaultSubject = "" }: LDCContactFormProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [serverError, setServerError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    subject: "",
+    subject: defaultSubject,
     message: "",
     website: "",
   });
@@ -77,7 +83,7 @@ export function LDCContactForm({ className }: LDCContactFormProps) {
 
     // Reset form after showing success
     setTimeout(() => {
-      setFormData({ name: "", email: "", subject: "", message: "", website: "" });
+      setFormData({ name: "", email: "", subject: defaultSubject, message: "", website: "" });
       setIsSubmitted(false);
     }, 3000);
   };

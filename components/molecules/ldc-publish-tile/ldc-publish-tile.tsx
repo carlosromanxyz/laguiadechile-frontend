@@ -1,13 +1,12 @@
 import Link from "next/link";
-import { LDCRoleIcon, type LDCRoleIconProps } from "@/components/atoms/ldc-role-icon";
-import type { LDCRole } from "@/lib/auth/roles";
+import { LDCRoleIcon, type LDCRoleIconSource } from "@/components/atoms/ldc-role-icon";
 import { cn } from "@/lib/utils";
 
-export interface LDCPublishTileProps {
-  /** Rol que da el tipo: pone el ícono y su color */
-  role: LDCRole;
-  /** Ícono y color propios en vez de los del rol (ver `LDCRoleIcon`) */
-  icon?: LDCRoleIconProps["icon"];
+/**
+ * El ícono sale de `role` (el rol que da el tipo, con `icon` opcional para cambiarlo) o, en una
+ * opción sin rol como «Sugerir» (CLGDC-206), solo de `icon` (ver `LDCRoleIconSource`).
+ */
+export type LDCPublishTileProps = LDCRoleIconSource & {
   /** Destino del enlace (el formulario del tipo) */
   href: string;
   /** Etiqueta visible, de una palabra («Comercio», «Aviso»…) */
@@ -19,17 +18,23 @@ export interface LDCPublishTileProps {
    * es un Server Component y `useId` no sirve aquí.
    */
   descriptionId: string;
+  /**
+   * Si puede pasar a horizontal (desde `sm`, con su `@container` de 17rem o más). `LDCPublishChooser`
+   * lo da solo con 1 a 3 opciones (CLGDC-206); por defecto, sí
+   */
+  horizontal?: boolean;
   /** Clases adicionales (van al enlace) */
   className?: string;
-}
+};
 
 /**
  * LDCPublishTile - Tile-enlace de un tipo de publicación (CLGDC-203)
  *
  * Ícono del rol en `lg` (48 px) y una palabra, que es el nombre accesible; la descripción no se ve
- * y queda como descripción accesible (`aria-describedby`). Toda la tile es el enlace. Vertical y centrada; si su contenedor (el `li` con `@container`) mide 17rem o más, como
- * pasa con 1 a 3 opciones, se vuelve horizontal. Al pasar el cursor cambian el borde (rosado en
- * claro, amarillo en oscuro) y la sombra, y el ícono crece a 1,06 (150 ms, `ease-out`; sin
+ * y queda como descripción accesible (`aria-describedby`). Toda la tile es el enlace. Vertical y
+ * centrada; con `horizontal`, desde `sm` y si su contenedor (el `li` con `@container`) mide 17rem o
+ * más, se vuelve horizontal. En móvil siempre es vertical (CLGDC-206). Al pasar el
+ * cursor cambian el borde (rosado en claro, amarillo en oscuro) y la sombra, y el ícono crece a 1,06 (150 ms, `ease-out`; sin
  * escala con `prefers-reduced-motion`). El foco es un anillo de 3 px `pink-strong` en claro y
  * `yellow` en oscuro, separado 2 px. Server Component: el ícono se resuelve por nombre en
  * `LDCRoleIcon`. La usa `LDCPublishChooser`.
@@ -40,13 +45,13 @@ export interface LDCPublishTileProps {
  * </li>
  */
 export function LDCPublishTile({
-  role,
-  icon,
   href,
   label,
   description,
   descriptionId,
+  horizontal = true,
   className,
+  ...iconSource
 }: LDCPublishTileProps) {
   return (
     <Link
@@ -56,13 +61,13 @@ export function LDCPublishTile({
         "group flex min-h-26 w-full flex-col items-center justify-center gap-2 rounded-xl border border-border bg-card p-4 text-center text-card-foreground",
         "transition-[border-color,box-shadow] duration-150 ease-out hover:border-pink/60 hover:shadow-lg dark:hover:border-yellow/60 motion-reduce:transition-none",
         "focus-visible:ring-[3px] focus-visible:ring-pink-strong focus-visible:ring-offset-2 focus-visible:ring-offset-card focus-visible:outline-hidden dark:focus-visible:ring-yellow",
-        "@[17rem]:min-h-20 @[17rem]:flex-row @[17rem]:justify-start @[17rem]:gap-3.5 @[17rem]:text-left",
+        horizontal &&
+          "sm:@[17rem]:min-h-20 sm:@[17rem]:flex-row sm:@[17rem]:justify-start sm:@[17rem]:gap-3.5 sm:@[17rem]:text-left",
         className
       )}
     >
       <LDCRoleIcon
-        role={role}
-        icon={icon}
+        {...iconSource}
         size="lg"
         className="transition-transform duration-150 ease-out group-hover:scale-[1.06] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
       />
