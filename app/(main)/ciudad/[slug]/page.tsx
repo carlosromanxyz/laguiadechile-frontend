@@ -5,6 +5,7 @@ import { getAllCitiesFromRegions, getCityBySlugFromRegions } from "@/services/re
 import { getListingsByCity } from "@/services/featured-listings";
 import { getPropertiesByCity } from "@/services/properties";
 import { getClassifiedsByCity } from "@/services/classifieds";
+import { getPlacesByCity } from "@/lib/api/places";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
@@ -66,10 +67,11 @@ export default async function CityPage({ params }: CityPageProps) {
 
   const { city, region } = result;
 
-  const [listings, properties, classifieds] = await Promise.all([
+  const [listings, properties, classifieds, places] = await Promise.all([
     getListingsByCity(slug),
     getPropertiesByCity(slug),
     getClassifiedsByCity(slug),
+    getPlacesByCity(slug),
   ]);
 
   return (
@@ -79,6 +81,7 @@ export default async function CityPage({ params }: CityPageProps) {
       listings={listings}
       properties={properties}
       classifieds={classifieds}
+      places={places}
       wikipedia={<LDCCityWikipedia cityName={city.name} image={city.image} />}
       liveInfo={<LDCCityLiveInfo cityName={city.name} />}
     />

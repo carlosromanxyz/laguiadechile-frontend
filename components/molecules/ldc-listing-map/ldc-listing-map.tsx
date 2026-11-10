@@ -1,9 +1,14 @@
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { MapPin, ExternalLink } from "lucide-react";
+import type { ReactNode } from "react";
 
 interface LDCListingMapProps {
   address: string;
   city: string;
+  /** Título del panel (por defecto «Ubicación») */
+  title?: string;
+  /** Acción bajo el mapa (p. ej. el botón «Cómo llegar» de los lugares, CLGDC-207) */
+  action?: ReactNode;
   className?: string;
 }
 
@@ -15,6 +20,8 @@ interface LDCListingMapProps {
 export function LDCListingMap({
   address,
   city,
+  title = "Ubicación",
+  action,
   className,
 }: LDCListingMapProps) {
   const mapQuery = encodeURIComponent(`${address}, ${city}, Chile`);
@@ -24,7 +31,7 @@ export function LDCListingMap({
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-lg font-bold font-mulish text-foreground flex items-center gap-2">
           <MapPin className="w-5 h-5 text-pink" />
-          Ubicación
+          {title}
         </h3>
         <a
           href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
@@ -51,6 +58,8 @@ export function LDCListingMap({
           title={`Mapa de ${address}`}
         />
       </div>
+
+      {action && <div className="mt-4 flex flex-wrap gap-2">{action}</div>}
     </LDCPanel>
   );
 }

@@ -29,6 +29,15 @@
   --color-destructive: var(--destructive);
   --color-success: var(--success);
   --color-success-foreground: var(--success-foreground);
+  /* Tipo de lugar y emergencias (CLGDC-207) */
+  --color-place-attraction: var(--place-attraction);
+  --color-place-attraction-foreground: var(--place-attraction-foreground);
+  --color-place-service: var(--place-service);
+  --color-place-service-foreground: var(--place-service-foreground);
+  --color-place-market: var(--place-market);
+  --color-place-market-foreground: var(--place-market-foreground);
+  --color-emergency: var(--emergency);
+  --color-emergency-foreground: var(--emergency-foreground);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent: var(--accent);
   --color-muted-foreground: var(--muted-foreground);
@@ -54,6 +63,24 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
+/*
+ * Entrada de una grilla al filtrar (CLGDC-207): solo opacity y transform, 300 ms, sin bucle.
+ * Se usa con `motion-safe:` para respetar prefers-reduced-motion.
+ */
+@theme {
+  --animate-ldc-enter: ldc-enter 0.3s cubic-bezier(0.2, 0, 0, 1) both;
+  @keyframes ldc-enter {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
 :root {
   /* Alto del header público fijo (`LDCHeader`): pt-4 + h-16 + borde de 1px arriba y abajo. */
   --ldc-header-height: 5.125rem;
@@ -76,6 +103,20 @@
   /* Éxito (estado «Publicada», variación ▲, checks): AA 5,4:1 con su texto y 5,6:1 sobre card. */
   --success: oklch(0.5 0.14 150);
   --success-foreground: oklch(0.985 0 0);
+  /*
+   * Tipo de lugar (CLGDC-207), con el patrón de --success. Contraste WCAG 2.x medido en el lienzo
+   * 2026-11-10-lugares: texto -foreground sobre el token ≥ 4,95:1; token sobre card ≥ 5,16:1;
+   * ícono sobre el tinte al 12 % ≥ 4,39:1 (pide 3:1). El color nunca va solo: siempre con ícono y nombre.
+   */
+  --place-attraction: oklch(0.51 0.13 140);
+  --place-attraction-foreground: oklch(0.985 0 0);
+  --place-service: oklch(0.5 0.15 255);
+  --place-service-foreground: oklch(0.985 0 0);
+  --place-market: oklch(0.55 0.15 45);
+  --place-market-foreground: oklch(0.985 0 0);
+  /* Número de emergencia (ícono del teléfono): 5,85:1 sobre card. */
+  --emergency: oklch(0.53 0.2 27);
+  --emergency-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
@@ -121,6 +162,15 @@
   /* Éxito en oscuro: 11,1:1 con su texto y sobre card. */
   --success: oklch(0.792 0.209 151.711);
   --success-foreground: oklch(0.145 0 0);
+  /* Tipo de lugar y emergencias en oscuro (CLGDC-207): ≥ 7,41:1 sobre card. */
+  --place-attraction: oklch(0.8 0.17 140);
+  --place-attraction-foreground: oklch(0.145 0 0);
+  --place-service: oklch(0.76 0.11 250);
+  --place-service-foreground: oklch(0.145 0 0);
+  --place-market: oklch(0.78 0.13 55);
+  --place-market-foreground: oklch(0.145 0 0);
+  --emergency: oklch(0.72 0.17 25);
+  --emergency-foreground: oklch(0.145 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);

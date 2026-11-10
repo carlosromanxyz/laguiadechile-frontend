@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { LDCContactActions } from "@/components/molecules/ldc-contact-actions";
+import { LDCScheduleList } from "@/components/molecules/ldc-schedule-list";
 import type {
   IListingContact,
   IListingSchedule,
@@ -29,16 +30,6 @@ interface LDCListingInfoProps {
   schedule?: IListingSchedule;
   className?: string;
 }
-
-const dayLabels: Record<string, string> = {
-  monday: "Lunes",
-  tuesday: "Martes",
-  wednesday: "Miércoles",
-  thursday: "Jueves",
-  friday: "Viernes",
-  saturday: "Sábado",
-  sunday: "Domingo",
-};
 
 /**
  * LDCListingInfo - Contact and Schedule Information
@@ -204,27 +195,7 @@ export function LDCListingInfo({
             <Clock className="w-5 h-5 text-pink" />
             Horario
           </h3>
-          <div className="space-y-2">
-            {Object.entries(schedule).map(([day, hours]) =>
-              hours ? (
-                <div key={day} className="flex justify-between text-sm">
-                  <span className="text-muted-foreground">
-                    {dayLabels[day] || day}
-                  </span>
-                  <span
-                    className={cn(
-                      "font-medium",
-                      hours.toLowerCase() === "cerrado"
-                        ? "text-destructive"
-                        : "text-foreground"
-                    )}
-                  >
-                    {hours}
-                  </span>
-                </div>
-              ) : null
-            )}
-          </div>
+          <LDCScheduleList schedule={schedule} />
         </LDCPanel>
       )}
     </div>

@@ -28,8 +28,11 @@ const scheduleShape = Object.fromEntries(SCHEDULE_DAYS.map(([key]) => [key, sche
   typeof scheduleDay
 >;
 
+/** Horario semanal del formulario (`LDCScheduleField`); lo reusa el de lugares (CLGDC-207). */
+export const scheduleValueSchema = z.object(scheduleShape);
+
 /** URL con protocolo http(s), como exige el backend (`IsUrl({ require_protocol: true })`). */
-function isHttpUrl(value: string): boolean {
+export function isHttpUrl(value: string): boolean {
   try {
     const url = new URL(value);
     return (url.protocol === "https:" || url.protocol === "http:") && url.hostname.includes(".");

@@ -1,4 +1,4 @@
-import { CalendarDays, Home, Megaphone, Store } from "lucide-react";
+import { CalendarDays, Home, MapPinned, Megaphone, Store } from "lucide-react";
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCSectionHeader } from "@/components/molecules/ldc-section-header";
 import { LDCPaginatedClassifiedsList } from "@/components/organisms/ldc-paginated-classifieds-list";
@@ -9,6 +9,10 @@ import type { IClassifieds } from "@/interfaces/classified";
 import type { IEvents } from "@/interfaces/event";
 import type { IListingDetails } from "@/interfaces/listing";
 import type { IProperties } from "@/interfaces/property";
+import type { IPlaces } from "@/interfaces/place";
+import { LDCPlaceCard } from "@/components/molecules/ldc-place-card";
+import { PLACE_TONE, PLACES_GRID_CLASS } from "@/lib/ui/places";
+import { cn } from "@/lib/utils";
 
 /** Resultados que se muestran de entrada en cada grupo; el resto, con «Cargar más». */
 const GROUP_PAGE_SIZE = 8;
@@ -28,6 +32,10 @@ interface LDCSearchResultsProps {
   events: IEvents;
   /** Instante de referencia (ms) de la grilla de eventos; lo fija la página al renderizar */
   now: number;
+  /** Lugares que coinciden (CLGDC-207) */
+  places?: IPlaces;
+  /** Día de hoy en Chile (0 = lunes) para las tarjetas de lugares */
+  today?: number;
 }
 
 function countLabel(count: number, singular: string, plural: string) {
@@ -36,7 +44,7 @@ function countLabel(count: number, singular: string, plural: string) {
 
 /**
  * LDCSearchResults - Resultados de `/resultados` agrupados por tipo (CLGDC-189): comercios y
- * servicios, avisos, propiedades y eventos, en ese orden. Cada grupo tiene su encabezado con la
+ * servicios, avisos, propiedades, eventos y lugares (CLGDC-207), en ese orden. Cada grupo tiene su encabezado con la
  * cantidad y su grilla paginada de siempre (`LDCListingCard`, `LDCClassifiedCard`,
  * `LDCPropertyCard`, `LDCEventCard`), con los primeros 8 y «Cargar más». Un grupo sin resultados
  * no se muestra; el estado vacío de la búsqueda completa lo pone la página.
@@ -56,6 +64,8 @@ export function LDCSearchResults({
   properties,
   events,
   now,
+  places = [],
+  today = 0,
 }: LDCSearchResultsProps) {
   return (
     <>
@@ -135,6 +145,26 @@ export function LDCSearchResults({
             loadMoreLabel="Cargar más eventos"
             className={GRID_SECTION}
           />
+        </>
+      )}
+      {places.length > 0 && (
+        <>
+          <LDCSection paddingY="sm" className={HEADER_SECTION}>
+            <LDCSectionHeader
+              variant="compact"
+              title="Lugares"
+              icon={<MapPinned className={cn("w-5 h-5", PLACE_TONE.ATTRACTION.text)} aria-hidden="true" />}
+              tileClassName={PLACE_TONE.ATTRACTION.tint}
+              subtitle={countLabel(places.length, "resultado", "resultados")}
+            />
+          </LDCSection>
+          <LDCSection paddingY="sm" className={GRID_SECTION}>
+            <div className={PLACES_GRID_CLASS}>
+              {places.map((place) => (
+                <LDCPlaceCard key={place.id} place={place} today={today} />
+              ))}
+            </div>
+          </LDCSection>
         </>
       )}
     </>

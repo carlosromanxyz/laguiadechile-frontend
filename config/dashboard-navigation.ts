@@ -10,6 +10,7 @@ import {
   LayoutDashboard,
   Map,
   MapPin,
+  MapPinned,
   Newspaper,
   Pencil,
   ShieldCheck,
@@ -104,6 +105,7 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
       { href: "/dashboard/admin/propiedades", label: "Propiedades", icon: Home },
       { href: "/dashboard/admin/eventos", label: "Eventos", icon: CalendarDays }, // CLGDC-140
       { href: "/dashboard/admin/noticias", label: "Noticias", icon: Newspaper },
+      { href: "/dashboard/admin/lugares", label: "Lugares", icon: MapPinned }, // CLGDC-207
       { href: "/dashboard/admin/categorias", label: "Categorías", icon: Folder },
       { href: "/dashboard/admin/ciudades", label: "Ciudades", icon: MapPin },
       { href: "/dashboard/admin/regiones", label: "Regiones", icon: Map },

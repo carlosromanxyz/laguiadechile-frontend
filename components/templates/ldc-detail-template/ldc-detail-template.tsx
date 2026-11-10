@@ -28,6 +28,21 @@ import { LDCCTAButton } from "@/components/atoms/ldc-cta-button";
 import { LDCTimeSwitch } from "@/components/atoms/ldc-time-switch";
 import { formatEventLongDay, formatEventPrice } from "@/lib/format/events";
 import type { IEvent, IEvents } from "@/interfaces/event";
+// Lugares (CLGDC-207)
+import Link from "next/link";
+import { LDCWeekDays } from "@/components/atoms/ldc-week-days";
+import { LDCEmergencyNumbers } from "@/components/molecules/ldc-emergency-numbers";
+import { LDCPlaceContact } from "@/components/molecules/ldc-place-contact";
+import { LDCScheduleList } from "@/components/molecules/ldc-schedule-list";
+import { LDCPlaceDetailHero } from "@/components/organisms/ldc-place-detail-hero";
+import type { IPlace } from "@/interfaces/place";
+import {
+  PLACE_TYPE_META,
+  directionsHref,
+  formatScheduleSummary,
+  hasOpenDays,
+} from "@/lib/format/places";
+import { PLACE_ACTION_CLASS } from "@/lib/ui/places";
 import {
   typeLabels,
   formatClassifiedPrice,
@@ -40,7 +55,7 @@ import {
   getOperationLabel,
 } from "@/lib/format/properties";
 import { getReadingTime, isNewArticle } from "@/lib/format/news";
-import { FileText, Clock, CalendarDays, Ticket } from "lucide-react";
+import { FileText, Clock, CalendarDays, Ticket, Navigation } from "lucide-react";
 import type { ReactNode } from "react";
 import type { IListingDetail, IListingDetails } from "@/interfaces/listing";
 import type { IClassified, IClassifieds } from "@/interfaces/classified";
@@ -64,6 +79,16 @@ type LDCDetailTemplateProps =
       related: IEvents;
       /** Ya terminó al renderizar en el servidor; en el navegador lo recalcula `LDCTimeSwitch` */
       past: boolean;
+    }
+  | {
+      kind: "lugar";
+      place: IPlace;
+      /** «Cerca de este lugar»: comercios y servicios de la misma ciudad (hasta 4) */
+      related: IListingDetails;
+      /** Cuántos comercios y servicios hay en la ciudad (para «Ver los N de …») */
+      relatedTotal: number;
+      /** Día de hoy en Chile (0 = lunes) al renderizar; el navegador lo recalcula */
+      today: number;
     };
 
 /** Textos y rutas que distinguen la ficha de comercio de la de servicio. */
@@ -105,6 +130,8 @@ export function LDCDetailTemplate(props: LDCDetailTemplateProps) {
       return <NewsDetail {...props} />;
     case "evento":
       return <EventDetail {...props} />;
+    case "lugar":
+      return <PlaceDetail {...props} />;
   }
 }
 
@@ -558,6 +585,116 @@ function EventDetail({ event, related, past }: Extract<LDCDetailTemplateProps, {
                 priceType={item.priceType}
                 priceAmount={item.priceAmount}
                 featured={item.featured}
+              />
+            ))}
+          </LDCRelatedSection>
+        )
+      }
+    />
+  );
+}
+
+// ---- Lugar (CLGDC-207, alternativa B) ----
+function PlaceDetail({ place, related, relatedTotal, today }: Extract<LDCDetailTemplateProps, { kind: "lugar" }>) {
+  const meta = PLACE_TYPE_META[place.type];
+  const breadcrumbs: IBreadcrumbItem[] = [
+    { label: "Inicio", href: "/" },
+    { label: "Lugares", href: "/lugares" },
+    { label: meta.plural, href: `/lugares?tipo=${meta.query}` },
+    { label: place.title, href: "" },
+  ];
+  const isMarket = place.type === "MARKET";
+  const mapAddress = [place.address, place.commune !== place.city.name ? place.commune : undefined]
+    .filter(Boolean)
+    .join(", ");
+
+  return (
+    <DetailLayout
+      hero={<LDCPlaceDetailHero place={place} breadcrumbs={breadcrumbs} today={today} />}
+      main={
+        <>
+          <LDCListingGallery images={[place.image, ...place.gallery]} title={place.title} />
+
+          <DescriptionPanel>
+            <div
+              className="prose prose-sm max-w-none text-muted-foreground dark:prose-invert
+                prose-p:mb-4 prose-p:last:mb-0"
+              dangerouslySetInnerHTML={{ __html: place.description }}
+            />
+          </DescriptionPanel>
+
+          <LDCListingMap
+            title="Cómo llegar"
+            address={mapAddress}
+            city={place.city.name}
+            action={
+              <a
+                href={directionsHref(mapAddress, place.city.name)}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Cómo llegar a ${place.title} en Google Maps (se abre en otra pestaña)`}
+                className={PLACE_ACTION_CLASS}
+              >
+                <Navigation aria-hidden />
+                Cómo llegar
+              </a>
+            }
+          />
+        </>
+      }
+      sidebar={
+        <>
+          {place.type === "PUBLIC_SERVICE" && <LDCEmergencyNumbers own={place.emergencyNumber} />}
+
+          {place.schedule && hasOpenDays(place.schedule) && (
+            <LDCPanel>
+              <h3 className="text-lg font-bold font-mulish text-foreground mb-4 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-pink" aria-hidden />
+                {isMarket ? "Días de feria" : "Horario"}
+              </h3>
+              {isMarket && (
+                <>
+                  <LDCWeekDays schedule={place.schedule} serverToday={today} size="lg" decorative className="mb-4" />
+                  <p className="mb-3 flex items-start gap-2 font-extrabold text-foreground">
+                    <CalendarDays className="mt-1 size-4 shrink-0 text-place-market" aria-hidden />
+                    <span>{formatScheduleSummary(place.schedule)}</span>
+                  </p>
+                </>
+              )}
+              <LDCScheduleList schedule={place.schedule} serverToday={today} />
+            </LDCPanel>
+          )}
+
+          <LDCPlaceContact place={place} />
+        </>
+      }
+      related={
+        related.length > 0 && (
+          <LDCRelatedSection
+            title="Cerca de este lugar"
+            description={`Comercios y servicios de ${place.city.name}`}
+            action={
+              <Link
+                href={`/ciudad/${place.city.slug}`}
+                className="inline-flex min-h-11 items-center text-sm text-pink-strong hover:underline dark:text-yellow"
+              >
+                Ver los {relatedTotal} de {place.city.name} →
+              </Link>
+            }
+          >
+            {related.map((item) => (
+              <LDCListingCard
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                slug={item.slug}
+                type={item.type}
+                category={item.category}
+                city={item.city}
+                image={item.image}
+                featured={item.featured}
+                createdAt={item.createdAt}
+                updatedAt={item.updatedAt}
               />
             ))}
           </LDCRelatedSection>

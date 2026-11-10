@@ -50,6 +50,23 @@ export async function apiGetNoStore<T>(path: string): Promise<T> {
   return (await res.json()) as T;
 }
 
+/**
+ * Como `apiGetNoStore`, pero `null` si la API responde 404 (p. ej. un recurso que el backend todavía
+ * no expone, como `/places` antes de su merge, CLGDC-207).
+ */
+export async function apiGetNoStoreOrNull<T>(path: string): Promise<T | null> {
+  const ip = getSocketIp(await headers());
+  const res = await fetch(`${BASE}${path}`, {
+    headers: { Accept: "application/json", ...(ip ? { "X-Forwarded-For": ip } : {}) },
+    cache: "no-store",
+  });
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    throw new Error(`Backend ${res.status} on ${path}`);
+  }
+  return (await res.json()) as T;
+}
+
 /** Returns null on 404 instead of throwing (for getBySlug). */
 export async function apiGetOrNull<T>(
   path: string,
