@@ -65,14 +65,18 @@ test.describe("registro por formulario", () => {
     await field(page, "Contraseña").fill(password);
     await field(page, "Repite la contraseña").fill(password);
     await page.getByRole("checkbox", { name: /Acepto los términos y condiciones/ }).check();
+
+    const registerRequests: string[] = [];
+    page.on("request", (request) => {
+      if (request.url().includes("/api/auth/register")) registerRequests.push(request.url());
+    });
     await page.getByRole("button", { name: "Crear cuenta" }).click();
 
     await expect(page.getByText("Escribe tu nombre")).toBeVisible();
     await expect(page.getByText("Escribe tu apellido")).toBeVisible();
     await expect(page).toHaveURL(/\/registro$/);
-
-    // El correo de bienvenida sale sin bloquear el registro: margen para que llegara si se enviara.
-    await page.waitForTimeout(3_000);
+    // Sin request de registro no hay cuenta ni correo; Mailpit lo confirma.
+    expect(registerRequests).toEqual([]);
     expect(await countMessagesTo(email)).toBe(0);
   });
 
