@@ -14,10 +14,10 @@ import { LDCFormField } from "@/components/molecules/ldc-form-field";
 import { LDC_REGISTER, LDC_ROLES } from "@/lib/auth/roles";
 import { AUTH_INLINE_LINK_CLASS } from "@/lib/ui/auth";
 import { fitsPasswordBytes, PASSWORD_MAX_BYTES_MESSAGE } from "@/validations/password-bytes";
+import { personNameSchema } from "@/validations/person-name-schema";
 
-const schema = z
-  .object({
-    name: z.string().trim().min(2, "Escribe tu nombre").max(80, "Máximo 80 caracteres"),
+const schema = personNameSchema
+  .extend({
     email: z.string().trim().email("Escribe un email completo, como nombre@dominio.cl"),
     password: z
       .string()
@@ -43,9 +43,11 @@ const EMAIL_TAKEN = "server";
 /**
  * LDCRegisterForm - Formulario de registro público (`/registro`)
  *
- * React Hook Form + Zod, con el mismo `LDCFormField` del login: nombre, email, contraseña,
- * confirmación y la casilla de términos (`LDCCheckboxField`). Envía a `/api/auth/register`
- * (Route Handler que crea la cuenta como USUARIO y guarda la cookie JWT).
+ * React Hook Form + Zod, con el mismo `LDCFormField` del login. Desde `sm`, en dos columnas:
+ * Nombre | Apellido, Email a todo el ancho, Contraseña | Repite la contraseña; abajo, la casilla
+ * de términos (`LDCCheckboxField`), la alerta y el botón. En móvil, una sola columna. Pensado para
+ * `LDCAuthTemplate` con `wide`. Envía a `/api/auth/register` (Route Handler que crea la cuenta
+ * como USUARIO y guarda la cookie JWT).
  * - 409: el error va en el campo email, con el enlace a iniciar sesión, y lo enfoca.
  * - Otro error: caja de error en línea (`role="alert"`) y toast, como el login.
  * - Éxito: toast «Cuenta creada» y al inicio del panel (`/dashboard`).
@@ -56,7 +58,7 @@ export function LDCRegisterForm() {
   const [serverError, setServerError] = useState<string | null>(null);
   const form = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { name: "", email: "", password: "", confirmPassword: "", terms: false },
+    defaultValues: { firstName: "", lastName: "", email: "", password: "", confirmPassword: "", terms: false },
   });
   const { errors } = form.formState;
   const emailTaken = errors.email?.type === EMAIL_TAKEN;
@@ -76,7 +78,8 @@ export function LDCRegisterForm() {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            name: values.name,
+            firstName: values.firstName,
+            lastName: values.lastName,
             email: values.email,
             password: values.password,
           }),
@@ -112,16 +115,28 @@ export function LDCRegisterForm() {
       <p className="-mb-2 font-open-sans text-sm text-muted-foreground">
         Todos los campos son obligatorios.
       </p>
-      <LDCFormField
-        control={form.control}
-        name="name"
-        label="Nombre"
-        placeholder="Nombre y apellido"
-        autoComplete="name"
-        maxLength={80}
-        required
-        disabled={submitting}
-      />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <LDCFormField
+          control={form.control}
+          name="firstName"
+          label="Nombre"
+          placeholder="Ana"
+          autoComplete="given-name"
+          maxLength={80}
+          required
+          disabled={submitting}
+        />
+        <LDCFormField
+          control={form.control}
+          name="lastName"
+          label="Apellido"
+          placeholder="Pérez"
+          autoComplete="family-name"
+          maxLength={80}
+          required
+          disabled={submitting}
+        />
+      </div>
       <LDCFormField
         control={form.control}
         name="email"
@@ -139,27 +154,29 @@ export function LDCRegisterForm() {
           ) : undefined
         }
       />
-      <LDCFormField
-        control={form.control}
-        name="password"
-        label="Contraseña"
-        type="password"
-        placeholder="••••••••"
-        autoComplete="new-password"
-        description={errors.password ? undefined : "Mínimo 8 caracteres."}
-        required
-        disabled={submitting}
-      />
-      <LDCFormField
-        control={form.control}
-        name="confirmPassword"
-        label="Repite la contraseña"
-        type="password"
-        placeholder="••••••••"
-        autoComplete="new-password"
-        required
-        disabled={submitting}
-      />
+      <div className="grid gap-5 sm:grid-cols-2">
+        <LDCFormField
+          control={form.control}
+          name="password"
+          label="Contraseña"
+          type="password"
+          placeholder="••••••••"
+          autoComplete="new-password"
+          description={errors.password ? undefined : "Mínimo 8 caracteres."}
+          required
+          disabled={submitting}
+        />
+        <LDCFormField
+          control={form.control}
+          name="confirmPassword"
+          label="Repite la contraseña"
+          type="password"
+          placeholder="••••••••"
+          autoComplete="new-password"
+          required
+          disabled={submitting}
+        />
+      </div>
       <LDCCheckboxField
         control={form.control}
         name="terms"

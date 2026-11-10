@@ -13,13 +13,18 @@ export interface LDCAuthTemplateProps {
    * `lg` se oculta. Sin ella, el formulario ocupa todo el ancho.
    */
   aside?: ReactNode;
+  /**
+   * Ensancha el slot de `max-w-sm` (384 px) a `max-w-lg` (512 px), para formularios en dos
+   * columnas como el registro. Por defecto, `false` (el login queda angosto).
+   */
+  wide?: boolean;
 }
 
 /**
  * LDCAuthTemplate - Esqueleto de las páginas de acceso (bloque `login-02` adaptado)
  *
  * Server Component sin datos. Columna del formulario con barra superior (logo
- * enlazado al inicio y cambio de tema), el slot centrado en `max-w-sm` con una
+ * enlazado al inicio y cambio de tema), el slot centrado en `max-w-sm` (`max-w-lg` con `wide`) con una
  * entrada de 0,3 s (solo con `prefers-reduced-motion: no-preference`) y el enlace
  * de vuelta al sitio; y, si llega, la portada a la derecha desde `lg`.
  *
@@ -28,7 +33,7 @@ export interface LDCAuthTemplateProps {
  *   <LDCAuthCard bare role="admin" title="…"><LDCLoginForm role="admin" /></LDCAuthCard>
  * </LDCAuthTemplate>
  */
-export function LDCAuthTemplate({ children, aside }: LDCAuthTemplateProps) {
+export function LDCAuthTemplate({ children, aside, wide = false }: LDCAuthTemplateProps) {
   return (
     <div className={cn("grid min-h-svh", aside != null && "lg:grid-cols-2")}>
       <div className="flex flex-col gap-4 bg-background p-6 md:p-10">
@@ -39,7 +44,12 @@ export function LDCAuthTemplate({ children, aside }: LDCAuthTemplateProps) {
           <LDCThemeModeToggler />
         </div>
         <main className="flex flex-1 items-start justify-center pt-4 md:items-center md:pt-0">
-          <div className="w-full max-w-sm motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)]">
+          <div
+            className={cn(
+              "w-full motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:duration-300 motion-safe:ease-[cubic-bezier(0.16,1,0.3,1)]",
+              wide ? "max-w-lg" : "max-w-sm",
+            )}
+          >
             {children}
           </div>
         </main>

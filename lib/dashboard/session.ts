@@ -23,8 +23,7 @@ export const getDashboardSession = cache(async (): Promise<IDashboardSession | n
   if (!user) return null;
   const roles = toLDCRoles(user.roles);
   if (roles.length === 0) return null;
-  const firstName = user.name.split(" ")[0] || user.name;
-  return { user: { name: user.name, email: user.email, greetingName: firstName }, roles };
+  return { user: { firstName: user.firstName, lastName: user.lastName, email: user.email }, roles };
 });
 
 /**

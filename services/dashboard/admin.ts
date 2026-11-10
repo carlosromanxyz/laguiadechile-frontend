@@ -13,6 +13,7 @@ import type {
 import { apiFetchServer } from "@/lib/api-client";
 import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
 import { formatRelative } from "@/lib/dashboard/dates";
+import { formatPersonName } from "@/lib/people";
 
 interface RawModerationItem {
   kind: "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY";
@@ -22,7 +23,7 @@ interface RawModerationItem {
   image: string;
   updatedAt: string;
   /** `null` si el dueño se borró. `roles`: todos los del dueño (enum `Role` del backend). */
-  owner: { name: string; email: string; roles: string[] } | null;
+  owner: { firstName: string; lastName: string; email: string; roles: string[] } | null;
   /** Tipo de la ficha (`COMERCIO` o `SERVICIO`); solo en `LISTING`. */
   type?: "COMERCIO" | "SERVICIO";
   /** Texto plano (el backend quita las etiquetas). */
@@ -146,8 +147,8 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
       image: m.image,
       by: m.owner
         ? role
-          ? `${m.owner.name} · ${LDC_ROLE_META[role].label}`
-          : m.owner.name
+          ? `${formatPersonName(m.owner)} · ${LDC_ROLE_META[role].label}`
+          : formatPersonName(m.owner)
         : "Sin dueño",
       when: formatRelative(m.updatedAt, now),
       description: m.description,

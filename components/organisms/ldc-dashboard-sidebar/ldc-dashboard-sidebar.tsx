@@ -17,11 +17,13 @@ import {
 } from "@/components/ui/sidebar";
 import { dashboardProfileHref, getDashboardNavigation } from "@/config/dashboard-navigation";
 import { LDC_ROLE_META, type LDCRole } from "@/lib/auth/roles";
+import type { PersonName } from "@/lib/people";
 
 export interface LDCDashboardSidebarProps {
   /** Roles de la cuenta: definen los grupos del menú y la línea de roles del menú de usuario */
   roles: readonly LDCRole[];
-  user: { name: string; email: string };
+  /** La cuenta (nombre, apellido y correo) para el menú de usuario */
+  user: PersonName & { email: string };
   /** Contadores por `href` del ítem (p. ej. `{ "/dashboard/admin/moderacion": 3 }`) */
   badges?: Record<string, number>;
 }
@@ -93,8 +95,7 @@ export function LDCDashboardSidebar({ roles, user, badges }: LDCDashboardSidebar
 
       <SidebarFooter className="border-t border-sidebar-border">
         <LDCUserMenu
-          name={user.name}
-          email={user.email}
+          user={user}
           roleLine={roleLine || undefined}
           profileHref={dashboardProfileHref}
         />

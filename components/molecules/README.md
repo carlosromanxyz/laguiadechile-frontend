@@ -68,4 +68,4 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-stat-card** (`LDCStatCard`): tarjeta de métrica del panel.
 - **ldc-status-filter** (`LDCStatusFilter`): pills de filtro por estado con su conteo, como enlaces con `?estado=`.
 - **ldc-theme-mode-toggler** (`LDCThemeModeToggler`): switch de tema claro/oscuro con íconos. Cliente.
-- **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel, con la línea de roles. Cliente.
+- **ldc-user-menu** (`LDCUserMenu`): menú del usuario al pie del sidebar del panel, con la línea de roles; recibe `user` (`firstName`, `lastName`, `email`) y muestra `formatPersonName` y `getPersonInitials`. Cliente.

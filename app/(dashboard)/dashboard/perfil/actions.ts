@@ -16,16 +16,41 @@ import { passwordChangeInputSchema, profileDetailsSchema } from "@/validations/p
 
 const SESSION_EXPIRED = "Tu sesión expiró. Vuelve a ingresar para guardar.";
 
+/** Error de cada campo cuando el backend rechaza el valor (400). */
+const FIELD_ERROR = {
+  firstName: "Revisa tu nombre: usa entre 2 y 80 caracteres.",
+  lastName: "Revisa tu apellido: usa entre 2 y 80 caracteres.",
+} as const;
+
 /**
- * Guarda el nombre (`PATCH /me`). Revalida el layout del panel para que el pie del menú muestre
- * el nombre nuevo. Devuelve un resultado en vez de lanzar, así el mensaje llega al formulario.
+ * Campo que rechazó el 400 de `PATCH /me`. class-validator responde `message: string[]` y cada
+ * mensaje empieza con la propiedad («lastName must be longer than…»). Va a `lastName` solo si
+ * algún mensaje empieza con `lastName` y ninguno con `firstName`; en cualquier otro caso (ambos
+ * campos, mensaje sin prefijo o formato inesperado), al primero del formulario, `firstName`.
+ */
+function rejectedNameField(e: ApiError): "firstName" | "lastName" {
+  const raw = (e.payload as { message?: unknown } | undefined)?.message;
+  const messages = (Array.isArray(raw) ? raw : [raw ?? e.message]).filter(
+    (m): m is string => typeof m === "string",
+  );
+  const lastName = messages.some((m) => /^lastName\b/.test(m));
+  const firstName = messages.some((m) => /^firstName\b/.test(m));
+  return lastName && !firstName ? "lastName" : "firstName";
+}
+
+/**
+ * Guarda el nombre y el apellido (`PATCH /me`). Revalida el layout del panel para que el pie del
+ * menú muestre el nombre nuevo. Devuelve un resultado en vez de lanzar, así el mensaje llega al
+ * formulario, en el campo que lo causó.
  */
 export async function updateMyProfileAction(input: IMyProfileUpdate): Promise<IUpdateMyProfileResult> {
   await requireDashboardSession();
 
   const parsed = profileDetailsSchema.safeParse(input);
   if (!parsed.success) {
-    return { ok: false, field: "name", message: parsed.error.issues[0]?.message ?? "Revisa tu nombre." };
+    const issue = parsed.error.issues[0];
+    const field = issue?.path[0] === "lastName" ? "lastName" : "firstName";
+    return { ok: false, field, message: issue?.message ?? FIELD_ERROR[field] };
   }
 
   try {
@@ -34,10 +59,13 @@ export async function updateMyProfileAction(input: IMyProfileUpdate): Promise<IU
     return { ok: true, profile };
   } catch (e) {
     if (e instanceof ApiError) {
-      if (e.status === 400) return { ok: false, field: "name", message: "Revisa tu nombre: usa entre 2 y 80 caracteres." };
+      if (e.status === 400) {
+        const field = rejectedNameField(e);
+        return { ok: false, field, message: FIELD_ERROR[field] };
+      }
       if (e.status === 401 || e.status === 403) return { ok: false, message: SESSION_EXPIRED };
     }
-    return { ok: false, message: "No pudimos guardar tu nombre. Inténtalo de nuevo en unos minutos." };
+    return { ok: false, message: "No pudimos guardar tu nombre y apellido. Inténtalo de nuevo en unos minutos." };
   }
 }
 

@@ -2,6 +2,7 @@ import { LDCClassifiedForm } from "@/components/organisms/ldc-classified-form";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
 import { getCategories, getCities } from "@/lib/api/catalog";
 import { requireDashboardSession } from "@/lib/dashboard/session";
+import { formatPersonName } from "@/lib/people";
 import { createMyClassifiedAction } from "../actions";
 
 export const metadata = {
@@ -27,7 +28,7 @@ export default async function NuevoAvisoPage() {
     >
       <LDCClassifiedForm
         mode="create"
-        defaultContact={{ name: session.user.name, email: session.user.email }}
+        defaultContact={{ name: formatPersonName(session.user), email: session.user.email }}
         categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug, icon: c.icon ?? "" }))}
         cities={cities.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}
         action={createMyClassifiedAction}

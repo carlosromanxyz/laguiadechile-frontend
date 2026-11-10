@@ -12,8 +12,8 @@ interface BackendPayload {
 }
 
 /**
- * Registro público. Solo reenvía `name`, `email` y `password` (un `role` del cliente se
- * descarta): el backend crea siempre un USUARIO y rechaza `role` con 400. Con 201 deja la
+ * Registro público. Solo reenvía `firstName`, `lastName`, `email` y `password` (un `role` o un
+ * `name` del cliente se descartan): el backend crea siempre un USUARIO y rechaza `role` con 400. Con 201 deja la
  * cookie de sesión, igual que el login.
  */
 export async function POST(request: Request) {
@@ -27,7 +27,12 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: "Invalid JSON body" }, { status: 400 });
   }
   const input = (raw ?? {}) as Record<string, unknown>;
-  const body = { name: input.name, email: input.email, password: input.password };
+  const body = {
+    firstName: input.firstName,
+    lastName: input.lastName,
+    email: input.email,
+    password: input.password,
+  };
 
   const res = await fetch(`${INTERNAL_BASE}/auth/register`, {
     method: "POST",

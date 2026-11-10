@@ -3,6 +3,7 @@ import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-p
 import { getCategories, getCities } from "@/lib/api/catalog";
 import { hasAnyRole } from "@/lib/auth/roles";
 import { requireDashboardSession } from "@/lib/dashboard/session";
+import { formatPersonName } from "@/lib/people";
 import { getMyEvent } from "@/services/me/events";
 import { createMyEventAction } from "../actions";
 
@@ -46,7 +47,7 @@ export default async function NuevoEventoPage({ searchParams }: NuevoEventoPageP
     >
       <LDCEventForm
         mode="create"
-        defaultOrganizer={{ name: session.user.name, email: session.user.email }}
+        defaultOrganizer={{ name: formatPersonName(session.user), email: session.user.email }}
         copyFrom={copyFrom}
         categories={categories.map((c) => ({ id: c.id, name: c.name, slug: c.slug, icon: c.icon ?? "" }))}
         cities={cities.map((c) => ({ id: c.id, name: c.name, slug: c.slug }))}

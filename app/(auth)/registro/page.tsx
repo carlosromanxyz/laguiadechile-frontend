@@ -14,7 +14,8 @@ export const metadata: Metadata = {
 
 /**
  * Registro público: una sola página, sin elegir rol. La cuenta nace como usuario y cae en
- * `/dashboard`. Con sesión, al inicio del panel.
+ * `/dashboard`. Con sesión, al inicio del panel. El formulario va en dos columnas, así que el
+ * template usa `wide`.
  */
 export default async function RegisterPage() {
   const session = await getDashboardSession();
@@ -23,7 +24,7 @@ export default async function RegisterPage() {
   const cover = await getAuthCoverData();
 
   return (
-    <LDCAuthTemplate aside={cover ? <LDCAuthCover {...cover} /> : undefined}>
+    <LDCAuthTemplate wide aside={cover ? <LDCAuthCover {...cover} /> : undefined}>
       <LDCAuthCard
         bare
         role={LDC_REGISTER.role}

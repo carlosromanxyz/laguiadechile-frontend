@@ -41,7 +41,7 @@ export interface IAdminUsersSearchParams {
 }
 
 /**
- * Datos de «Usuarios» del admin (CLGDC-127): búsqueda (`?q=`, nombre o correo, ≤ 200) y página
+ * Datos de «Usuarios» del admin (CLGDC-127): búsqueda (`?q=`, nombre, apellido, ambos o correo, ≤ 200) y página
  * (`?page=`, 1..10000) de la URL. Una página fuera de rango vuelve a la última que existe.
  */
 export async function loadAdminUsersPage(searchParams: IAdminUsersSearchParams, basePath: string) {

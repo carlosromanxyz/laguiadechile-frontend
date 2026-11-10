@@ -30,6 +30,7 @@ import { hasAnyRole, type LDCRole } from "@/lib/auth/roles";
 import { ADMIN_PUBLICATION_STATUS_META, adminStatusLabel } from "@/lib/dashboard/admin-publication-status";
 import { formatRelative } from "@/lib/dashboard/dates";
 import { requireDashboardSession } from "@/lib/dashboard/session";
+import { formatPersonName } from "@/lib/people";
 import { getMyTasks } from "@/services/dashboard/comercio";
 import { getAdminStats, getMySummary } from "@/services/dashboard/summary";
 import { getMyClassifieds, getMyFavorites } from "@/services/dashboard/usuario";
@@ -206,7 +207,7 @@ function activityItem(r: IAdminRecentItem, now: Date): LDCAdminActivityItem {
     kindLabel: isService ? "Servicio" : meta.label,
     statusLabel,
     statusBadge: ADMIN_PUBLICATION_STATUS_META[r.status].badge,
-    by: r.ownerName ?? "Sin dueño",
+    by: r.owner ? formatPersonName(r.owner) : "Sin dueño",
     when: formatRelative(r.updatedAt, now),
   };
 }
@@ -322,7 +323,7 @@ export default async function DashboardHomePage() {
 
   return (
     <LDCDashboardPageTemplate
-      title={`Hola, ${session.user.greetingName}`}
+      title={`Hola, ${session.user.firstName}`}
       description={describe(roles)}
     >
       <LDCTaskList tasks={tasks} />

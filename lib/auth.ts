@@ -4,7 +4,8 @@ import { apiFetchServer, ApiError } from "./api-client";
 export interface AuthUser {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   /** Roles de la cuenta (`ADMIN`, `COMERCIO`…); se traducen con `toLDCRoles`. */
   roles: string[];
 }

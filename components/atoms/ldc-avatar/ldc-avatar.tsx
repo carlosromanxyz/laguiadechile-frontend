@@ -15,6 +15,11 @@ export type LDCAvatarSize = keyof typeof SIZE_PX;
 interface LDCAvatarProps {
   /** Nombre de la persona: `alt` de la imagen y fuente de las iniciales */
   name: string;
+  /**
+   * Iniciales ya calculadas; mandan sobre las que salen de `name`. Para una persona usuaria,
+   * `getPersonInitials` de `lib/people` (nombre + apellido: «Ana María Pérez» → «AP»).
+   */
+  initials?: string;
   /** URL de la foto; sin ella se muestran las iniciales */
   src?: string;
   /** sm 24 px · md 32 px · lg 48 px */
@@ -57,11 +62,12 @@ export function getInitials(name: string): string {
  * ```tsx
  * <LDCAvatar name={author.name} src={author.avatar} size="sm" />
  * <LDCAvatar name={author.name} src={author.avatar} size="lg" framed={false} />
- * <LDCAvatar name={user.name} />
+ * <LDCAvatar name={formatPersonName(user)} initials={getPersonInitials(user)} />
  * ```
  */
 export function LDCAvatar({
   name,
+  initials,
   src,
   size = "md",
   framed = true,
@@ -74,7 +80,7 @@ export function LDCAvatar({
     return (
       <Avatar className={cn(fallbackSize[size], className)} aria-hidden={decorative || undefined}>
         <AvatarFallback className={decorative ? "font-semibold text-foreground" : undefined}>
-          {getInitials(name)}
+          {initials ?? getInitials(name)}
         </AvatarFallback>
       </Avatar>
     );

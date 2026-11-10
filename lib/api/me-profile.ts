@@ -7,7 +7,8 @@ import { toLDCRoles } from "@/lib/auth/backend-role";
 interface RawMyProfile {
   id: string;
   email: string;
-  name: string;
+  firstName: string;
+  lastName: string;
   roles: string[];
   createdAt: string;
 }
@@ -15,7 +16,8 @@ interface RawMyProfile {
 const mapMyProfile = (p: RawMyProfile): IMyProfile => ({
   id: p.id,
   email: p.email,
-  name: p.name,
+  firstName: p.firstName,
+  lastName: p.lastName,
   roles: toLDCRoles(p.roles),
   createdAt: p.createdAt,
 });
@@ -28,11 +30,11 @@ export async function getMyProfile(): Promise<IMyProfile> {
   return mapMyProfile(await apiFetchServer<RawMyProfile>("/me"));
 }
 
-/** Cambia el nombre (`PATCH /me`; el backend lo recorta y exige 2 a 80 caracteres). */
+/** Cambia el nombre y el apellido (`PATCH /me`; el backend los recorta y exige 2 a 80 caracteres cada uno). */
 export async function updateMyProfile(data: IMyProfileUpdate): Promise<IMyProfile> {
   const raw = await apiFetchServer<RawMyProfile>("/me", {
     method: "PATCH",
-    body: JSON.stringify({ name: data.name }),
+    body: JSON.stringify({ firstName: data.firstName, lastName: data.lastName }),
   });
   return mapMyProfile(raw);
 }
