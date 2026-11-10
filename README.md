@@ -36,6 +36,30 @@ Los componentes propios llevan el prefijo LDC en la carpeta, el archivo y el exp
 (`ldc-x/ldc-x.tsx` → `LDCX`) y se importan por la carpeta: `@/components/<nivel>/ldc-x`. Los datos
 se piden en las páginas de `app/` con la DAL de `lib/api/*` y bajan por props.
 
+## Pruebas e2e (Playwright)
+
+La suite vive en `tests/e2e/` (config en `playwright.config.ts`) y se corre a mano, sin CI ni
+hooks, con `scripts/e2e.sh` desde el host. El script levanta la imagen
+`mcr.microsoft.com/playwright:v1.64.0-noble` (trae Chromium; no se descarga nada en el host) en la
+red del contenedor del front, donde `localhost:3000` es el dev server y `mailpit:8025` es la API de
+Mailpit, con el repo montado en solo lectura.
+
+```bash
+scripts/e2e.sh                        # pruebas del front principal contra el stack
+scripts/e2e.sh -g "bienvenida"        # el resto de los argumentos van a `playwright test`
+scripts/e2e.sh --en CLGDC-N           # pruebas del worktree .worktrees/frontend-CLGDC-N
+E2E_NODE_MODULES=<volumen> scripts/e2e.sh   # otro volumen de node_modules con @playwright/test
+```
+
+- Necesita el stack arriba (front, backend, Mailpit y base) y `@playwright/test@1.64.0` en el
+  volumen de `node_modules` del front (`npm install` en el contenedor). Con `--en CLGDC-N`, el sitio
+  es el preview `lgdc-preview-CLGDC-N` si está corriendo y, si no, el dev server del stack.
+- `registro.spec.ts` crea cuentas `e2e-registro-<timestamp>@e2e.lgdc.test` con una contraseña al
+  azar y espera el correo de bienvenida en Mailpit. Al terminar, pase o no la suite, el script borra
+  esas cuentas de la base y sus mensajes de Mailpit.
+- Sale con el código de Playwright (o 1 si la suite pasó pero la limpieza falló). Los artefactos
+  de un fallo (trace, contexto) quedan en `test-results/ultima/`, fuera de git.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
