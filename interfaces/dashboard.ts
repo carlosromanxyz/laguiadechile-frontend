@@ -32,8 +32,8 @@ export interface IDashboardTask {
   action?: { label: string; href: string };
 }
 
-/** Tipo de publicación que se modera (ruta `/admin/moderation/:kind/:id`). */
-export type IDashboardModerationKind = "listing" | "classified" | "event" | "property";
+/** Tipo de publicación que se modera (ruta `/admin/moderation/:kind/:id`); `place`, CLGDC-209. */
+export type IDashboardModerationKind = "listing" | "classified" | "event" | "property" | "place";
 
 /** Elemento de la cola de moderación del administrador (`GET /admin/moderation`). */
 export interface IDashboardModerationItem {

@@ -16,7 +16,7 @@ import { formatRelative } from "@/lib/dashboard/dates";
 import { formatPersonName } from "@/lib/people";
 
 interface RawModerationItem {
-  kind: "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY";
+  kind: "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY" | "PLACE";
   id: string;
   title: string;
   slug: string;
@@ -107,7 +107,7 @@ export async function getAdminOverview(): Promise<{
 }
 
 /**
- * Cola de moderación: fichas, avisos, eventos y propiedades enviados o editados, lo más antiguo primero.
+ * Cola de moderación: fichas, avisos, eventos, propiedades y lugares enviados o editados, lo más antiguo primero.
  * Ante un error, lista vacía (el layout también la pide para el contador del menú).
  */
 export const getModerationQueue = cache(async (): Promise<IDashboardModerationItem[]> => {
@@ -121,14 +121,16 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
           ? "event"
           : m.kind === "PROPERTY"
             ? "property"
-            : "listing";
+            : m.kind === "PLACE"
+              ? "place"
+              : "listing";
     const listingType =
       kind !== "listing" ? undefined
       : m.type === "SERVICIO" ? "servicio"
       : m.type === "COMERCIO" ? "comercio"
       : undefined;
     // Se muestra el rol que da la publicación (ficha → comercio o servicio según su tipo, aviso →
-    // avisador, evento → organizador, propiedad → propietario), aunque el dueño no lo tenga en
+    // avisador, evento → organizador, propiedad → propietario, lugar → colaborador), aunque el dueño no lo tenga en
     // `owner.roles`.
     const role: LDCRole | undefined =
       kind === "classified"
@@ -137,7 +139,9 @@ export const getModerationQueue = cache(async (): Promise<IDashboardModerationIt
           ? "organizador"
           : kind === "property"
             ? "propietario"
-            : listingType;
+            : kind === "place"
+              ? "colaborador"
+              : listingType;
     return {
       id: m.id,
       kind,

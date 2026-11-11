@@ -22,7 +22,7 @@ import {
   type IAdminPublicationStatus,
 } from "@/interfaces/admin-publication";
 import type { IDashboardActionResult, IDashboardModerationKind } from "@/interfaces/dashboard";
-import { adminStatusLabel, type IAdminNounGender } from "@/lib/dashboard/admin-publication-status";
+import { adminStatusLabel, kindCanExpire, type IAdminNounGender } from "@/lib/dashboard/admin-publication-status";
 import { cn } from "@/lib/utils";
 
 export interface LDCPublicationStatusActionsProps {
@@ -201,8 +201,8 @@ export function LDCPublicationStatusActions({
                 <span className="truncate text-xs font-normal text-muted-foreground">{title}</span>
               </DropdownMenuLabel>
               <DropdownMenuRadioGroup value={status} onValueChange={onMenuChange}>
-                {/* Las propiedades no vencen (CLGDC-164): sin «Vencida». */}
-                {ADMIN_SETTABLE_STATUSES.filter((s) => s !== "EXPIRED" || kind !== "property").map((s) => (
+                {/* Las propiedades y los lugares no vencen (CLGDC-164, CLGDC-209): sin «Vencida». */}
+                {ADMIN_SETTABLE_STATUSES.filter((s) => s !== "EXPIRED" || kindCanExpire(kind)).map((s) => (
                   <DropdownMenuRadioItem key={s} value={s}>
                     {s === "PUBLISHED" && status === "REVIEW"
                       ? `${adminStatusLabel("PUBLISHED", gender)} (aprobar)`

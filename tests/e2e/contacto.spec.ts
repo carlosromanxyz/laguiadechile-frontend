@@ -46,35 +46,30 @@ test.describe("formulario de contacto", () => {
     expect(await htmlCheck(message.ID)).toBe(200);
   });
 
-  test("el asunto llega prellenado desde ?asunto=", async ({ page }) => {
-    // El enlace de la tile «Sugerir» del panel (CLGDC-206). No envía: no gasta el throttle de /contact.
+  test("?asunto= no prellena nada fuera de la lista cerrada", async ({ page }) => {
+    // CONTACT_SUBJECT_PRESETS quedó vacía al irse la tile «Sugerir» (CLGDC-209): el viejo enlace
+    // `?asunto=sugerir` y cualquier otro valor dejan el formulario en blanco. No envía: no gasta el
+    // throttle de /contact.
     const empty = async () => {
+      await expect(field(page, "Asunto")).toHaveValue("");
       await expect(field(page, "Nombre completo")).toHaveValue("");
       await expect(field(page, "Correo electrónico")).toHaveValue("");
       await expect(field(page, "Mensaje")).toHaveValue("");
     };
 
-    // Una clave de CONTACT_SUBJECT_PRESETS pone su asunto; solo el asunto se prellena.
-    await page.goto("/contacto?asunto=sugerir");
-    await expect(field(page, "Asunto")).toHaveValue("Sugerir un lugar");
-    await empty();
-
-    // Lista cerrada: texto libre, una clave desconocida o un parámetro repetido dejan el asunto vacío.
     for (const query of [
+      "asunto=sugerir",
       "asunto=Sugerir%20un%20lugar",
       "asunto=Hola%0D%0Amundo%0Aotra",
       `asunto=${"a".repeat(300)}`,
       "asunto=constructor",
       "asunto=sugerir&asunto=sugerir",
+      // Los demás campos nunca se llenan por URL.
+      "asunto=sugerir&name=Spam&email=spam%40e2e.lgdc.test&message=Hola",
     ]) {
       await page.goto(`/contacto?${query}`);
       await expect(field(page, "Asunto"), query).toHaveValue("");
       await empty();
     }
-
-    // Los demás campos nunca se llenan por URL, aunque la clave sea válida.
-    await page.goto("/contacto?asunto=sugerir&name=Spam&email=spam%40e2e.lgdc.test&message=Hola");
-    await expect(field(page, "Asunto")).toHaveValue("Sugerir un lugar");
-    await empty();
   });
 });

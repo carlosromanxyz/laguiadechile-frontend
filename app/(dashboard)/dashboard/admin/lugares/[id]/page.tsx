@@ -1,35 +1,50 @@
 import { notFound } from "next/navigation";
 import { LDCBackLink } from "@/components/atoms/ldc-back-link";
 import { LDCPlaceForm } from "@/components/organisms/ldc-place-form";
+import { LDCResourceRowActions } from "@/components/organisms/ldc-resource-row-actions";
 import { LDCDashboardPageTemplate } from "@/components/templates/ldc-dashboard-page-template";
 import { ApiError } from "@/lib/api-client";
 import { getCities } from "@/lib/api/catalog";
 import { adminPlacesService } from "@/services/admin/places";
 import { placeToValues } from "@/validations/place-form-schema";
-import { updatePlaceAction } from "../actions";
+import { deletePlaceAndReturnAction, updatePlaceAction } from "../actions";
+
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export const metadata = {
   title: "Editar lugar — Panel",
 };
 
-/** Edición de un lugar (CLGDC-207). La API expone `GET /places/:slug`, no por id: se busca en el listado. */
+/**
+ * Edición de un lugar (CLGDC-207). Desde CLGDC-209 lo lee `GET /admin/places/:id`: cualquier
+ * estado, también los que publican las cuentas. Borrar va aquí, como en propiedades.
+ */
 export default async function EditPlacePage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const [places, cities] = await Promise.all([
-    adminPlacesService.list({ limit: 200 }).catch((e: unknown) => {
-      if (e instanceof ApiError && e.status === 404) return [];
+  if (!UUID.test(id)) notFound();
+  const [item, cities] = await Promise.all([
+    adminPlacesService.get(id).catch((e: unknown) => {
+      if (e instanceof ApiError && e.status === 404) return null;
       throw e;
     }),
     getCities(),
   ]);
-  const item = places.find((p) => p.id === id);
   if (!item) notFound();
 
   return (
     <LDCDashboardPageTemplate
       title="Editar lugar"
       description={item.title}
-      actions={<LDCBackLink href="/dashboard/admin/lugares" label="Volver a Lugares" />}
+      actions={
+        <div className="flex items-center gap-2">
+          <LDCBackLink href="/dashboard/admin/lugares" label="Volver a Lugares" />
+          <LDCResourceRowActions
+            onDelete={deletePlaceAndReturnAction.bind(null, item.id)}
+            deleteLabel="¿Eliminar este lugar?"
+            deleteDescription={`«${item.title}» deja de verse en el sitio. Esta acción no se puede deshacer.`}
+          />
+        </div>
+      }
     >
       <LDCPlaceForm
         mode="edit"

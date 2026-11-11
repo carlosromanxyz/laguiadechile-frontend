@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { IAdminPlace, IAdminPlaceUpsert, IPlaceType } from "@/interfaces/place";
+import type { IAdminPlace, IAdminPlaceUpsert, IMyPlace, IMyPlaceUpsert, IPlaceType } from "@/interfaces/place";
 import { DESCRIPTION_MAX_HTML, descriptionHtmlToText, descriptionTextToHtml } from "@/lib/format/description";
 import { scheduleFromApi, scheduleToApi } from "@/lib/format/schedule";
 import { isAllowedImageUrl } from "./admin-catalog-schema";
@@ -9,6 +9,10 @@ import { GALLERY_MAX, isHttpUrl, scheduleValueSchema } from "./listing-form-sche
  * Formulario de un lugar del admin (CLGDC-207). El mismo schema valida en el formulario (resolver)
  * y en la server action (`safeParse` de lo que llega); `toPlacePayload` lo convierte al cuerpo de
  * `POST /places` y `PATCH /places/:id`. Los límites son los del DTO del backend.
+ *
+ * El dueño (CLGDC-209, `LDCPlaceForm variant="owner"`) usa los mismos valores, pero su server action
+ * valida con `myPlaceFormSchema` (sin `slug`, `featured` ni `emergencyNumber`, que Zod descarta) y
+ * arma el cuerpo de `/me/places` con `toMyPlacePayload`, que nunca los manda.
  */
 
 const PLACE_TYPE_VALUES = ["ATTRACTION", "PUBLIC_SERVICE", "MARKET"] as const satisfies readonly IPlaceType[];
@@ -105,5 +109,41 @@ export function toPlacePayload(v: LDCPlaceFormValues, keepDescription?: string):
     website: orNull(v.website),
     email: orNull(v.email),
     featured: v.featured,
+  };
+}
+
+/**
+ * Lo que valida la server action del dueño (CLGDC-209): el schema del admin sin `slug`, `featured`
+ * ni `emergencyNumber`. `safeParse` descarta esas claves aunque lleguen.
+ */
+export const myPlaceFormSchema = placeFormSchema.omit({ slug: true, featured: true, emergencyNumber: true });
+
+export type LDCMyPlaceFormValues = z.infer<typeof myPlaceFormSchema>;
+
+/** Valores iniciales del formulario del dueño: los campos solo del admin quedan vacíos (ocultos). */
+export function myPlaceToValues(p?: IMyPlace): LDCPlaceFormValues {
+  const base = placeToValues(p ? { ...p, status: undefined, rejectionReason: null } : undefined);
+  return { ...base, slug: "", emergencyNumber: "", featured: false };
+}
+
+/**
+ * Cuerpo de `POST /me/places` y `PATCH /me/places/:id`: el del admin sin `slug`, `featured` ni
+ * `emergencyNumber` (el backend responde 400 si llegan). Mismo criterio para la descripción.
+ */
+export function toMyPlacePayload(v: LDCMyPlaceFormValues, keepDescription?: string): IMyPlaceUpsert {
+  const full = toPlacePayload({ ...v, slug: "", featured: false, emergencyNumber: "" }, keepDescription);
+  return {
+    type: full.type,
+    cityId: full.cityId,
+    title: full.title,
+    description: full.description,
+    image: full.image,
+    gallery: full.gallery,
+    address: full.address,
+    commune: full.commune,
+    schedule: full.schedule,
+    phone: full.phone,
+    website: full.website,
+    email: full.email,
   };
 }

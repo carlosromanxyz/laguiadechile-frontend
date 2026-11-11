@@ -18,19 +18,20 @@ export type LDCRole =
   | "comercio"
   | "servicio"
   | "organizador"
+  | "colaborador"
   | "admin";
 
 /** Roles con login propio (`/dashboard/login` y `/ingresar/[rol]`). */
 export type LDCAccessRole = "admin" | "comercio" | "usuario";
 
 /**
- * Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). `Newspaper` y `MapPinPlus` no son
- * de un rol: son los de «Noticia» (CLGDC-191) y «Sugerir» (CLGDC-206) en `LDCPublishChooser`.
+ * Nombre del ícono Lucide de cada rol (lo resuelve `LDCRoleIcon`). `Newspaper` no es de un rol: es
+ * el de «Noticia» (CLGDC-191) en `LDCPublishChooser`.
  */
 export type LDCRoleIconName =
   | "CalendarDays"
   | "House"
-  | "MapPinPlus"
+  | "MapPin"
   | "Newspaper"
   | "ShieldCheck"
   | "Store"
@@ -44,7 +45,10 @@ export type LDCRoleIconName =
  * - un color de marca por rol, sin repetir: usuario rosado, avisador amarillo, comercio naranjo,
  *   servicio naranjo-rojo, organizador azul grisáceo y admin morado; el propietario (CLGDC-164),
  *   que ya no tenía token de marca libre, usa `teal-500` de la paleta de Tailwind (como el
- *   `emerald-*` de los badges de aviso), el único tono frío y saturado que no está en uso;
+ *   `emerald-*` de los badges de aviso), el único tono frío y saturado que no está en uso; el
+ *   colaborador (CLGDC-209), que publica lugares, usa el verde de los atractivos
+ *   (`--place-attraction` de CLGDC-207), con su `-foreground`: blanco sobre el verde oscuro del
+ *   tema claro (5,2:1) y negro sobre el verde claro del oscuro (11,2:1);
  * - texto con contraste ≥ 4,5:1 (WCAG 1.4.3; el ícono pide ≥ 3:1, 1.4.11): negro sobre rosado
  *   (5,3:1), amarillo (11,9:1), naranjo (8,9:1), naranjo-rojo (6,5:1), azul grisáceo (4,7:1) y
  *   teal (8,8:1);
@@ -62,13 +66,19 @@ export const LDC_ROLE_META = {
   comercio: { label: "Comercio", iconName: "Store", tone: "bg-orange text-black" },
   servicio: { label: "Servicio", iconName: "Wrench", tone: "bg-orange-red text-black" },
   organizador: { label: "Organizador", iconName: "CalendarDays", tone: "bg-blue-gray text-black" },
+  colaborador: {
+    label: "Colaborador",
+    iconName: "MapPin",
+    tone: "bg-place-attraction text-place-attraction-foreground",
+  },
   admin: { label: "Administrador", iconName: "ShieldCheck", tone: "bg-purple text-white" },
 } as const satisfies Record<LDCRole, { label: string; iconName: LDCRoleIconName; tone: string }>;
 
 /**
  * Roles en orden de presentación (el del menú: General, Mis avisos, Mis propiedades, Mis
  * comercios, Mis servicios, Admin; el propietario va tras el avisador porque los dos publican como
- * particulares, y el organizador, que publica eventos, va antes del admin).
+ * particulares; el organizador, que publica eventos, y el colaborador, que publica lugares
+ * (CLGDC-209), van antes del admin).
  */
 export const LDC_ROLE_KEYS = [
   "usuario",
@@ -77,6 +87,7 @@ export const LDC_ROLE_KEYS = [
   "comercio",
   "servicio",
   "organizador",
+  "colaborador",
   "admin",
 ] as const satisfies readonly LDCRole[];
 

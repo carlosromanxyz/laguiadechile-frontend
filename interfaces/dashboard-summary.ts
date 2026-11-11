@@ -8,13 +8,13 @@ import type { PersonName } from "@/lib/people";
 /** Publicaciones por estado efectivo (un aviso o evento publicado que ya pasó cuenta como `EXPIRED`). */
 export type IStatusCounts = Record<IAdminPublicationStatus, number>;
 
-/** Grupos de publicaciones del panel: fichas por tipo, avisos, eventos y propiedades. */
-export type IPublicationGroup = "comercios" | "servicios" | "classifieds" | "events" | "properties";
+/** Grupos de publicaciones del panel: fichas por tipo, avisos, eventos, propiedades y lugares (CLGDC-209). */
+export type IPublicationGroup = "comercios" | "servicios" | "classifieds" | "events" | "properties" | "places";
 
 export type IPublicationCounts = Record<IPublicationGroup, IStatusCounts>;
 
 /** Tipo de publicación de la API (`ModerationKind`). */
-export type IPublicationKind = "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY";
+export type IPublicationKind = "LISTING" | "CLASSIFIED" | "EVENT" | "PROPERTY" | "PLACE";
 
 /** Una fila de «Actividad reciente» del admin. */
 export interface IAdminRecentItem {

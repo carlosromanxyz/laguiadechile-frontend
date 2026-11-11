@@ -16,6 +16,7 @@ const ROLES: Readonly<Record<IDashboardModerationKind, readonly LDCRole[]>> = {
   classified: ["avisador"],
   event: ["organizador"],
   property: ["propietario"],
+  place: ["colaborador"],
 };
 
 /** Texto fijo para el usuario según el status de la API (nunca el mensaje crudo del backend). */
@@ -45,6 +46,9 @@ function revalidateAfterArchive(kind: IDashboardModerationKind, slug: unknown) {
   } else if (kind === "property") {
     revalidatePath("/propiedades");
     if (okSlug) revalidatePath(`/propiedad/${slug}`);
+  } else if (kind === "place") {
+    revalidatePath("/lugares");
+    if (okSlug) revalidatePath(`/lugar/${slug}`);
   } else {
     revalidatePath("/eventos");
     if (okSlug) revalidatePath(`/evento/${slug}`);
@@ -75,8 +79,8 @@ async function toggle(
 
 /**
  * Archiva una publicación propia (el «borrar» del dueño, CLGDC-157): sale de La Guía y de los
- * favoritos, sin borrarse. Ficha (comercio o servicio), aviso (avisador), evento (organizador) o
- * propiedad (propietario).
+ * favoritos, sin borrarse. Ficha (comercio o servicio), aviso (avisador), evento (organizador),
+ * propiedad (propietario) o lugar (colaborador, CLGDC-209).
  */
 export async function archiveMyPublicationAction(
   kind: IDashboardModerationKind,

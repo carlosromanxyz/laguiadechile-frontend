@@ -7,19 +7,21 @@ import { cn } from "@/lib/utils";
 /**
  * Lo que se puede publicar desde el panel, en orden de presentación (CLGDC-191): primero los
  * negocios (comercio, servicio), después las publicaciones de particulares (aviso, propiedad,
- * evento) y al final la noticia del admin. Cada tipo da un rol a la cuenta (el de `role`): por eso
- * el inicio oculta los tipos cuyo rol ya tiene. La excepción es `onlyFor`: el tipo no da rol, solo
- * se ofrece a quien tiene ese rol. Para sumar un tipo basta agregarlo aquí (y sale en
- * `getPublishKinds`). `shortLabel` es la palabra visible de la tile y su nombre accesible
- * (CLGDC-203); `description` no se ve y es la descripción accesible del enlace.
+ * evento, lugar) y al final la noticia del admin. Cada tipo da un rol a la cuenta (el de `role`):
+ * por eso el inicio oculta los tipos cuyo rol ya tiene. La excepción es `onlyFor`: el tipo no da
+ * rol, solo se ofrece a quien tiene ese rol. `adminHref` es el formulario del admin, que publica
+ * directo y sin rol: el admin ve ese tipo siempre y la tile lleva ahí. Para sumar un tipo basta
+ * agregarlo aquí (y sale en `getPublishKinds`). `shortLabel` es la palabra visible de la tile y su
+ * nombre accesible (CLGDC-203); `description` no se ve y es la descripción accesible del enlace.
  */
 const KINDS: Record<
-  "comercio" | "servicio" | "aviso" | "propiedad" | "evento" | "noticia",
+  "comercio" | "servicio" | "aviso" | "propiedad" | "evento" | "lugar" | "noticia",
   {
     role: LDCRole;
     onlyFor?: LDCRole;
     icon?: LDCRoleIconGlyph;
     href: string;
+    adminHref?: string;
     shortLabel: string;
     description: string;
   }
@@ -57,6 +59,15 @@ const KINDS: Record<
     shortLabel: "Evento",
     description: "Una feria, un concierto o un taller, con fecha y lugar.",
   },
+  // CLGDC-209: reemplaza a «Sugerir» (CLGDC-206). Toda cuenta publica lugares, con moderación, y
+  // suma el rol colaborador; el admin los publica directo desde su formulario.
+  lugar: {
+    role: "colaborador",
+    href: "/dashboard/lugares/nuevo",
+    adminHref: "/dashboard/admin/lugares/nueva",
+    shortLabel: "Lugar",
+    description: "Un atractivo, una feria o un servicio público de tu ciudad.",
+  },
   // CLGDC-191: solo el admin publica noticias. Ícono propio (no es un rol) y, desde CLGDC-203, el
   // color del admin (`bg-purple text-white`, 4,8:1, token de marca) en vez del `sky-500` de
   // Tailwind: el rol admin nunca sale en el selector, así que el morado queda libre.
@@ -89,37 +100,23 @@ const SM_BASIS = [
 export type LDCPublishKind = keyof typeof KINDS;
 
 /**
- * Tile fija del final (CLGDC-206): no es un tipo de publicación ni da rol, así que no pasa por
- * `getPublishKinds` y la ve toda cuenta. Abre el contacto con el asunto puesto para recomendar un
- * lugar que falta en La Guía. Tono rosado del usuario (`LDC_ROLE_META.usuario.tone`).
- */
-const SUGGEST = {
-  icon: { name: "MapPinPlus", tone: LDC_ROLE_META.usuario.tone },
-  // Clave de `CONTACT_SUBJECT_PRESETS` (`lib/contact/limits.ts`): pone «Sugerir un lugar».
-  href: "/contacto?asunto=sugerir",
-  shortLabel: "Sugerir",
-  description: "Recomienda un comercio o servicio que aún no está en La Guía.",
-} as const satisfies {
-  icon: LDCRoleIconGlyph;
-  href: string;
-  shortLabel: string;
-  description: string;
-};
-
-/**
  * Tipos que se le ofrecen a una cuenta según sus roles, en orden: los que dan un rol que aún no
- * tiene y los `onlyFor` de un rol que sí tiene.
+ * tiene, los `onlyFor` de un rol que sí tiene y, para el admin, los que tienen `adminHref`.
  */
 export function getPublishKinds(roles: readonly LDCRole[]): LDCPublishKind[] {
+  const isAdmin = roles.includes("admin");
   return (Object.keys(KINDS) as LDCPublishKind[]).filter((kind) => {
-    const { role, onlyFor } = KINDS[kind];
-    return onlyFor ? roles.includes(onlyFor) : !roles.includes(role);
+    const { role, onlyFor, adminHref } = KINDS[kind];
+    if (onlyFor) return roles.includes(onlyFor);
+    return (isAdmin && adminHref !== undefined) || !roles.includes(role);
   });
 }
 
 export interface LDCPublishChooserProps {
-  /** Tipos que se ofrecen, en orden; «Sugerir» va siempre al final, aunque no haya ninguno */
+  /** Tipos que se ofrecen, en orden (`getPublishKinds`); sin ninguno, no se muestra */
   kinds: readonly LDCPublishKind[];
+  /** La cuenta es admin: los tipos con `adminHref` llevan a su formulario (el lugar, CLGDC-209) */
+  admin?: boolean;
   className?: string;
 }
 
@@ -127,8 +124,8 @@ export interface LDCPublishChooserProps {
  * LDCPublishChooser - «¿Qué quieres publicar?» en el inicio del panel
  *
  * Un `LDCDashboardCard` neutro, sin bajada, con una `LDCPublishTile` por tipo (comercio, servicio,
- * aviso, propiedad, evento y, para el admin, noticia) y, siempre al final, «Sugerir» (CLGDC-206),
- * así el selector nunca queda vacío: ícono de 48 px y una palabra (diseño A + K3 de CLGDC-203).
+ * aviso, propiedad, evento, lugar y, para el admin, noticia): ícono de 48 px y una palabra (diseño
+ * A + K3 de CLGDC-203). Sin tipos que ofrecer, no se muestra (como antes de CLGDC-206).
  * Las tiles van en `flex-wrap` centrado y no crecen, así una sobrante nunca se estira (CLGDC-206):
  * en móvil, 2 por fila y, si sobra una, queda centrada, vertical y del ancho de una columna; desde
  * `sm`, todas en una fila de columnas iguales (`SM_BASIS`) si cada una mide al menos 9rem y,
@@ -138,26 +135,18 @@ export interface LDCPublishChooserProps {
  * @example
  * <LDCPublishChooser kinds={["aviso", "servicio"]} />
  */
-export function LDCPublishChooser({ kinds, className }: LDCPublishChooserProps) {
+export function LDCPublishChooser({ kinds, admin = false, className }: LDCPublishChooserProps) {
+  if (kinds.length === 0) return null;
   const tiles: {
     id: string;
     source: LDCRoleIconSource;
     href: string;
     shortLabel: string;
     description: string;
-  }[] = [
-    ...kinds.map((kind) => {
-      const { role, icon, href, shortLabel, description } = KINDS[kind];
-      return { id: kind, source: { role, icon }, href, shortLabel, description };
-    }),
-    {
-      id: "sugerir",
-      source: { icon: SUGGEST.icon },
-      href: SUGGEST.href,
-      shortLabel: SUGGEST.shortLabel,
-      description: SUGGEST.description,
-    },
-  ];
+  }[] = kinds.map((kind) => {
+    const { role, icon, href, adminHref, shortLabel, description } = KINDS[kind];
+    return { id: kind, source: { role, icon }, href: admin && adminHref ? adminHref : href, shortLabel, description };
+  });
   return (
     <LDCDashboardCard id="publicar" title="¿Qué quieres publicar?" className={className}>
       <ul className="flex flex-wrap justify-center gap-3">

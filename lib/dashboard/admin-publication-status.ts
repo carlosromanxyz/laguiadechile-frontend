@@ -4,6 +4,15 @@
  */
 import type { IAdminPublicationStatus } from "@/interfaces/admin-publication";
 import { ADMIN_PUBLICATION_STATUSES } from "@/interfaces/admin-publication";
+import type { IDashboardModerationKind } from "@/interfaces/dashboard";
+
+/**
+ * Si un tipo de publicación vence (`EXPIRED`): las propiedades (CLGDC-164) y los lugares
+ * (CLGDC-209) no, así que su listado admin no tiene la pill «Vencidas» ni el menú ofrece marcarlas.
+ */
+export function kindCanExpire(kind: IDashboardModerationKind): boolean {
+  return kind !== "property" && kind !== "place";
+}
 
 export const ADMIN_PUBLICATION_STATUS_META = {
   PUBLISHED: {
