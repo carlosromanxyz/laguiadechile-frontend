@@ -37,7 +37,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-place-type-chip** (`LDCPlaceTypeChip`): distintivo tintado del tipo de lugar (atractivo, servicio público, feria o mercado): token `--place-*` al 12 % sobre la card, ícono en el token y nombre en `text-foreground` (CLGDC-207).
 - **ldc-place-type-icon** (`LDCPlaceTypeIcon`): ícono Lucide de un tipo de lugar elegido por `type` (`MountainSnow`, `Landmark`, `ShoppingBasket`), decorativo (CLGDC-207).
 - **ldc-property-image-carousel** (`LDCPropertyImageCarousel`): carrusel de fotos de la card de propiedad. Cliente.
-- **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`; tamaños `xs` 24, `sm` 36, `md` 40 y `lg` 48 px. Sin rol, basta `icon` (nombre de `LDC_ROLE_ICONS` y tono del DS), como la tile «Sugerir».
+- **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`; tamaños `xs` 24, `sm` 36, `md` 40 y `lg` 48 px. Sin rol, basta `icon` (nombre de `LDC_ROLE_ICONS` y tono del DS).
 - **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero. Cliente.
 - **ldc-section** (`LDCSection`): sección de página con contenedor, padding y espaciado comunes.
 - **ldc-skip-link** (`LDCSkipLink`): enlace «Saltar al contenido», visible al recibir el foco.

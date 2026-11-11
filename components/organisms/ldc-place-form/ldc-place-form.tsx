@@ -26,6 +26,12 @@ import {
 
 export interface LDCPlaceFormProps {
   mode: "create" | "edit";
+  /**
+   * `admin` (por defecto) publica al guardar; `owner` (CLGDC-209, «Mis lugares») oculta el slug,
+   * «Destacado» y el número de emergencia, que son solo del admin, y avisa que el lugar pasa a
+   * revisión. La server action del dueño valida con `myPlaceFormSchema` y no los manda.
+   */
+  variant?: "admin" | "owner";
   /** Server action que guarda (en edición, ya ligada al id con `.bind`) */
   action: (values: LDCPlaceFormValues) => Promise<IDashboardActionResult>;
   /** Ruta a la que vuelve tras guardar */
@@ -53,9 +59,11 @@ const TYPE_OPTIONS = PLACE_TYPES.map((t) => ({ value: t, label: PLACE_TYPE_META[
  * (dirección y comuna), Imágenes (principal con `LDCImageUpload` y galería con `LDCImageGallery`,
  * suben a MinIO), Horario (`LDCScheduleField`) y Contacto (teléfono, número de emergencia solo en
  * servicios públicos, sitio web y email), con `LDCFormField` y el pie fijo `LDCFormSaveBar`. La
- * server action devuelve `{ ok, message }`; al guardar vuelve al listado.
+ * server action devuelve `{ ok, message }`; al guardar vuelve al listado. Con `variant="owner"`
+ * (el dueño, CLGDC-209) no muestra slug, «Destacado» ni número de emergencia, y el lugar queda en
+ * revisión al guardar.
  */
-export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCPlaceFormProps) {
+export function LDCPlaceForm({ mode, variant = "admin", action, returnHref, initial, cities }: LDCPlaceFormProps) {
   const router = useRouter();
   const [saving, startSaving] = useTransition();
   const [imageBusy, setImageBusy] = useState(false);
@@ -68,6 +76,7 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
   });
   const { control, formState } = form;
   const isCreate = mode === "create";
+  const isOwner = variant === "owner";
   const type = useWatch({ control, name: "type" });
   const title = useWatch({ control, name: "title" });
   const schedule = useWatch({ control, name: "schedule" });
@@ -79,7 +88,13 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
         toast.error(result.message);
         return;
       }
-      toast.success(isCreate ? "Lugar creado" : "Lugar actualizado");
+      toast.success(
+        isOwner
+          ? "Lugar enviado a revisión"
+          : isCreate
+            ? "Lugar creado"
+            : "Lugar actualizado",
+      );
       router.push(returnHref);
       router.refresh();
     });
@@ -123,19 +138,21 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
             )}
           />
           <LDCFormField control={control} name="title" label="Nombre" required disabled={saving} />
-          <LDCFormField
-            control={control}
-            name="slug"
-            label="Slug"
-            placeholder="mirador-paseo-gervasoni"
-            description={
-              isCreate
-                ? "Identificador en la URL (minúsculas, números y guiones). Si lo dejas vacío, se arma con el nombre."
-                : "Identificador en la URL (minúsculas, números y guiones). Si lo cambias, el enlace anterior deja de funcionar."
-            }
-            optional
-            disabled={saving}
-          />
+          {!isOwner && (
+            <LDCFormField
+              control={control}
+              name="slug"
+              label="Slug"
+              placeholder="mirador-paseo-gervasoni"
+              description={
+                isCreate
+                  ? "Identificador en la URL (minúsculas, números y guiones). Si lo dejas vacío, se arma con el nombre."
+                  : "Identificador en la URL (minúsculas, números y guiones). Si lo cambias, el enlace anterior deja de funcionar."
+              }
+              optional
+              disabled={saving}
+            />
+          )}
           <LDCFormField
             control={control}
             name="description"
@@ -146,7 +163,7 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
             required
             disabled={saving}
           />
-          <LDCCheckboxField control={control} name="featured" label="Destacado" disabled={saving} />
+          {!isOwner && <LDCCheckboxField control={control} name="featured" label="Destacado" disabled={saving} />}
         </Section>
 
         <Section id="lugar-ubicacion" title="Ubicación" sub="Se usa para el mapa y el botón «Cómo llegar».">
@@ -230,7 +247,7 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
               icon={<Phone />}
               disabled={saving}
             />
-            {type === "PUBLIC_SERVICE" && (
+            {type === "PUBLIC_SERVICE" && !isOwner && (
               <LDCFormField
                 control={control}
                 name="emergencyNumber"
@@ -275,13 +292,17 @@ export function LDCPlaceForm({ mode, action, returnHref, initial, cities }: LDCP
         note={
           busy ? (
             <b>Espera a que terminen de subir las imágenes para guardar.</b>
+          ) : isOwner ? (
+            <>
+              <b>Lo revisamos antes de publicarlo.</b> {isCreate ? "Verás su estado en «Mis lugares»." : "Al guardar, vuelve a revisión."}
+            </>
           ) : (
             <>
               <b>Se publica al guardar.</b> Los cambios se ven en el sitio enseguida.
             </>
           )
         }
-        submitText={isCreate ? "Crear lugar" : "Guardar cambios"}
+        submitText={isOwner ? (isCreate ? "Enviar a revisión" : "Guardar y enviar") : isCreate ? "Crear lugar" : "Guardar cambios"}
         saving={saving}
         submitDisabled={busy || saving || (!isCreate && !formState.isDirty)}
         discardDisabled={!formState.isDirty}

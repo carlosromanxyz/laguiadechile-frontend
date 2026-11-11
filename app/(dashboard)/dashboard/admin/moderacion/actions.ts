@@ -5,7 +5,7 @@ import type { IDashboardActionResult, IDashboardModerationKind } from "@/interfa
 import { ApiError, apiFetchServer } from "@/lib/api-client";
 import { requireDashboardRole } from "@/lib/dashboard/session";
 
-const KINDS: readonly IDashboardModerationKind[] = ["listing", "classified", "event", "property"];
+const KINDS: readonly IDashboardModerationKind[] = ["listing", "classified", "event", "property", "place"];
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const SLUG = /^[a-z0-9-]{1,200}$/;
 
@@ -36,6 +36,9 @@ function revalidateAfterModeration(kind: IDashboardModerationKind, slug: unknown
   } else if (kind === "property") {
     revalidatePath("/propiedades");
     revalidatePath(`/propiedad/${slug}`);
+  } else if (kind === "place") {
+    revalidatePath("/lugares");
+    revalidatePath(`/lugar/${slug}`);
   } else {
     revalidatePath(`/aviso/${slug}`);
   }
@@ -63,7 +66,7 @@ async function moderate(
   return { ok: true };
 }
 
-/** Aprueba una ficha, un aviso, un evento o una propiedad en revisión: queda PUBLISHED. */
+/** Aprueba una ficha, un aviso, un evento, una propiedad o un lugar en revisión: queda PUBLISHED. */
 export async function approveModerationAction(
   kind: IDashboardModerationKind,
   id: string,
@@ -72,7 +75,7 @@ export async function approveModerationAction(
   return moderate(kind, id, slug, "approve");
 }
 
-/** Rechaza una ficha, un aviso, un evento o una propiedad en revisión: queda REJECTED (el motivo es opcional). */
+/** Rechaza una ficha, un aviso, un evento, una propiedad o un lugar en revisión: queda REJECTED (el motivo es opcional). */
 export async function rejectModerationAction(
   kind: IDashboardModerationKind,
   id: string,

@@ -11,6 +11,7 @@ import { isLDCRole, LDC_ROLE_KEYS, type LDCRole } from "./roles";
 const BACKEND_ROLE_MAP: Readonly<Record<string, string>> = {
   ADMIN: "admin",
   AVISADOR: "avisador",
+  COLABORADOR: "colaborador",
   COMERCIO: "comercio",
   ORGANIZADOR: "organizador",
   PROPIETARIO: "propietario",

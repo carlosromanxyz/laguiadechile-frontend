@@ -37,7 +37,7 @@ export interface LDCArchiveTarget {
   onUnarchive: LDCArchiveActionFn;
 }
 
-/** «Ficha» y «propiedad» son femeninos; «aviso» y «evento», masculinos. */
+/** «Ficha» y «propiedad» son femeninos; «aviso», «evento» y «lugar», masculinos. */
 const pronoun = (kind: IDashboardModerationKind) =>
   kind === "listing" || kind === "property" ? "la" : "lo";
 

@@ -58,6 +58,11 @@ E2E_NODE_MODULES=<volumen> scripts/e2e.sh   # otro volumen de node_modules con @
   azar y espera el correo de bienvenida en Mailpit. Al terminar, pase o no la suite, el script borra
   esas cuentas de la base. Los correos no se borran: quedan en Mailpit (http://localhost:3019) para
   revisarlos, y cada prueba busca solo por su dirección única.
+- `lugares.spec.ts` (CLGDC-209) registra una cuenta `e2e-registro-lugar-<timestamp>@e2e.lgdc.test`,
+  publica un lugar con una imagen subida desde «Publica un lugar», lo ve «En revisión» en «Mis
+  lugares» y comprueba que no sale en `/lugares`. El script borra los lugares de las cuentas e2e
+  antes que las cuentas (`Place.owner` es `SetNull`: quedarían sin dueño). La imagen subida queda en
+  MinIO.
 - Sale con el código de Playwright (o 1 si la suite pasó pero la limpieza falló). Los artefactos
   de un fallo (trace, contexto) quedan en `test-results/ultima/`, fuera de git.
 

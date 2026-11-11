@@ -23,12 +23,11 @@ export function isValidContactEmail(email: string): boolean {
 /**
  * Asuntos que `/contacto` acepta por `?asunto=<clave>` (CLGDC-206). Lista cerrada: la URL nunca
  * pone texto libre en el formulario, así nadie arma un enlace con un asunto engañoso. Para sumar
- * uno, agrega su clave aquí (cada asunto cabe en `CONTACT_LIMITS.subject`).
+ * uno, agrega su clave aquí (cada asunto cabe en `CONTACT_LIMITS.subject`). Hoy está vacía: su
+ * único asunto, «Sugerir un lugar», se fue con la tile «Sugerir» cuando toda cuenta pasó a publicar
+ * lugares (CLGDC-209), así que cualquier `?asunto=` deja el asunto en blanco.
  */
-export const CONTACT_SUBJECT_PRESETS = {
-  /** Tile «Sugerir» de `LDCPublishChooser` */
-  sugerir: "Sugerir un lugar",
-} as const satisfies Record<string, string>;
+export const CONTACT_SUBJECT_PRESETS: Readonly<Record<string, string>> = {};
 
 /**
  * Asunto inicial del formulario a partir de `?asunto=`: el de `CONTACT_SUBJECT_PRESETS` si el valor
@@ -37,5 +36,5 @@ export const CONTACT_SUBJECT_PRESETS = {
  */
 export function contactSubjectFromPreset(value: unknown): string {
   if (typeof value !== "string" || !Object.hasOwn(CONTACT_SUBJECT_PRESETS, value)) return "";
-  return CONTACT_SUBJECT_PRESETS[value as keyof typeof CONTACT_SUBJECT_PRESETS];
+  return CONTACT_SUBJECT_PRESETS[value];
 }

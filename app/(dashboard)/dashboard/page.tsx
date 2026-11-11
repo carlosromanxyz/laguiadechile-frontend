@@ -3,6 +3,7 @@ import {
   CalendarDays,
   House,
   Inbox,
+  MapPinned,
   Newspaper,
   RefreshCw,
   Store,
@@ -49,6 +50,7 @@ function describe(roles: readonly LDCRole[]): string {
     roles.includes("comercio") && "tu comercio",
     roles.includes("servicio") && "tu servicio",
     roles.includes("organizador") && "tus eventos",
+    roles.includes("colaborador") && "tus lugares",
     roles.includes("admin") && "la administración de La Guía",
   ].filter((p): p is string => Boolean(p));
   if (parts.length === 0) return "Lo que guardaste y tus datos de contacto.";
@@ -71,7 +73,7 @@ interface OwnerGroup {
   /** Claves de `?estado=` del listado «Mis …»; `expired: null` si el tipo no vence (fichas, propiedades). */
   keys: { published: string; review: string; rejected: string; expired: string | null; archived: string };
   /** Ficha (`LISTING`) de ese tipo, o el tipo de publicación de los rechazos. */
-  rejectionKind: { kind: "LISTING"; type: "COMERCIO" | "SERVICIO" } | { kind: "CLASSIFIED" | "EVENT" | "PROPERTY" };
+  rejectionKind: { kind: "LISTING"; type: "COMERCIO" | "SERVICIO" } | { kind: "CLASSIFIED" | "EVENT" | "PROPERTY" | "PLACE" };
 }
 
 const MASC = { published: "publicados", review: "revision", rejected: "rechazados", archived: "archivados" };
@@ -139,6 +141,19 @@ const OWNER_GROUPS: OwnerGroup[] = [
     keys: { ...MASC, expired: "terminados" },
     rejectionKind: { kind: "EVENT" },
   },
+  // CLGDC-209: lugares de cualquier cuenta (rol colaborador); no vencen.
+  {
+    role: "colaborador",
+    group: "places",
+    title: "Mis lugares",
+    listHref: "/dashboard/lugares",
+    createHref: "/dashboard/lugares/nuevo",
+    createLabel: "Publicar lugar",
+    emptyText: "Aún no tienes lugares. Suma un atractivo, una feria o un servicio público de tu ciudad.",
+    labels: { published: "Publicados", review: "En revisión", rejected: "Rechazados", out: "Archivados" },
+    keys: { ...MASC, expired: null },
+    rejectionKind: { kind: "PLACE" },
+  },
 ];
 
 /** El listado «Mis …» filtrado por estado (el de fichas ya trae `?tipo=`). */
@@ -178,6 +193,7 @@ const ADMIN_GROUPS: { group: IPublicationGroup; label: string; href: string; ico
   { group: "classifieds", label: "Avisos", href: "/dashboard/admin/avisos", icon: <Tags className="size-4" /> },
   { group: "properties", label: "Propiedades", href: "/dashboard/admin/propiedades", icon: <House className="size-4" /> },
   { group: "events", label: "Eventos", href: "/dashboard/admin/eventos", icon: <CalendarDays className="size-4" /> },
+  { group: "places", label: "Lugares", href: "/dashboard/admin/lugares", icon: <MapPinned className="size-4" /> },
 ];
 
 const KIND_META: Record<
@@ -188,6 +204,7 @@ const KIND_META: Record<
   CLASSIFIED: { label: "Aviso", href: "/dashboard/admin/avisos", gender: "m" },
   EVENT: { label: "Evento", href: "/dashboard/admin/eventos", gender: "m" },
   PROPERTY: { label: "Propiedad", href: "/dashboard/admin/propiedades", gender: "f" },
+  PLACE: { label: "Lugar", href: "/dashboard/admin/lugares", gender: "m" },
 };
 
 function activityItem(r: IAdminRecentItem, now: Date): LDCAdminActivityItem {
@@ -195,7 +212,7 @@ function activityItem(r: IAdminRecentItem, now: Date): LDCAdminActivityItem {
   const isService = r.kind === "LISTING" && r.type === "SERVICIO";
   const base = isService ? "/dashboard/admin/servicios" : meta.href;
   const href =
-    r.kind === "PROPERTY"
+    r.kind === "PROPERTY" || r.kind === "PLACE"
       ? `${base}/${encodeURIComponent(r.id)}`
       : `${base}?q=${encodeURIComponent(r.title)}`;
   const statusLabel =
@@ -376,7 +393,7 @@ export default async function DashboardHomePage() {
         </section>
       )}
 
-      <LDCPublishChooser kinds={publishKinds} />
+      <LDCPublishChooser kinds={publishKinds} admin={isAdmin} />
 
       <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         <LDCRecentFavorites favorites={favorites} />

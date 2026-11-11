@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 
 /**
  * El ícono sale de `role` (el rol que da el tipo, con `icon` opcional para cambiarlo) o, en una
- * opción sin rol como «Sugerir» (CLGDC-206), solo de `icon` (ver `LDCRoleIconSource`).
+ * opción sin rol, solo de `icon` (ver `LDCRoleIconSource`).
  */
 export type LDCPublishTileProps = LDCRoleIconSource & {
   /** Destino del enlace (el formulario del tipo) */

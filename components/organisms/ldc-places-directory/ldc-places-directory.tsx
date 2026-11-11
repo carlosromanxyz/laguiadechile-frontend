@@ -71,8 +71,8 @@ export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPl
         title={emptyTitle}
         description={
           <>
-            {type || city ? "Prueba con otro tipo o con todas las ciudades. " : ""}Si conoces uno, cuéntanos y lo
-            sumamos.
+            {type || city ? "Prueba con otro tipo o con todas las ciudades. " : ""}Si conoces uno, publícalo:
+            lo revisamos y lo sumamos.
           </>
         }
         action={
@@ -87,8 +87,8 @@ export function LDCPlacesDirectory({ places, type, city, today, filters }: LDCPl
                 Limpiar filtros
               </LDCButton>
             )}
-            <LDCButton href="/contacto" variant="ghost" className="h-11 rounded-full px-4">
-              Sugerir un lugar
+            <LDCButton href="/dashboard/lugares/nuevo" variant="ghost" className="h-11 rounded-full px-4">
+              Publica un lugar
             </LDCButton>
           </div>
         }

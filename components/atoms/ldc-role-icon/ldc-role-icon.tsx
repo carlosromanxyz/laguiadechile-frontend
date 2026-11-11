@@ -1,4 +1,4 @@
-import { CalendarDays, House, MapPinPlus, Newspaper, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, MapPin, Newspaper, ShieldCheck, Store, Tag, UserRound, Wrench, type LucideIcon } from "lucide-react";
 import { LDC_ROLE_META, type LDCRole, type LDCRoleIconName } from "@/lib/auth/roles";
 import { cn } from "@/lib/utils";
 
@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 export const LDC_ROLE_ICONS: Record<LDCRoleIconName, LucideIcon> = {
   CalendarDays,
   House,
-  MapPinPlus,
+  MapPin,
   Newspaper,
   ShieldCheck,
   Store,
@@ -33,8 +33,7 @@ export interface LDCRoleIconGlyph {
 
 /**
  * De dónde sale el ícono: de un rol (`role`, con `icon` opcional para cambiarlo, como la noticia de
- * `LDCPublishChooser`, CLGDC-191) o, para una opción que no es un rol, solo de `icon` (la tile
- * «Sugerir», CLGDC-206).
+ * `LDCPublishChooser`, CLGDC-191) o, para una opción que no es un rol, solo de `icon`.
  */
 export type LDCRoleIconSource =
   | {

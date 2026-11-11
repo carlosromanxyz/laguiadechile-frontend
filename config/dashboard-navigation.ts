@@ -54,7 +54,7 @@ function listingItems(tipo: "comercio" | "servicio"): IDashboardNavItem[] {
 /**
  * Menú del panel: un solo menú con grupos apilados según los roles de la cuenta (diseño A1 de
  * CLGDC-113), en este orden: General, Mis avisos, Mis propiedades (CLGDC-164), Mis comercios,
- * Mis servicios, Mis eventos y Admin.
+ * Mis servicios, Mis eventos, Mis lugares (CLGDC-209) y Admin.
  */
 export const dashboardNavigation: IDashboardNavGroup[] = [
   {
@@ -92,6 +92,15 @@ export const dashboardNavigation: IDashboardNavGroup[] = [
     items: [
       { href: "/dashboard/eventos", label: "Mis eventos", icon: CalendarDays },
       { href: "/dashboard/eventos/nuevo", label: "Publicar evento", icon: CirclePlus },
+    ],
+  },
+  // Lugares de cualquier cuenta (CLGDC-209)
+  {
+    label: "Mis lugares",
+    requires: "colaborador",
+    items: [
+      { href: "/dashboard/lugares", label: "Mis lugares", icon: MapPin },
+      { href: "/dashboard/lugares/nuevo", label: "Publicar lugar", icon: CirclePlus },
     ],
   },
   {

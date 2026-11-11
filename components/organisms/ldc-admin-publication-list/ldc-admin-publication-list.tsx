@@ -26,6 +26,7 @@ import {
   ADMIN_STATUS_ALL,
   adminStatusLabel,
   adminStatusPill,
+  kindCanExpire,
   type IAdminNounGender,
 } from "@/lib/dashboard/admin-publication-status";
 import { formatShortDate } from "@/lib/dashboard/dates";
@@ -155,11 +156,11 @@ export function LDCAdminPublicationList({
 
   const allCount = ADMIN_PUBLICATION_STATUSES.reduce((sum, s) => sum + (counts[s] ?? 0), 0);
   // «Archivadas» (CLGDC-157) aparece cuando la API trae su conteo.
-  // Las propiedades no vencen (CLGDC-164): sin pill «Vencidas».
+  // Las propiedades y los lugares no vencen (CLGDC-164, CLGDC-209): sin pill «Vencidas».
   const statusFilters = ADMIN_PUBLICATION_STATUSES.filter(
     (s) =>
       (s !== "ARCHIVED" || counts.ARCHIVED !== undefined || status === "ARCHIVED") &&
-      (s !== "EXPIRED" || kind !== "property"),
+      (s !== "EXPIRED" || kindCanExpire(kind)),
   );
   const filtered = Boolean(q || city || status);
   const cityName = cities.find((c) => c.slug === city)?.name;
