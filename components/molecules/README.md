@@ -39,7 +39,6 @@ Cada molécula vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por l
 - **ldc-form-alert** (`LDCFormAlert`): caja de error del servidor de un formulario (login y registro), con borde `destructive` y foco al aparecer. Cliente.
 - **ldc-form-field** (`LDCFormField`): campo de React Hook Form sobre `Field` de shadcn (etiqueta, control y error). Cliente.
 - **ldc-hero-slider** (`LDCHeroSlider`): carrusel automático de imágenes de fondo del hero. Cliente.
-- **ldc-image-credits** (`LDCImageCredits`): lista de texto con los créditos de las fotos (título — autor · licencia · «Ver en Commons»), con estado vacío.
 - **ldc-listing-card** (`LDCListingCard`): card de comercio o servicio. Cliente.
 - **ldc-listing-gallery** (`LDCListingGallery`): galería de fotos en carrusel de las fichas. Cliente.
 - **ldc-listing-map** (`LDCListingMap`): mapa de Google Maps embebido con la dirección; `title` y `action` opcionales (el «Cómo llegar» de los lugares).
