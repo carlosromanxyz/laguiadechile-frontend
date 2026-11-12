@@ -57,7 +57,7 @@ export const TERMS: ILegalDocument = {
       title: "Roles",
       paragraphs: [
         "Toda cuenta parte como usuario. Cuando publicas por primera vez, tu cuenta suma el rol que corresponde a lo que publicaste: comercio, servicio, avisador, organizador de eventos, propietario o colaborador de lugares. Una misma cuenta puede tener varios roles.",
-        "El equipo de La Guía de Chile puede ajustar los roles de una cuenta.",
+        "La Guía de Chile puede ajustar los roles de una cuenta.",
       ],
     },
     {
@@ -65,7 +65,7 @@ export const TERMS: ILegalDocument = {
       title: "Publicar en el sitio",
       paragraphs: [
         "Puedes publicar comercios, servicios, avisos clasificados, propiedades, eventos y lugares. Antes de aparecer en el sitio, cada publicación pasa por revisión.",
-        "El equipo revisa lo que publicas y lo aprueba o lo rechaza. Si lo rechaza, te indica el motivo en tu panel para que puedas corregirlo.",
+        "Revisamos lo que publicas y lo aprobamos o lo rechazamos. Si lo rechazamos, te indicamos el motivo en tu panel para que puedas corregirlo.",
         "Los avisos clasificados vencen a los 30 días de publicados.",
         "Desde tu panel puedes editar tus publicaciones y archivarlas para sacarlas del sitio. Si desarchivas una, vuelve a revisión antes de aparecer de nuevo.",
       ],

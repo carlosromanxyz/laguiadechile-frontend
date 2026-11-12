@@ -29,7 +29,7 @@ export default async function AdminPropiedadesPage({ searchParams }: AdminPropie
   return (
     <LDCDashboardPageTemplate
       title="Propiedades"
-      description="Propiedades en venta y arriendo: las del equipo y las de sus dueños, en todos sus estados."
+      description="Propiedades en venta y arriendo: las de La Guía de Chile y las de sus dueños, en todos sus estados."
       actions={
         <LDCButton href={`${BASE}/nueva`}>
           <Plus className="size-4" />

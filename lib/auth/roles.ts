@@ -122,7 +122,7 @@ export const LDC_ROLES = {
     emailPlaceholder: "nombre@laguiadechile.cl",
     loginPath: "/dashboard/login",
     optionTitle: "Administrador",
-    optionDescription: "Equipo de La Guía de Chile.",
+    optionDescription: "Administra La Guía de Chile.",
   },
   comercio: {
     role: "comercio",

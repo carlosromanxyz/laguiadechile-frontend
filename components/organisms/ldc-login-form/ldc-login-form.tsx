@@ -49,7 +49,7 @@ export interface LDCLoginFormProps {
  * a esa ruta con una navegación completa (la página pública vuelve a pedir sus favoritos).
  *
  * Con comercio o usuario, el pie ofrece crear una cuenta (`registerPath`); con
- * admin, pedir acceso al equipo.
+ * admin, escribir desde Contacto (`/contacto`) para pedir acceso.
  */
 export function LDCLoginForm({ role = "admin", next }: LDCLoginFormProps) {
   const config = LDC_ROLES[role];
@@ -135,7 +135,13 @@ export function LDCLoginForm({ role = "admin", next }: LDCLoginFormProps) {
               </Link>
             </>
           ) : (
-            "¿Sin acceso? Pídeselo al equipo de La Guía de Chile."
+            <>
+              ¿Sin acceso? Escríbenos desde{" "}
+              <Link href="/contacto" className={AUTH_INLINE_LINK_CLASS}>
+                Contacto
+              </Link>
+              .
+            </>
           )}
         </p>
       </div>
