@@ -32,7 +32,8 @@ interface LDCAvatarProps {
   framed?: boolean;
   /**
    * Decorativo: el nombre ya está escrito al lado (p. ej. el menú de usuario). Oculta el avatar a
-   * los lectores de pantalla y pinta las iniciales en `text-foreground` (más contraste).
+   * los lectores de pantalla (con foto, `alt=""`) y pinta las iniciales en `text-foreground`
+   * (más contraste).
    */
   decorative?: boolean;
   /** Optional className for custom styling (va al elemento raíz) */
@@ -90,7 +91,7 @@ export function LDCAvatar({
     return (
       <Image
         src={src}
-        alt={name}
+        alt={decorative ? "" : name}
         width={px}
         height={px}
         className={cn("rounded-full object-cover", className)}
@@ -107,7 +108,7 @@ export function LDCAvatar({
         className
       )}
     >
-      <Image src={src} alt={name} fill sizes={`${px}px`} className="object-cover" />
+      <Image src={src} alt={decorative ? "" : name} fill sizes={`${px}px`} className="object-cover" />
     </div>
   );
 }

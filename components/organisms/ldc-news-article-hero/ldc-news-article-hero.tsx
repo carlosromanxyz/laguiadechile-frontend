@@ -68,9 +68,10 @@ export function LDCNewsArticleHero({
             <LDCAvatar
               name={news.author.name}
               src={news.author.avatar}
+              size="lg"
               framed={false}
               decorative
-              className="size-9"
+              className="size-9 shrink-0"
             />
             <span className="font-medium text-foreground">
               {news.author.name}
