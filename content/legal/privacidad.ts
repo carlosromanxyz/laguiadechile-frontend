@@ -12,8 +12,7 @@ export const PRIVACY: ILegalDocument = {
       id: "responsable",
       title: "Quién es responsable de tus datos",
       paragraphs: [
-        "El responsable de tus datos es [completar: razón social], RUT [completar: RUT], con domicilio en [completar: domicilio postal].",
-        "Su representante legal es [completar: nombre del representante legal]. [completar: si existe, nombre del encargado de prevención o delegado de protección de datos; si no, borrar esta frase].",
+        "El responsable de tus datos es la persona natural que administra La Guía de Chile, [completar: nombre de la persona responsable]. Puedes escribirle a laguiadechilecl at gmail.com.",
         "Para cualquier consulta sobre tus datos, escríbenos desde la página Contacto o al correo laguiadechilecl at gmail.com.",
       ],
     },

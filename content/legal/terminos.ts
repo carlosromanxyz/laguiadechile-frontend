@@ -13,7 +13,7 @@ export const TERMS: ILegalDocument = {
       title: "Quiénes somos",
       paragraphs: [
         "La Guía de Chile es una guía digital de Chile. Reúne comercios, servicios, avisos clasificados, propiedades, eventos, lugares y noticias de todo el país, para que encuentres lo que buscas cerca de ti.",
-        "El sitio lo administra [completar: razón social], RUT [completar: RUT], con domicilio en [completar: domicilio legal]. En estos términos la llamamos «La Guía de Chile» o «nosotros».",
+        "La Guía de Chile es un proyecto personal, no una empresa. Lo administra una persona natural, [completar: nombre de la persona responsable]. En estos términos la llamamos «La Guía de Chile» o «nosotros».",
         "Puedes escribirnos desde la página Contacto o al correo laguiadechilecl at gmail.com.",
       ],
     },
@@ -131,7 +131,7 @@ export const TERMS: ILegalDocument = {
       id: "propiedad-intelectual",
       title: "Marca y diseño del sitio",
       paragraphs: [
-        "El nombre La Guía de Chile, su logo y el diseño del sitio son de [completar: titular de la marca y del sitio]. No puedes usarlos sin nuestro permiso.",
+        "El nombre La Guía de Chile, su logo y el diseño del sitio son de la persona que administra La Guía de Chile. No puedes usarlos sin nuestro permiso.",
         "Lo publicado por cada comercio, servicio o anunciante es de quien lo publicó.",
       ],
     },
@@ -164,7 +164,7 @@ export const TERMS: ILegalDocument = {
       title: "Ley aplicable",
       paragraphs: [
         "Estos términos se rigen por las leyes de Chile.",
-        "Cualquier controversia se verá ante [completar: tribunales competentes], sin perjuicio de los derechos que la Ley 19.496 te da como consumidor.",
+        "Cualquier controversia se verá ante los tribunales de Chile, sin perjuicio de los derechos que la Ley 19.496 te da como consumidor, incluido demandar en el juzgado de policía local de tu domicilio.",
       ],
     },
     {

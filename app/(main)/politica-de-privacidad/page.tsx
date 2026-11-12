@@ -9,7 +9,7 @@ export const metadata: Metadata = {
   ...(PRIVACY.draft && { robots: { index: false, follow: true } }),
 };
 
-/** Políticas de privacidad: el texto vive en `content/legal/privacidad.ts`. */
-export default function PoliticasDePrivacidadPage() {
-  return <LDCLegalTemplate document={PRIVACY} href="/politicas-de-privacidad" />;
+/** Política de privacidad: el texto vive en `content/legal/privacidad.ts`. */
+export default function PoliticaDePrivacidadPage() {
+  return <LDCLegalTemplate document={PRIVACY} href="/politica-de-privacidad" />;
 }

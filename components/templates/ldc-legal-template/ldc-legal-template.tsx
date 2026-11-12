@@ -11,7 +11,7 @@ import { cn } from "@/lib/utils";
 /** Páginas legales del sitio: Términos primero (el footer, `config/navigation.ts`, pone Privacidad primero). */
 const LEGAL_PAGES = [
   { href: "/terminos-y-condiciones", label: "Términos y condiciones", icon: FileText },
-  { href: "/politicas-de-privacidad", label: "Políticas de privacidad", icon: ShieldCheck },
+  { href: "/politica-de-privacidad", label: "Política de privacidad", icon: ShieldCheck },
 ] as const satisfies readonly { href: string; label: string; icon: LucideIcon }[];
 
 export type LDCLegalPageHref = (typeof LEGAL_PAGES)[number]["href"];

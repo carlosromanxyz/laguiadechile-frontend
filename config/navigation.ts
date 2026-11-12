@@ -26,6 +26,6 @@ export const navigationItems: NavigationItem[] = [
  * Legal and help pages
  */
 export const utilityNavigationItems: NavigationItem[] = [
-  { label: "Políticas de privacidad", href: "/politicas-de-privacidad" },
+  { label: "Política de privacidad", href: "/politica-de-privacidad" },
   { label: "Términos y condiciones", href: "/terminos-y-condiciones" },
 ];
