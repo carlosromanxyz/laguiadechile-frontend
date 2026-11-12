@@ -5,7 +5,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Términos y condiciones - La Guía de Chile",
   description:
-    "Términos y condiciones de uso de La Guía de Chile: cuentas, publicaciones, moderación y responsabilidades al usar el sitio.",
+    "Términos y condiciones de La Guía de Chile: tu cuenta, cómo publicar, la revisión de las publicaciones, el uso de imágenes y la ley aplicable.",
   ...(TERMS.draft && { robots: { index: false, follow: true } }),
 };
 
