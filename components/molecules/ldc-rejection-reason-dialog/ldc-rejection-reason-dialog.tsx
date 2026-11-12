@@ -18,7 +18,7 @@ import {
 export interface LDCRejectionReasonDialogProps {
   /** Título de la publicación rechazada (va en el modal y en el nombre accesible del badge) */
   title: string;
-  /** Motivo que escribió el equipo: se muestra como texto plano, nunca como HTML */
+  /** Motivo que escribió el admin: se muestra como texto plano, nunca como HTML */
   reason: string;
   /**
    * Destino de «Corregir y reenviar» (el formulario de la publicación). Sin él, el modal es de solo

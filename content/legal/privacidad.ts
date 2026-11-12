@@ -126,7 +126,7 @@ export const PRIVACY: ILegalDocument = {
         "Las contraseñas se guardan transformadas con un algoritmo de hash, nunca en texto legible. El código de las páginas no puede leer la cookie de sesión, y en el sitio publicado esa cookie solo viaja por conexiones seguras.",
         "Cuando cambias tu contraseña, se cierran las sesiones que tengas abiertas en otros dispositivos.",
         "Limitamos los intentos de inicio de sesión, de registro y de envío del formulario de contacto para frenar abusos. Los correos salen por una conexión cifrada.",
-        "Solo el equipo que administra el sitio puede ver las cuentas y los mensajes de contacto.",
+        "Solo la persona que administra La Guía de Chile puede ver las cuentas y los mensajes de contacto.",
       ],
     },
     {

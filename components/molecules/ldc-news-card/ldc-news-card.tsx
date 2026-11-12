@@ -116,7 +116,7 @@ export function LDCNewsCard({
                     </span>
                   </TooltipTrigger>
                   <TooltipContent>
-                    <p>Artículo destacado por el equipo editorial</p>
+                    <p>Artículo destacado por La Guía de Chile</p>
                   </TooltipContent>
                 </Tooltip>
               )}

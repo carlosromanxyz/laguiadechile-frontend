@@ -45,7 +45,7 @@ export interface LDCStatusNoticeProps {
    */
   badge?: ReactNode;
   /**
-   * Motivo del rechazo que escribió el equipo (texto plano, CLGDC-164): se muestra dentro del aviso,
+   * Motivo del rechazo que escribió el admin (texto plano, CLGDC-164): se muestra dentro del aviso,
    * bajo la bajada, conservando los saltos de línea. Solo tiene sentido con `rejected`.
    */
   reason?: string;

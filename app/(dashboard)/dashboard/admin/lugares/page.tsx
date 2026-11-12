@@ -19,7 +19,7 @@ interface AdminLugaresPageProps {
 
 /**
  * «Lugares» del admin (CLGDC-207; con moderación desde CLGDC-209): los lugares en todos sus estados
- * (`GET /admin/places`): los del equipo y el seed, y los que publican las cuentas, con su
+ * (`GET /admin/places`): los de La Guía de Chile y el seed, y los que publican las cuentas, con su
  * moderación. Búsqueda, ciudad, estado (sin «Vencidos»: los lugares no vencen) y paginación en la
  * URL; mismo listado que «Propiedades». Crear y editar van en página propia; borrar, en la edición.
  */
@@ -29,7 +29,7 @@ export default async function AdminLugaresPage({ searchParams }: AdminLugaresPag
   return (
     <LDCDashboardPageTemplate
       title="Lugares"
-      description="Atractivos, servicios públicos y ferias: los del equipo y los que publican las cuentas, en todos sus estados."
+      description="Atractivos, servicios públicos y ferias: los de La Guía de Chile y los que publican las cuentas, en todos sus estados."
       actions={
         <LDCButton href={`${BASE}/nueva`}>
           <Plus className="size-4" />
