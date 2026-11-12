@@ -18,6 +18,12 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  // La ruta legal pasó a singular (CLGDC-225); la antigua en plural responde 308 hacia la nueva.
+  async redirects() {
+    return [
+      { source: "/politicas-de-privacidad", destination: "/politica-de-privacidad", permanent: true },
+    ];
+  },
 };
 
 export default nextConfig;

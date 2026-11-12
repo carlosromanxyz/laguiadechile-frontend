@@ -196,7 +196,7 @@ export function LDCRegisterForm() {
               términos y condiciones
             </Link>
             {" y la "}
-            <Link href="/politicas-de-privacidad" target="_blank" className={AUTH_INLINE_LINK_CLASS}>
+            <Link href="/politica-de-privacidad" target="_blank" className={AUTH_INLINE_LINK_CLASS}>
               política de privacidad
             </Link>
             {"."}
