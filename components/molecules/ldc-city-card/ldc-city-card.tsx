@@ -25,8 +25,8 @@ interface LDCCityCardProps {
 /**
  * LDCCityCard - Featured City Card Component
  *
- * Card displaying a city with background image, gradient overlay, and publication count.
- * Features hover scale effect on image.
+ * Card de ciudad: foto a sangre con el nombre y el conteo en una placa plana
+ * (`bg-card`) abajo. Zoom de la foto al pasar el cursor (respeta reduced motion).
  *
  * @example
  * ```tsx
@@ -55,15 +55,18 @@ export function LDCCityCard({
 }: LDCCityCardProps) {
   return (
     <LDCCardSurface variant="media" className={className}>
-      <Link href={`/ciudad/${slug}`} className={cn("block relative overflow-hidden", aspectRatioClasses[aspectRatio])}>
-        {/* Background Image */}
+      <Link
+        href={`/ciudad/${slug}`}
+        className={cn("block relative overflow-hidden focus-visible:outline-none", aspectRatioClasses[aspectRatio])}
+      >
+        {/* Background Image (decorativa: el nombre ya está en el h3) */}
         {image ? (
           <Image
             src={image}
-            alt={`Imagen de ${name}`}
+            alt=""
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
-            className="object-cover transition-all duration-300 group-hover:scale-125 group-hover:opacity-75"
+            className="object-cover transition-[transform,opacity] duration-300 group-hover:scale-125 group-hover:opacity-75 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             loading="lazy"
             quality={85}
           />
@@ -73,15 +76,12 @@ export function LDCCityCard({
           </div>
         )}
 
-        {/* Gradient Overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
-
-        {/* Content */}
-        <div className="absolute bottom-0 left-0 right-0 p-4 text-white z-10">
-          <h3 className="text-md xl:text-2xl font-bold font-mulish mb-1">
+        {/* Content: placa de superficie plana, contraste por token en ambos temas */}
+        <div className="absolute inset-x-2 bottom-2 z-10 rounded-lg border border-border bg-card px-3 py-2.5 xl:px-4 xl:py-3">
+          <h3 className="text-base xl:text-xl font-bold font-mulish leading-snug text-foreground break-words group-hover:text-pink-strong dark:group-hover:text-yellow group-has-[a:focus-visible]:text-pink-strong dark:group-has-[a:focus-visible]:text-yellow">
             {name}
           </h3>
-          <p className="text-xs xl:text-lg text-white/90">
+          <p className="text-xs xl:text-sm text-muted-foreground">
             {formatPublicationsCount(count)}
           </p>
         </div>
