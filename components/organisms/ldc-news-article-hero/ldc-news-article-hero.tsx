@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { LDCPageHero } from "@/components/organisms/ldc-page-hero";
 import { LDCBadge } from "@/components/atoms/ldc-badge";
+import { LDCAvatar } from "@/components/atoms/ldc-avatar";
 import { LDCSocialShareButtons } from "@/components/molecules/ldc-social-share-buttons";
 import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import { Star, Sparkles, CalendarDays, Clock } from "lucide-react";
@@ -65,12 +65,13 @@ export function LDCNewsArticleHero({
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div className="flex items-center gap-4 text-muted-foreground">
           <div className="flex items-center gap-2">
-            <Image
+            <LDCAvatar
+              name={news.author.name}
               src={news.author.avatar}
-              alt={news.author.name}
-              width={36}
-              height={36}
-              className="rounded-full object-cover"
+              size="lg"
+              framed={false}
+              decorative
+              className="size-9 shrink-0"
             />
             <span className="font-medium text-foreground">
               {news.author.name}

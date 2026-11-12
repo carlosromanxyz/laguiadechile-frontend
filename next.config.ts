@@ -3,18 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   images: {
     qualities: [75, 85],
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "picsum.photos",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "i.pravatar.cc",
-        pathname: "/**",
-      },
-    ],
+    // Sin hosts remotos (CLGDC-84): toda imagen vive en el bucket y se sirve por `/media/...`.
   },
   // Anti-clickjacking: nadie fuera del propio sitio puede embeberlo en un iframe.
   // Solo `frame-ancestors`, sin más directivas de CSP, para no bloquear recursos.

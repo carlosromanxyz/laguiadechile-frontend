@@ -16,9 +16,3 @@ export function getMockCityCount(cityId: string): number {
   return (seed % 150) + 5;
 }
 
-/**
- * URL de imagen de relleno (picsum) para una ciudad, estable por slug e id.
- */
-export function getCityImage(citySlug: string, cityId: string): string {
-  return `https://picsum.photos/seed/${citySlug}-${cityId}/800/600`;
-}
