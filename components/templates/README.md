@@ -18,6 +18,7 @@ Cada template vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la
 - **ldc-city-template** (`LDCCityTemplate`): ficha de ciudad con clima y farmacia, lugares (pestañas), comercios, propiedades, Wikipedia y avisos.
 - **ldc-about-template** (`LDCAboutTemplate`): página «Nosotros».
 - **ldc-contact-template** (`LDCContactTemplate`): página «Contacto» con formulario y redes; `defaultSubject` (de `?asunto=<clave>`, solo claves de `CONTACT_SUBJECT_PRESETS`) es el asunto inicial del formulario.
+- **ldc-legal-template** (`LDCLegalTemplate`): páginas legales (términos y privacidad) con la grilla de las fichas de detalle: el `ILegalDocument` de `content/legal/*` en la columna principal (un `h2` con ancla por sección y «Última actualización») y, a la derecha, una sidebar fija desde `lg` con «En esta página», «Otras páginas legales» (la actual con `aria-current`) y «¿Dudas?» hacia `/contacto`; `href` es la ruta de la página actual.
 - **ldc-coming-soon-template** (`LDCComingSoonTemplate`): mensaje «Próximamente» de las páginas sin contenido.
 - **ldc-under-construction-template** (`LDCUnderConstructionTemplate`): página «En construcción» (el marco lo pone `app/en-construccion/layout.tsx`).
 - **ldc-dashboard-page-template** (`LDCDashboardPageTemplate`): páginas del panel con encabezado y contenido.
