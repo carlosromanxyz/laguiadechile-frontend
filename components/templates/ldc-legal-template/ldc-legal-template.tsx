@@ -8,7 +8,7 @@ import type { IBreadcrumbItem } from "@/interfaces/breadcrumb";
 import type { ILegalDocument } from "@/interfaces/legal";
 import { cn } from "@/lib/utils";
 
-/** Páginas legales del sitio, en el orden del footer (`config/navigation.ts`). */
+/** Páginas legales del sitio: Términos primero (el footer, `config/navigation.ts`, pone Privacidad primero). */
 const LEGAL_PAGES = [
   { href: "/terminos-y-condiciones", label: "Términos y condiciones", icon: FileText },
   { href: "/politicas-de-privacidad", label: "Políticas de privacidad", icon: ShieldCheck },
@@ -107,7 +107,7 @@ export function LDCLegalTemplate({ document, href }: LDCLegalTemplateProps) {
 
             <aside
               aria-label="Navegación legal"
-              className="space-y-6 min-w-0 lg:sticky lg:top-[calc(var(--ldc-header-height)+1.5rem)] lg:self-start"
+              className="space-y-6 min-w-0 lg:sticky lg:top-[calc(var(--ldc-header-height)+1.5rem)] lg:self-start lg:max-h-[calc(100svh-var(--ldc-header-height)-3rem)] lg:overflow-y-auto"
             >
               <LDCPanel as="section" aria-labelledby="legal-en-esta-pagina">
                 <h2 id="legal-en-esta-pagina" className={SIDEBAR_TITLE_CLASS}>

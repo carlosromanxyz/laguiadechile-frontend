@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Términos y condiciones - La Guía de Chile",
   description:
     "Términos y condiciones de uso de La Guía de Chile: cuentas, publicaciones, moderación y responsabilidades al usar el sitio.",
+  ...(TERMS.draft && { robots: { index: false, follow: true } }),
 };
 
 /** Términos y condiciones: el texto vive en `content/legal/terminos.ts`. */

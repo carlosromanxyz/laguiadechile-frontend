@@ -4,6 +4,7 @@ import type { ILegalDocument } from "@/interfaces/legal";
 export const PRIVACY: ILegalDocument = {
   title: "Políticas de privacidad",
   updatedAt: "2026-11-12",
+  draft: true,
   sections: [
     {
       id: "se-completara-pronto",

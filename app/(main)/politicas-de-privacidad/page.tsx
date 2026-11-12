@@ -6,6 +6,7 @@ export const metadata: Metadata = {
   title: "Políticas de privacidad - La Guía de Chile",
   description:
     "Cómo La Guía de Chile trata tus datos personales: qué recopila, para qué los usa y cómo ejercer tus derechos.",
+  ...(PRIVACY.draft && { robots: { index: false, follow: true } }),
 };
 
 /** Políticas de privacidad: el texto vive en `content/legal/privacidad.ts`. */

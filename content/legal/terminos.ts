@@ -4,6 +4,7 @@ import type { ILegalDocument } from "@/interfaces/legal";
 export const TERMS: ILegalDocument = {
   title: "Términos y condiciones",
   updatedAt: "2026-11-12",
+  draft: true,
   sections: [
     {
       id: "se-completara-pronto",
