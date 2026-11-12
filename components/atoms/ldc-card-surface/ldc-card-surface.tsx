@@ -21,7 +21,10 @@ const surfaceVariants = {
   /** Card de columna con padding interno y alto completo (post de noticia). */
   padded: ["group flex flex-col h-full bg-card rounded-xl overflow-hidden p-3 border border-border"],
   /** Card de imagen a sangre con sombra, sin borde (ciudad). */
-  media: ["group overflow-hidden rounded-xl bg-card dark:bg-neutral-800 shadow-md"],
+  media: [
+    "group overflow-hidden rounded-xl bg-card dark:bg-neutral-800 shadow-md",
+    "has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-pink-strong dark:has-[a:focus-visible]:outline-yellow",
+  ],
   /** Tile enlazable con hover de borde (categoría); úsalo con `asChild` sobre el `Link`. */
   tile: [
     "relative block h-full p-6 rounded-xl overflow-hidden",
