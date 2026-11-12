@@ -205,7 +205,7 @@ export function LDCFavoriteButton({
             aria-disabled={loading || undefined}
             aria-describedby={anonymous ? hintId : undefined}
             className={cn(
-              "relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 transition-[background-color,opacity,transform] duration-150 motion-reduce:transition-none motion-reduce:hover:scale-100",
+              "relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 transition-[background-color,opacity,scale] duration-150 motion-reduce:transition-none motion-reduce:hover:scale-100",
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-foreground focus-visible:ring-offset-2 focus-visible:ring-offset-card",
               "aria-busy:cursor-progress aria-busy:opacity-70 aria-disabled:cursor-wait aria-disabled:opacity-50",
               VARIANT_CLASS[variant],

@@ -66,7 +66,7 @@ export function LDCCityCard({
             alt=""
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
-            className="object-cover transition-[transform,opacity] duration-300 group-hover:scale-125 group-hover:opacity-75 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            className="object-cover transition-[scale,opacity] duration-300 group-hover:scale-125 group-hover:opacity-75 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
             loading="lazy"
             quality={85}
           />

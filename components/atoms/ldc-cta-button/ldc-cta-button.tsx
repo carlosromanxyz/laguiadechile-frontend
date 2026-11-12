@@ -132,7 +132,7 @@ export function LDCCTAButton({
     variant === "contrast"
       ? "bg-orange text-black font-semibold text-sm"
       : "bg-pink-strong text-white font-semibold text-sm",
-    "transition-[transform,background-color,color] duration-200 motion-reduce:transition-none",
+    "transition-[scale,background-color,color] duration-200 motion-reduce:transition-none",
     "focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink dark:focus-visible:outline-yellow",
     disabled
       ? "opacity-50 cursor-not-allowed"
