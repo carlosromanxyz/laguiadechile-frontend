@@ -28,7 +28,7 @@ export function LDCImageCredits({ credits }: LDCImageCreditsProps) {
   return (
     <ul className="space-y-2 text-sm text-foreground">
       {credits.map((credit, i) => (
-        <li key={`${credit.filePage ?? credit.title}-${i}`} className="leading-relaxed">
+        <li key={`${credit.filePage ?? credit.title}-${i}`} className="leading-relaxed [overflow-wrap:anywhere]">
           <span className="font-semibold">{credit.title}</span>
           {" — "}
           {credit.author}
