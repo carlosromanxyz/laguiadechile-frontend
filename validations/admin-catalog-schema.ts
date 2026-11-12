@@ -40,12 +40,13 @@ const slug = z
 const optionalId = z.string().refine((v) => v === "" || UUID.test(v), { message: "Elige una opción de la lista" });
 /**
  * URL de imagen que `next/image` puede servir: una subida (`/media/u/…`), una del seed
- * (`/media/cities/…`) o de un host https de `remotePatterns` en `next.config.ts`. Cualquier otra
- * tumbaría la página pública al renderizarla.
+ * (`/media/cities/…`) o una foto demo (`/media/demo/…`). Nada de hosts externos (CLGDC-84): no hay
+ * `remotePatterns` en `next.config.ts`, así que cualquier otra tumbaría la página pública al
+ * renderizarla.
  */
 export function isAllowedImageUrl(v: string): boolean {
-  if (/^\/media\/(u|cities)\/[A-Za-z0-9._/-]+$/.test(v)) return !v.includes("..") && !v.includes("//");
-  return /^https:\/\/(picsum\.photos|i\.pravatar\.cc)\/[^\s"'<>\\]*$/.test(v);
+  if (!/^\/media\/(u|cities|demo)\/[A-Za-z0-9._/-]+$/.test(v)) return false;
+  return !v.includes("..") && !v.includes("//");
 }
 
 /** Imagen opcional: vacía o permitida por `isAllowedImageUrl`. */

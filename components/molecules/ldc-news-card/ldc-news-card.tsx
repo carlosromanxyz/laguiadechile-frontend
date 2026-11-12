@@ -2,6 +2,7 @@
 
 import { LDCBadge } from "@/components/atoms/ldc-badge";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
+import { LDCAvatar } from "@/components/atoms/ldc-avatar";
 import { LDCFavoriteButton } from "@/components/molecules/ldc-favorite-button";
 import Link from "next/link";
 import Image from "next/image";
@@ -33,7 +34,8 @@ interface LDCNewsCardProps {
   /** Author info */
   author: {
     name: string;
-    avatar: string;
+    /** Foto del autor; sin ella, sus iniciales */
+    avatar?: string;
   };
   /** Image URL */
   image: string;
@@ -171,15 +173,7 @@ export function LDCNewsCard({
           <div className="flex items-center justify-between gap-4 pt-3 border-t border-border">
             {/* Author */}
             <div className="flex items-center gap-2 min-w-0">
-              <div className="relative w-6 h-6 rounded-full overflow-hidden flex-shrink-0 bg-muted">
-                <Image
-                  src={author.avatar}
-                  alt={author.name}
-                  fill
-                  sizes="24px"
-                  className="object-cover"
-                />
-              </div>
+              <LDCAvatar name={author.name} src={author.avatar} size="sm" decorative />
               <span className="text-xs text-muted-foreground truncate">
                 {author.name}
               </span>

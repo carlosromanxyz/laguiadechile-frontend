@@ -13,7 +13,8 @@ export interface INews {
   };
   author: {
     name: string;
-    avatar: string;
+    /** Foto del autor en el bucket (`/media/...`); sin ella, sus iniciales */
+    avatar?: string;
   };
   image: string;
   featured: boolean;

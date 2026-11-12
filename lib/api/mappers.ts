@@ -229,7 +229,7 @@ export function mapNews(n: RawNews): INews {
     excerpt: n.excerpt,
     content: n.content ?? "",
     category: n.category ? cat(n.category) : { id: "", name: "", slug: "", icon: "" },
-    author: { name: n.authorName, avatar: n.authorAvatar ?? "" },
+    author: { name: n.authorName, avatar: n.authorAvatar ?? undefined },
     image: n.image,
     featured: n.featured,
     createdAt: n.publishedAt ?? n.createdAt,
@@ -269,7 +269,7 @@ export function mapFeaturedCity(c: RawFeaturedCity): IFeaturedCity {
     id: c.id,
     name: c.name,
     slug: c.slug,
-    image: c.image ?? `https://picsum.photos/seed/city-${c.slug}/800/600`,
+    image: c.image ?? undefined,
     count: c.count ?? 0,
     featured: !!c.featured,
   };

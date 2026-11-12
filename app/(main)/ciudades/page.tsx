@@ -3,7 +3,7 @@ import { LDCListingPageTemplate } from "@/components/templates/ldc-listing-page-
 import { LDCSection } from "@/components/atoms/ldc-section";
 import { LDCCityCard } from "@/components/molecules/ldc-city-card";
 import { getAllCitiesFromRegions, getTotalCitiesCount } from "@/services/regions";
-import { getCityImage, getMockCityCount } from "@/lib/format/cities";
+import { getMockCityCount } from "@/lib/format/cities";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
 import type { Metadata } from "next";
@@ -62,7 +62,7 @@ export default async function CitiesPage() {
               key={city.id}
               name={city.name}
               slug={city.slug}
-              image={getCityImage(city.slug, city.id)}
+              image={city.image}
               count={getMockCityCount(city.id)}
               aspectRatio="9/16"
             />

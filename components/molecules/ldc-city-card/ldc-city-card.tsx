@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 import { LDCCardSurface } from "@/components/atoms/ldc-card-surface";
 import Link from "next/link";
 import Image from "next/image";
+import { ImageIcon } from "lucide-react";
 import { formatPublicationsCount } from "@/lib/format/cities";
 
 interface LDCCityCardProps {
@@ -11,8 +12,8 @@ interface LDCCityCardProps {
   name: string;
   /** City slug for URL */
   slug: string;
-  /** City image URL */
-  image: string;
+  /** Foto de la ciudad (`/media/...`); sin ella, el marcador gris del DS con el ícono de imagen */
+  image?: string;
   /** Number of publications */
   count: number;
   /** Aspect ratio variant */
@@ -56,15 +57,21 @@ export function LDCCityCard({
     <LDCCardSurface variant="media" className={className}>
       <Link href={`/ciudad/${slug}`} className={cn("block relative overflow-hidden", aspectRatioClasses[aspectRatio])}>
         {/* Background Image */}
-        <Image
-          src={image}
-          alt={`Imagen de ${name}`}
-          fill
-          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
-          className="object-cover transition-all duration-300 group-hover:scale-125 group-hover:opacity-75"
-          loading="lazy"
-          quality={85}
-        />
+        {image ? (
+          <Image
+            src={image}
+            alt={`Imagen de ${name}`}
+            fill
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 25vw, 300px"
+            className="object-cover transition-all duration-300 group-hover:scale-125 group-hover:opacity-75"
+            loading="lazy"
+            quality={85}
+          />
+        ) : (
+          <div className="absolute inset-0 grid place-items-center bg-muted text-muted-foreground">
+            <ImageIcon className="size-10" aria-hidden />
+          </div>
+        )}
 
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
