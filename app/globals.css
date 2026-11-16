@@ -77,6 +77,18 @@
   --color-brand-instagram: var(--brand-instagram);
   --color-brand-x: var(--brand-x);
   --color-brand-youtube: var(--brand-youtube);
+  /*
+   * Escala de radios por tipo de átomo (CLGDC-237):
+   * - Botones de acción y CTA (LDCCTAButton, LDCBackLink, LDCNavLink, LDCMotionPauseButton,
+   *   flechas y puntos del carrusel, LDCSocialNetworkIcon): `rounded-full`.
+   * - Botones de `ui/button` (LDCButton, LDCLoadMoreButton) y opciones de menú (LDCShareOption):
+   *   `rounded-md`.
+   * - Badges: `rounded-full` si son píldora (`simulated`, LDCPlaceTypeChip) o círculo
+   *   (LDCNumberBadge); `rounded-md` si son etiqueta rectangular (el resto de LDCBadge, contador
+   *   del carrusel).
+   * - Cards y superficies (LDCCardSurface, LDCPanel, LDCImageDropzone): `rounded-xl`.
+   * - Inputs (`ui/input`, LDCPasswordInput): `rounded-md`.
+   */
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -379,6 +391,24 @@
   animation: color-slide 10s ease-in-out infinite;
   -webkit-background-clip: text;
   background-clip: text;
+}
+
+/*
+ * Área de toque mínima (CLGDC-237, WCAG 2.5.8): un ::after transparente y centrado de al menos
+ * 24 × 24 px amplía la zona que recibe el toque sin cambiar el tamaño visual del control. El
+ * elemento debe estar posicionado (`relative`, o `absolute`/`fixed` si ya lo está) y ningún
+ * ancestro cercano debe recortarlo con `overflow-hidden`.
+ */
+@utility touch-target {
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 24px);
+    height: max(100%, 24px);
+    translate: -50% -50%;
+  }
 }
 
 /*

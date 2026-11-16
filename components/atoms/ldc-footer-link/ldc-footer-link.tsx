@@ -32,6 +32,8 @@ export function LDCFooterLink({ href, label, className }: LDCFooterLinkProps) {
     <Link
       href={href}
       className={cn(
+        // Área de toque de ≥ 24 px de alto sin cambiar el tamaño visual (WCAG 2.5.8, CLGDC-237)
+        "relative touch-target",
         "text-foreground/80 hover:text-pink-strong dark:hover:text-yellow transition-colors text-sm focus-ring",
         className
       )}

@@ -53,7 +53,7 @@ export function LDCLocationLink({
         className={cn("flex items-center gap-1 text-sm text-muted-foreground truncate", className)}
       >
         {icon === undefined ? (
-          <MapPin className="w-3.5 h-3.5 flex-shrink-0 text-pink dark:text-yellow" />
+          <MapPin className="size-3.5 flex-shrink-0 text-pink dark:text-yellow" />
         ) : (
           icon
         )}
@@ -76,6 +76,8 @@ export function LDCLocationLink({
     <Link
       href={href}
       className={cn(
+        // Área de toque de ≥ 24 px de alto sin cambiar el tamaño visual (WCAG 2.5.8, CLGDC-237)
+        "relative touch-target",
         isCompact
           ? "flex items-center gap-1 hover:text-pink-strong dark:hover:text-yellow transition-colors focus-ring"
           : "flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink-strong dark:hover:text-yellow transition-colors focus-ring",
@@ -86,8 +88,8 @@ export function LDCLocationLink({
         <MapPin
           className={
             isCompact
-              ? "w-4 h-4 text-pink dark:text-yellow flex-shrink-0"
-              : "w-4 h-4 flex-shrink-0 text-pink dark:text-yellow"
+              ? "size-4 text-pink dark:text-yellow flex-shrink-0"
+              : "size-4 flex-shrink-0 text-pink dark:text-yellow"
           }
         />
       ) : (

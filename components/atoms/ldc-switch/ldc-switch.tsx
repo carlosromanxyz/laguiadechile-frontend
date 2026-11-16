@@ -33,6 +33,8 @@ function LDCSwitch({ className, ...props }: LDCSwitchProps) {
       className={cn(
         // Base styles
         "peer inline-flex h-[1.15rem] w-8 shrink-0 items-center rounded-full border border-transparent shadow-xs transition-all cursor-pointer",
+        // Área de toque de 32×24 px sin cambiar el tamaño visual (WCAG 2.5.8, CLGDC-237)
+        "relative touch-target",
         // Focus styles
         "focus-ring",
         // Disabled styles

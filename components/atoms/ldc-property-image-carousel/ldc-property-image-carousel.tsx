@@ -147,7 +147,7 @@ export function LDCPropertyImageCarousel({
           onClick={scrollPrev}
           className={cn(
             "absolute left-2 top-1/2 -translate-y-1/2 z-20",
-            "w-8 h-8 rounded-full bg-overlay/50 hover:bg-overlay/70",
+            "size-11 rounded-full bg-overlay/50 hover:bg-overlay/70",
             "flex items-center justify-center",
             "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
@@ -155,7 +155,7 @@ export function LDCPropertyImageCarousel({
           )}
           aria-label="Imagen anterior"
         >
-          <ChevronLeft className="w-5 h-5" aria-hidden />
+          <ChevronLeft className="size-5" aria-hidden />
         </button>
 
         <button
@@ -163,7 +163,7 @@ export function LDCPropertyImageCarousel({
           onClick={scrollNext}
           className={cn(
             "absolute right-2 top-1/2 -translate-y-1/2 z-20",
-            "w-8 h-8 rounded-full bg-overlay/50 hover:bg-overlay/70",
+            "size-11 rounded-full bg-overlay/50 hover:bg-overlay/70",
             "flex items-center justify-center",
             "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
@@ -171,20 +171,22 @@ export function LDCPropertyImageCarousel({
           )}
           aria-label="Siguiente imagen"
         >
-          <ChevronRight className="w-5 h-5" aria-hidden />
+          <ChevronRight className="size-5" aria-hidden />
         </button>
       </Carousel>
 
       {/* Dot Indicators */}
       {showDots && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
+        // gap-4: los puntos miden 8 px (16 px el activo) y su área de toque, 24 px (`touch-target`);
+        // con 16 px de separación las áreas no se pisan (WCAG 2.5.8, CLGDC-237).
+        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-4">
           {Array.from({ length: count }).map((_, index) => (
             <button
               type="button"
               key={index}
               onClick={(e) => scrollTo(index, e)}
               className={cn(
-                "w-2 h-2 rounded-full transition-all duration-200",
+                "relative touch-target size-2 rounded-full transition-all duration-200",
                 "focus-ring",
                 index === current
                   ? "bg-overlay-foreground w-4"
@@ -199,7 +201,7 @@ export function LDCPropertyImageCarousel({
 
       {/* Image Counter */}
       {showCounter && (
-        <div className="absolute top-3 right-3 z-20 bg-overlay/60 text-overlay-foreground text-xs font-medium px-2 py-1 rounded">
+        <div className="absolute top-3 right-3 z-20 bg-overlay/60 text-overlay-foreground text-xs font-medium px-2 py-1 rounded-md">
           {current + 1} / {count}
         </div>
       )}

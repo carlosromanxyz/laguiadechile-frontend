@@ -57,20 +57,20 @@ const standaloneVariants = {
     "absolute top-2 left-2 flex items-center gap-1 bg-yellow text-yellow-foreground text-xs font-semibold px-2 py-1 rounded-md",
   /** Badge mínimo de solo ícono (destacado) con tooltip, como en la card de propiedad. */
   "featured-icon":
-    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-yellow-foreground cursor-help",
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-yellow text-yellow-foreground cursor-help",
   /** Badge mínimo de solo ícono (nuevo) con tooltip, como en la card de propiedad. */
   "new-icon":
-    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-success text-success-foreground cursor-help",
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded-md bg-success text-success-foreground cursor-help",
   /**
    * Tipo de aviso clasificado (card de aviso). Texto con contraste ≥ 4,5:1: negro sobre rosado,
    * naranjo, amarillo y esmeralda; blanco sobre morado.
    */
-  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-pink-foreground",
-  "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-purple text-purple-foreground",
-  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-orange-foreground",
-  "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-yellow-foreground",
+  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-pink text-pink-foreground",
+  "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-purple text-purple-foreground",
+  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-orange text-orange-foreground",
+  "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-yellow text-yellow-foreground",
   "classified-ofrezco":
-    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-success text-success-foreground",
+    "inline-block text-xs font-bold px-2 py-0.5 rounded-md bg-success text-success-foreground",
   /** Marca de dato simulado en el panel (borde punteado, 10 px en mayúsculas). */
   simulated:
     "inline-flex items-center whitespace-nowrap rounded-full border border-dashed border-border px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-muted-foreground",
