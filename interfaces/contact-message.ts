@@ -39,7 +39,10 @@ export interface IContactFormInput {
   website: string;
 }
 
-/** Resultado del envío del formulario de contacto. */
+/** Campos del formulario «Enviar mensaje» de una ficha (`POST /contact/listings/:id`, CLGDC-257). */
+export type IListingMessageFormInput = Omit<IContactFormInput, "subject">;
+
+/** Resultado del envío del formulario de contacto (o del de una ficha, que suma `not-found`). */
 export type IContactFormResult =
   | { ok: true }
-  | { ok: false; reason: "invalid" | "throttled" | "error"; message: string };
+  | { ok: false; reason: "invalid" | "throttled" | "not-found" | "error"; message: string };

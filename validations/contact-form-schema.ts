@@ -24,3 +24,11 @@ export const contactFormSchema = z.object({
 });
 
 export type ContactFormValues = z.infer<typeof contactFormSchema>;
+
+/**
+ * «Enviar mensaje» de una ficha (CLGDC-257): los campos del contacto sin asunto (lo arma el backend
+ * con el título de la ficha). Lo usan `LDCListingInfo` y `sendListingMessageAction`.
+ */
+export const listingMessageFormSchema = contactFormSchema.omit({ subject: true });
+
+export type ListingMessageFormValues = z.infer<typeof listingMessageFormSchema>;

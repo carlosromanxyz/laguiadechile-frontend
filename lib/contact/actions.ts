@@ -1,9 +1,13 @@
 "use server";
 
 import { headers } from "next/headers";
-import type { IContactFormInput, IContactFormResult } from "@/interfaces/contact-message";
+import type {
+  IContactFormInput,
+  IContactFormResult,
+  IListingMessageFormInput,
+} from "@/interfaces/contact-message";
 import { getSocketIp } from "@/lib/auth/socket-ip";
-import { contactFormSchema } from "@/validations/contact-form-schema";
+import { contactFormSchema, listingMessageFormSchema } from "@/validations/contact-form-schema";
 
 const INTERNAL_BASE = process.env.INTERNAL_API_URL ?? "http://backend:3000/api";
 const BACKEND_TIMEOUT_MS = 10000;
@@ -12,6 +16,9 @@ const INVALID = "Revisa los campos: completa tu nombre, un correo válido, el as
 const THROTTLED =
   "Ya enviaste varios mensajes en poco tiempo. Espera un rato y vuelve a intentarlo.";
 const FAILED = "No pudimos enviar tu mensaje. Inténtalo de nuevo en unos minutos.";
+const LISTING_INVALID = "Revisa los campos: completa tu nombre, un correo válido y el mensaje.";
+const LISTING_NOT_FOUND = "Esta ficha ya no recibe mensajes.";
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 /**
  * Envía el formulario público de contacto a `POST /contact` (CLGDC-119).
@@ -49,5 +56,46 @@ export async function sendContactMessageAction(input: IContactFormInput): Promis
   if (res.ok) return { ok: true };
   if (res.status === 429) return { ok: false, reason: "throttled", message: THROTTLED };
   if (res.status === 400) return { ok: false, reason: "invalid", message: INVALID };
+  return { ok: false, reason: "error", message: FAILED };
+}
+
+/**
+ * Envía el formulario «Enviar mensaje» de una ficha a `POST /contact/listings/:id` (CLGDC-257): el
+ * backend lo guarda y lo reenvía al dueño de la ficha (o a la guía si no tiene). Misma IP del socket,
+ * mismo honeypot y mismos textos fijos que `sendContactMessageAction`; `ok` solo con un 2xx.
+ */
+export async function sendListingMessageAction(
+  listingId: string,
+  input: IListingMessageFormInput,
+): Promise<IContactFormResult> {
+  if (typeof listingId !== "string" || !UUID.test(listingId)) {
+    return { ok: false, reason: "not-found", message: LISTING_NOT_FOUND };
+  }
+  const parsed = listingMessageFormSchema.safeParse(input ?? {});
+  if (!parsed.success) return { ok: false, reason: "invalid", message: LISTING_INVALID };
+  const body = parsed.data;
+
+  const ip = getSocketIp(await headers());
+  let res: Response;
+  try {
+    res = await fetch(`${INTERNAL_BASE}/contact/listings/${listingId}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        ...(ip ? { "X-Forwarded-For": ip } : {}),
+      },
+      body: JSON.stringify(body.website ? body : { ...body, website: undefined }),
+      cache: "no-store",
+      signal: AbortSignal.timeout(BACKEND_TIMEOUT_MS),
+    });
+  } catch {
+    return { ok: false, reason: "error", message: FAILED };
+  }
+
+  if (res.ok) return { ok: true };
+  if (res.status === 429) return { ok: false, reason: "throttled", message: THROTTLED };
+  if (res.status === 400) return { ok: false, reason: "invalid", message: LISTING_INVALID };
+  if (res.status === 404) return { ok: false, reason: "not-found", message: LISTING_NOT_FOUND };
   return { ok: false, reason: "error", message: FAILED };
 }

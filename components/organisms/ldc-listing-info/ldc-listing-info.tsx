@@ -17,13 +17,20 @@ import {
 import { LDCPanel } from "@/components/atoms/ldc-panel";
 import { LDCContactActions } from "@/components/molecules/ldc-contact-actions";
 import { LDCScheduleList } from "@/components/molecules/ldc-schedule-list";
+import { LDCFormAlert } from "@/components/molecules/ldc-form-alert";
+import { sendListingMessageAction } from "@/lib/contact/actions";
+import { CONTACT_LIMITS } from "@/lib/contact/limits";
+import { listingMessageFormSchema } from "@/validations/contact-form-schema";
 import type {
   IListingContact,
   IListingSchedule,
 } from "@/interfaces/listing";
 
 interface LDCListingInfoProps {
-  /** Listing id; the contact buttons send their click metrics with it */
+  /**
+   * Listing id; the contact buttons send their click metrics with it, and «Enviar mensaje» sends to
+   * it (CLGDC-257). Without it (the form preview, `LDCListingPreviewDialog`) the form never sends.
+   */
   listingId?: string;
   listingTitle: string;
   contact: IListingContact;
@@ -35,6 +42,9 @@ interface LDCListingInfoProps {
  * LDCListingInfo - Contact and Schedule Information
  *
  * Displays contact buttons (Call, WhatsApp), contact form, and schedule.
+ * «Enviar mensaje» envía de verdad con `sendListingMessageAction` (`POST /contact/listings/:id`,
+ * CLGDC-257): solo muestra «enviado» si el backend lo aceptó; si no, el error va en `LDCFormAlert`
+ * y se conservan los datos. Lleva el honeypot `website` oculto, como `LDCContactForm`.
  */
 export function LDCListingInfo({
   listingId,
@@ -45,11 +55,15 @@ export function LDCListingInfo({
 }: LDCListingInfoProps) {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     message: "",
+    website: "",
   });
+  /** Vista previa del formulario de ficha: sin id no hay a quién enviar. */
+  const isPreview = !listingId;
 
   const hasSchedule = schedule && Object.values(schedule).some(Boolean);
 
@@ -62,16 +76,37 @@ export function LDCListingInfo({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (isSubmitting || !listingId) return;
+    // Mismo esquema que la server action (`validations/contact-form-schema.ts`).
+    const parsed = listingMessageFormSchema.safeParse(formData);
+    if (!parsed.success) {
+      setServerError(parsed.error.issues[0]?.message ?? "Revisa los campos del formulario.");
+      return;
+    }
     setIsSubmitting(true);
+    setServerError(null);
 
-    // TODO: Implement actual email sending via API
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    let result: Awaited<ReturnType<typeof sendListingMessageAction>>;
+    try {
+      result = await sendListingMessageAction(listingId, parsed.data);
+    } catch {
+      result = {
+        ok: false,
+        reason: "error",
+        message: "No pudimos enviar tu mensaje. Inténtalo de nuevo en unos minutos.",
+      };
+    }
 
     setIsSubmitting(false);
+    if (!result.ok) {
+      // Se conservan los datos para corregir o reintentar.
+      setServerError(result.message);
+      return;
+    }
     setIsSubmitted(true);
 
     setTimeout(() => {
-      setFormData({ name: "", email: "", message: "" });
+      setFormData({ name: "", email: "", message: "", website: "" });
       setIsSubmitted(false);
     }, 3000);
   };
@@ -115,6 +150,8 @@ export function LDCListingInfo({
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {serverError && <LDCFormAlert message={serverError} />}
+
               <div className="space-y-2">
                 <Label htmlFor="contact-name" className="text-sm">
                   Nombre
@@ -124,6 +161,8 @@ export function LDCListingInfo({
                   name="name"
                   type="text"
                   placeholder="Tu nombre"
+                  autoComplete="name"
+                  maxLength={CONTACT_LIMITS.name}
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -141,6 +180,8 @@ export function LDCListingInfo({
                   name="email"
                   type="email"
                   placeholder="tu@email.com"
+                  autoComplete="email"
+                  maxLength={CONTACT_LIMITS.email}
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -157,6 +198,7 @@ export function LDCListingInfo({
                   id="contact-message"
                   name="message"
                   placeholder="Escribe tu consulta..."
+                  maxLength={CONTACT_LIMITS.message}
                   value={formData.message}
                   onChange={handleChange}
                   required
@@ -168,7 +210,7 @@ export function LDCListingInfo({
 
               <Button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isPreview}
                 className="w-full bg-purple hover:bg-purple/90 text-white"
               >
                 {isSubmitting ? (
@@ -183,6 +225,26 @@ export function LDCListingInfo({
                   </>
                 )}
               </Button>
+
+              {isPreview && (
+                <p className="text-xs text-muted-foreground text-center">
+                  En la vista previa el formulario no envía mensajes.
+                </p>
+              )}
+
+              {/* Honeypot: fuera de la vista y del árbol accesible; una persona nunca lo llena. */}
+              <div className="sr-only" aria-hidden="true">
+                <label htmlFor="contact-website">Sitio web</label>
+                <input
+                  id="contact-website"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={formData.website}
+                  onChange={handleChange}
+                />
+              </div>
             </form>
           )}
         </LDCPanel>
