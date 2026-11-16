@@ -28,7 +28,7 @@ export interface LDCShareOptionProps {
 }
 
 const BASE =
-  "group/share-option cursor-pointer text-foreground no-underline transition-colors duration-150 motion-reduce:transition-none hover:bg-muted focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-pink dark:focus-visible:ring-yellow focus-visible:ring-offset-2 focus-visible:ring-offset-background";
+  "group/share-option cursor-pointer text-foreground no-underline transition-colors duration-150 motion-reduce:transition-none hover:bg-muted focus-ring";
 
 const VARIANT = {
   row: {
