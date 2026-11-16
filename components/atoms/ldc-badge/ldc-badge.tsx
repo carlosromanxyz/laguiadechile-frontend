@@ -8,10 +8,10 @@ const baseClasses =
 
 /** Variantes que se suman a `baseClasses`. */
 const variants = {
-  featured: "bg-yellow text-black",
-  new: "bg-pink-strong text-white",
-  updated: "bg-purple text-white",
-  default: "bg-pink dark:bg-purple text-white",
+  featured: "bg-yellow text-yellow-foreground",
+  new: "bg-pink-strong text-pink-strong-foreground",
+  updated: "bg-purple text-purple-foreground",
+  default: "bg-pink text-pink-foreground dark:bg-purple dark:text-purple-foreground",
   /** Rol de una cuenta: mismo color que `LDCRoleIcon` (criterio en `LDC_ROLE_META`). */
   "role-usuario": LDC_ROLE_META.usuario.tone,
   "role-avisador": LDC_ROLE_META.avisador.tone,
@@ -27,9 +27,9 @@ const variants = {
    * propiedad, el teal del rol propietario (CLGDC-164); lugar, el verde del rol colaborador
    * (CLGDC-209).
    */
-  "kind-listing": "bg-pink-strong text-white",
-  "kind-classified": "bg-purple text-white",
-  "kind-event": "bg-blue-gray text-black",
+  "kind-listing": "bg-pink-strong text-pink-strong-foreground",
+  "kind-classified": "bg-purple text-purple-foreground",
+  "kind-event": "bg-blue-gray text-blue-gray-foreground",
   "kind-property": LDC_ROLE_META.propietario.tone,
   "kind-place": LDC_ROLE_META.colaborador.tone,
   /** Estado de una publicación propia en el panel. */
@@ -54,23 +54,23 @@ const variants = {
 const standaloneVariants = {
   /** Badge «Destacado» superpuesto en la imagen de la card de aviso (incluye su posición). */
   "featured-overlay":
-    "absolute top-2 left-2 flex items-center gap-1 bg-yellow text-black text-xs font-semibold px-2 py-1 rounded-md",
+    "absolute top-2 left-2 flex items-center gap-1 bg-yellow text-yellow-foreground text-xs font-semibold px-2 py-1 rounded-md",
   /** Badge mínimo de solo ícono (destacado) con tooltip, como en la card de propiedad. */
   "featured-icon":
-    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-black cursor-help",
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-yellow text-yellow-foreground cursor-help",
   /** Badge mínimo de solo ícono (nuevo) con tooltip, como en la card de propiedad. */
   "new-icon":
-    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-emerald-700 text-white cursor-help",
+    "flex items-center gap-1 text-[10px] font-semibold px-1.5 py-0.5 rounded bg-success text-success-foreground cursor-help",
   /**
    * Tipo de aviso clasificado (card de aviso). Texto con contraste ≥ 4,5:1: negro sobre rosado,
    * naranjo, amarillo y esmeralda; blanco sobre morado.
    */
-  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-black",
-  "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-purple text-white",
-  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-black",
-  "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-black",
+  "classified-vendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-pink text-pink-foreground",
+  "classified-compro": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-purple text-purple-foreground",
+  "classified-arriendo": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-orange text-orange-foreground",
+  "classified-busco": "inline-block text-xs font-bold px-2 py-0.5 rounded bg-yellow text-yellow-foreground",
   "classified-ofrezco":
-    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-emerald-500 text-black",
+    "inline-block text-xs font-bold px-2 py-0.5 rounded bg-success text-success-foreground",
   /** Marca de dato simulado en el panel (borde punteado, 10 px en mayúsculas). */
   simulated:
     "inline-flex items-center whitespace-nowrap rounded-full border border-dashed border-border px-1.5 py-px text-[10px] font-bold uppercase tracking-wide text-muted-foreground",

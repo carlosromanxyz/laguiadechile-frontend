@@ -130,13 +130,13 @@ export function LDCCTAButton({
   const baseClasses = cn(
     "inline-flex items-center gap-2 px-6 py-2.5 rounded-full",
     variant === "contrast"
-      ? "bg-orange text-black font-semibold text-sm"
-      : "bg-pink-strong text-white font-semibold text-sm",
+      ? "bg-orange text-orange-foreground font-semibold text-sm"
+      : "bg-pink-strong text-pink-strong-foreground font-semibold text-sm",
     "transition-[scale,background-color,color] duration-200 motion-reduce:transition-none",
     "focus-ring",
     disabled
       ? "opacity-50 cursor-not-allowed"
-      : "hover:bg-yellow hover:text-black hover:scale-105 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
+      : "hover:bg-yellow hover:text-yellow-foreground hover:scale-105 active:scale-95 motion-reduce:hover:scale-100 motion-reduce:active:scale-100",
     iconOnlyBelow === "md" && "size-11 justify-center px-0 md:size-auto md:px-6",
     className
   );

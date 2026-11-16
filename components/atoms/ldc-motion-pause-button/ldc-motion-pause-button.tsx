@@ -51,7 +51,7 @@ export function LDCMotionPauseButton({
       className={cn(
         "inline-flex size-11 items-center justify-center rounded-full border transition-colors focus-ring motion-reduce:hidden",
         tone === "overlay" &&
-          "border-white/30 bg-black/50 text-white hover:bg-black/60",
+          "border-overlay-foreground/30 bg-overlay/50 text-overlay-foreground hover:bg-overlay/60",
         tone === "ink" &&
           "border-(--ldc-hero-ink)/30 bg-(--ldc-hero-ink)/15 text-(--ldc-hero-ink) hover:bg-(--ldc-hero-ink)/25",
         tone === "surface" &&

@@ -20,7 +20,7 @@ import { cn } from "@/lib/utils";
  *   name="Facebook"
  *   url="https://facebook.com/..."
  *   icon={FaFacebook}
- *   colorClass="hover:bg-blue-500"
+ *   colorClass="hover:text-brand-facebook"
  * />
  */
 
@@ -47,7 +47,7 @@ export function LDCSocialNetworkIcon({
       aria-label={`Visit our ${name} page`}
       className={cn(
         "flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 transition-all duration-200 focus-ring",
-        "text-foreground/60 hover:border-transparent hover:text-white",
+        "text-foreground/60 hover:border-transparent",
         colorClass,
         className
       )}

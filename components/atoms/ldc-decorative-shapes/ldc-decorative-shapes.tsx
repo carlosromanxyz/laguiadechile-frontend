@@ -114,7 +114,7 @@ export function LDCDecorativeShape({ delay = 0, variant, layout, fill }: LDCDeco
 export interface LDCAccentBar {
   /** Ancho de la barra (p. ej. `w-16`) */
   width: string;
-  /** Relleno de la barra (p. ej. `bg-white/60`) */
+  /** Relleno de la barra (p. ej. `bg-overlay-foreground/60`) */
   fill: string;
 }
 
@@ -122,7 +122,7 @@ export interface LDCAccentBar {
  * Fila de barras horizontales de acento, de 4 px de alto.
  *
  * @example
- * <LDCAccentBars bars={[{ width: "w-16", fill: "bg-white/60" }]} />
+ * <LDCAccentBars bars={[{ width: "w-16", fill: "bg-overlay-foreground/60" }]} />
  */
 export function LDCAccentBars({ bars }: { bars: LDCAccentBar[] }) {
   return (

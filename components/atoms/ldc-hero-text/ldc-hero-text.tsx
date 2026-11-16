@@ -42,7 +42,7 @@ export function LDCHeroText({
 }: LDCHeroTextProps) {
   return (
     <div className={cn("text-center lg:text-left", className)}>
-      <h1 className="font-mulish mb-4 text-3xl font-bold text-white md:text-4xl lg:mb-5 lg:text-5xl">
+      <h1 className="font-mulish mb-4 text-3xl font-bold text-overlay-foreground md:text-4xl lg:mb-5 lg:text-5xl">
         {text.split(" ").map((word, index) => {
           const featuredWordStyle = featuredWords.find((fw) => fw.word === word);
 
@@ -59,7 +59,7 @@ export function LDCHeroText({
       </h1>
 
       {subText && (
-        <p className="font-open-sans text-sm text-white/90 md:text-base lg:text-lg">
+        <p className="font-open-sans text-sm text-overlay-foreground/90 md:text-base lg:text-lg">
           {subText}
         </p>
       )}

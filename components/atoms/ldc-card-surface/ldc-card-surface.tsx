@@ -22,7 +22,7 @@ const surfaceVariants = {
   padded: ["group flex flex-col h-full bg-card rounded-xl overflow-hidden p-3 border border-border"],
   /** Card de imagen a sangre con sombra, sin borde (ciudad). */
   media: [
-    "group overflow-hidden rounded-xl bg-card dark:bg-neutral-800 shadow-md",
+    "group overflow-hidden rounded-xl bg-card shadow-md",
     "has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-focus",
   ],
   /** Tile enlazable con hover de borde (categoría); úsalo con `asChild` sobre el `Link`. */

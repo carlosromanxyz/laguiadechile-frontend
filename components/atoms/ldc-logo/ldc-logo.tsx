@@ -48,11 +48,11 @@ export function LDCLogo({ className, isotipoSize = "lg", textClassName }: LDCLog
       {/* Isotipo - Map Pin Icon with sliding solid colors */}
       <div className={cn("relative rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden", config.container)}>
         <div className="absolute inset-0 brand-stripes animate-color-slide" />
-        <FaMapMarkerAlt className={cn("relative z-10 text-white drop-shadow-md", config.icon)} />
+        <FaMapMarkerAlt className={cn("relative z-10 text-overlay-foreground drop-shadow-md", config.icon)} />
       </div>
 
       {/* Logotipo - Text */}
-      <div className={cn(config.textSize, "font-mulish leading-none text-blue-gray dark:text-white", textClassName)}>
+      <div className={cn(config.textSize, "font-mulish leading-none text-blue-gray dark:text-foreground", textClassName)}>
         <div className="font-light tracking-[0.08em] leading-none">La Guía</div>
         <div className="font-black leading-none">
           de <span className="text-pink">Chile</span>
