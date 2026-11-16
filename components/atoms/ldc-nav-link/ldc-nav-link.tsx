@@ -31,7 +31,7 @@ interface LDCNavLinkProps {
  * - Automatic active state based on current pathname
  * - Orange highlight for active links
  * - Smooth hover transitions
- * - Accessible navigation
+ * - `aria-current="page"` en el enlace activo
  *
  * @example
  * <LDCNavLink href="/nosotros" label="Nosotros" />
@@ -47,6 +47,7 @@ export function LDCNavLink({ href, label, className }: LDCNavLinkProps) {
   return (
     <Link
       href={href}
+      aria-current={isActive ? "page" : undefined}
       className={cn(
         "px-4 py-2 text-sm font-medium transition-colors rounded-full",
         "hover:text-pink dark:hover:text-yellow hover:bg-black/5 dark:hover:bg-white/5",

@@ -44,7 +44,7 @@ export function LDCSocialNetworkIcon({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label={`Visit our ${name} page`}
+      aria-label={`Abrir ${name} de La Guía de Chile`}
       className={cn(
         "flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 transition-all duration-200",
         "text-foreground/60 hover:border-transparent hover:text-white",
@@ -52,7 +52,7 @@ export function LDCSocialNetworkIcon({
         className
       )}
     >
-      <Icon className="h-5 w-5" />
+      <Icon className="h-5 w-5" aria-hidden />
     </Link>
   );
 }

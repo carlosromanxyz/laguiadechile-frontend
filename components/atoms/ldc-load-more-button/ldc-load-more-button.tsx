@@ -46,6 +46,7 @@ export function LDCLoadMoreButton({
   return (
     <div className={cn("flex justify-center pt-8", className)}>
       <Button
+        type="button"
         onClick={onClick}
         disabled={disabled || isLoading}
         variant="outline"
@@ -61,13 +62,13 @@ export function LDCLoadMoreButton({
       >
         {isLoading ? (
           <>
-            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+            <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden />
             {loadingLabel}
           </>
         ) : (
           <>
             {label}
-            <ChevronDown className="w-4 h-4 ml-2" />
+            <ChevronDown className="w-4 h-4 ml-2" aria-hidden />
           </>
         )}
       </Button>
