@@ -19,7 +19,7 @@ export function LDCSkipLink({ targetId = "contenido", label = "Saltar al conteni
   return (
     <a
       href={`#${targetId}`}
-      className="sr-only rounded-md bg-background px-4 py-2 text-sm font-bold text-foreground shadow-lg outline-none focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60] focus-visible:ring-[3px] focus-visible:ring-ring/50"
+      className="sr-only rounded-md bg-background px-4 py-2 text-sm font-bold text-foreground shadow-lg focus-ring focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[60]"
     >
       {label}
     </a>

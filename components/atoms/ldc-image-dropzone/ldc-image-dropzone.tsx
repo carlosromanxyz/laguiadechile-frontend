@@ -51,7 +51,7 @@ export function LDCImageDropzone({
       data-drag={drag || undefined}
       className={cn(
         "flex w-full min-w-0 cursor-pointer flex-col items-center justify-center gap-2 rounded-xl border-[1.5px] border-dashed border-input bg-transparent px-4 py-6 text-center transition-colors dark:bg-input/30",
-        "outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
+        "focus-ring",
         "hover:border-pink hover:bg-pink/5 data-[drag]:border-pink data-[drag]:bg-pink/5 dark:hover:border-yellow dark:hover:bg-yellow/5 dark:data-[drag]:border-yellow dark:data-[drag]:bg-yellow/5",
         "disabled:cursor-not-allowed disabled:opacity-50",
         invalid && "border-destructive dark:border-destructive",

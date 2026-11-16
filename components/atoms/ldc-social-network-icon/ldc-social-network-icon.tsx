@@ -46,7 +46,7 @@ export function LDCSocialNetworkIcon({
       rel="noopener noreferrer"
       aria-label={`Visit our ${name} page`}
       className={cn(
-        "flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 transition-all duration-200",
+        "flex h-10 w-10 items-center justify-center rounded-full border border-foreground/20 transition-all duration-200 focus-ring",
         "text-foreground/60 hover:border-transparent hover:text-white",
         colorClass,
         className

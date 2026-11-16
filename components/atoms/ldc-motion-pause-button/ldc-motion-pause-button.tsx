@@ -49,13 +49,13 @@ export function LDCMotionPauseButton({
       aria-pressed={paused}
       aria-label="Pausar animación"
       className={cn(
-        "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 motion-reduce:hidden",
+        "inline-flex size-11 items-center justify-center rounded-full border backdrop-blur-sm transition-colors focus-ring motion-reduce:hidden",
         tone === "overlay" &&
-          "border-white/30 bg-white/20 text-white hover:bg-white/30 focus-visible:ring-white focus-visible:ring-offset-black",
+          "border-white/30 bg-white/20 text-white hover:bg-white/30",
         tone === "ink" &&
-          "border-(--ldc-hero-ink)/30 bg-(--ldc-hero-ink)/15 text-(--ldc-hero-ink) hover:bg-(--ldc-hero-ink)/25 focus-visible:ring-(--ldc-hero-ink) focus-visible:ring-offset-black",
+          "border-(--ldc-hero-ink)/30 bg-(--ldc-hero-ink)/15 text-(--ldc-hero-ink) hover:bg-(--ldc-hero-ink)/25",
         tone === "surface" &&
-          "border-border bg-background/70 text-foreground hover:bg-muted dark:hover:bg-input/50 focus-visible:ring-foreground focus-visible:ring-offset-background",
+          "border-border bg-background/70 text-foreground hover:bg-muted dark:hover:bg-input/50",
         className,
       )}
     >

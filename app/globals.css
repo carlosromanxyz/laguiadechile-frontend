@@ -24,6 +24,7 @@
   --color-chart-2: var(--chart-2);
   --color-chart-1: var(--chart-1);
   --color-ring: var(--ring);
+  --color-focus: var(--focus);
   --color-input: var(--input);
   --color-border: var(--border);
   --color-destructive: var(--destructive);
@@ -119,7 +120,15 @@
   --emergency-foreground: oklch(0.985 0 0);
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
+  /*
+   * Foco único del sitio (CLGDC-104, WCAG 1.4.11 y 2.4.7): contorno de 2 px con 2 px de
+   * separación, solo en :focus-visible (utilidad `focus-ring`). Claro: `--pink-strong`,
+   * 5,2:1 sobre card y background. Oscuro: `--yellow`, ≥ 9:1 sobre card y background.
+   * `--ring` apunta al mismo color para que `ring-ring`, `border-ring` y `outline-ring`
+   * lleguen a 3:1 (antes gris, 2,3:1 en claro).
+   */
+  --focus: var(--pink-strong);
+  --ring: var(--focus);
   --chart-1: oklch(0.646 0.222 41.116);
   --chart-2: oklch(0.6 0.118 184.704);
   --chart-3: oklch(0.398 0.07 227.392);
@@ -173,7 +182,8 @@
   --emergency-foreground: oklch(0.145 0 0);
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
+  --focus: var(--yellow);
+  --ring: var(--focus);
   --chart-1: oklch(0.488 0.243 264.376);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
@@ -191,7 +201,7 @@
 
 @layer base {
   * {
-    @apply border-border outline-ring/50;
+    @apply border-border outline-focus;
   }
   /* El header público es fijo: al enfocar o seguir un ancla, lo enfocado queda bajo él (WCAG 2.4.11). */
   html {
@@ -347,4 +357,17 @@
   animation:
     color-slide 10s ease-in-out infinite,
     color-slide-ink 10s ease-in-out infinite;
+}
+
+/*
+ * Foco único (CLGDC-104): contorno sólido de 2 px con 2 px de separación, color `--focus`,
+ * solo con :focus-visible. Es `outline` y no `box-shadow`, así que en colores forzados
+ * (CLGDC-204) el navegador lo sigue pintando con el color del sistema.
+ * Uso: `focus-ring` en el elemento enfocable; no la combines con `outline-none`.
+ */
+@utility focus-ring {
+  &:focus-visible {
+    outline: 2px solid var(--focus);
+    outline-offset: 2px;
+  }
 }

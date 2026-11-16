@@ -57,7 +57,7 @@ export function LDCLocationLink({
         ) : (
           icon
         )}
-        <Link href={href} className="hover:text-pink dark:hover:text-yellow transition-colors">
+        <Link href={href} className="hover:text-pink dark:hover:text-yellow transition-colors focus-ring">
           {children}
         </Link>
         {details != null && (
@@ -77,8 +77,8 @@ export function LDCLocationLink({
       href={href}
       className={cn(
         isCompact
-          ? "flex items-center gap-1 hover:text-pink dark:hover:text-yellow transition-colors"
-          : "flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink dark:hover:text-yellow transition-colors",
+          ? "flex items-center gap-1 hover:text-pink dark:hover:text-yellow transition-colors focus-ring"
+          : "flex items-center gap-1.5 text-sm text-muted-foreground min-w-0 hover:text-pink dark:hover:text-yellow transition-colors focus-ring",
         className
       )}
     >

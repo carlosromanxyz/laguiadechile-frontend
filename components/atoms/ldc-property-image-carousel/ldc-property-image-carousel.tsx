@@ -150,7 +150,7 @@ export function LDCPropertyImageCarousel({
             "flex items-center justify-center",
             "text-white transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50"
+            "focus:opacity-100 focus-ring"
           )}
           aria-label="Imagen anterior"
         >
@@ -165,7 +165,7 @@ export function LDCPropertyImageCarousel({
             "flex items-center justify-center",
             "text-white transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50"
+            "focus:opacity-100 focus-ring"
           )}
           aria-label="Siguiente imagen"
         >
@@ -182,7 +182,7 @@ export function LDCPropertyImageCarousel({
               onClick={(e) => scrollTo(index, e)}
               className={cn(
                 "w-2 h-2 rounded-full transition-all duration-200",
-                "focus:outline-none focus:ring-2 focus:ring-white/50",
+                "focus-ring",
                 index === current
                   ? "bg-white w-4"
                   : "bg-white/50 hover:bg-white/75"
