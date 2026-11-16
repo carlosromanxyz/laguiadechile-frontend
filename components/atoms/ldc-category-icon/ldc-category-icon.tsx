@@ -49,5 +49,5 @@ export function LDCCategoryIcon({
 // Helper function to render icon - keeps component creation out of render
 function renderIcon(iconName: string): React.ReactNode {
   const Icon = getIcon(iconName);
-  return Icon ? <Icon className="w-7 h-7 text-white relative z-10" /> : null;
+  return Icon ? <Icon className="w-7 h-7 text-purple-foreground relative z-10" /> : null;
 }

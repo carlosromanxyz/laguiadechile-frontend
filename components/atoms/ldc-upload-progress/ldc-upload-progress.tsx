@@ -23,7 +23,7 @@ export function LDCUploadProgress({ value, label, className }: LDCUploadProgress
       aria-valuemin={0}
       aria-valuemax={100}
       aria-valuenow={pct}
-      className={cn("relative h-1.5 w-full overflow-hidden rounded-full bg-white/25", className)}
+      className={cn("relative h-1.5 w-full overflow-hidden rounded-full bg-overlay-foreground/25", className)}
     >
       <div
         className="h-full w-full bg-yellow motion-safe:transition-transform motion-safe:duration-150 motion-safe:ease-linear"

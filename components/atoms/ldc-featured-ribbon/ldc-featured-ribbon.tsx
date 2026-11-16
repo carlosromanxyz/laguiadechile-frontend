@@ -1,9 +1,16 @@
 import { cn } from "@/lib/utils";
 
-/** Trama diagonal amarilla (SVG 20×20) que marca una card destacada. */
+/**
+ * Trama diagonal (SVG 20×20) que marca una card destacada. El SVG va como máscara y el color
+ * sale del token `--yellow` (CLGDC-233): un data URI no puede leer variables CSS.
+ */
+const RIBBON_MASK = `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z'/%3E%3C/svg%3E")`;
 const RIBBON_STYLE = {
-  backgroundImage: `url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h20L0 20z' fill='%23ffbe0b' fill-opacity='0.4'/%3E%3C/svg%3E")`,
-  backgroundSize: "20px 20px",
+  backgroundColor: "color-mix(in oklab, var(--yellow) 40%, transparent)",
+  maskImage: RIBBON_MASK,
+  WebkitMaskImage: RIBBON_MASK,
+  maskSize: "20px 20px",
+  WebkitMaskSize: "20px 20px",
 } as const;
 
 interface LDCFeaturedRibbonProps {

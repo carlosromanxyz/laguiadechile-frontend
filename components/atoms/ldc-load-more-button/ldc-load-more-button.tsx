@@ -54,7 +54,7 @@ export function LDCLoadMoreButton({
           "min-w-[200px] font-mulish font-semibold",
           "border-2 border-pink dark:border-yellow",
           "text-pink dark:text-yellow",
-          "hover:bg-pink hover:text-white dark:hover:bg-yellow dark:hover:text-black",
+          "hover:bg-pink hover:text-pink-foreground dark:hover:bg-yellow dark:hover:text-yellow-foreground",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           "transition-all duration-200"
         )}

@@ -146,11 +146,11 @@ export function LDCPropertyImageCarousel({
           onClick={scrollPrev}
           className={cn(
             "absolute left-2 top-1/2 -translate-y-1/2 z-20",
-            "w-8 h-8 rounded-full bg-black/50 hover:bg-black/70",
+            "w-8 h-8 rounded-full bg-overlay/50 hover:bg-overlay/70",
             "flex items-center justify-center",
-            "text-white transition-all duration-200",
+            "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50"
+            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-overlay-foreground/50"
           )}
           aria-label="Imagen anterior"
         >
@@ -161,11 +161,11 @@ export function LDCPropertyImageCarousel({
           onClick={scrollNext}
           className={cn(
             "absolute right-2 top-1/2 -translate-y-1/2 z-20",
-            "w-8 h-8 rounded-full bg-black/50 hover:bg-black/70",
+            "w-8 h-8 rounded-full bg-overlay/50 hover:bg-overlay/70",
             "flex items-center justify-center",
-            "text-white transition-all duration-200",
+            "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-white/50"
+            "focus:opacity-100 focus:outline-none focus:ring-2 focus:ring-overlay-foreground/50"
           )}
           aria-label="Siguiente imagen"
         >
@@ -182,10 +182,10 @@ export function LDCPropertyImageCarousel({
               onClick={(e) => scrollTo(index, e)}
               className={cn(
                 "w-2 h-2 rounded-full transition-all duration-200",
-                "focus:outline-none focus:ring-2 focus:ring-white/50",
+                "focus:outline-none focus:ring-2 focus:ring-overlay-foreground/50",
                 index === current
-                  ? "bg-white w-4"
-                  : "bg-white/50 hover:bg-white/75"
+                  ? "bg-overlay-foreground w-4"
+                  : "bg-overlay-foreground/50 hover:bg-overlay-foreground/75"
               )}
               aria-label={`Ir a imagen ${index + 1}`}
               aria-current={index === current ? "true" : "false"}
@@ -196,7 +196,7 @@ export function LDCPropertyImageCarousel({
 
       {/* Image Counter */}
       {showCounter && (
-        <div className="absolute top-3 right-3 z-20 bg-black/50 text-white text-xs font-medium px-2 py-1 rounded backdrop-blur-sm">
+        <div className="absolute top-3 right-3 z-20 bg-overlay/50 text-overlay-foreground text-xs font-medium px-2 py-1 rounded backdrop-blur-sm">
           {current + 1} / {count}
         </div>
       )}

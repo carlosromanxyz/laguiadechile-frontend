@@ -44,14 +44,14 @@ export type LDCRoleIconName =
  * `LDCBadge` (`role-*`), así un rol se reconoce igual en todo el panel. Criterio:
  * - un color de marca por rol, sin repetir: usuario rosado, avisador amarillo, comercio naranjo,
  *   servicio naranjo-rojo, organizador azul grisáceo y admin morado; el propietario (CLGDC-164),
- *   que ya no tenía token de marca libre, usa `teal-500` de la paleta de Tailwind (como el
- *   `emerald-*` de los badges de aviso), el único tono frío y saturado que no está en uso; el
+ *   que ya no tenía token de marca libre, usa `--role-owner` (el `teal-500` de Tailwind, token
+ *   desde CLGDC-233), el único tono frío y saturado que no está en uso; el
  *   colaborador (CLGDC-209), que publica lugares, usa el verde de los atractivos
  *   (`--place-attraction` de CLGDC-207), con su `-foreground`: blanco sobre el verde oscuro del
  *   tema claro (5,2:1) y negro sobre el verde claro del oscuro (11,2:1);
  * - texto con contraste ≥ 4,5:1 (WCAG 1.4.3; el ícono pide ≥ 3:1, 1.4.11): negro sobre rosado
  *   (5,3:1), amarillo (11,9:1), naranjo (8,9:1), naranjo-rojo (6,5:1), azul grisáceo (4,7:1) y
- *   teal (8,8:1);
+ *   teal (8,7:1); el texto sale del `-foreground` de cada color (CLGDC-233);
  *   blanco sobre morado (4,8:1). El blanco sobre rosado daba 4,0:1 y por eso el usuario lleva
  *   texto negro; sobre azul grisáceo daba 4,46:1 y por eso el organizador también (CLGDC-155);
  * - comercio y servicio son vecinos (naranjo y naranjo-rojo) porque los dos publican fichas; se
@@ -60,18 +60,18 @@ export type LDCRoleIconName =
  *   amarillo, arriendo naranjo), pero nunca van en la misma fila que un badge de rol.
  */
 export const LDC_ROLE_META = {
-  usuario: { label: "Usuario", iconName: "UserRound", tone: "bg-pink text-black" },
-  avisador: { label: "Avisador", iconName: "Tag", tone: "bg-yellow text-black" },
-  propietario: { label: "Propietario", iconName: "House", tone: "bg-teal-500 text-black" },
-  comercio: { label: "Comercio", iconName: "Store", tone: "bg-orange text-black" },
-  servicio: { label: "Servicio", iconName: "Wrench", tone: "bg-orange-red text-black" },
-  organizador: { label: "Organizador", iconName: "CalendarDays", tone: "bg-blue-gray text-black" },
+  usuario: { label: "Usuario", iconName: "UserRound", tone: "bg-pink text-pink-foreground" },
+  avisador: { label: "Avisador", iconName: "Tag", tone: "bg-yellow text-yellow-foreground" },
+  propietario: { label: "Propietario", iconName: "House", tone: "bg-role-owner text-role-owner-foreground" },
+  comercio: { label: "Comercio", iconName: "Store", tone: "bg-orange text-orange-foreground" },
+  servicio: { label: "Servicio", iconName: "Wrench", tone: "bg-orange-red text-orange-red-foreground" },
+  organizador: { label: "Organizador", iconName: "CalendarDays", tone: "bg-blue-gray text-blue-gray-foreground" },
   colaborador: {
     label: "Colaborador",
     iconName: "MapPin",
     tone: "bg-place-attraction text-place-attraction-foreground",
   },
-  admin: { label: "Administrador", iconName: "ShieldCheck", tone: "bg-purple text-white" },
+  admin: { label: "Administrador", iconName: "ShieldCheck", tone: "bg-purple text-purple-foreground" },
 } as const satisfies Record<LDCRole, { label: string; iconName: LDCRoleIconName; tone: string }>;
 
 /**

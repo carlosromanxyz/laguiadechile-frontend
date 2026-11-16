@@ -57,6 +57,25 @@
   --color-pink-strong: var(--pink-strong);
   --color-purple: var(--purple);
   --color-blue-gray: var(--blue-gray);
+  /* Texto e íconos sobre cada color de marca (CLGDC-233) */
+  --color-yellow-foreground: var(--yellow-foreground);
+  --color-orange-foreground: var(--orange-foreground);
+  --color-orange-red-foreground: var(--orange-red-foreground);
+  --color-pink-foreground: var(--pink-foreground);
+  --color-pink-strong-foreground: var(--pink-strong-foreground);
+  --color-purple-foreground: var(--purple-foreground);
+  --color-blue-gray-foreground: var(--blue-gray-foreground);
+  /* Rol propietario (CLGDC-233) */
+  --color-role-owner: var(--role-owner);
+  --color-role-owner-foreground: var(--role-owner-foreground);
+  /* Velo sobre fotos y color fijo (CLGDC-233) */
+  --color-overlay: var(--overlay);
+  --color-overlay-foreground: var(--overlay-foreground);
+  /* Redes sociales (CLGDC-233) */
+  --color-brand-facebook: var(--brand-facebook);
+  --color-brand-instagram: var(--brand-instagram);
+  --color-brand-x: var(--brand-x);
+  --color-brand-youtube: var(--brand-youtube);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -141,6 +160,36 @@
   --pink-strong: oklch(0.56 0.24 350);
   --purple: oklch(0.58 0.24 290);
   --blue-gray: oklch(0.57 0.06 255);
+  /*
+   * Texto sobre cada color de marca (CLGDC-233): negro o blanco puros, iguales en los dos temas
+   * porque la marca no cambia de tono. Negro sobre amarillo 11,9:1, naranjo 8,9:1, naranjo-rojo
+   * 6,5:1, rosado 5,3:1 y azul grisáceo 4,7:1; blanco sobre rosado intenso 5,23:1 y morado 4,8:1.
+   * El blanco sobre rosado da 4,0:1: por eso el rosado lleva texto negro.
+   */
+  --yellow-foreground: oklch(0 0 0);
+  --orange-foreground: oklch(0 0 0);
+  --orange-red-foreground: oklch(0 0 0);
+  --pink-foreground: oklch(0 0 0);
+  --pink-strong-foreground: oklch(1 0 0);
+  --purple-foreground: oklch(1 0 0);
+  --blue-gray-foreground: oklch(0 0 0);
+  /* Rol propietario (CLGDC-164, token en CLGDC-233): el teal de Tailwind 500, texto negro 8,7:1. */
+  --role-owner: oklch(0.704 0.14 182.503);
+  --role-owner-foreground: oklch(0 0 0);
+  /*
+   * Velo sobre fotos o sobre color fijo (carrusel, hero, overlays de diálogo) y su tinta
+   * (CLGDC-233): negro y blanco en los dos temas, porque lo de abajo no cambia con el tema.
+   */
+  --overlay: oklch(0 0 0);
+  --overlay-foreground: oklch(1 0 0);
+  /*
+   * Redes sociales (CLGDC-233), color del ícono en hover: son gráficos (WCAG 1.4.11, ≥ 3:1) sobre
+   * el pie blanco: Facebook 3,8:1, Instagram 3,6:1, YouTube 3,8:1 y X (negro, su color) 19,8:1.
+   */
+  --brand-facebook: oklch(0.623 0.214 259.815);
+  --brand-instagram: oklch(0.656 0.241 354.308);
+  --brand-x: oklch(0.145 0 0);
+  --brand-youtube: oklch(0.637 0.237 25.331);
 }
 
 .dark {
@@ -187,6 +236,23 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  /* Marca, rol propietario y velo (CLGDC-233): mismos valores que en claro. */
+  --yellow-foreground: oklch(0 0 0);
+  --orange-foreground: oklch(0 0 0);
+  --orange-red-foreground: oklch(0 0 0);
+  --pink-foreground: oklch(0 0 0);
+  --pink-strong-foreground: oklch(1 0 0);
+  --purple-foreground: oklch(1 0 0);
+  --blue-gray-foreground: oklch(0 0 0);
+  --role-owner: oklch(0.704 0.14 182.503);
+  --role-owner-foreground: oklch(0 0 0);
+  --overlay: oklch(0 0 0);
+  --overlay-foreground: oklch(1 0 0);
+  /* Redes en oscuro, sobre el pie (≈ oklch 0.2): Facebook 4,8:1, Instagram 5,1:1, X 7:1, YouTube 4,8:1. */
+  --brand-facebook: oklch(0.623 0.214 259.815);
+  --brand-instagram: oklch(0.656 0.241 354.308);
+  --brand-x: oklch(0.707 0.022 261.325);
+  --brand-youtube: oklch(0.637 0.237 25.331);
 }
 
 @layer base {

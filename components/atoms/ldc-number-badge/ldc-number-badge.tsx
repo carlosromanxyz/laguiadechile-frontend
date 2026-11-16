@@ -14,7 +14,7 @@ interface LDCNumberBadgeProps {
  *
  * A circular badge displaying a number with brand styling.
  * Supports solid (flat brand color) and outline variants.
- * `solid` uses `bg-pink-strong` with white text (5.23:1 in both themes), like the CTA.
+ * `solid` uses `bg-pink-strong` with `--pink-strong-foreground` (white) text (5.23:1 in both themes), like the CTA.
  * Used in lists and feature sections.
  *
  * @example
@@ -32,7 +32,7 @@ export function LDCNumberBadge({
     <span
       className={cn(
         "flex h-12 w-12 items-center justify-center rounded-xl font-bold transition-transform",
-        variant === "solid" && "bg-pink-strong text-white shadow-sm",
+        variant === "solid" && "bg-pink-strong text-pink-strong-foreground shadow-sm",
         variant === "outline" &&
           "border-2 border-border text-2xl text-pink shadow-lg dark:text-yellow",
         className

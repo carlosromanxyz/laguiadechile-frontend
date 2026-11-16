@@ -13,8 +13,8 @@ import { cn } from "@/lib/utils"
  *
  * @remarks
  * Color Scheme:
- * - Unchecked (off): Pink background (#ff006e)
- * - Checked (on): Yellow background (#ffbe0b) with black thumb
+ * - Unchecked (off): `--pink` background with `--overlay-foreground` thumb (4:1, graphic ≥ 3:1)
+ * - Checked (on): `--yellow` background with `--yellow-foreground` thumb
  * - Smooth transitions between states
  *
  * This is a Client Component because Radix UI Switch requires client-side interaction.
@@ -50,8 +50,8 @@ function LDCSwitch({ className, ...props }: LDCSwitchProps) {
           "pointer-events-none block size-4 rounded-full ring-0 transition-transform",
           // Position based on state
           "data-[state=checked]:translate-x-[calc(100%-2px)] data-[state=unchecked]:translate-x-0",
-          // Thumb colors - white when unchecked, black when checked (yellow background)
-          "data-[state=unchecked]:bg-white data-[state=checked]:bg-black"
+          // Thumb colors - overlay-foreground over pink, yellow-foreground over yellow
+          "data-[state=unchecked]:bg-overlay-foreground data-[state=checked]:bg-yellow-foreground"
         )}
       />
     </SwitchPrimitive.Root>
