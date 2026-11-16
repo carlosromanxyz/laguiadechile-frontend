@@ -14,7 +14,10 @@ export interface LDCShareOptionProps {
   variant?: "row" | "tile";
   /** Si existe, la opción es un enlace; si no, un botón */
   href?: string;
-  /** Abre en pestaña nueva con `rel="noopener noreferrer"` (redes sociales) */
+  /**
+   * Abre en pestaña nueva con `rel="noopener noreferrer"` (redes sociales); el nombre accesible
+   * pasa a «Compartir en {label}» (p. ej. «Compartir en WhatsApp»)
+   */
   external?: boolean;
   /** Acción del botón (copiar, compartir nativo) */
   onClick?: () => void;
@@ -49,7 +52,8 @@ const VARIANT = {
  * Chip neutro (`bg-muted`, sin colores de marca) con el ícono; al pasar el cursor el fondo pasa a
  * `bg-muted` y el ícono toma el acento del tema (`text-pink dark:text-yellow`). Se renderiza como
  * `<a>` si recibe `href` (con `target="_blank" rel="noopener noreferrer"` si es `external`) o como
- * `<button type="button">` si no. El texto visible es el nombre accesible.
+ * `<button type="button">` si no. El texto visible es el nombre accesible, salvo en las redes
+ * (`external`), que se anuncian como «Compartir en {label}».
  *
  * @example
  * <LDCShareOption icon={FaWhatsapp} label="WhatsApp" href={waUrl} external />
@@ -98,6 +102,7 @@ export function LDCShareOption({
         href={href}
         className={classes}
         onClick={onClick}
+        aria-label={external ? `Compartir en ${label}` : undefined}
         {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
       >
         {content}

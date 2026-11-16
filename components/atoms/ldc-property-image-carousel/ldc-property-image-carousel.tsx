@@ -143,6 +143,7 @@ export function LDCPropertyImageCarousel({
 
         {/* Navigation Arrows - visible on hover */}
         <button
+          type="button"
           onClick={scrollPrev}
           className={cn(
             "absolute left-2 top-1/2 -translate-y-1/2 z-20",
@@ -150,14 +151,15 @@ export function LDCPropertyImageCarousel({
             "flex items-center justify-center",
             "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus-ring"
+            "focus-visible:opacity-100 focus-ring"
           )}
           aria-label="Imagen anterior"
         >
-          <ChevronLeft className="w-5 h-5" />
+          <ChevronLeft className="w-5 h-5" aria-hidden />
         </button>
 
         <button
+          type="button"
           onClick={scrollNext}
           className={cn(
             "absolute right-2 top-1/2 -translate-y-1/2 z-20",
@@ -165,11 +167,11 @@ export function LDCPropertyImageCarousel({
             "flex items-center justify-center",
             "text-overlay-foreground transition-all duration-200",
             "opacity-0 group-hover/carousel:opacity-100",
-            "focus:opacity-100 focus-ring"
+            "focus-visible:opacity-100 focus-ring"
           )}
           aria-label="Siguiente imagen"
         >
-          <ChevronRight className="w-5 h-5" />
+          <ChevronRight className="w-5 h-5" aria-hidden />
         </button>
       </Carousel>
 
@@ -178,6 +180,7 @@ export function LDCPropertyImageCarousel({
         <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 flex gap-1.5">
           {Array.from({ length: count }).map((_, index) => (
             <button
+              type="button"
               key={index}
               onClick={(e) => scrollTo(index, e)}
               className={cn(

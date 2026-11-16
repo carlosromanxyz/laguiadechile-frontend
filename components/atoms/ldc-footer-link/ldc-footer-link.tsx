@@ -22,7 +22,7 @@ interface LDCFooterLinkProps {
  * LDCFooterLink - Footer Link Component
  *
  * A simple link component styled for footer navigation.
- * Features hover effect with orange color transition.
+ * Hover en `pink-strong` en tema claro (≥4,5:1 sobre el fondo) y amarillo en oscuro.
  *
  * @example
  * <LDCFooterLink href="/nosotros" label="Nosotros" />
@@ -32,7 +32,7 @@ export function LDCFooterLink({ href, label, className }: LDCFooterLinkProps) {
     <Link
       href={href}
       className={cn(
-        "text-foreground/80 hover:text-yellow transition-colors text-sm focus-ring",
+        "text-foreground/80 hover:text-pink-strong dark:hover:text-yellow transition-colors text-sm focus-ring",
         className
       )}
     >

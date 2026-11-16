@@ -38,7 +38,7 @@ Cada átomo vive en `ldc-x/` con `ldc-x.tsx` e `index.ts`, y se importa por la c
 - **ldc-place-type-icon** (`LDCPlaceTypeIcon`): ícono Lucide de un tipo de lugar elegido por `type` (`MountainSnow`, `Landmark`, `ShoppingBasket`), decorativo (CLGDC-207).
 - **ldc-property-image-carousel** (`LDCPropertyImageCarousel`): carrusel de fotos de la card de propiedad. Cliente.
 - **ldc-role-icon** (`LDCRoleIcon`): ícono de un rol (`LDC_ROLE_META` de `lib/auth/roles.ts`) en un círculo con su color, el mismo del badge `role-*`; tamaños `xs` 24, `sm` 36, `md` 40 y `lg` 48 px. Sin rol, basta `icon` (nombre de `LDC_ROLE_ICONS` y tono del DS).
-- **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero. Cliente.
+- **ldc-scroll-indicator** (`LDCScrollIndicator`): indicador animado para bajar al pie del hero; el pulso es CSS, quieto con `prefers-reduced-motion` y con la pausa de `LDCMotionPauseProvider`. Cliente.
 - **ldc-section** (`LDCSection`): sección de página con contenedor, padding y espaciado comunes.
 - **ldc-skip-link** (`LDCSkipLink`): enlace «Saltar al contenido», visible al recibir el foco.
 - **ldc-social-network-icon** (`LDCSocialNetworkIcon`): ícono de red social en un círculo con hover.
