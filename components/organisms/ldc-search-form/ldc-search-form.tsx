@@ -74,7 +74,7 @@ export function LDCSearchForm({ categories, cities }: LDCSearchFormProps) {
   return (
     <Form {...form}>
       <form
-        className="relative grid grid-cols-1 gap-4 rounded-lg border border-white/20 bg-white/10 p-6 backdrop-blur-md md:grid-cols-2"
+        className="relative grid grid-cols-1 gap-4 rounded-lg border border-white/20 bg-black/60 p-6 md:grid-cols-2"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         {/* Search Term Input */}

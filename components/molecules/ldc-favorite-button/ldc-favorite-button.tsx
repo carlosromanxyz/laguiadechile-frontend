@@ -25,8 +25,7 @@ export interface LDCFavoriteButtonProps {
   /**
    * `overlay`: corazón flotante arriba a la derecha de la foto de una card (el padre debe ser
    * `relative`, y el botón va como hermano del `Link` de la imagen, nunca dentro).
-   * `overlay-solid`: como `overlay`, pero con `bg-card` sólido (sin `backdrop-blur`) y 44 px en
-   * todos los anchos (tarjetas de lugares, CLGDC-207).
+   * `overlay-solid`: como `overlay`, pero con 44 px en todos los anchos (tarjetas de lugares, CLGDC-207).
    * `pill`: «Guardar» / «Guardado» junto a «Compartir» en el hero de detalle.
    * @default "overlay"
    */
@@ -38,7 +37,7 @@ const ANON_HINT = "Inicia sesión para guardar tus favoritos";
 
 const VARIANT_CLASS = {
   overlay:
-    "absolute top-2 right-2 z-20 size-10 sm:size-9 rounded-full bg-card/90 backdrop-blur-sm border border-border shadow-sm text-foreground hover:bg-card hover:scale-105",
+    "absolute top-2 right-2 z-20 size-10 sm:size-9 rounded-full bg-card border border-border shadow-sm text-foreground hover:scale-105",
   "overlay-solid":
     "absolute top-2 right-2 z-20 size-11 rounded-full bg-card border border-border shadow-sm text-foreground hover:scale-105",
   pill:

@@ -196,7 +196,7 @@ export function LDCPropertyImageCarousel({
 
       {/* Image Counter */}
       {showCounter && (
-        <div className="absolute top-3 right-3 z-20 bg-black/50 text-white text-xs font-medium px-2 py-1 rounded backdrop-blur-sm">
+        <div className="absolute top-3 right-3 z-20 bg-black/60 text-white text-xs font-medium px-2 py-1 rounded">
           {current + 1} / {count}
         </div>
       )}

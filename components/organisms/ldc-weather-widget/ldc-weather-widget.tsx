@@ -35,7 +35,7 @@ export function LDCWeatherWidget({ weather, loading = false, className, variant 
           "flex items-center gap-4 px-4 py-4 rounded-xl animate-pulse",
           isCard
             ? "bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800"
-            : "bg-white/10 backdrop-blur-sm border border-white/20",
+            : "bg-black/60 border border-white/20",
           className
         )}
       >
@@ -70,7 +70,7 @@ export function LDCWeatherWidget({ weather, loading = false, className, variant 
         "flex items-center gap-4 px-4 py-4 rounded-xl",
         isCard
           ? "bg-sky-50 dark:bg-sky-950/30 border border-sky-200 dark:border-sky-800"
-          : "bg-white/10 backdrop-blur-sm border border-white/20",
+          : "bg-black/60 border border-white/20",
         className
       )}
     >
@@ -86,7 +86,7 @@ export function LDCWeatherWidget({ weather, loading = false, className, variant 
         </p>
         <p className={cn(
           "text-sm mt-1",
-          isCard ? "text-muted-foreground" : "text-white/80"
+          isCard ? "text-muted-foreground" : "text-white/90"
         )}>
           {description}
         </p>
