@@ -13,7 +13,8 @@ import { cn } from "@/lib/utils";
  * Features:
  * - Animated pulsing circle using Framer Motion
  * - Chevron up icon (to indicate scroll down direction)
- * - Semi-transparent white background
+ * - Fondo negro al 60 %, plano y sin blur (CLGDC-232): el texto blanco llega a
+ *   ≥ 5,7:1 aun sobre la foto más clara
  * - Centered at bottom of hero
  * - Responsive positioning
  *
@@ -29,7 +30,7 @@ export function LDCScrollIndicator({ className }: LDCScrollIndicatorProps) {
   return (
     <div
       className={cn(
-        "absolute bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/40 bg-white/10 px-4 py-2 backdrop-blur-sm md:bottom-24 md:px-6",
+        "absolute bottom-20 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/40 bg-black/60 px-4 py-2 md:bottom-24 md:px-6",
         className
       )}
     >
