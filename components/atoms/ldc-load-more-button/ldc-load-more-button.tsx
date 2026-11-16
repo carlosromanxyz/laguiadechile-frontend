@@ -52,9 +52,9 @@ export function LDCLoadMoreButton({
         size="lg"
         className={cn(
           "min-w-[200px] font-mulish font-semibold",
-          "border-2 border-pink dark:border-yellow",
-          "text-pink dark:text-yellow",
-          "hover:bg-pink hover:text-pink-foreground dark:hover:bg-yellow dark:hover:text-yellow-foreground",
+          "border-2 border-pink-strong dark:border-yellow",
+          "text-pink-strong dark:text-yellow",
+          "hover:bg-pink-strong hover:text-white dark:hover:bg-yellow dark:hover:text-yellow-foreground",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           "transition-all duration-200"
         )}

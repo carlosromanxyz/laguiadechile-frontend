@@ -74,7 +74,7 @@ export function LDCListingSocialMedia({
                 <div className="flex-shrink-0 w-10 h-10 rounded-full bg-pink/10 dark:bg-purple/20 flex items-center justify-center group-hover:bg-pink/20 dark:group-hover:bg-purple/30 transition-colors">
                   <Icon className="w-5 h-5 text-pink dark:text-purple" />
                 </div>
-                <p className="text-foreground font-medium group-hover:text-pink dark:group-hover:text-yellow transition-colors">
+                <p className="text-foreground font-medium group-hover:text-pink-strong dark:group-hover:text-yellow transition-colors">
                   {config.label}
                 </p>
               </div>

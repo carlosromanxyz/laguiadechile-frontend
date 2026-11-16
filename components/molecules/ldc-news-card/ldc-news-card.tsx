@@ -161,7 +161,7 @@ export function LDCNewsCard({
         <div className="p-4 space-y-3">
           {/* Title - supports long titles with line-clamp */}
           <Link href={`/noticia/${slug}`}>
-            <h3 className="text-base font-bold font-mulish text-foreground line-clamp-2 hover:text-pink dark:hover:text-yellow transition-colors">
+            <h3 className="text-base font-bold font-mulish text-foreground line-clamp-2 hover:text-pink-strong dark:hover:text-yellow transition-colors">
               {title}
             </h3>
           </Link>

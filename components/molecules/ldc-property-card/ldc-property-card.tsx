@@ -174,7 +174,7 @@ export function LDCPropertyCard({
         <h3 className="text-sm text-foreground line-clamp-1">
           <Link
             href={`/propiedad/${slug}`}
-            className="hover:text-pink dark:hover:text-yellow transition-colors"
+            className="hover:text-pink-strong dark:hover:text-yellow transition-colors"
           >
             {title}
           </Link>

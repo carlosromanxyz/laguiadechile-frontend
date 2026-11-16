@@ -32,7 +32,7 @@ export function LDCFavoriteItem({ kind, title, place, image, href }: LDCFavorite
           className="size-14 shrink-0 rounded-md bg-muted object-cover"
         />
         <div className="min-w-0">
-          <p className="text-[11px] font-extrabold uppercase tracking-wide text-pink dark:text-yellow">
+          <p className="text-[11px] font-extrabold uppercase tracking-wide text-pink-strong dark:text-yellow">
             {kind}
           </p>
           <p className="line-clamp-2 text-sm font-bold">{title}</p>

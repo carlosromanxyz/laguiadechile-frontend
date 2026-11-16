@@ -49,8 +49,8 @@ export function LDCNavLink({ href, label, className }: LDCNavLinkProps) {
       href={href}
       className={cn(
         "px-4 py-2 text-sm font-medium transition-colors rounded-full focus-ring",
-        "hover:text-pink dark:hover:text-yellow hover:bg-foreground/5",
-        isActive ? "text-pink dark:text-yellow bg-foreground/5" : "text-foreground",
+        "hover:text-pink-strong dark:hover:text-yellow hover:bg-accent dark:hover:bg-white/5",
+        isActive ? "text-pink-strong dark:text-yellow bg-accent dark:bg-white/5" : "text-foreground",
         className
       )}
     >

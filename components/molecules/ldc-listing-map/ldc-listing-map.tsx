@@ -37,7 +37,7 @@ export function LDCListingMap({
           href={`https://www.google.com/maps/search/?api=1&query=${mapQuery}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-pink transition-colors"
+          className="flex items-center gap-1 text-sm text-muted-foreground hover:text-pink-strong dark:hover:text-pink transition-colors"
         >
           Ver en Google Maps
           <ExternalLink className="w-3 h-3" />

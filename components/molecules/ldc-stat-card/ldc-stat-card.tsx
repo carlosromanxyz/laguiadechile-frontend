@@ -9,7 +9,7 @@ const numberFormat = new Intl.NumberFormat("es-CL");
 const hintTones = {
   muted: "text-muted-foreground",
   warning: "text-orange-red",
-  accent: "font-bold text-pink dark:text-yellow",
+  accent: "font-bold text-pink-strong dark:text-yellow",
 } as const;
 
 export interface LDCStatCardProps {

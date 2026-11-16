@@ -26,7 +26,7 @@ export function LDCBackLink({ href, label, className }: LDCBackLinkProps) {
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-1.5 self-start rounded-full py-1 pr-2.5 pl-1.5 font-mulish text-sm font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-pink focus-ring dark:hover:text-yellow",
+        "inline-flex items-center gap-1.5 self-start rounded-full py-1 pr-2.5 pl-1.5 font-mulish text-sm font-bold text-muted-foreground transition-colors hover:bg-accent hover:text-pink-strong focus-ring dark:hover:text-yellow",
         className
       )}
     >

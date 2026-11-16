@@ -83,7 +83,7 @@ export function LDCPlaceCard({ place, today, className }: LDCPlaceCardProps) {
           <LDCPlaceTypeChip type={place.type} />
         </div>
         <h3 className="line-clamp-2 font-mulish text-base font-extrabold leading-snug text-foreground [overflow-wrap:anywhere]">
-          <Link href={href} className="hover:text-pink focus-visible:underline dark:hover:text-yellow">
+          <Link href={href} className="hover:text-pink-strong focus-visible:underline dark:hover:text-yellow">
             {place.title}
           </Link>
         </h3>

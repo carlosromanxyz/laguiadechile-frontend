@@ -9,21 +9,21 @@ import { ChevronRight } from "lucide-react";
 const detailsLinkVariants = {
   /** Footer de card de comercio/servicio. */
   default: {
-    link: "group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0 focus-ring",
+    link: "group/link flex items-center gap-1 text-sm text-pink-strong dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0 focus-ring",
     label:
       "md:max-w-0 md:opacity-0 md:group-hover/link:max-w-24 md:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap",
     icon: "w-4 h-4",
   },
   /** Igual que `default`, con el texto en `font-medium` (post de noticia). */
   emphasis: {
-    link: "group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0 focus-ring",
+    link: "group/link flex items-center gap-1 text-sm text-pink-strong dark:text-yellow hover:text-orange dark:hover:text-orange transition-colors flex-shrink-0 focus-ring",
     label:
       "font-medium md:max-w-0 md:opacity-0 md:group-hover/link:max-w-24 md:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap",
     icon: "w-4 h-4",
   },
   /** Card horizontal de aviso: se despliega desde `sm` y la flecha es más grande. */
   compact: {
-    link: "group/link flex items-center gap-1 text-sm text-pink dark:text-yellow hover:text-orange transition-colors focus-ring",
+    link: "group/link flex items-center gap-1 text-sm text-pink-strong dark:text-yellow hover:text-orange transition-colors focus-ring",
     label:
       "sm:max-w-0 sm:opacity-0 sm:group-hover/link:max-w-20 sm:group-hover/link:opacity-100 overflow-hidden transition-all duration-300 whitespace-nowrap",
     icon: "w-5 h-5",
