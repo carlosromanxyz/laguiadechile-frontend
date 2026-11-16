@@ -9,7 +9,7 @@ import type { HTMLAttributes, ReactNode } from "react";
 const surfaceVariants = {
   /** Card vertical con imagen arriba (comercio, servicio, propiedad, noticia). */
   default: [
-    "group bg-card rounded-lg overflow-hidden border border-border",
+    "group bg-card rounded-xl overflow-hidden border border-border",
     "hover:shadow-lg transition-all duration-300",
   ],
   /** Card horizontal en desktop y apilada en móvil (aviso clasificado). */

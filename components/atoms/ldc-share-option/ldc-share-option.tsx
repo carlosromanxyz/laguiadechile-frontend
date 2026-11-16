@@ -37,7 +37,7 @@ const VARIANT = {
     icon: "size-4",
   },
   tile: {
-    root: "flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-lg px-1 py-2 text-center text-xs font-bold",
+    root: "flex min-h-20 flex-col items-center justify-center gap-1.5 rounded-md px-1 py-2 text-center text-xs font-bold",
     chip: "size-12",
     icon: "size-5",
   },

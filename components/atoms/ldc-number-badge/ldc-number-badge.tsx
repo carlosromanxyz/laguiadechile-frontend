@@ -31,7 +31,7 @@ export function LDCNumberBadge({
   return (
     <span
       className={cn(
-        "flex h-12 w-12 items-center justify-center rounded-xl font-bold transition-transform",
+        "flex size-12 items-center justify-center rounded-full font-bold transition-transform",
         variant === "solid" && "bg-pink-strong text-white shadow-sm",
         variant === "outline" &&
           "border-2 border-border text-2xl text-pink shadow-lg dark:text-yellow",
