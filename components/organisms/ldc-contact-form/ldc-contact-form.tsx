@@ -197,7 +197,7 @@ export function LDCContactForm({ className, defaultSubject = "" }: LDCContactFor
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full bg-pink hover:bg-pink/90 dark:bg-purple dark:hover:bg-purple/90"
+          className="w-full bg-pink-strong hover:bg-pink-strong/90 dark:bg-purple dark:hover:bg-purple/90"
           size="lg"
         >
           {isSubmitting ? (

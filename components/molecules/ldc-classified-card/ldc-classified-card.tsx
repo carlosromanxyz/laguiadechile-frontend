@@ -142,7 +142,7 @@ export function LDCClassifiedCard({
           {price.type === "fixed" && price.amount == null ? (
             <span className="font-mulish text-lg font-black text-muted-foreground">Precio por definir</span>
           ) : (
-            <span className="font-mulish text-lg font-black text-pink dark:text-yellow">{formattedPrice}</span>
+            <span className="font-mulish text-lg font-black text-pink-strong dark:text-yellow">{formattedPrice}</span>
           )}
         </div>
       </LDCCardSurface>
@@ -184,7 +184,7 @@ export function LDCClassifiedCard({
 
           {/* Title */}
           <h3 className="font-bold font-mulish text-foreground line-clamp-2 sm:line-clamp-1">
-            <Link href={`/aviso/${slug}`} className="hover:text-pink dark:hover:text-yellow transition-colors">
+            <Link href={`/aviso/${slug}`} className="hover:text-pink-strong dark:hover:text-yellow transition-colors">
               {title}
             </Link>
           </h3>

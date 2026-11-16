@@ -41,7 +41,7 @@ export function LDCPlaceRow({ place, today, className }: LDCPlaceRowProps) {
       </span>
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <h3 className="font-mulish text-[15px] font-extrabold leading-snug text-foreground [overflow-wrap:anywhere]">
-          <Link href={`/lugar/${place.slug}`} className="hover:text-pink focus-visible:underline dark:hover:text-yellow">
+          <Link href={`/lugar/${place.slug}`} className="hover:text-pink-strong focus-visible:underline dark:hover:text-yellow">
             {place.title}
           </Link>
         </h3>

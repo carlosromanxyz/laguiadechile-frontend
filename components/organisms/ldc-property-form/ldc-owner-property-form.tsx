@@ -140,7 +140,7 @@ function statusText(status: IDashboardPublicationStatus): ReactNode {
       return (
         <>
           Corrige la propiedad y vuelve a enviarla. Si tienes dudas,{" "}
-          <Link href="/contacto" className="font-semibold text-pink underline-offset-2 hover:underline dark:text-yellow">
+          <Link href="/contacto" className="font-semibold text-pink-strong underline-offset-2 hover:underline dark:text-yellow">
             escríbenos
           </Link>
           .

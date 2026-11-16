@@ -117,7 +117,7 @@ export function LDCCityTemplate({
               </div>
               <Link
                 href={`/comercios?ciudad=${slug}`}
-                className="text-sm text-pink dark:text-yellow hover:underline hidden sm:block"
+                className="text-sm text-pink-strong dark:text-yellow hover:underline hidden sm:block"
               >
                 Ver todos →
               </Link>
@@ -145,7 +145,7 @@ export function LDCCityTemplate({
               <div className="mt-6 text-center sm:hidden">
                 <Link
                   href={`/comercios?ciudad=${slug}`}
-                  className="text-sm text-pink dark:text-yellow hover:underline"
+                  className="text-sm text-pink-strong dark:text-yellow hover:underline"
                 >
                   Ver los {listings.length} comercios y servicios →
                 </Link>
@@ -173,7 +173,7 @@ export function LDCCityTemplate({
               </div>
               <Link
                 href={`/propiedades?ciudad=${slug}`}
-                className="text-sm text-pink dark:text-yellow hover:underline hidden sm:block"
+                className="text-sm text-pink-strong dark:text-yellow hover:underline hidden sm:block"
               >
                 Ver todas →
               </Link>
@@ -203,7 +203,7 @@ export function LDCCityTemplate({
               <div className="mt-6 text-center sm:hidden">
                 <Link
                   href={`/propiedades?ciudad=${slug}`}
-                  className="text-sm text-pink dark:text-yellow hover:underline"
+                  className="text-sm text-pink-strong dark:text-yellow hover:underline"
                 >
                   Ver las {properties.length} propiedades →
                 </Link>
@@ -236,7 +236,7 @@ export function LDCCityTemplate({
               </div>
               <Link
                 href={`/avisos?ciudad=${slug}`}
-                className="text-sm text-pink dark:text-yellow hover:underline hidden sm:block"
+                className="text-sm text-pink-strong dark:text-yellow hover:underline hidden sm:block"
               >
                 Ver todos →
               </Link>
@@ -265,7 +265,7 @@ export function LDCCityTemplate({
               <div className="mt-6 text-center sm:hidden">
                 <Link
                   href={`/avisos?ciudad=${slug}`}
-                  className="text-sm text-pink dark:text-yellow hover:underline"
+                  className="text-sm text-pink-strong dark:text-yellow hover:underline"
                 >
                   Ver los {classifieds.length} avisos →
                 </Link>

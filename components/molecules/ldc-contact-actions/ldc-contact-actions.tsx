@@ -106,7 +106,7 @@ export function LDCContactActions(props: LDCContactActionsProps) {
             <Button
               asChild
               size="lg"
-              className="flex-1 bg-pink hover:bg-pink/90 text-white"
+              className="flex-1 bg-pink-strong hover:bg-pink-strong/90 text-white"
             >
               <a
                 href={`tel:${phone.replace(/\s/g, "")}`}
@@ -142,7 +142,7 @@ export function LDCContactActions(props: LDCContactActionsProps) {
             target="_blank"
             rel="noopener noreferrer"
             onClick={track("web")}
-            className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground hover:text-pink transition-colors"
+            className="flex items-center justify-center gap-2 mt-4 text-sm text-muted-foreground hover:text-pink-strong dark:hover:text-pink transition-colors"
           >
             <Globe className="w-4 h-4" />
             Visitar sitio web

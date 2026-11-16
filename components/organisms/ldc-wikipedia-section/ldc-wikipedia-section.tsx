@@ -111,7 +111,7 @@ export function LDCWikipediaSection({
             href={data.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 mt-4 text-sm text-pink dark:text-yellow hover:underline"
+            className="inline-flex items-center gap-2 mt-4 text-sm text-pink-strong dark:text-yellow hover:underline"
           >
             Leer más en Wikipedia
             <ExternalLink className="w-4 h-4" />

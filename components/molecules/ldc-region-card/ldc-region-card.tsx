@@ -44,7 +44,7 @@ export function LDCRegionCard({
 
       {/* Content */}
       <div className="flex-1 min-w-0">
-        <h2 className="font-bold font-mulish text-foreground group-hover:text-pink dark:group-hover:text-yellow transition-colors truncate">
+        <h2 className="font-bold font-mulish text-foreground group-hover:text-pink-strong dark:group-hover:text-yellow transition-colors truncate">
           {name}
         </h2>
         <p className="text-sm text-muted-foreground">

@@ -163,7 +163,7 @@ function statusText(status: IDashboardPublicationStatus, hasReason: boolean): Re
         <>
           {hasReason ? "Presiona «Rechazado» para ver el motivo. " : ""}Corrige el aviso y vuelve a
           enviarlo. Si tienes dudas,{" "}
-          <Link href="/contacto" className="font-semibold text-pink underline-offset-2 hover:underline dark:text-yellow">
+          <Link href="/contacto" className="font-semibold text-pink-strong underline-offset-2 hover:underline dark:text-yellow">
             escríbenos
           </Link>
           .

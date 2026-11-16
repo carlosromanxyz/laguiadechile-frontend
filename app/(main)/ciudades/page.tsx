@@ -49,7 +49,7 @@ export default async function CitiesPage() {
           </p>
           <Link
             href="/regiones"
-            className="text-pink dark:text-yellow hover:underline font-medium"
+            className="text-pink-strong dark:text-yellow hover:underline font-medium"
           >
             Ver todas las regiones de Chile →
           </Link>

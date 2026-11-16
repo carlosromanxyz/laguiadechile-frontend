@@ -11,7 +11,7 @@ const variants = {
   featured: "bg-yellow text-black",
   new: "bg-pink-strong text-white",
   updated: "bg-purple text-white",
-  default: "bg-pink dark:bg-purple text-white",
+  default: "bg-pink-strong dark:bg-purple text-white",
   /** Rol de una cuenta: mismo color que `LDCRoleIcon` (criterio en `LDC_ROLE_META`). */
   "role-usuario": LDC_ROLE_META.usuario.tone,
   "role-avisador": LDC_ROLE_META.avisador.tone,

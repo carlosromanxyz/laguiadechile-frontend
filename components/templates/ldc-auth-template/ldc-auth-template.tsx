@@ -56,7 +56,7 @@ export function LDCAuthTemplate({ children, aside, wide = false }: LDCAuthTempla
         <p className="text-center font-open-sans text-xs text-muted-foreground md:text-left">
           <Link
             href="/"
-            className="underline underline-offset-4 hover:text-pink dark:hover:text-yellow"
+            className="underline underline-offset-4 hover:text-pink-strong dark:hover:text-yellow"
           >
             Volver a La Guía de Chile
           </Link>

@@ -133,7 +133,7 @@ export function LDCEventCard({
           {preview ? (
             title
           ) : (
-            <Link href={href} className="hover:text-pink focus-visible:underline dark:hover:text-yellow">
+            <Link href={href} className="hover:text-pink-strong focus-visible:underline dark:hover:text-yellow">
               {title}
             </Link>
           )}
